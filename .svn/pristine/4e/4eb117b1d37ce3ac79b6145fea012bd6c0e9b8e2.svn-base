@@ -1,0 +1,36 @@
+<!--pages/common/login/login.wxml-->
+
+
+<view class='login-container'>
+   <!-- <view class='title'>欢迎登录</view> -->
+   <image src='http://192.168.124.241:9999/logo.png' class='logo'></image>
+   <view class='login-form'>
+    <view class='login-form-item'>
+       <image src='/utils/img/user.png'></image>
+       <view>
+         <input type='text' bindinput="inputUser" placeholder="请输入账号~"></input>
+       </view>
+    </view>
+    <view class='login-form-item'>
+       <image src='/utils/img/password.png'></image>
+       <view>
+         <input type='password' bindinput="inputPass" placeholder="请输入密码~"></input>
+       </view>
+    </view>
+    <button class='login-btn' bindtap="login">登录</button>
+    <button class='apply-btn' bindtap='goSurpply'>申请入驻</button>
+   </view>
+</view>
+
+
+
+
+<!-- <page-title title="登录" picker="{{false}}" isAdd="{{false}}"></page-title>
+<view class='login-form'>
+   <form-item bind:input='inputUser' label="用户名/手机号" isRequired="{{true}}" value="{{user}}"></form-item>
+   <form-item bind:input='inputPass' label="密码" isRequired="{{true}}" value="{{password}}"></form-item>
+</view>
+ 
+<button class='submit-btn' bindtap="login" disabled="{{!user||!password?true:false}}">登录</button> -->
+
+<van-toast id="van-toast" />

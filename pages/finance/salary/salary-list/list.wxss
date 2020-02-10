@@ -1,0 +1,48 @@
+/* pages/finance/salary/salary-list/list.wxss */
+
+page,.page-container,.scroll{
+  width: 100%;
+  height: 100%;
+}
+.cate{
+  position: fixed;
+  width: 100%;
+  box-shadow: 0 6rpx 12rpx #e6e6e6;
+  --tabs-height:100rpx;
+  --tabs-line-height:100rpx;
+  --gray-darker:#333;
+  --text-color:#ee0a24;
+}
+.list-container{
+  width: 100%;
+  height: 100%;
+  padding-top:100rpx;
+  box-sizing: border-box;
+}
+.card{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 24rpx;
+  padding: 40rpx;
+  box-shadow: 0 6rpx 12rpx #e6e6e6;
+}
+.card-info{
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+.card-info>text:first-child{
+  color: #333;
+  font-size: 32rpx;
+}
+.card-info>text:last-child{
+  font-size:20rpx;
+  padding:4rpx 8rpx;
+  margin-left: 20rpx;
+}
+.info-scan{
+  font-size: 32rpx;
+  color:#fe2200;
+  font-weight: bold;
+}

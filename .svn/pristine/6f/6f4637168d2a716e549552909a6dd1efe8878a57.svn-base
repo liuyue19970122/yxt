@@ -1,0 +1,72 @@
+/* pages/mall/handle-order/order-manager/manager.wxss */
+.tab-view{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  font-size: 32rpx; 
+  color:#333;
+  padding: 0 24rpx;
+  box-sizing: border-box;
+  height: 80rpx;
+  border-bottom: 4rpx solid #f0f0f0;
+}
+.tab-item{
+  text-align: center;
+  padding:0 24rpx;
+  flex-shrink: 0;
+  font-size: 32rpx;
+  line-height: 80rpx;
+  height: 80rpx;
+}
+
+.active-item{
+  color: #fe2200;
+}
+.active-item::after{
+  position: relative;
+  width: 100%;
+  bottom: 4rpx;
+  display: block;
+  border-bottom: 4rpx solid #fe2200;
+  content: ' ';
+}
+.card-contianer{
+  padding: 0 24rpx;
+}
+.card{
+  padding: 30rpx 0;
+  border-bottom:2rpx solid #f0f0f0;
+}
+.card-info,.card-total{
+  display: flex;
+  justify-content: space-between;
+}
+.card-info{
+  margin-bottom: 24rpx;
+}
+.card-info>text:first-child{
+  flex: 1;
+  margin-right: 24rpx;
+  overflow:hidden;
+  text-overflow:ellipsis; 
+  text-overflow: -o-ellipsis-lastline;
+  display:-webkit-box;
+  word-break: break-all;
+  -webkit-line-clamp:1;
+  line-clamp: 1;
+  -webkit-box-orient:vertical;
+  color:#333;
+  font-size: 32rpx;
+}
+
+.card-info>text:last-child{
+  padding: 8rpx 12rpx;
+  font-size: 20rpx;
+  color: #fe2200;
+  border: 2rpx solid #fe2200;
+}
+.card-total>text{
+  color:#333;
+  font-size: 24rpx;
+}

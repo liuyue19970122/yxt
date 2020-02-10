@@ -1,0 +1,17 @@
+<search placeholder='请输入挂账人姓名' bind:search='getList' value='{{userName}}' bind:input='bindUserName'></search>
+<view class='people-list'>
+  <view>
+    <view class='account-item' wx:for='{{peopleList}}' wx:if='{{peopleList.length>0}}' data-id='{{item.keyId}}' bindtap='openDialog' data-index='{{index}}'>
+      <view class='left-item'>
+        <view class='name'>{{item.name}}</view>
+        <view class='time'>{{item.mobile}}</view>
+      </view>
+      <view class='money'>{{item.billMoney}}</view>
+    </view>
+  </view>
+  <view class='empty' wx:if='{{peopleList.length==0}}'>暂无数据~</view>
+</view>
+
+<image class=' btn-stock-in ' bindtap='goAdd' src='/utils/img/add.png '></image>
+
+<van-action-sheet bind:close='bindCloseSet' show="{{ showSetDialog }}" actions="{{ actions }}" bind:select="onSelect" />

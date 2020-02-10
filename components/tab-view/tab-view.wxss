@@ -1,0 +1,22 @@
+/* components/tab-view/tab-view.wxss */
+.tab-view{
+  display: flex;
+  font-size: 32rpx; 
+  box-sizing: border-box;
+  color:#333;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+}
+.tab-item{
+  min-width:118rpx;
+  text-align: center;
+  height:80rpx;
+  line-height: 80rpx;
+  padding:0 24rpx;
+  box-sizing: border-box;
+  display: inline-block;
+}
+.active-item{
+  border-bottom: 6rpx solid #ff0022;
+}

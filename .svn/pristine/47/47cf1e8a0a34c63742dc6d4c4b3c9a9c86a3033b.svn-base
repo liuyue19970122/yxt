@@ -1,0 +1,8 @@
+<page-title title='材料信息' isAdd='{{false}}' picker='{{false}}'></page-title>
+<view class='spec-form'>
+  <form-item label="选择材料"  isRequired='{{true}}' isReadon="{{type=='update'}}"  key='goodsName' isPicker='{{true}}' array='{{goodsList}}' inputStyle="text-align:left" bind:change='getName' index='{{stockIndex}}'></form-item>
+  <form-item label="材料单位" isRequired='{{true}}' type='digit' isReadon='{{true}}' value='{{goodsList[stockIndex].goodsUnit}}'></form-item>
+
+  <form-item label="数量" isRequired='{{true}}' type='digit' bind:input='getNum' value='{{num}}'></form-item>
+</view>
+<button class='big-submit-btn' bindtap='onSubmit' disabled="{{goodsName==''||num==''}}">确认</button>

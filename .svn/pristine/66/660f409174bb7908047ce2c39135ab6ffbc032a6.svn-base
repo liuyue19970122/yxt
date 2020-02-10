@@ -1,0 +1,116 @@
+// pages/mall/order-detail/order-detail.js
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    readonShow: false,
+    orderShow: false,
+    status: '',
+    orderId: [],
+    chooseTimePop:false
+  },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function(options) {
+    if (options.status) {
+      this.setData({
+        status: options.status,
+        orderId: options.orderId
+      })
+      if(options.status==0){
+        wx.setNavigationBarTitle({
+          title: '待支付' 
+        })
+      } else if (options.status == 1) {
+        wx.setNavigationBarTitle({
+          title: '待发货'
+        })
+      } else if (options.status == 2) {
+        wx.setNavigationBarTitle({
+          title: '已完成'
+        })
+      } else if (options.status == 3) {
+        wx.setNavigationBarTitle({
+          title: '售后中'
+        })
+      }else{
+        wx.setNavigationBarTitle({
+          title: '售后完成'
+        })
+      }
+    }
+  },
+  choosePop(){
+    this.setData({
+      chooseTimePop:true
+    })
+  },
+  showPopup() {
+    this.setData({
+      readonShow: true
+    });
+  },
+  showOrder() {
+    this.setData({
+      orderShow: true
+    });
+  },
+  onClose() {
+    this.setData({
+      readonShow: false,
+      orderShow: false
+    });
+  },
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function() {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function() {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function() {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function() {
+
+  }
+})

@@ -1,0 +1,38 @@
+<!--pages/mall/chat-detail/chat-detail.wxml-->
+<scroll-view class='msg-list' scroll-y scroll-with-animation scroll-top="{{ scrollTop }}" scroll-into-view="view_{{ lastId }}" style='height: {{scrollHeight}};'>
+  <view class='' wx:for='{{messages}}'>
+    <view class='left-item' id="view_{{ item.id }}" wx:if='{{item.userId==2}}'>
+      <view>
+        <image class='avator' src='{{item.avator}}'></image>
+      </view>
+      <view class='msg' wx:if='{{item.msg}}'>{{item.msg}}</view>
+      <view>
+        <image class='msg-img' style="width:{{item.width}};height:{{item.height}}" src='{{item.img}}' wx:if='{{item.img}}'  mode='aspectFit'></image>
+      </view>
+    </view>
+    <view class='right-item' id="view_{{ item.id }}"  wx:if='{{item.userId==1}}'>
+      <view class='msg' wx:if='{{item.msg}}'>{{item.msg}}</view>
+       <view>
+        <image class='msg-img' src='{{item.img}}' style="width:{{item.width}};height:{{item.height}}" wx:if='{{item.img}}' mode='aspectFit'></image>
+      </view>
+      <view>
+        <image class='avator' src='{{item.avator}}'></image>
+      </view>
+    </view>
+  </view>
+</scroll-view>
+
+
+<view class='input-module' style="bottom:{{inputBottom}}">
+  <view class='choose-image'>
+    <image src='/utils/img/add.png' bindtap='chooseImage'></image>
+  </view>
+  <view class='content-box'>
+    <textarea contenteditable="true" maxlength='250' contenteditable="true" auto-height="true" bindinput="inputContent" cursor-spacing='20' show-confirm-bar='{{false}}' value='{{msg}}' fixed="true" bindblur="blur" bindfocus="focus" adjust-position='{{false}}'></textarea>
+    <!-- <input></input> -->
+  </view>
+  <view class='choose-image'>
+    <button bindtap='sendMsg' disabled="{{msg==''}}">发送</button>
+    <!-- <image src='/utils/img/add.png'></image> -->
+  </view>
+</view>

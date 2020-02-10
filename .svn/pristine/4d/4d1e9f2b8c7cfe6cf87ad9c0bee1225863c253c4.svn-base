@@ -1,0 +1,34 @@
+/* pages/stock/add-category/add-category.wxss */
+
+.form-container{
+  margin-top:44rpx;
+  background: #f0f0f0;
+}
+.form-item{
+  border-bottom: 2rpx solid #fff;
+  padding:26rpx 24rpx;
+  display: flex;
+  font-size: 28rpx;
+  color:#333;
+  justify-content: space-between;
+}
+.form-label{
+  /* border-right:4rpx solid #919191; */
+  padding-right:12rpx;
+  font-weight: 500;
+}
+input{
+  text-align: right
+}
+.tiggle-icon{
+  width:24rpx;
+  height:12rpx;
+}
+.input-form{
+  width:70%;
+}
+.form-btn{
+  width:750rpx;
+  text-align: center;
+  margin-top:180rpx;
+}

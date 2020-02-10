@@ -1,0 +1,2 @@
+/* pages/mall/goods-category/goods-category.wxss */
+@import '../../stock/stock-category/stock-category'

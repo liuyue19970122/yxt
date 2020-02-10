@@ -1,0 +1,2 @@
+/* pages/stock/stock-correct/stock-correct.wxss */
+@import '../../../utils/asset/css/cus-form'

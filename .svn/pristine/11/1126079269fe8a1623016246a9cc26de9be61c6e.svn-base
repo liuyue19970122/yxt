@@ -1,0 +1,9 @@
+<!--pages/mall/add-order-pro/add.wxml-->
+<view class='add-form'>
+<form-item isPicker='{{true}}' array='{{goodsList}}' key="{{goodsName}}" isRequired='{{true}}' data='{{index}}'></form-item>
+<form-item  isRequired='{{true}}' data='{{index}}'></form-item>
+<form-item isPicker='{{true}}' isRequired='{{true}}' data='{{index}}'></form-item>
+</view>
+
+
+<button class='submit-btn-raduis'>确定</button>

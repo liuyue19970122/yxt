@@ -1,0 +1,24 @@
+<!--pages/stock/add-category/add-category.wxml-->
+<page-title title="添加类别" picker='{{false}}' icon='/utils/img/add-cate.png' isAdd='{{false}}'></page-title>
+<view class='form-container'>
+  <view class='form-item'>
+    <view class='form-label'>上级分类</view>
+    <view>
+      <picker bindchange="cateChange" value="{{selectCate}}" range="{{cateList}}" range-key="cateName">
+        <view class="picker">
+          {{cateList[selectCate].cateName}}
+          <image class="tiggle-icon" src='/utils/img/down.png'></image>
+        </view>
+      </picker>
+    </view>
+  </view>
+  <view class='form-item'>
+    <view class='form-label'>分类名称</view>
+    <view class='input-form'>
+      <input class="weui-input" auto-focus placeholder="" value='{{changeName}}' bindinput="changeName"/>
+    </view>
+  </view>
+</view>
+<view class='form-btn'>
+    <van-button size='small' round type="danger" bindtap='addCate'>确认</van-button>
+  </view>

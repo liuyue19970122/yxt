@@ -1,0 +1,52 @@
+<!--pages/mall/pro-details/detail.wxml-->
+<view hidden="{{!dataReady}}">
+  <swiper class='banner-box'
+    indicator-color='rgba(230,230,230,0.8)' 
+    indicator-active-color='#fe2200' autoplay='{{true}}' 
+    indicator-dots="{{true}}" duration="2000">
+    <block wx:for="{{picList}}" wx:key="{{index}}">
+      <swiper-item>
+        <image src='{{item}}' class='swiper-img'></image>
+      </swiper-item>
+    </block>
+  </swiper>
+  <!-- 商品名称价格 -->
+  <view class='pro-container'>
+    <view class='pro-name'>
+      <text class='font-title'>{{goodsInfo.goodsName}}</text>
+    </view>
+    <view class='pro-attr'>
+      <view class="attr-name">{{goodsInfo.attrName}}</view>
+      <view class="attr-container">
+        <view class="attr-price">
+          <text class="sale-price">{{"￥"+ goodsInfo.cusSalePrice}}</text>
+          <text class="normal-price">{{"￥"+goodsInfo.cusNormalPrice}}</text>
+        </view>
+        <text class="scan-spec" bindtap="handleScanSpec">规格</text>
+      </view>
+    </view>
+    <view class='pro-desc'>{{goodsInfo.description}}</view>
+  </view>
+  <view class='pro-blank'></view>
+  <!-- 商品详情 -->
+  <view class='pro-container'>
+    <view class='pro-title font-title'>商品详情</view>
+    <view>
+      <rich-text nodes="{{detailInfo}}"></rich-text>
+    </view>
+  </view>
+</view>
+<van-popup show="{{ proSpecShow }}"
+  position="center"
+  custom-style="width:95%;max-height:45%;border-radius:24rpx;"
+  z-index='9999'
+  bind:close="closeProSpec">
+  <view>
+    <view wx:for="{{specLsit}}" 
+      wx:key="specList" class='spec-container'>
+      <text class='spec-name'>{{item.attrName}}</text>
+      <text class='sale-price'>{{'￥'+item.cusSalePrice}}</text>
+      <text class='normal-price'>{{'￥'+item.cusNormalPrice}}</text>
+    </view>
+  </view>
+</van-popup>

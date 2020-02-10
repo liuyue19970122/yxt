@@ -1,0 +1,38 @@
+/* components/tab-sort/index.wxss */
+.condition{
+  display: flex;
+  align-items: center;
+  line-height: 60rpx;
+  font-size: 32rpx;
+   margin-left: 20rpx;
+}
+.condition-arrow{
+  padding-left: 10rpx;
+}
+.triangle-down{
+  display: block;
+  width: 0; 
+  height: 0;
+  border-width: 12rpx;
+  border-style: solid;
+  border-color:#f0f0f0 transparent transparent transparent;
+  margin-top: 4rpx;
+}
+.triangle-up{
+  display: block;
+  width: 0; 
+  height: 0;
+  border-width: 12rpx;
+  border-style: solid;
+  border-color:transparent transparent #f0f0f0 transparent;
+  margin-bottom: 4rpx;
+}
+.active-color{
+  color: #fe2200;
+}
+.active-up{
+  border-color:transparent transparent #fe2200 transparent;
+}
+.active-down{
+  border-color:#fe2200 transparent transparent transparent;
+}

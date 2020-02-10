@@ -1,0 +1,15 @@
+/* pages/oa/add-staff/add-staff.wxss */
+@import '../../../../utils/common'
+.form{
+  padding:0 24rpx;
+}
+.block-module-title{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+/* .add-icon{
+} */
+.remark-content{
+  margin-bottom:24rpx;
+}

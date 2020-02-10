@@ -1,0 +1,160 @@
+// pages/stock/stock-warn-set/set.js
+var util = require('../../../utils/util.js');
+const app = getApp()
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    cateList:[],
+    cateIndex:0,
+    goodList: [],
+    showWarnDialog:false,
+    goodsName:'',
+    warnCount:'',
+    warnId:'',
+  },
+  bindChangeCate(e){
+    this.setData({
+      cateIndex:parseInt(e.detail.value)
+    })
+    this.getGoodList()
+  },
+  changeGoodsName(e){
+    var obj = util.inputTest(e)
+    this.setData({
+      goodsName: obj.value
+    })
+  },
+  getCateList() {
+    var url = app.globalData.baseUrl + 'apiStock/stock/cate/list'
+    util.getRequestList(url, false, this.cateListRes)
+  },
+  cateListRes(res) {
+    var list = res.data.content
+    for (var item of list) {
+      item.nextList = JSON.parse(item.nextList)
+    }
+    list.unshift({
+      keyId: -1,
+      cateName: '全部',
+      nextList: []
+    })
+    this.setData({
+      cateList: list
+    })
+    this.getGoodList()
+  },
+  getGoodList: function () {
+    var url = app.globalData.baseUrl + 'apiStock/stock/inst/list'
+    var data = {
+      cateId: this.data.cateList[this.data.cateIndex].keyId,
+      goodsName: this.data.goodsName
+    }
+    util.getRequestListData(url, data, false, this.goodListRes)
+  },
+  goodListRes(res) {
+    if (res.data.code == 200) {
+      var list = res.data.content
+      for (var item of list) {
+        var time = util.formatTime(item.lastTime)
+        item.lastTime = time
+      }
+      this.setData({
+        goodList: list
+      })
+    }
+  },
+  goSet(e) {
+    var goodObj = this.data.goodList[e.currentTarget.dataset.index]
+    this.setData({
+      warnCount: goodObj.hasOwnProperty('warnCount') ? goodObj.warnCount : 0,
+      warnId: goodObj.keyId,
+      showWarnDialog: true,
+    })
+  },
+  getWarnCount(e) {
+    this.setData({
+      warnCount: e.detail.value
+    })
+  },
+  onClose(){
+    this.setData({
+      showWarnDialog:false
+    })
+  },
+  setWarnCount() {
+    var url = app.globalData.baseUrl + 'apiStock/stock/inst/setWarn'
+    var data = {
+      stockId: this.data.warnId,
+      warnCount: this.data.warnCount
+    }
+    this.setData({
+      showWarnDialog:false
+    })
+    util.postRequestList(url, data, false, this.setRes)
+  },
+  setRes(res) {
+    wx.showToast({
+      title: res.data.message,
+      duration: 2000
+    })
+    this.getGoodList()
+  },
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    this.getCateList()
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+
+  }
+})

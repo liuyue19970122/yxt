@@ -1,0 +1,115 @@
+/* pages/mall/pro-add/add.wxss */
+.title-font ~ .title-font{
+  margin-top: 40rpx;
+}
+.form-item{
+  margin: 0 24rpx;
+  line-height: 100rpx;
+  font-size: 36rpx;
+  border-bottom:1px solid #f0f0f0;
+}
+
+.label-block{
+  display: block;
+  line-height: 100rpx;
+  font-size: 36rpx;
+}
+.form-item__inline{
+  display: flex;
+  display: -webkit-flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.form-item__label{
+  padding-right: 24rpx;
+}
+.form-item__content{
+  flex: 1;
+  text-align: right;
+}
+.content-padding{
+  padding-right: 56rpx;
+}
+.triangle{
+  width: 0; 
+  height: 0;
+  border-width: 16rpx;
+  border-style: solid;
+  border-color:#f0f0f0 transparent transparent transparent;
+  margin-left: 24rpx;
+}
+.img-container{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.img-container>view{
+  width: 25%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 12rpx 0;
+}
+.add-img{
+  width: 160rpx;
+  height: 160rpx;
+  background-color: #f0f0f0;
+}
+.margin-bottom{
+   margin-bottom: 40rpx;
+}
+.margin-justify{
+  margin: 0 24rpx;
+}
+.add-spec{
+  width: 60rpx;
+  height: 60rpx;
+}
+.custom-cell{
+  font-size: 32rpx !important;
+  line-height: 100rpx!important;
+  padding: 0 24rpx!important;
+}
+.swipe-btn{
+  display: inline-block;
+  color: #fff;
+  text-align: center;
+  width: 80px;
+  line-height: 100rpx;
+}
+.swipe-btn-danger{
+  background-color: #fe2200;
+}
+.swipe-btn-info{
+  background-color: #999;
+}
+.content-area{
+  width: 100%;
+  border: 1px solid #f0f0f0;
+  padding: 24rpx;
+  height: 160rpx;
+  box-sizing: border-box;
+}
+.form-preview{
+  margin: 20rpx 24rpx 60rpx;
+}
+.form-preview .preview{
+  width: 46rpx;
+  height: 28rpx;
+   vertical-align: middle;
+}
+.form-preview>text{
+  display: inline-block;
+  margin-left: 20rpx;
+  font-size: 28rpx;
+}
+.form-btn{
+  margin-bottom:120rpx;
+}
+.form-btn>button{
+  width: 320rpx;
+  line-height: 80rpx;
+  background-color: #fe2200;
+  border-radius: 40rpx;
+  color: #fff;
+}

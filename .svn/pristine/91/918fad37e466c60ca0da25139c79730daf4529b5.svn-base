@@ -1,0 +1,39 @@
+<!--pages/mall/handle-order/order-manager/manager.wxml-->
+<image src='../../../../utils/img/add.png' 
+  class='btn-stock-in'
+  bindtap='handleToOrder'></image>
+<van-search
+  value="{{ searchValue }}"
+  background="#fff"
+  shape='round'
+  placeholder="搜索店内商品"
+  bind:clear='onClear'
+  bind:search="onSearch">
+</van-search>
+<scroll-view scroll-x class='tab-scroll'>
+  <view class='tab-view'>
+    <text wx:for='{{tabList}}' wx:key='tab' 
+      class='tab-item {{tabType==item.id?"active-item":""}} ' 
+      data-type='{{item.id}}' 
+      bindtap='changeTab'>{{item.title}}</text>
+  </view>
+</scroll-view>
+<view class='card-contianer'>
+  <view class='card' wx:for='{{orderList}}' wx:key='index' 
+    data-id='{{item.keyId}}'
+    data-status='{{item.status}}'
+    bindtap="handleTap">
+    <view class='card-info'>
+      <text>{{item.producerName}}</text>
+      <text wx:if='{{item.status==="0"}}' class="text-red">{{item.statusText}}</text>
+      <text wx:if='{{item.status==="1"}}' class="text-red">{{item.statusText}}</text>
+      <text wx:if='{{item.status==="2"}}' class="text-green">{{item.statusText}}</text>
+    </view>
+    <view class='card-total'>
+      <text>合计：￥{{item.cusTotalMoney}}</text>
+      <text>{{item.cusDate}}</text>
+    </view>
+  </view>
+</view>
+
+

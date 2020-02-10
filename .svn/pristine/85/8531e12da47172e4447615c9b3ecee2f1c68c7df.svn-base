@@ -1,0 +1,281 @@
+/* pages/mall/order-detail/order-detail.wxss */
+
+.bg-color {
+  width: 750rpx;
+  height: 300rpx;
+  background: linear-gradient(to bottom, #fe5339, #fff);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -10;
+}
+
+.order-detail {
+  margin: 24rpx;
+  padding: 24rpx;
+  width: 654rpx;
+  border-radius: 20rpx;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+  font-size: 28rpx;
+  background: #fff;
+  margin-bottom: 240rpx;
+}
+
+.top-module {
+  display: flex;
+  min-height: 120rpx;
+}
+
+.icon {
+  width: 120rpx;
+  height: 120rpx;
+  margin-right: 24rpx;
+}
+
+.top-right-module {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: #333;
+}
+
+.btn-group {
+  display: flex;
+  justify-content: space-between;
+  margin: 24rpx 0;
+}
+
+.btn-group button {
+  width: 316rpx;
+  height: 68rpx;
+  text-align: center;
+  line-height: 316rpx;
+  background: #fff;
+  border-radius: 0;
+  border: 2rpx solid #f0f0f0;
+  color: #77c481;
+  font-size: 28rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-group button::after {
+  border: 0;
+}
+
+.btn-group button image {
+  width: 28rpx;
+  height: 28rpx;
+  margin-right: 12rpx;
+}
+
+.goods-list {
+  /* margin:44rpx 24rpx; */
+}
+
+.goods-item {
+  display: flex;
+  /* justify-content: space-between; */
+  font-size: 28rpx;
+  color: #333;
+  height: 60rpx;
+  align-items: flex-start;
+  margin-bottom: 24rpx;
+  margin-top:24rpx;
+  padding:0 24rpx;
+}
+
+.goods-img, .goods-img image {
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 10rpx;
+  margin-right: 20rpx;
+}
+
+.goods-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 370rpx;
+  height: 100%;
+}
+
+.goods-local {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.goods-num {
+  width: 89rpx;
+  text-align: left;
+}
+
+.goods-price {
+  width: 120rpx;
+  text-align: right;
+}
+
+
+.desc{
+  background: #f0f0f0;
+  width:634rpx;
+  height:100rpx;
+  padding:10rpx;
+  /* border-radius:  */
+}
+
+
+.refuse-content{
+  text-align: left;
+  margin:40rpx 80rpx;
+  color:#333;
+  box-sizing: border-box;
+  font-size: 40rpx;
+}
+.reason{
+  height:308rpx;
+  width:590rpx;
+  margin-top:40rpx;
+  padding:10rpx;
+  font-size: 28rpx;
+  border:2rpx solid #999;
+}
+
+.order-state-list{
+  margin:60rpx 80rpx;
+}
+.order-state-item{
+   font-size:28rpx;
+   color:#999;
+}
+.state-item{
+  display: flex;
+  justify-content: space-between;
+}
+.state-dot{
+  width:12rpx;
+  height:12rpx;
+  border-radius: 50%;
+  background: #999;
+  margin-right:30rpx;
+}
+.left-item{
+  display: flex;
+  align-items: center;
+}
+.hr{
+  height:60rpx;
+  margin:10rpx 4rpx;
+  border-left:4rpx solid #999;
+}
+
+/* order-detail.wxss */
+.top-module {
+  display: flex;
+  min-height: 120rpx;
+  font-size: 30rpx;
+}
+.reciver-detail{
+  margin-bottom:20rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.reciver{
+  display: flex;
+  margin-bottom:20rpx;
+  color:#999;
+}
+.reciver view{
+  margin-right:20rpx;
+}
+.form-item{
+  display: flex;
+  justify-content: space-between;
+  border-top:2rpx solid #f0f0f0;
+  padding:20rpx 0;
+  /* border-bottom:2rpx solid #f0f0f0; */
+}
+.remark{
+  background: #f0f0f0;
+  width:70%;
+  padding:5rpx;
+  border-radius: 10rpx;
+}
+.icon {
+  width: 120rpx;
+  height: 120rpx;
+  margin-right: 24rpx;
+}
+
+.top-right-module {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: #333;
+}
+
+.mall-goods-list .goods-item:first-child{
+  margin-top:30rpx;
+}
+.mall-title{
+  display: flex;
+  justify-content: space-between;
+  color:#333;
+  font-size: 36rpx;
+  height:80rpx;
+  align-items: center;
+}
+
+
+/* 选择送达时间 */
+.choose-time-content{
+  display: flex;
+  box-sizing: border-box;
+  color:#333;
+  font-size: 28rpx;
+  height:calc(100% - 120rpx);
+  overflow: hidden;
+}
+.day-list{
+  width:120rpx;
+  background: #F5F5F5;
+  height:100%;
+}
+.day-item{
+  height:80rpx;
+  line-height:80rpx;
+  text-align: center;
+}
+.day-item-select{
+  background: #fff;
+}
+.time-list{
+  margin-left:20rpx;
+  width:606rpx;
+}
+.time-item{
+  display: flex;
+  height:80rpx;
+  line-height: 80rpx;
+  padding-right:30rpx;
+  justify-content: space-between;
+  border-bottom:2rpx solid #f5f5f5;
+}
+.time-item-select{
+  color:#fe2200;
+  position: relative;
+}
+.select-time{
+  position: absolute;
+  right:0;
+  top:0;
+  width:60rpx;
+  height:60rpx;
+}
+
+.goods-info{
+  width:450rpx;
+}

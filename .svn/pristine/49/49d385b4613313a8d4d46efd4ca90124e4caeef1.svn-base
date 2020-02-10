@@ -1,0 +1,17 @@
+<!--components/category/category.wxml-->
+<view>
+  <view class='cate-title'>
+    <view>新鲜水果</view>
+    <image src="/utils/img/edit.png" class='edit'></image>
+  </view>
+  <view class='stock-list'>
+    <view wx:for='{{10}}' catchlongtap="clickItem" class='stock-item active-item'>
+      <view>文字</view>
+      <!-- <long-tap ></long-tap> -->
+      <view class='active-dialog'>
+        <view>修改</view>
+        <view>删除</view>
+      </view>
+    </view>
+  </view>
+</view>

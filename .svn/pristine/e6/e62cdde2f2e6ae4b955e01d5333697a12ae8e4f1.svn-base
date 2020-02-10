@@ -1,0 +1,62 @@
+<!--pages/mall/chat-list/chat-list.wxml-->
+<view class='bg-top'>
+  <view class='info-module'>
+    你有
+    <text>18</text>条消息未处理
+  </view>
+</view>
+
+
+<view class='chat-list'>
+  <view class='chat-item'>
+    <view class='chat-avator'>
+      <image src='/utils/img/del.png'>
+      </image>
+        <view class='dot'>1</view>
+
+    </view>
+    <view class='chat-info-content'>
+      <view class='chat-info'>
+        <view class='chat-title'>
+          <view class='name'>麻辣香锅</view>
+          <view class='time'>11:25</view>
+        </view>
+        <view class='msg'>今天吃饭了么？</view>
+      </view>
+    </view>
+
+
+  </view>
+  <view class='chat-item'>
+    <view class='chat-avator'>
+      <image src='/utils/img/del.png'></image>
+    </view>
+    <view class='chat-info-content'>
+      <view class='chat-info'>
+        <view class='chat-title'>
+          <view class='name'>麻辣香锅</view>
+          <view class='time'>11:25</view>
+        </view>
+        <view class='msg'>今天吃饭了么？</view>
+      </view>
+    </view>
+
+
+  </view>
+  <view class='chat-item'>
+    <view class='chat-avator'>
+      <image src='/utils/img/del.png'></image>
+    </view>
+    <view class='chat-info-content'>
+      <view class='chat-info'>
+        <view class='chat-title'>
+          <view class='name'>麻辣香锅</view>
+          <view class='time'>11:25</view>
+        </view>
+        <view class='msg'>今天吃饭了么？</view>
+      </view>
+    </view>
+
+
+  </view>
+</view>

@@ -1,0 +1,14 @@
+/* pages/finance/salary/submit/sub.wxss */
+
+.fixed-bottom{
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+.fixed-bottom>view{
+  text-align: center;
+  line-height: 120rpx;
+  font-size: 40rpx;
+  color: #fff;
+  background-color: #fe2200;
+}

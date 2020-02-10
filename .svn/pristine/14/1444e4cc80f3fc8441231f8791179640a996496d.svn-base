@@ -1,0 +1,16 @@
+<!--pages/mall/mall-my-custom/custom.wxml-->
+<view class='card-container'>
+  <view class='card' wx:for='{{customList}}' wx:key='customList'
+    data-index="{{index}}"
+    bindtap="handleEdit">
+    <view class='card-info'>
+      <view class='info-name text-one__line'>{{item.}}</view>
+      <view class='info-other'>
+        <text>{{"￥"+item.perMoney}}</text>
+        <text>数量：{{item.count+item.stockUnit}}</text>
+      </view>
+    </view>
+    <image class='triggle-close'
+      src='../../../../utils/img/close.png'></image>
+  </view>
+</view>

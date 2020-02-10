@@ -1,0 +1,52 @@
+<!--index.wxml-->
+
+<!-- 搜索及banner -->
+<view class='yxt-index-top'>
+  <!-- <search value='{{value}}' background='{{background}}' bind:search='onSearch' bind:cancel='onCancel' isMsg='{{isMsg}}'></search> -->
+</view>
+<view class='banner-box'>
+  <banner width="700rpx" height='280rpx' padding="0" margin="0 25rpx" radius='20rpx' background='url("http://118.24.172.172:9999/yxt/img/banner.png") no-repeat'></banner>
+</view>
+
+<view class='second-banner-box first-banner-box'>
+  <banner width="339.5rpx" titleHeight='184rpx' radius='20rpx' color='0px 3px 6px #FEA836' height='204rpx' dot="{{orderList.length}}" bind:dotFn='goOrder' padding="10rpx 40rpx" margin="0" title="今日销售额" num="1,000.00" background='#FEA836 url("http://118.24.172.172:9999/yxt/img/banner1.png") no-repeat'></banner>
+  <banner width="339.5rpx" titleHeight='184rpx' radius='20rpx' color='0px 3px 6px #FBB34C' height='204rpx' dot="{{warnList.length}}" bind:dotFn='goWarn' padding="10rpx 40rpx" margin="0" title="今日采购额" num="1,000.00" background='#FBB34C url("http://118.24.172.172:9999/yxt/img/8ed975cd-5918-434c-b4db-63f54b026270.png") no-repeat'></banner>
+</view>
+<!--本月销售额 本月毛利润 -->
+<view class='second-banner-box'>
+  <banner width="339.5rpx" titleHeight='184rpx' radius='20rpx' color='0px 3px 6px #89ADFF' height='204rpx' padding="10rpx 40rpx" margin="0" title="本月销售额" num="1,000.00" background='#89ADFF url("http://118.24.172.172:9999/yxt/img/banner3.png") no-repeat'></banner>
+  <banner width="339.5rpx" titleHeight='184rpx' radius='20rpx' color='0px 3px 6px #73D7FD' height='204rpx' padding="10rpx 40rpx" margin="0" title="本月毛利润" num="1,000.00" background='#73D7FD url("http://118.24.172.172:9999/yxt/img/banner4.png") no-repeat'></banner>
+</view>
+<!-- echart图 -->
+<view class='echart-title'>
+  <view>
+    <view>成交走势</view>
+    <view>
+      <picker bindchange="bindPickerChange" value="{{range}}" range="{{rangeArray}}" range-key="name">
+        <view class="picker">
+          {{rangeArray[range].name}}
+          <van-icon name="arrow-down" size='32rpx' />
+        </view>
+      </picker>
+    </view>
+  </view>
+  <view>
+    <view class='btn' bindtap='goHandleOrder' wx:if='{{isGong}}'><view class='add'>+</view>开单</view>
+  </view>
+</view>
+<view class="echart-box">
+  <ec-canvas id="mychart-dom-line" canvas-id="mychart-line" ec="{{ec}}"></ec-canvas>
+</view>
+<!-- 菜单列表 -->
+<view class='panel-box'>
+  <panel menuList='{{menuList}}'></panel>
+</view>
+<view class='bottom-info'>
+  <image src='/utils/img/arrive-bottom.png'></image>
+</view>
+<view class='unlogin-btn' bindtap='unlogin'>注销</view>
+
+
+<!-- <view class='add-order-btn'> -->
+   <image src='/utils/img/add.png' class='op-icon'></image>
+<!-- </view> -->

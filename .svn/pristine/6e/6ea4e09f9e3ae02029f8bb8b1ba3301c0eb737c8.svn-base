@@ -1,0 +1,61 @@
+.panel{
+  /* width:710rpx; */
+  margin:20rpx;
+  box-shadow: 1px 3px 6px rgba(0,0,0,0.1);
+  border-radius: 15rpx;
+  background:#fff;
+  font-size: 28rpx;
+}
+.flex-cell{
+  position: relative;
+}
+.panel .flex-table-title .flex-cell{
+  line-height: 60rpx;
+  height:60rpx;
+  border-right: 1rpx solid #ddd;
+  border-bottom: 1rpx solid #ddd;
+}
+.panel view.flex-table-title:last-child .flex-cell{
+  border-right: 1rpx solid #ddd;
+  border-bottom: 0
+}
+.panel view.flex-table-title text:last-child{
+  border-right: 0;
+}
+.flex-row{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.flex-column{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.flex-cell{
+  flex: 1;
+}
+.first{
+  width:30%;
+}
+.edit{
+  /* position: absolute; */
+  /* right:10rpx;
+  top:16rpx; */
+  width:28rpx;
+  height:28rpx;
+}
+
+
+.popup{
+  width:80%;
+}
+.popup .class{
+  padding: 0;
+}
+.btn{
+  margin-top:40rpx;
+}

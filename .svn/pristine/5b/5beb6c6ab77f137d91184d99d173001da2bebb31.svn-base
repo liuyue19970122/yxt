@@ -1,0 +1,210 @@
+<!--pages/mall/order-detail/order-detail.wxml-->
+<view>
+  <view class='bg-color'>
+  </view>
+  <view class='order-detail'>
+    <view class='top-module'>
+      <view style="width:100%;">
+        <view class='reciver-detail'>
+          <view>
+            <view class='reciver'>
+              <view>麻辣香锅</view>
+              <view class='phone'>13312349328</view>
+            </view>
+            <view class='address'>成都市XXXXXXXXXX</view>
+          </view>
+          <image class='triggle-close' src='/utils/img/close.png'></image>
+        </view>
+        <view class='form-item'>
+          <view>送货时间</view>
+          <view catchtap='choosePop'>
+            11:00-22:00
+            <image src='/utils/img/close.png' class='triggle-close'></image>
+          </view>
+        </view>
+        <view class='form-item'>
+          <view>备注</view>
+          <!-- <view> -->
+          <input class='remark'></input>
+          <!-- </view> -->
+        </view>
+      </view>
+    </view>
+    <!-- <view class='top-module'>
+      <view>
+        <image class='icon' src='/utils/img/page-icon/send.png'></image>
+      </view>
+      <view class='top-right-module'>
+        <view class='order-num'>订单号：265335340359340</view>
+        <view class='address'>地址：四川广安市XXXXXXXXX</view>
+        <view class='p-time'>配送时间：10：00</view>
+      </view>
+    </view>
+    <view class='btn-group'>
+      <button>
+        <image src='/utils/img/call.png'></image>
+        <view>联系顾客
+        </view>
+      </button>
+      <button>
+        <image src='/utils/img/address.png'></image>
+        <view>查看地址
+        </view>
+      </button>
+    </view> -->
+    <!-- <view class='module-title'>—— 退款原因 ——</view> -->
+    <!--退款 -->
+    <!-- <view class='cell-group'>
+      <cell-item color='#333' titleColor='#333' title='退款时间' content='2019-10-24 20:08:08'></cell-item>
+      <cell-item color='#333' titleColor='#333' title='退款原因' content='不想要了'></cell-item>
+      <cell-item color='#333' titleColor='#333' title='退款金额' content='包装好点儿哦'></cell-item>
+      <cell-item color='#333' isBorder="0" titleColor='#333' title='退款说明' content=''></cell-item>
+      <textarea class='desc' disabled='{{true}}' auto-height="{{false}}"></textarea>
+    </view> -->
+    <view class='goods-list'>
+      <view class='module-title'>—— 商品 ——</view>
+      <view class=''>
+        <view class='mall-title border-bottom'>
+          <view>商城某店铺</view>
+          <image src='/utils/img/open.png' class='triggle-open'></image>
+        </view>
+        <view class='mall-goods-list'>
+          <view class='goods-item'>
+            <view class='goods-img'>
+              <image src="/utils/img/good-img.png"></image>
+            </view>
+            <view class='goods-info'>
+              <view class='goods-name'>新鲜水果</view>
+              <view class='goods-local'>*1</view>
+            </view>
+            <!-- <view class='goods-num'>×1</view> -->
+            <view class='goods-price'>￥77</view>
+          </view>
+          <view class='goods-item'>
+            <view class='goods-img'>
+              <image src="/utils/img/good-img.png"></image>
+            </view>
+            <view class='goods-info'>
+              <view class='goods-name'>新鲜水果</view>
+              <view class='goods-local'>*1</view>
+            </view>
+            <!-- <view class='goods-num'>×1</view> -->
+            <view class='goods-price'>￥77</view>
+          </view>
+          <view class='goods-item'>
+            <view class='goods-img'>
+              <image src="/utils/img/good-img.png"></image>
+            </view>
+            <view class='goods-info'>
+              <view class='goods-name'>新鲜水果</view>
+              <view class='goods-local'>*1</view>
+            </view>
+            <!-- <view class='goods-num'>×1</view> -->
+            <view class='goods-price'>￥77</view>
+          </view>
+        </view>
+
+      </view>
+
+    </view>
+    <view class='border-bottom'></view>
+    <view class='cell-group'>
+      <!-- <cell-item color='#999' title='下单时间' content='2019-10-25 10:20:56'></cell-item> -->
+      <!-- <cell-item color='#333' title='数量' content='3'></cell-item> -->
+      <cell-item color='#333' title='优惠' content='0'></cell-item>
+      <cell-item color='#333' title='订单金额' content='￥3232'></cell-item>
+      <!-- <cell-item color='#999' title='支付方式' content='在线支付'></cell-item> -->
+      <!-- <cell-item color='#333' titleColor='#333' fontSize="36rpx" height='100rpx;' title='本单预计收入' content='￥299'></cell-item> -->
+    </view>
+    <!-- <view class='module-title'>—— 顾客信息 ——</view>
+    <view class='cell-group'>
+      <cell-item color='#333' title='姓名' content='刘越'></cell-item>
+      <cell-item color='#333' title='电话' content='18483661794'></cell-item>
+      <cell-item color='#333' isBorder="0" title='备注' content='包装好点儿哦'></cell-item>
+    </view> -->
+  </view>
+  <view class='op-btn-group'>
+    <!-- <button class='n-btn'>拒绝</button>
+    <button class='y-btn'>开始派送</button>
+    <button class='y-btn'>确认送达</button>
+    <button class='y-btn'>退款完成</button> -->
+    <!-- <button class='n-btn' bindtap='showReason'>拒绝退款</button> -->
+    <!-- <button class='y-btn' bindtap='showOrder'>订单跟踪</button> -->
+    <!-- <button class='y-btn'>同意退款</button> -->
+  </view>
+  <van-submit-bar price="{{ 3050 }}" button-text="提交订单" bind:submit="onSubmit" />
+</view>
+<!-- 拒绝退款弹出框 -->
+<van-popup show="{{ readonShow }}" position="bottom" bind:close="onClose">
+  <view class='refuse-content'>
+    <view>拒绝原因</view>
+    <view>
+      <textarea class='reason' placeholder="请填写拒绝理由" placeholder-style="color:#999"></textarea>
+    </view>
+    <button class='submit-btn'>确认</button>
+  </view>
+</van-popup>
+<!-- 订单跟踪弹出框 -->
+<van-popup show="{{ orderShow }}" closeable custom-style='height:760rpx' position="bottom" bind:close="onClose">
+  <view class='order-content'>
+    <view>订单跟踪</view>
+    <view class='order-state-list'>
+      <view class='order-state-item'>
+        <view class='state-item'>
+          <view class='left-item'>
+            <view class='state-dot'></view>
+            <view>订单已提交</view>
+          </view>
+          <view>2019-10-29 10:20:30</view>
+        </view>
+        <view class='hr'></view>
+      </view>
+      <view class='order-state-item'>
+        <view class='state-item'>
+          <view class='left-item'>
+            <view class='state-dot'></view>
+            <view>订单已提交</view>
+          </view>
+          <view>2019-10-29 10:20:30</view>
+        </view>
+        <view class='hr'></view>
+      </view>
+      <view class='order-state-item'>
+        <view class='state-item'>
+          <view class='left-item'>
+            <view class='state-dot'></view>
+            <view>订单已提交</view>
+          </view>
+          <view>2019-10-29 10:20:30</view>
+        </view>
+        <view class='hr'></view>
+      </view>
+    </view>
+  </view>
+</van-popup>
+
+<!-- 选择时间弹出框 -->
+<van-popup show="{{chooseTimePop}}" custom-style='height:760rpx;padding:0;' position="bottom" bind:close="onClose" closeable>
+  <view class='popTitle'>选择预送时间</view>
+  <view class='choose-time-content'>
+    <view class='day-list'>
+      <view class='day-item'>今天</view>
+      <view class='day-item'>明天</view>
+    </view>
+    <view class='time-list'>
+      <view class='time-item'>
+        <view>10:00-11:00</view>
+        <view>4元运费</view>
+      </view>
+      <view class='time-item time-item-select'>
+        <view>10:00-11:00</view>
+        <view>4元运费</view>
+        <image class='select-time' src='/utils/img/page-icon/time-select.png'></image>
+      </view>
+      <view class='time-item'>
+        <view>10:00-11:00</view>
+        <view>4元运费</view>
+      </view>
+    </view>
+  </view>
+</van-popup>

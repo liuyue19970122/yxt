@@ -1,0 +1,67 @@
+<!--index.wxml-->
+<!-- 搜索及banner -->
+<!-- <van-notice-bar
+  mode="closeable"
+  text="足协杯战线连续第2年上演广州德比战，上赛季半决赛上恒大以两回合5-3的总比分淘汰富力。" speed="70"
+/> -->
+
+<view>
+  <swiper class='banner-box' bindtap='bindGoMall' indicator-color='rgba(230,230,230,0.8)' indicator-active-color='#fe2200' autoplay='{{true}}' indicator-dots="{{true}}" duration="3000">
+    <block wx:for="{{bannerList}}" wx:key="*this">
+      <swiper-item style='border-radius:10rpx'>
+        <image class='banner' src='{{item.picUrl}}?t={{timestamp}}'></image>
+      </swiper-item>
+    </block>
+  </swiper>
+</view>
+<!-- 
+<view class='banner-box'>
+  <banner width="700rpx" height='280rpx' padding="0" radius='20rpx' background='url("http://118.24.172.172:9999/yxt/img/banner.png") no-repeat'></banner>
+</view> -->
+
+<view class='second-banner-box first-banner-box'>
+  <banner width="340rpx" titleHeight='184rpx' radius='20rpx' color='0px 3px 6px #FEA836' height='200rpx' dot="{{orderTotal}}" catch:dotFn='goOrder' padding="10rpx 40rpx" margin="0" title="今日销售额" num="{{totalData.todaySell}}" background='#FEA836 url("http://118.24.172.172:9999/yxt/img/banner1.png") no-repeat'></banner>
+  <banner width="340rpx" titleHeight='184rpx' radius='20rpx' color='0px 3px 6px #FBB34C' height='200rpx' dot="{{warnList.length}}" catch:dotFn='goWarn' padding="10rpx 40rpx" margin="0" title="今日采购额" num="{{totalData.todayBuy}}" background='#FBB34C url("http://118.24.172.172:9999/yxt/img/8ed975cd-5918-434c-b4db-63f54b026270.png") no-repeat'></banner>
+</view>
+<!--本月销售额 本月毛利润 -->
+<view class='second-banner-box'>
+  <banner width="340rpx" titleHeight='184rpx' radius='20rpx' color='0px 3px 6px #89ADFF' height='200rpx' padding="10rpx 40rpx" margin="0" title="本月销售额" num="{{totalData.monthSell}}" background='#89ADFF url("http://118.24.172.172:9999/yxt/img/banner3.png") no-repeat'></banner>
+  <banner width="340rpx" titleHeight='184rpx' radius='20rpx' color='0px 3px 6px #73D7FD' height='200rpx' padding="10rpx 40rpx" margin="0" title="本月毛利润" num="{{totalData.monthProfit}}" background='#73D7FD url("http://118.24.172.172:9999/yxt/img/banner4.png") no-repeat'></banner>
+</view>
+<!-- echart图 -->
+<!-- <view class="echart-box">
+  <canvas canvas-id="canvasLineA" id="canvasLineA" class="charts" bindtouchstart="touchLineA" bindtouchmove="moveLineA" bindtouchend="touchEndLineA"></canvas>
+</view> -->
+<view class='echarts-time'>
+  <view bindtap='selectTime' wx:for='{{rangeArray}}' class='{{timeIndex==index?"select-item":""}}' data-index='{{index}}'>{{item.name}}</view>
+  <!-- <view bindtap='selectTime' class='{{timeIndex==1?"select-item":""}}' data-index='1'>季</view>
+  <view bindtap='selectTime' class='{{timeIndex==2?"select-item":""}}' data-index='2'>年</view> -->
+</view>
+<scroll-view scroll-x class="echart-box">
+  <ec-canvas id="mychart" canvas-id="mychart"></ec-canvas>
+</scroll-view>
+<!-- 菜单列表 -->
+<view class='panel-box'>
+  <panel menuList='{{menuList}}' noReadCount='{{noReadCount}}'></panel>
+</view>
+<view class='bottom-info'>
+  <image src='/utils/img/arrive-bottom.png'></image>
+</view>
+<view class='unlogin-btn' bindtap='unlogin'>退出登录</view>
+
+
+<!-- <view class='add-order-btn'> -->
+<!-- <cover-view class='add-order-btn' style='top:{{btnTop}}px'>
+</cover-view> -->
+<!-- <cover-image src='/utils/img/page-icon/add-order-1.png' class='add-order-btn' style='top:{{btnTop}}px'  catchtouchmove="buttonMove" catchtouchstart="buttonStart" mode='scaleToFill'></cover-image> -->
+<image src='/utils/img/page-icon/add-order.png' class='add-order-btn' style='top:{{btnTop}}px' catchtouchmove="buttonMove" bindtouchstart="buttonStart" mode='scaleToFill' catchtap="toHandleOrder" wx:if='{{isGong}}'></image>
+<image src='/utils/img/page-icon/buy-meal.png' class='add-order-btn' style='top:{{btnTop}}px' catchtouchmove="buttonMove" bindtouchstart="buttonStart" mode='scaleToFill' catchtap="bindBuyMeal" wx:if='{{!isGong}}'></image>
+
+
+<van-dialog use-slot title="提示"
+  show="{{settingShow}}"
+  confirm-button-open-type="openSetting"
+  bind:opensetting="handleSetting">
+  <view class="auth-content">请授权位置信息,并选择使用小程序期间和离开小程序后</view>
+</van-dialog>
+

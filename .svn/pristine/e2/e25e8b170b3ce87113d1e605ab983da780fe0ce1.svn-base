@@ -1,0 +1,5 @@
+<!--components/mall-title/mall-title.wxml-->
+<view class='mall'>
+    <view class='mall-title'>{{name}}</view>
+    <image src='/utils/img/close.png' class='triggle-close'></image>
+  </view>

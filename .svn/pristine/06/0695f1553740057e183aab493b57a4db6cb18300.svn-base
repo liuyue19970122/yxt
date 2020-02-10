@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "新增货品",
+  "usingComponents": {
+    "form-title": "/components/form-title/index",
+    "page-title": "/components/page-title/page-title",
+    "van-notify": "/miniprogram_npm/vant-weapp/notify/index"
+  }
+}

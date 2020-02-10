@@ -1,0 +1,41 @@
+<!--pages/mall/mall-suborder/order.wxml-->
+<van-notify id="van-notify"/>
+<view>
+  <view class='bg-color'>
+  </view>
+  <view class="order-detail">
+    <view class='reciver-detail' bindtap='toAddressPage'>
+      <view wx:if='{{!hasInfo}}'>选择商家</view>
+      <view class="buyer-info" wx:if='{{hasInfo}}'>
+        <view class="buyer-name">{{buyerInfo.name}}</view>
+        <view class='buyer-contact'>
+          <text>{{buyerInfo.linkName}}</text>
+          <text class='phone'>{{buyerInfo.mobile}}</text>
+        </view>
+        <view class='buyer-contact'>{{buyerInfo.address}}</view>
+      </view>
+      <image class='triggle-close' src='/utils/img/close.png'></image>
+    </view>
+  </view>
+</view>
+<!-- <form-title title='货品信息'></form-title> -->
+<view class='module-title'>—— 商品 ——</view>
+<view class="card-container">
+  <view class='goods-item' wx:for="{{proList}}"
+    wx:key='proList'>
+    <view class='goods-img'>
+      <image src="{{item.goodsPic}}"></image>
+    </view>
+    <view class='goods-info'>
+      <view class='goods-name'>
+        <text>{{item.goodsName+'/'+item.attrName}}</text>
+      </view>
+      <view class='goods-num'>
+        <text>X</text><text>{{item.cusBuyCount}}</text>
+      </view>
+    </view>
+    <view class='goods-price'>{{'￥'+item.cusSalePrice}}</view>
+  </view>
+</view>
+<van-submit-bar price="{{orderMoney}}" 
+  button-text="确定开单" bind:submit="onSubmitOrder" />

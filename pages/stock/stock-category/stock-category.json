@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "",
+  "usingComponents": {
+    "page-title": "/components/page-title/page-title",
+    "van-dialog": "/miniprogram_npm/vant-weapp/dialog/index"
+  }
+}

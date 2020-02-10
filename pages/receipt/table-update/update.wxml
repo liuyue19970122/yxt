@@ -1,0 +1,14 @@
+<view class='add-form'>
+  <form-item label="桌位编号"  value='{{deskDetail.deskCode}}' bind:input='getDeskCode' isRequired='{{true}}' isBorder='{{true}}'></form-item>
+  <form-item label="可坐人数"  type='number' value='{{deskDetail.peopleNum}}' bind:input='getPeopleNum' isRequired='{{true}}' isBorder='{{true}}'></form-item>
+  <view class='form-item'>
+    <view class='label'>描述</view>
+  </view>
+  <view>
+    <textarea class='remark-content' bindinput='getDes' value='{{deskDetail.description}}' placeholder="请输入关于商品的其它信息（如：来源信息）~"  />
+  </view>
+  <form-item label="状态" isRequired='{{true}}' key='name' isPicker='{{true}}' array='{{statusList}}' bind:change='getStatus' index='{{statusIndex}}'></form-item>
+  <form-item label="预定时间" wx:if='{{statusIndex==2}}' isRequired='{{true}}' isTimePicker='{{true}}' dateType='time' bind:change='bindChangeTime'date='{{time}}'></form-item>
+</view>
+
+<button class='big-submit-btn' bindtap='onUpdate'>确认</button>

@@ -1,0 +1,15 @@
+<!--pages/pro_manage/pro_list/list.wxml-->
+<view class='pro'>
+  <!--搜索-->
+  <view class='pro-search'>搜索框</view>
+  <!--分类 -->
+  <view class='pro-container'>
+    <view class='cate-first'>
+      <text class='cate-item cate-active'>一级分类</text>
+    </view>
+    <view class='cate-second'>
+      <view>二级分类</view>
+      <view>商品列表</view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "盘点数量",
+  "usingComponents": {
+    "form-item":"/components/form-item/form-item"
+  }
+}

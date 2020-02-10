@@ -1,0 +1,110 @@
+<!--pages/stock/stock-record/stock-record.wxml-->
+
+<!--pages/stock/stock-change/stock-change.wxml-->
+
+<view class='full-page' bindtouchstart="closeActive">
+  <page-title title='库存记录' icon='/utils/img/menu-icon/stock/record.png' isAdd='{{false}}' picker="{{true}}" array='{{dateList}}' name="name" range='{{1}}'></page-title>
+
+  <van-tabs active="{{ active }}" bind:change="onChange">
+    <van-tab title="全部">
+      <view data-id='{{item.id}}' catchlongtap="clickItem" class='{{activeId==item.id?"active-item":""}}' wx:for='{{goodList}}'>
+        <view class='good-item'>
+          <view class='good-left-module'>
+            <image src='/utils/img/good-img.png'></image>
+          </view>
+          <view class='good-right-module'>
+            <view>精品冬枣5kg/袋</view>
+            <view>库存位置：Al0098号</view>
+            <view class='bottom-module'>
+              <view>库存量：
+                <text class='kg-unit'>500kg</text>
+              </view>
+              <view class='time'>2019-10-11 18:43更新</view>
+            </view>
+          </view>
+          <view class='active-dialog' wx:if='{{activeId==item.id}}'>
+            <view>修改</view>
+            <view>入库</view>
+            <view>出库</view>
+          </view>
+        </view>
+      </view>
+    </van-tab>
+    <van-tab title="入库">
+      <view data-id='{{item.id}}' catchlongtap="clickItem" class='{{activeId==item.id?"active-item":""}}' wx:for='{{goodList}}'>
+        <view class='good-item'>
+          <view class='good-left-module'>
+            <image src='/utils/img/good-img.png'></image>
+          </view>
+          <view class='good-right-module'>
+            <view>精品冬枣5kg/袋</view>
+            <view>库存位置：Al0098号</view>
+            <view class='bottom-module'>
+              <view>库存量：
+                <text class='kg-unit'>500kg</text>
+              </view>
+              <view class='time'>2019-10-11 18:43更新</view>
+            </view>
+          </view>
+          <view class='active-dialog' wx:if='{{activeId==item.id}}'>
+            <view>修改</view>
+            <view>入库</view>
+            <view>出库</view>
+          </view>
+        </view>
+      </view>
+    </van-tab>
+    <van-tab title="修正">
+      <view data-id='{{item.id}}' catchlongtap="clickItem" class='{{activeId==item.id?"active-item":""}}' wx:for='{{goodList}}'>
+        <view class='good-item'>
+          <view class='good-left-module'>
+            <image src='/utils/img/good-img.png'></image>
+          </view>
+          <view class='good-right-module'>
+            <view>精品冬枣5kg/袋</view>
+            <view>库存位置：Al0098号</view>
+            <view class='bottom-module'>
+              <view>库存量：
+                <text class='kg-unit'>500kg</text>
+              </view>
+              <view class='time'>2019-10-11 18:43更新</view>
+            </view>
+          </view>
+          <view class='active-dialog' wx:if='{{activeId==item.id}}'>
+            <view>修改</view>
+            <view>入库</view>
+            <view>出库</view>
+          </view>
+        </view>
+      </view>
+    </van-tab>
+    <van-tab title="出库">
+      <view data-id='{{item.id}}' catchlongtap="clickItem" class='{{activeId==item.id?"active-item":""}}' wx:for='{{goodList}}'>
+        <view class='good-item'>
+          <view class='good-left-module'>
+            <image src='/utils/img/good-img.png'></image>
+          </view>
+          <view class='good-right-module'>
+            <view>精品冬枣5kg/袋</view>
+            <view>库存位置：Al0098号</view>
+            <view class='bottom-module'>
+              <view>库存量：
+                <text class='kg-unit'>500kg</text>
+              </view>
+              <view class='time'>2019-10-11 18:43更新</view>
+            </view>
+          </view>
+          <view class='active-dialog' wx:if='{{activeId==item.id}}'>
+            <view>修改</view>
+            <view>入库</view>
+            <view>出库</view>
+          </view>
+        </view>
+      </view>
+    </van-tab>
+  </van-tabs>
+  <view>
+
+  </view>
+
+</view>

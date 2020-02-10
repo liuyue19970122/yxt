@@ -1,0 +1,2 @@
+/* pages/receipt/table-update/update.wxss */
+@import '../table-add/add'

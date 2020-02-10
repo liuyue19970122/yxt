@@ -1,0 +1,54 @@
+/* components/card/fin-card/index.wxss */
+.card{
+  margin:0 24rpx;
+}
+.card-info{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20rpx 0;
+}
+.info-date{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  color: #333;
+}
+.info-date>text:first-child{
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 50%;
+  margin-right: 20rpx;
+}
+.info-money{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  color: #333;
+}
+.arrow-down{
+  background-color: #fff;
+  margin-left: 24rpx;
+  width: 24rpx;
+  height: 40rpx;
+}
+.info-slider{
+  position: relative;
+  margin-left: 60rpx;
+  padding: 20rpx 0;
+}
+.slider-default{
+  display: block;
+  height: 20rpx;
+  border-radius: 10rpx;
+  background-color: #f0f0f0;
+}
+.slider-active{
+  display: block;
+  position: absolute;
+  top: 20rpx;
+  left: 0;
+  z-index: 100;
+  height: 20rpx;
+  border-radius: 10rpx;
+}

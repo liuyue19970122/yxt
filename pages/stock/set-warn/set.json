@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "设置预警数量",
+  "usingComponents": {
+    "form-item":"/components/form-item/form-item"
+  }
+}

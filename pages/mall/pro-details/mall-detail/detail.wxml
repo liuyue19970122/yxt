@@ -1,0 +1,152 @@
+<!--pages/mall/pro-details/detail.wxml-->
+<view hidden="{{!dataReady}}" style="margin-bottom:200rpx;">
+  <swiper class='banner-box'
+    indicator-color='rgba(230,230,230,0.8)' 
+    indicator-active-color='#fe2200' autoplay='{{true}}' 
+    indicator-dots="{{true}}" duration="2000">
+    <block wx:for="{{picList}}" wx:key="picList">
+      <swiper-item>
+        <image src='{{item}}' class='swiper-img'></image>
+      </swiper-item>
+    </block>
+  </swiper>
+  <!-- 商品名称价格 -->
+  <view class='pro-container'>
+    <view class='pro-name'>
+      <text class='font-title'>{{goodsInfo.goodsName}}</text>
+    </view>
+    <view class='pro-attr'>
+      <view class="attr-name">{{goodsInfo.attrName}}</view>
+      <view class="attr-container">
+        <view class="attr-price">
+          <text class="sale-price">{{"￥"+ goodsInfo.cusSalePrice}}</text>
+          <text class="normal-price">{{"￥"+goodsInfo.cusNormalPrice}}</text>
+        </view>
+        <view wx:if='{{goodsInfo.cusOptShow}}'>
+          <image class="pro-reduce-btn" 
+            src='../../../../utils/img/reduce.png' 
+            catchtap='bindProReduce'></image>
+          <text>{{goodsInfo.cusBuyCount}}</text>
+          <image class="pro-add-btn"
+            src='../../../../utils/img/stock/add.png' 
+            catchtap='bindProAdd'></image>
+        </view>
+        <image wx:if='{{goodsInfo.cusAddShow}}' 
+          class='state-img' 
+          src='../../../../utils/img/stock/add.png' 
+          catchtap='bindProAdd'></image>
+        <view class="sel-spec" wx:if='{{goodsInfo.cusSelShow}}'
+          catchtap='handleScanSpec'>
+          <text>选规格</text>
+          <text wx:if='{{goodsInfo.cusBuyCount!=0}}'>{{"("+goodsInfo.cusBuyCount+")"}}</text>
+        </view>
+      </view>
+      <view class='act-container'>
+        <view class="col-container"  bindtap='bindPhone'>
+          <image src='../../../../utils/img/phone.png' class='share-img'></image>
+          <text>联系商家</text>
+        </view>
+        <view class="col-container"  bindtap='bindCollect'>
+          <image src='{{goodsInfo.isCollect==="1"?"../../../../utils/img/collected_red.png":"../../../../utils/img/collect_black.png"}}' class='share-img'></image>
+          <text>收藏</text>
+        </view>
+      </view>
+    </view>
+    <view class='pro-desc'>{{goodsInfo.description}}</view>
+  </view>
+  <view class='pro-blank'></view>
+  <!-- 商品详情 -->
+  <view class='pro-container'>
+    <view class='pro-title font-title'>商品详情</view>
+    <view>
+      <rich-text nodes="{{detailInfo}}"></rich-text>
+    </view>
+  </view>
+</view>
+
+<view class='shoping-cart'>
+  <cus-cart count='{{buyTotalCount}}'
+    empty='{{cartEmpty}}'
+    hideCart='{{hideCartImg}}' 
+    totalMoney='{{buyTotalMoney}}' 
+    favMoney='{{buyFavMoney}}' 
+    bind:submit='bindToSubmit' 
+    bind:cartClick='bindShowCard'></cus-cart>
+</view>
+<van-transition show="{{ showCart }}" custom-class="cart-popup">
+  <view class="cart-popup-container" catchtap="closeCart">
+    <view class='cart-poi'>
+      <view class='cart-img' catchtap="closeCart">
+        <image src='../../../../utils/img/gouwuche.png'></image>
+        <text>{{buyTotalCount}}</text>
+      </view>
+      <view class='cart-pro-container'>
+        <view class='check-all'>
+          <view class='check' catchtap="cartCheck">
+            <checkbox-group class="radio-group" bindchange="cartCheckAll"
+              wx:for='{{checkAllList}}' wx:key="checkAllList">
+              <checkbox class="radio" value="{{index}}" 
+                color='#fff' checked='{{item.checked}}'>
+                <text>{{"全选（已选"+buyTotalCount+"件）"}}</text>
+              </checkbox>
+            </checkbox-group>
+          </view>
+          <text catchtap='bindClearCart'>清空购物车</text>
+        </view>
+        <checkbox-group catchtap='cartCheck' bindchange="cartCheckboxChange">
+          <view class='cart-card-container'  wx:for='{{cartProList}}' 
+            wx:key="cartProList">
+            <label class="checkbox">
+              <checkbox value="{{index}}" color='#fff'
+                checked="{{item.cusChecked}}"/>
+            </label>
+            <view class='cart-card'>
+              <cus-pro-card index='{{index}}' 
+                title='{{item.goodsName}}'
+                subTitle='{{item.attrName}}'
+                oriPrice='{{item.cusOriPrice}}'
+                salePrice='{{item.cusSalePrice}}'
+                imgsize='cart-img-size' 
+                imgSrc='{{item.goodsPic}}'>
+                <view slot='right' class='state-container'>
+                  <view class='spec-btn'>
+                    <image src='../../../../utils/img/reduce.png' 
+                      data-index='{{index}}'
+                      catchtap='bindCartReduce'></image>
+                    <text>{{item.cusBuyCount}}</text>
+                    <image src='../../../../utils/img/stock/add.png' 
+                      data-index='{{index}}'
+                      catchtap='bindCartAdd'></image>
+                  </view>
+                </view>
+              </cus-pro-card>
+            </view>
+          </view>
+        </checkbox-group>
+      </view>
+      
+    </view>
+  </view>
+</van-transition>
+
+<van-popup show="{{ proSpecShow }}"
+  position="center"
+  custom-style="width:95%;max-height:45%;border-radius:24rpx;"
+  z-index='9999'
+  bind:close="closeProSpec">
+  <view>
+    <view wx:for="{{specLsit}}" 
+      wx:key="specList" class='spec-container'>
+      <text class='spec-name'>{{item.attrName}}</text>
+      <text class='spec-price'>{{'￥'+item.cusSalePrice}}</text>
+      <view class='spec-btn'>
+        <image src='../../../../utils/img/reduce.png' data-index='{{index}}'
+          catchtap='bindCountReduce'></image>
+        <text>{{item.cusBuyCount}}</text>
+        <image src='../../../../utils/img/stock/add.png' data-index='{{index}}'
+          catchtap='bindCountAdd'></image>
+      </view>
+    </view>
+  </view>
+</van-popup>
+

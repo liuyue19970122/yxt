@@ -1,0 +1,31 @@
+/* components/banner/banner.wxss */
+.banner{
+  background-size: contain;
+
+}
+.banner-detail-content{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding:10rpx 20rpx;
+  /* height:85%; */
+}
+.banner-detail{
+  font-size: 32rpx;
+  color:#fff;
+  height:160rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.banner-info{
+  color:rgb(254,34,0);
+  font-size: 36rpx;
+  text-align: right;
+  font-weight: bold
+}
+.num{
+  font-weight: 500;
+  margin-top:10rpx;
+  font-size: 44rpx;
+}

@@ -1,0 +1,72 @@
+<!--pages/stock/stock-in/stock-in.wxml-->
+<!--pages/stock/stock-change/stock-out.wxml-->
+<page-title title='入库' isAdd="{{false}}" picker="{{false}}"></page-title>
+<view class='search-module' wx:if='{{!isExit}}'>
+  <van-search bind:change='searchChange' value="{{ searchName }}" placeholder="请输入搜索关键词" />
+  <view class='search-list-box' wx:if='{{isSearch}}'>
+    <view class='search-list'>
+      <view class='search-item' wx:for='{{goodList}}' bindtap='selectName' data-index='{{index}}'>{{item.goodsName}}</view>
+    </view>
+    <view class='close-btn' bindtap='closeSearch'>取消搜索</view>
+  </view>
+</view>
+
+<view class='form'>
+  <view class='form-item border-bottom'>
+    <view class='label'>商品类别</view>
+    <view class='form--input'>
+      <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArr}}">
+        <view class="picker">
+          {{multiArr[0][multiIndex[0]]}} {{multiArr[1][multiIndex[1]]}}
+        </view>
+      </picker>
+      <!-- <cate-picker bind:change='changeCate' cateList='{{cateList}}' range="{{selectCate}}" name='cateName' isReadon="{{isExit}}"></cate-picker> -->
+    </view>
+  </view>
+  <form-item label="商品名称" isReadon='{{isReadon}}' bind:input='getGoodsName' value='{{goodsName}}' isRequired='{{true}}' isBorder='{{true}}'></form-item>
+  <!-- <form-item label="商品规格" isReadon='{{isReadon}}' bind:input='getGoodsUnit'  value='{{goodsUnit}}' isBorder='{{true}}'></form-item> -->
+  <view class='form-item border-bottom'>
+    <view class='label'>商品规格</view>
+    <view class='form--input'>
+      <cate-picker bind:change='changeUnit' cateList='{{unitList}}' range="{{selectUnit}}" isReadon="{{isExit||isSelect}}"></cate-picker>
+    </view>
+  </view>
+  <form-item label="数量" placeholder='最多保留两位小数' type='digit' value='{{goodsCount}}' bind:input='getGoodsCount' isRequired='{{true}}' isBorder='{{true}}'></form-item>
+  <form-item label="单价" placeholder='最多保留两位小数' type='digit' isRequired='{{true}}' bind:input='getPerMoney' value='{{perMoney}}' isBorder='{{true}}'></form-item>
+  <form-item label="总价" placeholder='最多保留两位小数' type='digit' isRequired='{{true}}' bind:input='getTotalMoney' value='{{totalMoney}}' isBorder='{{true}}'></form-item>
+  <!-- <view class='form-item border-bottom'>
+    <view class='label'>入库时间</view>
+    <view class='form--input'>
+      <picker mode="date" value="{{date}}" start="2015-09-01" end="2017-09-01" bindchange="bindDateChange">
+        <view class="picker">
+          当前选择: {{date}}
+        </view>
+      </picker>
+    </view>
+  </view> -->
+  <view class='form-item border-bottom'>
+    <view class='label'>库存位置</view>
+    <view class='form--input'>
+      <cate-picker bind:change='changeLocation' cateList='{{locationList}}' range="{{selectLocation}}" isReadon="{{isExit}}" name='locationName'></cate-picker>
+    </view>
+  </view>
+  <!-- <form-item wx:if='{{isExit}}' label="库存位置" isRequired='{{true}}'  value='{{locationName}}' isBorder='{{true}}'></form-item> -->
+  <view class='form-item'>
+    <view class='label'>商品图片</view>
+  </view>
+  <view class='btn-box border-bottom'>
+    <button>
+      <image wx:if='{{isReadon}}' class='upload-btn' src='{{goodsPic}}'></image>
+      <image wx:if='{{!isReadon}}' src='/utils/img/upload.png' class='upload-btn'></image>
+    </button>
+  </view>
+  <view class='form-item'>
+    <view class='label'>备注</view>
+  </view>
+  <view>
+    <textarea class='remark-content' bindinput='getDes' value='{{description}}' placeholder="请输入关于商品的其它信息（如：来源信息）~" auto-focus />
+  </view>
+  <view>
+    <button type='danger' class='submit-btn' bindtap='addGoods' disabled="{{goodsName==''||goodsCount==''||perMoney==''||totalMoney==''}}">确认提交</button>
+  </view>
+</view>

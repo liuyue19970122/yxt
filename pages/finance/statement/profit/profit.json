@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "盈利分析",
+  "usingComponents": {
+    "cus-fin-pie":"/components/fin-pie/index",
+    "cus-fin-card":"/components/card/fin-card/index"
+  }
+}

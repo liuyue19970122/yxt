@@ -1,0 +1,23 @@
+/**index.wxss**/
+.yxt-index-top{
+  background: #FE2200;
+  height:300rpx;
+}
+
+ec-canvas {
+  width: 100%;
+  height: 100%;
+}
+
+.echart-box{
+  width:750rpx;
+  height:300px;
+}
+.first-banner-box{
+  margin-top:100rpx;
+}
+.second-banner-box{
+  display: flex;
+  justify-content: space-between;
+  margin:25rpx;
+}

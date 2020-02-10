@@ -1,0 +1,9 @@
+/* pages/oa/add-staff/add-staff.wxss */
+
+.block-module-title{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+/* .add-icon{
+} */

@@ -1,0 +1,88 @@
+<!--pages/finance/rem-account/add/add.wxml-->
+<van-notify id="van-notify" />
+<view class="form-container">
+  <view class='form-item form-item__inline'>
+    <label class='form-item__label'>
+      <text style='color:#fe2200;'>*</text>收支类型
+    </label>
+    <picker class='form-item__content'
+      bindchange="bindTypeChange"
+      value="{{typeIndex}}" 
+      range-key='typeName'
+      range="{{typeList}}">
+      <view class="picker">{{typeName}}</view>
+    </picker>
+    <image class='triggle-close'src='../../../../utils/img/close.png'></image>
+  </view>
+  <view class='form-item form-item__inline'>
+    <label class='form-item__label'>
+      <text style='color:#fe2200;'>*</text>名称
+    </label>
+    <input placeholder='请输入名称(必填)'
+      bindinput='bindTitleInput'
+      value='{{billInfo.title}}' 
+      class='form-item__content content-padding'>
+    </input>
+  </view>
+  <view class='form-item form-item__inline'>
+    <label class='form-item__label'>
+      <text style='color:#fe2200;'>*</text>金额
+    </label>
+    <input placeholder='请输入金额(必填)'
+      bindinput='bindMoneyInput'
+      value='{{billInfo.money}}' 
+      type="digit"
+      class='form-item__content content-padding'>
+    </input>
+  </view>
+  <view class='form-item form-item__inline'>
+    <label class='form-item__label'>
+      <text style='color:#fe2200;'>*</text>经办人
+    </label>
+    <picker class='form-item__content'
+      bindchange="bindUserChange"
+      value="{{userIndex}}" 
+      range-key='name'
+      range="{{userList}}">
+      <view class="picker">{{userName}}</view>
+    </picker>
+    <image class='triggle-close'src='../../../../utils/img/close.png'></image>
+  </view>
+  
+  <view class='form-item form-item__inline'>
+    <label class='form-item__label'>
+      <text style='color:#fe2200;'>*</text>日期
+    </label>
+    <picker class='form-item__content' 
+      mode="date" value="{{date}}" 
+      bindchange="bindDateChange">
+      <view class="picker">{{dateContent}}</view>
+    </picker>
+    <image class='triggle-close'src='../../../../utils/img/close.png'></image>
+  </view>
+  <view class='form-item'>
+    <label class='label-block'>上传凭证<text>(至多上传4张)</text></label>
+    <view class='img-container'>
+      <view wx:for='{{imgList}}' wx:key='imgList'>
+        <text class='del-img' data-index='{{index}}' catchtap='deleteCurImg'>—</text>
+        <image class='add-img' 
+          src='{{item}}'></image>
+      </view>
+      <view wx:if='{{imgList.length!==4}}'>
+        <image class='add-img' 
+          bindtap='bindUploadImg'
+          src='../../../../utils/img/upload.png'></image>
+      </view>
+    </view>
+  </view>
+  <view class='form-item'>
+    <view class='label-block'>备注</view>
+    <view>
+      <textarea placeholder='请输入备注(选填)' class='content-area'
+      value='{{proInfo.description}}' bindinput='bindMarkInput'></textarea>
+    </view>
+  </view>
+</view>
+<view class='fixed-bottom'>
+  <button bindtap="submitBill" class="bottom-full btn-red">确定</button>
+</view>

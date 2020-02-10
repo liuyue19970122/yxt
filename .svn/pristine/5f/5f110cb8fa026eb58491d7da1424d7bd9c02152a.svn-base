@@ -1,0 +1,11 @@
+{
+  "usingComponents": { 
+    "van-search": "/miniprogram_npm/vant-weapp/search/index",
+    "van-sidebar": "/miniprogram_npm/vant-weapp/sidebar/index",
+    "van-sidebar-item": "/miniprogram_npm/vant-weapp/sidebar-item/index",
+    "van-tab": "/miniprogram_npm/vant-weapp/tab/index",
+    "van-tabs": "/miniprogram_npm/vant-weapp/tabs/index",
+    "cus-tab-sort": "/components/tab-sort/index",
+    "cus-pro-card": "/components/card/pro-card/index"
+  }
+}

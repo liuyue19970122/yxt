@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "添加挂账人",
+  "usingComponents": {
+    "form-item":"/components/form-item/form-item",
+    "van-notify": "/miniprogram_npm/vant-weapp/notify/index"
+  }
+}

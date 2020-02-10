@@ -1,0 +1,22 @@
+<!--pages/finance/salary/submit/sub.wxml-->
+ <view class='pro-search'>
+  <van-search
+    value="{{ searchInfo }}"
+    background="#fff"
+    shape='round'
+    placeholder="请输入搜索关键词"
+    bind:search="onSearch">
+  </van-search>
+</view>
+<view class='title'>员工薪资表</view>
+<view>
+  <view class='card'>
+    <text></text>
+    <text></text>
+    <text></text>
+    <image></image>
+  </view>
+</view>
+<view class='fixed-bottom'>
+  <view>一键提交</view>
+</view>

@@ -1,0 +1,24 @@
+<view id="panel" class="flex-column">
+  <view class="flex-cell flex-row flex-table-title">
+    <view class="flex-cell flex-row first" wx:for='{{titleArray}}'>编号</view>
+    <!-- <view class="flex-cell flex-row">描述</view>
+    <view class='flex-cell flex-row'>操作</view> -->
+  </view>
+  <!-- <view > -->
+  <view class="flex-cell flex-row flex-table-title" wx:for='{{dataArray}}'>
+    <view class="flex-cell flex-row first">1</view>
+    <view class="flex-cell flex-row">2</view>
+    <view class="flex-cell flex-row">
+      <image src='/utils/img/edit.png' class='edit'></image>
+    </view>
+  </view>
+  <!-- <view class="flex-row flex-cell flex-table-title">
+    <view class="flex-cell flex-row first">1</view>
+    <view class="flex-cell flex-row">2</view>
+    <view class="flex-cell flex-row">
+      <image src='/utils/img/edit.png' class='edit'></image>
+    </view>
+    <!-- </view> -->
+  <!-- </view>  -->
+
+</view>

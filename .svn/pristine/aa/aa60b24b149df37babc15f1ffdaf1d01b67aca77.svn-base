@@ -1,0 +1,440 @@
+
+const app = getApp();
+const formatTime = function(date){
+  date = new Date(date)
+  const year = date.getFullYear()
+  const month = date.getMonth() + 1
+  const day = date.getDate()
+  const hour = date.getHours()
+  const minute = date.getMinutes()
+  const second = date.getSeconds()
+  return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
+}
+const formatDate = function (date) {
+  date = new Date(date)
+  const year = date.getFullYear()
+  const month = date.getMonth() + 1
+  const day = date.getDate()
+  console.log(year)
+  return [year, month, day].map(formatNumber).join('/')
+}
+const formatNumber = function(n){
+  n = n.toString()
+  return n[1] ? n : '0' + n
+}
+//获取token
+const getToken = function () {
+  return new Promise((resolve, reject) => {
+    wx.getStorage({
+      key: 'localToken',
+      success: function (res) {
+        var token = res.data.token
+        resolve(token)
+      },
+      fail: function (res) {
+        reject(res)
+      },
+    })
+  })
+}
+//get 封装
+const getRequest = function (url, token) {
+  return new Promise((resolve, reject) => {
+    //init
+    var postToken = token;
+    //网络请求
+    wx.request({
+      url: url,
+      method: 'GET',
+      header: {
+        Authorization: postToken,
+      },
+      success: function (res) { //服务器返回数据
+        resolve(res);
+        if (res.statusCode === 404 || res.statusCode === 500) {
+          errHandle() //404 500错误处理
+        }
+      },
+      fail: function (e) {
+        if (!app.globalData.isShowErr) {
+          netErr()
+        } else {
+          return
+        }
+      }
+    })
+  });
+}
+//get 封装
+const getRequestData = function (url,data,token) {
+  return new Promise((resolve, reject) => {
+    //init
+    var postToken = token;
+    //网络请求
+    wx.request({
+      url: url,
+      data:data,
+      method: 'GET',
+      header: {
+        Authorization: postToken,
+      },
+      success: function (res) { //服务器返回数据
+        resolve(res);
+        if (res.statusCode === 404 || res.statusCode === 500) {
+          errHandle() //404 500错误处理
+        }
+      },
+      fail: function (e) {
+        if (!app.globalData.isShowErr) {
+          netErr()
+        } else {
+          return
+        }
+      }
+    })
+  });
+}
+//post 封装
+const postRequest = function (url, data, token) {
+  return new Promise((resolve, reject) => {
+    //init
+    var postToken = token;
+    //网络请求
+    wx.request({
+      url: url,
+      method: 'POST',
+      data: data,
+      header: {
+        "content-type": "application/x-www-form-urlencoded",
+        Authorization: postToken
+      },
+      success: function (res) { //服务器返回数据
+        resolve(res);
+        if (res.statusCode === 404 || res.statusCode === 500) {
+          errHandle() //404 500错误处理
+        }
+      },
+      fail: function (e) {
+        if (!app.globalData.isShowErr) {
+          netErr()
+        } else {
+          return
+        }
+      }
+    })
+  });
+}
+//internet err网络错误提示
+const netErr = function () {
+  wx.hideLoading()
+  wx.showModal({
+    title: '提示',
+    content: '网络故障',
+    showCancel: false,
+    success: function (res) {
+      if (res.confirm) {
+        wx.navigateBack({
+          delta: 1
+        })
+      }
+    }
+  })
+}
+//request 无token执行步骤 get
+const stepNoneToken = function (url) {
+  return new Promise((resolve, reject) => {
+    loginTry().then((res) => {
+      let openId = JSON.parse(res.data.content).openid
+      return loginAuthServer(openId)
+    }).then((res) => {
+      if (res.statusCode == 200) {
+        var loginInfo = res.data;
+        wx.setStorageSync("localToken", loginInfo)
+        getToken().then((res) => {
+          if (res) {
+            return getRequest(url, res)
+          }
+        }).then((res) => {
+          if (res.statusCode === 200) {
+            resolve(res)
+          }
+        })
+      } else {
+        loginFail()
+      }
+    })
+  })
+}
+//request 无token执行步骤post
+const postNoneToken = function (url, data) {
+  return new Promise((resolve, reject) => {
+    loginTry().then((res) => {
+      let openId = JSON.parse(res.data.content).openid
+      return loginAuthServer(openId)
+    }).then((res) => {
+      if (res.statusCode == 200) {
+        var loginInfo = res.data;
+        wx.setStorageSync("localToken", loginInfo)
+        getToken().then((res) => {
+          if (res) {
+            return postRequest(url, data, res)
+          }
+        }).then((res) => {
+          if (res.statusCode === 200) {
+            resolve(res)
+          }
+        })
+      } else {
+        loginFail()
+      }
+    })
+  })
+}
+//request token失效get执行步骤
+const tokenOverTime = function (url) {
+    wx.showModal({
+      title: '提示',
+      content: '登录信息失效',
+      // showCancel:false,
+      success:function(res){
+        wx.removeStorageSync("localToken")
+        if(res.confirm){
+          wx.redirectTo({
+            url: '/pages/common/login/login',
+          })
+        }
+      }
+    })
+  // return new Promise((resolve, reject) => {
+  //   updateToken().then((res) => {
+  //     if (res.statusCode == 200) {
+  //       getToken().then((res) => {
+  //         if (res) {
+  //           return getRequest(url, res)
+  //         }
+  //       }).then((res) => {
+  //         if (res.statusCode === 200) {
+  //           resolve(res)
+  //         }
+  //       })
+  //     } else if (res.statusCode == 401) {
+  //       return stepNoneToken(url)
+  //     }
+  //   })
+  // })
+}
+//request token失效post执行步骤
+const postTokenOverTime = function (url, data) {
+  return new Promise((resolve, reject) => {
+    updateToken().then((res) => {
+      if (res.statusCode == 200) {
+        getToken().then((res) => {
+          if (res) {
+            return postRequest(url, data, res)
+          }
+        }).then((res) => {
+          if (res.statusCode === 200) {
+            resolve(res)
+          }
+        })
+      } else if (res.statusCode == 401) {
+        return postNoneToken(url, data)
+      }
+    })
+  })
+}
+//需要token验证 执行步骤get请求
+const getRequestList = function (url,actType, callBack) {
+  getToken().then((res) => {
+    if (res) {
+      return getRequest(url, res)
+    }
+  }).then((res) => {
+    if (res.statusCode === 200) {
+      callBack(res, actType)
+    } else if (res.statusCode === 401) {
+     
+      tokenOverTime(url).then(res => {
+        if (res.statusCode === 200) {
+          callBack(res, actType) //请求结果处理
+        }
+      })
+    }
+  }).catch((res) => {
+    tokenOverTime()
+    // if (res.errMsg) {
+    //   stepNoneToken(url).then((res) => {
+    //     callBack(res, actType)
+    //   })
+    // }
+  })
+}
+//需要token验证 执行步骤get有data请求
+const getRequestListData = function (url, data,actType, callBack) {
+  getToken().then((res) => {
+    if (res) {
+      return getRequestData(url,data, res)
+    }
+  }).then((res) => {
+    if (res.statusCode === 200) {
+      callBack(res, actType)
+    } else if (res.statusCode === 401) {
+      tokenOverTime(url).then(res => {
+        if (res.statusCode === 200) {
+          callBack(res, actType) //请求结果处理
+        }
+      })
+    }
+  }).catch((res) => {
+    if (res.errMsg) {
+      tokenOverTime()
+      // stepNoneToken(url).then((res) => {
+      //   callBack(res, actType)
+      // })
+    }
+  })
+}
+//需要token验证 执行步骤post请求
+const postRequestList = function (url, data, actType, callBack) {
+  getToken().then((res) => {
+    if (res) {
+      return postRequest(url, data, res)
+    }
+  }).then((res) => {
+    if (res.statusCode === 200) {
+      callBack(res, actType)
+    } else if (res.statusCode === 401) {
+      tokenOverTime(url, data).then(res => {
+        if (res.statusCode === 200) {
+          callBack(res, actType) //请求结果处理
+        }
+      })
+    }
+  }).catch((res) => {
+    console.log(res)
+    tokenOverTime()
+    // if (res.errMsg) {
+    //   postNoneToken(url, data).then((res) => {
+    //     callBack(res, actType)
+    //   })
+    // }
+  })
+}
+/*获取当前页url*/
+const getCurrentPageUrl = function () {
+  var pages = getCurrentPages() //获取加载的页面
+  var currentPage = pages[pages.length - 1] //获取当前页面的对象
+  var url = currentPage.route //当前页面url
+  return url
+}
+//404 500错误处理
+const errHandle = function () {
+  // wx.navigateTo({
+  //   url: '../../pages/erroPage/erroPage',
+  // })
+  var url = getCurrentPageUrl()
+  if (!app.globalData.isGo) {
+    app.globalData.isGo = true
+    wx.navigateTo({
+      url: '/pages/serverError/errPage/errPage',
+    })
+  } else {
+    return
+  }
+}
+// 获取输入框的值
+const inputTest=function (e) {
+  let val = e.detail.value,
+    pos = e.detail.cursor;
+  let reg = /([^\u0020-\u007E\u00A0-\u00BE\u2E80-\uA4CF\uF900-\uFAFF\uFE30-\uFE4F\uFF00-\uFFEF\u0080-\u009F\u2000-\u201f\u2026\u2022\u20ac\r\n])|(\s)/g
+  var i = reg.test(val)
+  if (!reg.test(val)) {
+    // this.setData({
+    //   searchInput: val
+    // })
+    return {
+      value: val
+    }
+  }
+  let obj = regStrFn(val)
+  if (pos != -1 && obj.index) {
+    //计算光标的位置　　
+    pos = obj.index.index
+  }
+  // this.setData({
+  //   searchInput: obj.val
+  // })
+  return {
+    value: obj.val,
+    cursor: pos
+  }
+}
+//正则表达式匹配
+const regStrFn=function (str) {
+  let reg = /([^\u0020-\u007E\u00A0-\u00BE\u2E80-\uA4CF\uF900-\uFAFF\uFE30-\uFE4F\uFF00-\uFFEF\u0080-\u009F\u2000-\u201f\u2026\u2022\u20ac\r\n])|(\s)/g,
+    indexArr = reg.exec(str);
+  if (str.match(reg)) {
+    str = str.replace(reg, '');
+  }
+  let obj = {
+    val: str,
+    index: indexArr
+  }
+  return obj
+}
+// 验证输入最多两位小数
+const clearNoNum=function(val) {
+  // val=toString(val)
+  console.log(val)
+  //修复第一个字符是小数点 的情况.
+  if (val != '' && val.substr(0, 1) == '.') {
+    val = "";
+  }
+  val = val.replace(/^0*(0\.|[1-9])/, '$1'); //解决 粘贴不生效
+  val = val.replace(/[^\d.]/g, ""); //清除“数字”和“.”以外的字符
+  val = val.replace(/\.{2,}/g, "."); //只保留第一个. 清除多余的     
+  val = val.replace(".", "$#$").replace(/\./g, "").replace("$#$", ".");
+  val = val.replace(/^(\-)*(\d+)\.(\d\d).*$/, '$1$2.$3'); //只能输入两个小数     
+  if (val.indexOf(".") < 0 && val != "") { //以上已经过滤，此处控制的是如果没有小数点，首位不能为类似于 01、02的金额
+    if (val.substr(0, 1) == '0' && val.length == 2) {
+      val = val.substr(1, val.length);
+    }
+  }
+  return val
+}
+const getMoney=function(data){
+  var regexp = /(?:\.0*|(\.\d+?)0+)$/
+  var num = (data / 100).toFixed(2)
+  // num = num.replace(regexp, '$1')
+  // num = toDecimal2(num)
+  return num
+}
+
+const validateNumber=function(val) {
+  return val.replace(/\D/g, '')
+}
+const setTitle=function(){
+  var userinfo=wx.getStorageSync("localToken").userInfo
+  wx.setNavigationBarTitle({
+    title: userinfo.orgName,
+  })
+}
+const getTimest=function(time){
+  var timeArr = time.split('-')
+  var date = new Date(timeArr.join('/'))
+  console.log(date)
+  return date.getTime()
+}
+module.exports = {
+  formatTime: formatTime,
+  getRequestList: getRequestList,
+  getRequestListData: getRequestListData,
+  postRequestList: postRequestList,
+  inputTest: inputTest,
+  clearNoNum: clearNoNum,
+  getMoney:getMoney,
+  validateNumber: validateNumber,
+  setTitle: setTitle,
+  getTimest: getTimest,
+  formatDate: formatDate
+}

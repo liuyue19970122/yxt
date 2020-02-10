@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "添加人员",
+  "usingComponents": {
+    "form-item":"/components/form-item/form-item",
+    "van-dialog": "/miniprogram_npm/vant-weapp/dialog/index"
+  }
+}

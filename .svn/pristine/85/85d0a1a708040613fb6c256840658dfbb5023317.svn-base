@@ -1,0 +1,36 @@
+<!--pages/receipt/place-order/list.wxml-->
+<view class='total-module'>共计：{{totalCount}} 份；{{totalMoney}} 元</view>
+<view class='hr-module'></view>
+<view class='food-list'>
+  <view class='food-item border-bottom'  wx:for='{{foodList}}'>
+    <!-- <view class='left-item'>
+      <view class='food-name'>{{item.goodsName}}</view>
+      <view class='food-remark'>{{item.attrName}}</view>
+    </view> -->
+    <view class='left-item'>
+      <view class=''>{{index+1}}</view>
+      <view class='food-left'>
+        <view class='food-name'>{{item.goodsName}}</view>
+        <view class='food-attr'>({{item.attrName}})</view>
+        <!-- <view class='food-remark'>{{item.attrName}}</view> -->
+      </view>
+    </view>
+    <view class='right-item'>
+      <view class='op-count'>
+        <image class='add-icon' data-index='{{index}}' src='/utils/img/reduce.png' catchtap="bindCartReduce"></image>
+        <view class='food-count'>{{item.count}}</view>
+        <image class='add-icon' data-index='{{index}}' src='/utils/img/stock/add.png' catchtap="bindCartAdd"></image>
+      </view>
+      <!-- <view class='food-price'>￥50.00</view> -->
+    </view>
+  </view>
+</view>
+
+<view class='printer-list'>
+  <image class='printer-item' src='/utils/img/receipt/cook-printer.png'></image>
+  <image class='printer-item' src='/utils/img/receipt/kehu-printer.png'></image>
+</view>
+<view class='op-btn-group'>
+  <button class='n-btn' bindtap='goChoose' >桌位</button>
+  <button class='y-btn' bindtap='goPay' >下单</button>
+</view>

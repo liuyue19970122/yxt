@@ -1,0 +1,13 @@
+<!--pages/oa/leave-manager/manager.wxml-->
+<list-item wx:for='{{menuList}}' data-id='{{item.id}}' bindtap='goDetail'>
+  <!-- <view > -->
+    <image src='{{item.icon}}' slot='left' class='icon'></image>
+  <!-- </view> -->
+  <view slot='center' >
+      <view>{{item.title}}</view>
+      <view wx:if='{{total>0}}' class='sub-font'>你有<text class='un-read'>{{total}}</text>条申请未处理</view>
+  </view>
+  <view slot='right'>
+      <image src='/utils/img/close.png' class='triggle-close'></image>
+  </view>
+</list-item>

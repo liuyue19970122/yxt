@@ -1,0 +1,27 @@
+<!--pages/receipt/vage/spec/detail.wxml-->
+<page-title title='规格信息' isAdd='{{false}}' picker='{{false}}'></page-title>
+<view class='spec-form'>
+  <form-item label="规格名称" isRequired='{{true}}'  inputStyle="text-align:left" bind:input='getName' value='{{name}}'></form-item>
+  <form-item label="售价" type='digit'  isRequired='{{true}}' inputStyle="text-align:left" bind:input='getPrice' value='{{price}}'></form-item>
+  <view class='form-item'>
+    <view class='label'>是否上架</view>
+    <van-switch checked="{{ isOpen }}" bind:change='isOpenFn' size="20px" active-color="#fe2200" />
+  </view>
+</view>
+<view class='block-module-title'>
+  原材料
+  <image bindtap='goAdd' class='add-icon-padding' src='/utils/img/stock/add.png'></image>
+</view>
+<view class='material-list'>
+  <van-swipe-cell right-width="{{ 60 }}" wx:for='{{matInfo}}' left-width="{{1}}">
+    <van-cell-group>
+      <van-cell title="{{item.goodsName}}" value="{{item.count}}{{item.goodsUnit}}" />
+    </van-cell-group>
+    <view slot="right" class='btn-group'>
+      <!-- <view class='red-btn' data-index='{{index}}' bindtap='goDetail'>修改</view> -->
+      <view class='gray-btn' data-index='{{index}}' bindtap='goDel'>删除</view>
+    </view>
+  </van-swipe-cell>
+</view>
+<view class='msg-info'>注：向左滑动删除</view>
+<button class='big-submit-btn' bindtap='onSubmit' disabled="{{name==''||price==''||isSubmit}}">确认</button>

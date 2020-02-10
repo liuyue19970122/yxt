@@ -1,0 +1,79 @@
+<!--pages/mall/mall-cart/cart.wxml-->
+<view class='page-container'>
+  <view class='none-content' wx:if='{{!cartProList.length}}'>购物车空的</view>
+  <view class='cart-continer' wx:if='{{cartProList.length}}'
+    wx:for='{{cartProList}}'
+    wx:for-item='value' 
+    wx:for-index='firstIndex'
+    wx:key="{{firstIndex}}">
+    <view class='store'>
+      <checkbox-group catchtap="storeCheckboxChange">
+        <label class="checkbox">
+          <checkbox value="{{firstIndex}}"  color='#fff'
+            data-index='{{firstIndex}}'
+            data-value='{{value.cusChecked}}'
+            checked="{{value.cusChecked}}"/>
+        </label>
+      </checkbox-group>
+      <view class='store-info' catchtap='bindCollaps' data-index='{{firstIndex}}'>
+        <text>{{value.orgName}}</text>
+        <image src='../../../utils/img/arrow_down.png'
+          class='{{value.cusCollapse?"triggle-open__rotate":""}}'></image>
+      </view>
+    </view>
+    <checkbox-group catchtap="cartCheckboxChange">
+      <view class='cart-card-container' 
+        hidden='{{value.cusCollapse}}'  
+        wx:for='{{value.proList}}' 
+        wx:key="{{index}}">
+        <label class="checkbox">
+          <checkbox value="{{index}}" color='#fff'
+            data-org='{{item.orgId}}'
+            data-goods='{{item.goodsId}}'
+            data-key="{{item.attrId}}"
+            data-value='{{item.cusChecked}}'
+            checked="{{item.cusChecked}}"/>
+        </label>
+        <view class='cart-card'>
+          <cus-pro-card index='{{index}}' 
+            title='{{item.goodsName}}'
+            subTitle='{{item.attrName}}'
+            oriPrice='{{item.cusOriPrice}}'
+            imgsize='img-size' 
+            imgSrc='{{item.goodsPic}}' 
+            bind:click='seeProDetail'>
+            <view slot='right' class='state-container'>
+              <text class='selling-price'>{{'￥'+item.cusSalePrice}}</text>
+              <view class='spec-btn'>
+                <image src='../../../utils/img/reduce.png'
+                  data-org='{{item.orgId}}'
+                  data-goods='{{item.goodsId}}'
+                  data-key="{{item.attrId}}"
+                  catchtap='bindCartReduce'></image>
+                <text>{{item.cusBuyCount}}</text>
+                <image src='../../../utils/img/stock/add.png' 
+                  data-org='{{item.orgId}}'
+                  data-goods='{{item.goodsId}}'
+                  data-key="{{item.attrId}}"
+                  catchtap='bindCartAdd'></image>
+              </view>
+            </view>
+          </cus-pro-card>
+        </view>
+      </view>
+    </checkbox-group>
+  </view>
+</view>
+<view class='cart-fixed' wx:if='{{cartProList.length}}'>
+  <view class='buy-container'>
+    <checkbox-group catchtap="allCheckboxChange">
+    <checkbox value="{{1}}" color='#fff'
+      data-value='{{allChecked}}'
+      checked="{{allChecked}}"/>
+      <label class="checkbox">全选</label>
+    </checkbox-group>
+    <text class='buy-money'>{{'合计￥'+buyAllMoney}}</text>
+    <text class='buy-btn {{isChecked?"btn-bgred":"btn-bggray"}}' catchtap='goToSubmit'>去结算</text>
+  </view>
+</view>
+

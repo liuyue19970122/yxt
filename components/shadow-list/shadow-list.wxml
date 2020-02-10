@@ -1,0 +1,9 @@
+<!--components/shadow-list/shadow-list.wxml-->
+<!--components/account-item-border/acc-item-border.wxml-->
+<view style='{{cusStyle}}'>
+  <view class='account-item {{item.status==0?"leave-item":""}}' data-status='{{item.status}}' style='{{itemStyle}}' bindtap='goTap' data-id='{{item.keyId}}' wx:for='{{shadowList}}'>
+    <view wx:if='{{item.name}}'>{{item.name}} <text wx:if='{{item.status==0}}'>（离职）</text> </view>
+    <!-- <view wx:if='{{item.mobile}}'>{{item.mobile}}</view> -->
+    <view wx:if='{{item.roleName}}'>{{item.roleName}}</view>
+  </view>
+</view>

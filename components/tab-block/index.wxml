@@ -1,0 +1,10 @@
+<!--components/tab-block/index.wxml-->
+<view class='tab-container'>
+  <view class='{{active===index?"active":"not-active"}}' 
+    wx:for='{{list}}' 
+    wx:key='{{index}}'
+    data-index='{{index}}'
+    bindtap='onClick'>
+      {{item[key]}}
+   </view>
+</view>

@@ -1,0 +1,12 @@
+<!--pages/purchase/address-manager/address-manager.wxml-->
+<view class='address-list'>
+  <view class='address-item border-bottom' bindtap='goDetail' wx:for='{{addressList}}'>
+    <view class='reciver-info'>
+      <image src='/utils/img/page-icon/ad-select.png' wx:if='{{item.isDefault}}' class='select'></image>
+      <view class='reciver-name'>{{item.contactName}}</view>
+      <view class='tel'>{{item.phone}}</view>
+    </view>
+    <view class='address'>{{item.address}}</view>
+  </view>
+</view>
+<button class='save-btn' bindtap='goAdd'>新建收货地址</button>

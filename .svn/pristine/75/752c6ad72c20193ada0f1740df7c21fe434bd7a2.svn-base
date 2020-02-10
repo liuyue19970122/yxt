@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "cus-pro-card": "/components/card/pro-card/index"
+  }
+}

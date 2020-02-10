@@ -1,0 +1,45 @@
+<!--pages/system/account-manager/account-manager.wxml-->
+<view class='bg-module'></view>
+<view class='account-card'>
+  <view class='account-card-top'> 
+    <view class='total-title'>总资产（CNY）</view>
+    <view class='my-code' bindtap='goReset'>
+       重置支付密码
+     <!-- <image  src='/utils/img/pwd.png' class='all-icon' ></image> -->
+    </view>
+  </view>
+  <view class='card-middle'>
+    <view class='total'>{{accountDetail.balance}}</view>
+    <view bindtap='goCharge' class='underline'>会员充值
+      <!-- <image src='/utils/img/close-1.png' class='triggle-close'></image> -->
+    </view>
+  </view>
+  <view class='card-bottom'>
+    <view>昨日收益：{{accountDetail.yesterdayGet=='null'?0:accountDetail.yesterdayGet}}</view>
+    <view>累计收益：{{accountDetail.totalGet=='null'?0:accountDetail.totalGet}}</view>
+  </view>
+</view>
+
+
+<view class='list-module'>
+  <view class='list-title'>交易明细</view>
+  <view class='see-all' bindtap='goDetail'>
+    <image src='/utils/img/all.png' class='all-icon'></image> 查看全部
+  </view>
+</view>
+
+<view class='account-list'>
+  <acc-item-shadow accountList='{{accountList}}'></acc-item-shadow>
+</view>
+
+
+<van-popup show="{{ showMoneyDialog }}" round position='center' bind:close="onClose">
+  <view class='dialog'>
+    <view class='title'>请输入充值金额</view>
+    <view class='input-item'>
+      <input value='{{money}}' type='number' bindinput="bindMoney"></input>
+    </view>
+    <view class='border-bottom'></view>
+    <button class='submit-dialog-btn' bindtap='wxChargeAcc'>确定</button>
+  </view>
+</van-popup>

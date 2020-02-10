@@ -1,0 +1,18 @@
+/* pages/system/account-list/account-list.wxss */
+
+.choose-type-module{
+  display: flex;
+  padding:24rpx;
+  align-items: center;
+  justify-content: space-between;
+  background:#f5f5f5;
+  color:#333;
+  font-size:32rpx;
+}
+.detail{
+  font-size:24rpx;
+  color:#999;
+}
+.account-list{
+  margin:0 24rpx;
+}

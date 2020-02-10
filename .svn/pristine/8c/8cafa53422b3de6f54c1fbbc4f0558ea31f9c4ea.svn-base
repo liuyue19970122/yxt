@@ -1,0 +1,54 @@
+<!--pages/mall/pro-spec/spec-mtl/mtl.wxml-->
+<van-notify id="van-notify" />
+<form-title title='材料信息'></form-title>
+
+<view class="form-container">
+  <view class='form-item form-item__inline'>
+    <label class='form-item__label'>商品名称</label>
+    <view class='form-item__content'>{{proName}}</view>
+  </view>
+  <view class='form-item form-item__inline'>
+    <label class='form-item__label'>规格名称</label>
+    <view class='form-item__content'>{{specName}}</view>
+  </view>
+  <view class='form-item form-item__inline'>
+    <label class='form-item__label'><text style='color:#fe2200;'>*</text>所属类别</label>
+    <picker mode="multiSelector" class='form-item__content'
+      bindchange="bindCateChange"
+      bindcancel='bindCateCancel'
+      bindcolumnchange="bindCateColumnChange" 
+      value="{{multiProIndex}}" 
+      range-key='cateName'
+      range="{{multiProArray}}">
+      <view class="picker">{{selCateName}}</view>
+    </picker>
+    <image class='triggle-close' src='/utils/img/close.png'></image>
+  </view>
+  <view class='form-item form-item__inline'>
+    <label class='form-item__label'><text style='color:#fe2200;'>*</text>库存商品</label>
+    <picker class='form-item__content'
+        bindchange="bindStockChange"
+        bindcancel='bindStockCancel'
+        value="{{stockProIndex}}" 
+        range-key='cusName'
+        range="{{stockProList}}">
+      <view class="picker">{{stockName}}</view>
+    </picker>
+    <image class='triggle-close' src='/utils/img/close.png'></image>
+  </view>
+  <view class='form-item form-item__inline'>
+    <label class='form-item__label'><text style='color:#fe2200;'>*</text>单位</label>
+    <text class='form-item__content'>{{mtlInfo.goodsUnit}}</text>
+  </view>
+  <view class='form-item form-item__inline'>
+    <label class='form-item__label'><text style='color:#fe2200;'>*</text>数量</label>
+    <input placeholder='请输入数量(必填)' 
+      bindinput='bindInputCount'
+      type="digit"
+      value='{{mtlInfo.count}}'
+      class='form-item__content'></input>
+  </view>
+</view>
+<view class='btn-container'>
+  <button class="btn-full btn-red" bindtap='submitMtlInfo'>确认</button>  
+</view>

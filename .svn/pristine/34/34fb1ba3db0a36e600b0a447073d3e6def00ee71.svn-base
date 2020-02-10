@@ -1,0 +1,18 @@
+<!--pages/stock/set/set.wxml-->
+<view class='title-module'>
+  <view class='left-title'>
+    <image wx:if='{{icon}}' src='{{icon}}'></image>
+    <view>{{title}}</view>
+  </view>
+  <view class='right-title' >
+  <view wx:if='{{op!=""}}' bindtap='onOp'>{{op}}</view>
+    <image src='/utils/img/stock/add.png' wx:if='{{isAdd}}' bindtap="onAdd"></image>
+    <image src='{{editIcon}}' wx:if='{{isEdit}}' bindtap="onEdit"></image>
+    <picker wx:if='{{picker}}' bindchange="bindPickerChange" value="{{range}}" range="{{array}}" range-key="{{name}}" >
+      <view class="picker">
+        {{array[range][name]}}
+        <image class="tiggle-icon" src='/utils/img/down.png'></image>
+      </view>
+    </picker>
+  </view>
+</view>

@@ -1,0 +1,55 @@
+<!--pages/mall/mall-pay/pay.wxml-->
+<view class='pay'>
+  <view class='pay-info'>
+    <view class='pay-money'><text></text>￥<text>{{payMoney}}</text></view>
+    <!-- <view class='pay-time'><text>支付剩余时间：</text>{{remainTime}}</view> -->
+    <view class='pay-time'><text>支付预付款2%</text></view>
+  </view>
+</view>
+<view class='pay-choice'>
+   <radio-group class="radio-group" bindchange="radioChange">
+    <view  wx:for-items="{{payArrList}}" 
+      class='pay-way'  wx:key="name">
+      <view class='pay-way__info'>
+        <image src='{{item.logoUrl}}'></image>
+        <text>{{item.payName}}</text>
+        <text wx:if='{{item.cusMoney}}'>{{"("+item.cusMoney+")"}}</text>
+      </view>
+       <radio class="radio" color='#fe2200'
+        value="{{index}}" 
+        checked="{{item.checked}}">
+      </radio>
+    </view>
+  </radio-group>
+</view>
+<view class='btn-fixed' bindtap='bindQueryPay'>
+  <text class='btn-query'>确认支付</text>
+  <text class='btn-money'>{{"(￥"+prePayMoney+"元)"}}</text>
+</view>
+<van-dialog use-slot title="充值"
+  show="{{ chargeShow }}"
+  show-cancel-button
+  bind:confirm='chargeConfirm' bind:cancel='chargeCancel'>
+  <view class='charge'>
+    <label class='charge-label'>金额:</label>
+    <input placeholder='充值金额(必填)'
+      bindinput='bindChargeInput'
+      value='{{chargeMoney}}' 
+      class='charge-input'></input>
+  </view>
+</van-dialog>
+<van-dialog use-slot title="支付密码"
+  show="{{ passwordShow }}"
+  show-cancel-button
+  bind:confirm='payAccConfirm' bind:cancel='payAccCancel'>
+  <view class='charge-password' bindtap='clickPasswordWarn'>
+    <text wx:for='{{passwordArr}}' wx:key='{{index}}' 
+      class='password-text'>{{item}}</text>
+  </view>
+</van-dialog>
+<input bindinput='bindPasswordInput' class='password-input__hidden'
+  type='number'
+  password
+  value='{{password.value}}' 
+  focus='{{password.focus}}'>
+</input>

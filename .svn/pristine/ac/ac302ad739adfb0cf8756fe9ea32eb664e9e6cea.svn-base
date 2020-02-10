@@ -1,0 +1,158 @@
+<!--pages/mall/order-detail/order-detail.wxml-->
+<view>
+  <view class='bg-color'>
+  </view>
+  <view class='order-detail'>
+    <view class='top-module'>
+      <view>
+        <image class='icon' src='/utils/img/page-icon/send.png'></image>
+      </view>
+      <view class='top-right-module'>
+        <view class='order-num'>订单号：{{orderDetail.orderNo}}</view>
+        <view class='address'>地址：{{orderDetail.address}}</view>
+        <view class='p-time' wx:if='{{orderDetail.requireTime!=null}}'>配送时间：{{orderDetail.requireTime}}</view>
+      </view>
+    </view>
+    <view class='btn-group'>
+      <button bindtap='goCall' data-mobile="{{orderDetail.shopMobile}}">
+        <image src='/utils/img/call.png'></image>
+        <view>联系商家</view>
+      </button>
+      <button bindtap="handleCancelOrder" 
+        wx:if='{{orderDetail.deliveryStatus=="-1"}}'>
+        <image src='/utils/img/address.png'></image>
+        <view>取消订单</view>
+      </button>
+      <button bindtap='goAddress' wx:if='{{orderDetail.deliveryStatus=="0"}}'>
+        <image src='/utils/img/address.png'></image>
+        <view>查看物流</view>
+      </button>
+      <button bindtap="againBuy" wx:if='{{orderDetail.status!=="0"&&orderDetail.deliveryStatus=="1"}}'>
+        <image src='/utils/img/address.png'></image>
+        <view>再来一单</view>
+      </button>
+    </view>
+    <view class='module-title' wx:if='{{orderDetail.status==3||orderDetail.status==4}}'>—— 退款原因 ——</view>
+    <!--退款 -->
+    <view class='cell-group' wx:if='{{orderDetail.status==3||orderDetail.status==4}}'>
+      <cell-item color='#333' titleColor='#333' title='退款时间' content='2019-10-24 20:08:08'></cell-item>
+      <cell-item color='#333' titleColor='#333' title='退款原因' content='不想要了'></cell-item>
+      <cell-item color='#333' titleColor='#333' title='退款金额' content='包装好点儿哦'></cell-item>
+      <cell-item color='#333' isBorder="0" titleColor='#333' title='退款说明' content=''></cell-item>
+      <textarea class='desc' disabled='{{true}}' auto-height="{{false}}"></textarea>
+    </view>
+    <view class='goods-list'>
+      <view class='module-title'>—— 商品 ——</view>
+      <view class=''>
+        <view class='mall-title border-bottom'>
+          <view>{{orderDetail.shopName}}</view>
+          <image src='/utils/img/open.png' class='triggle-open'></image>
+        </view>
+        <view class='mall-goods-list'>
+          <view class='goods-item' wx:for="{{orderDetail.goodsList}}" 
+            wx:key='goodsList'>
+            <image class='goods-img' src="{{item.goodsPic}}"></image>
+            <view class='goods-info'>
+              <view class='goods-name'>{{item.goodsName}}</view>
+              <view class='goods-attr'>{{item.attrName}}</view>
+              <view class='goods-local'>总计{{item.stockCount}}{{item.stockUnit}}</view>
+            </view>
+            <view class='goods-num'>×1</view>
+            <view class='goods-price'>￥{{item.orderMoney}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class='border-bottom'></view>
+    <view class='cell-group'>
+      <cell-item color='#999' title='支付时间' wx:if='{{orderDetail.payTime!="null"}}' content='{{orderDetail.payTime}}'></cell-item>
+      <!-- <cell-item color='#333' title='数量' content='3'></cell-item> -->
+      <cell-item color='#333' title='优惠' content='0'></cell-item>
+      <cell-item color='#333' title='订单金额' content='￥{{total}}'></cell-item>
+      <!-- <cell-item color='#999' title='支付方式' content='在线支付'></cell-item> -->
+      <!-- <cell-item color='#333' titleColor='#333' fontSize="36rpx" height='100rpx;' title='本单预计收入' content='￥299'></cell-item> -->
+    </view>
+    <view class='module-title'>—— 顾客信息 ——</view>
+    <view class='cell-group'>
+      <cell-item color='#333' title='姓名' content='{{orderDetail.linkName}}'></cell-item>
+      <cell-item color='#333' title='电话' content='{{orderDetail.mobile}}'></cell-item>
+      <cell-item color='#333' isBorder="0" title='备注' content='{{orderDetail.remark}}'></cell-item>
+    </view>
+  </view>
+  <view class='op-btn-group'>
+    <button class='f-btn' wx:if="{{orderDetail.deliveryStatus=='0'||orderDetail.deliveryStatus=='1'}}" bindtap='showOrder'>配送详情</button>
+    <button class='y-btn' bindtap='goCorrent' wx:if="{{orderDetail.status=='1'&&orderDetail.deliveryStatus=='1'}}">开始验收</button>
+    <!-- <button class='n-btn' bindtap='submit' wx:if="{{orderDetail.status==1&&orderDetail.deliveryStatus==1}}">拒绝收货</button> -->
+    <!-- <button class='y-btn'  wx:if="{{orderDetail.status==2}}">退款完成</button>  -->
+    <!-- <button class='y-btn' bindtap='goRefund' wx:if="{{orderDetail.status==2}}">申请退款</button> -->
+  </view>
+  <van-submit-bar price="{{totalB}}" wx:if='{{orderDetail.status=="0"}}' button-text="立即付款" bind:submit="onSubmit" />
+</view>
+<!-- 拒绝退款弹出框 -->
+<van-popup show="{{ readonShow }}" position="bottom" bind:close="onClose">
+  <view class='refuse-content'>
+    <view>拒绝原因</view>
+    <view>
+      <textarea class='reason' placeholder="请填写拒绝理由" placeholder-style="color:#999"></textarea>
+    </view>
+    <button class='submit-btn'>确认</button>
+  </view>
+</van-popup>
+<!-- 订单跟踪弹出框 -->
+<van-popup show="{{ orderShow }}" closeable custom-style='height:760rpx' position="bottom" bind:close="onClose">
+  <view class='order-content'>
+    <view class="follow-title">订单跟踪</view>
+    <view class='order-state-list'>
+      <view class='order-state-item' wx:if='{{orderDetail.crtTime!=="null"}}'>
+        <view class='state-item'>
+          <view class='left-item'>
+            <view class='state-dot'></view>
+            <view>订单已提交</view>
+          </view>
+          <view>{{orderDetail.crtTime}}</view>
+        </view>
+      </view>
+      <view class='order-state-item' wx:if='{{orderDetail.payTime!=="null"}}'>
+      <view class='vertical-line'></view>
+        <view class='state-item'>
+          <view class='left-item'>
+            <view class='state-dot'></view>
+            <view>商家接单</view>
+          </view>
+          <view>{{orderDetail.payTime}}</view>
+        </view>
+      </view>
+      <view class='order-state-item' 
+        wx:if='{{orderDetail.startDeliveryTime=="null"}}'>
+        <view class='vertical-line'></view>
+        <view class='state-item'>
+          <view class='left-item'>
+            <view class='state-dot'></view>
+            <view>商家派送</view>
+          </view>
+          <view>{{orderDetail.startDeliveryTime}}</view>
+        </view>
+      </view>
+      <view class='order-state-item' wx:if='{{orderDetail.endDeliveryTime!="null"}}'>
+        <view class='vertical-line'></view>
+        <view class='state-item'>
+          <view class='left-item'>
+            <view class='state-dot'></view>
+            <view>商品送达</view>
+          </view>
+          <view>{{orderDetail.endDeliveryTime}}</view>
+        </view>
+      </view>
+      <view class='order-state-item' wx:if="{{orderDetail.overTime!='null'}}">
+        <view class='vertical-line'></view>
+        <view class='state-item'>
+          <view class='left-item'>
+            <view class='state-dot'></view>
+            <view>订单完成</view>
+          </view>
+          <view>{{orderDetail.overTime}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</van-popup>

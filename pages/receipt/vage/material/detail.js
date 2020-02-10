@@ -1,0 +1,208 @@
+// pages/receipt/vage/material/detail.js
+var util = require('../../../../utils/util.js');
+const app = getApp()
+var times = (new Date()).getTime()
+
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+     goodsList:[],
+     goodsName:'',
+     count:'',
+     stockId:'',
+     type:'new',
+     stockIndex:0,
+    goodsUnit:'',
+    isSubmit:false
+  },
+  getNum(e){
+    this.setData({
+      count:e.detail
+    })
+  },
+  getName(e){
+    var that=this
+    this.setData({
+      goodsName:that.data.goodsList[e.detail.value].goodsName,
+      stockId: that.data.goodsList[e.detail.value].keyId,
+      stockIndex: e.detail.value,
+      goodsUnit: that.data.goodsList[e.detail.value].goodsUnit,
+    })
+  },
+  getGoodsList(){
+    var url = app.globalData.baseUrl +'apiStock/stock/inst/list'
+    var data={
+      pageSize:9999,
+      pageNum:1
+    }
+    util.getRequestListData(url,data,false,this.getRes)
+  },
+  getRes(res){
+    this.setData({
+      goodsList:res.data.content.list,
+      goodsName: res.data.content.list[0].goodsName,
+      goodsUnit:res.data.content.list[0].goodsUnit
+    })
+  },
+  onSubmit(){
+    if(this.data.isSubmit){
+      return false
+    }
+    this.setData({
+      isSubmit:true
+    })
+    if(this.data.count<=0){
+      wx.showToast({
+        icon:'none',
+        title: '请填写数量',
+      })
+      this.setData({
+        isSubmit: false
+      })
+      return false
+    }
+    var item={
+      stockId: this.data.stockId == '' ? this.data.goodsList[0].keyId : this.data.stockId,
+      goodsName: this.data.goodsName,
+      count: this.data.count,
+      stockIndex: this.data.stockIndex,
+      goodsUnit:this.data.goodsUnit
+    }
+    var prevPage = util.getPrevPage()
+    var list = prevPage.data.matInfo
+    if (prevPage.data.lastType == 'update' && this.data.type == 'new'){
+      // if (this.data.type == 'new') {
+        var url = app.globalData.baseUrl +'apiMall/food/admin/addAttrMat'
+        var data={
+          foodId: prevPage.data.foodId,
+          attrId:prevPage.data.attrId,
+          stockId: this.data.stockId == '' ? this.data.goodsList[0].keyId : this.data.stockId,
+          count:this.data.count,
+        }
+        util.postRequestList(url,data,false,this.addRes)
+      // } else {
+      //   var url = app.globalData.baseUrl + 'apiMall/food/admin/addAttrMat'
+      //   var data = {
+      //     foodId: prevPage.data.foodId,
+      //     attrId: getPrevPage.data.attrId,
+      //     stockId: this.data.stockId == '' ? this.data.goodsList[0].keyId : this.data.stockId,
+      //     count: this.data.count
+      //   }
+      //   util.postRequestList(url, data, false, this.addRes)
+      // }
+    }else{
+      if (this.data.type == 'new') {
+        list.push(item)
+      } else {
+        list.splice(this.data.index, 1, item)
+      }
+      prevPage.setData({
+        matInfo: list
+      })
+      wx.navigateBack({
+        delta: 1
+      })
+    }
+  },
+  addRes(res) {
+    var that=this
+    if (res.data.code == 200) {
+      var prevPage = util.getPrevPage()
+      var list = prevPage.data.matInfo
+      var data = {
+        foodId: prevPage.data.foodId,
+        attrId: prevPage.data.attrId,
+        keyId: that.data.stockId == '' ? that.data.goodsList[0].keyId : that.data.stockId,
+        count: that.data.count,
+        goodsName: that.data.goodsName,
+        goodsUnit: that.data.goodsUnit
+      }
+      list.push(data)
+      prevPage.setData({
+        matInfo: list
+      })
+      wx.navigateBack({
+        delta: 1
+      })
+    }else{
+      wx.showToast({
+        title: res.data.message,
+      })
+    }
+    this.setData({
+      isSubmit:false
+    })
+  },
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    if (options.index) {
+      var prevPage = util.getPrevPage()
+      var list = prevPage.data.matInfo
+      this.setData({
+        name: list[options.index].name,
+        stockId: list[options.index].stockId,
+        count: list[options.index].count,
+        type: 'update',
+        index: options.index,
+        lastType:prevPage.data.lastType
+      })
+    }
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+    this.getGoodsList()
+    this.setData({
+      isSubmit: false
+    })
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+
+  }
+})

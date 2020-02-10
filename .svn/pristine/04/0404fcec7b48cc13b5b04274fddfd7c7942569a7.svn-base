@@ -1,0 +1,6 @@
+<map id="myMap" markers="{{markers}}" style="width:100%;height:100vh" longitude="{{poi.longitude}}" latitude="{{poi.latitude}}" scale='10' polyline="{{polyline}}" show-location show-compass>
+</map>
+<view class='des-content'>
+  <view>全程约 {{distance}}</view>
+  <view>预计时间 {{duration}}</view>
+</view>

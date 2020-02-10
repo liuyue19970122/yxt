@@ -1,0 +1,75 @@
+<!--pages/purchase/refund-order/refund-order.wxml-->
+<view class='block-module-title'>退款原因</view>
+<view class='refund-reason'>
+  <textarea auto-height="{{true}}"></textarea>
+  <button class='upload-btn'>
+    <image src='/utils/img/upload.png' catchtap="goChoose"></image>
+  </button>
+</view>
+<view class='block-module-title'>选择退款商品</view>
+<view class='content-box'>
+  <view class='border-bottom'>
+    <mall-title name='廖先生旗舰店'></mall-title>
+    <view class='goods-list'>
+      <van-checkbox-group value="{{ result }}" bind:change="onChange">
+        <van-checkbox name="a" checked-color='#ff2200'>
+          <view class='goods-item'>
+            <view></view>
+            <view class='goods-img'>
+              <image src="/utils/img/good-img.png"></image>
+            </view>
+            <view class='goods-info'>
+              <view class='goods-name'>新鲜水果</view>
+              <view class='goods-local'>*1</view>
+            </view>
+            <!-- <view class='goods-num'>×1</view> -->
+            <view class='goods-price'>￥77</view>
+          </view>
+        </van-checkbox>
+        <van-checkbox name="b" checked-color='#ff2200'>
+          <view class='goods-item'>
+            <view></view>
+            <view class='goods-img'>
+              <image src="/utils/img/good-img.png"></image>
+            </view>
+            <view class='goods-info'>
+              <view class='goods-name'>新鲜水果</view>
+              <view class='goods-local'>*1</view>
+            </view>
+            <!-- <view class='goods-num'>×1</view> -->
+            <view class='goods-price'>￥77</view>
+          </view>
+        </van-checkbox>
+        <van-checkbox name="c" checked-color='#ff2200'>
+          <view class='goods-item'>
+            <view></view>
+            <view class='goods-img'>
+              <image src="/utils/img/good-img.png"></image>
+            </view>
+            <view class='goods-info'>
+              <view class='goods-name'>新鲜水果</view>
+              <view class='goods-local'>*1</view>
+            </view>
+            <!-- <view class='goods-num'>×1</view> -->
+            <view class='goods-price'>￥77</view>
+          </view>
+        </van-checkbox>
+      </van-checkbox-group>
+    </view>
+  </view>
+  <view class='choose-all border-bottom'>
+    <van-checkbox value="{{ checked }}" bind:change="onChange">
+      <view class='check-all'>
+        <view>全选</view>
+        <view>退款金额：
+          <text class='money'>129.00</text>
+        </view>
+      </view>
+    </van-checkbox>
+  </view>
+</view>
+
+
+<view class='op-btn-group'>
+  <button class='y-btn' bindtap='showOrder'>提交申请</button>
+</view>

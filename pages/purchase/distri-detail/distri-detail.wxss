@@ -1,0 +1,65 @@
+/* pages/purchase/distri-detail/distri-detail.wxss */
+page{
+  box-sizing: border-box;
+}
+.detail-info {
+  position: fixed;
+  bottom: 0;
+  left: 24rpx;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2);
+  background: #fff;
+  padding: 20rpx;
+  border-radius: 20rpx;
+  width: 702rpx;
+  box-sizing: border-box;
+}
+
+.order-detail {
+  display: flex;
+  min-height: 120rpx;
+  box-sizing: border-box;
+}
+
+.icon {
+  width: 120rpx;
+  height: 120rpx;
+  margin-right: 24rpx;
+}
+
+.top-right-module {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: #333;
+}
+
+.btn-group {
+  display: flex;
+  justify-content: space-between;
+  margin: 24rpx 0;
+}
+
+.btn-group button {
+  width: 316rpx;
+  height: 68rpx;
+  text-align: center;
+  line-height: 316rpx;
+  background: #fff;
+  border-radius: 0;
+  border: 2rpx solid #f0f0f0;
+  color: #77c481;
+  font-size: 28rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-group button::after {
+  border: 0;
+}
+
+.btn-group button image {
+  width: 28rpx;
+  height: 28rpx;
+  margin-right: 12rpx;
+}

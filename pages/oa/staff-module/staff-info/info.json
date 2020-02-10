@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "员工信息",
+  "usingComponents": {
+    "form-item":"/components/form-item/form-item"
+  }
+}

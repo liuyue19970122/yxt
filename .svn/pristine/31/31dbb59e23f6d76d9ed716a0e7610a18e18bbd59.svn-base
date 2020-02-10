@@ -1,0 +1,31 @@
+<!--pages/mall/handle-order/order-manager/manager.wxml-->
+<van-search
+  value="{{ searchValue }}"
+  background="#fff"
+  shape='round'
+  placeholder="搜索店内商品"
+  bind:clear='onClear'
+  bind:search="onSearch">
+</van-search>
+<scroll-view scroll-x class='tab-scroll'>
+  <view class='tab-view'>
+    <text wx:for='{{tabList}}' wx:key='{{index}}' 
+      class='tab-item {{tabType==item.id?"active-item":""}} ' 
+      data-type='{{item.id}}' 
+      bindtap='changeTab'>{{item.title}}</text>
+  </view>
+</scroll-view>
+<view class='card-contianer'>
+  <view class='card'>
+    <view class='card-info'>
+      <text>xxx农贸市场xxx农贸市场xxx农贸市场xxx农贸市场xxx农贸市场xxx农贸市场</text>
+      <text>待处理</text>
+    </view>
+    <view class='card-total'>
+      <text>合计：￥2000</text>
+      <text>2019/12/10</text>
+    </view>
+  </view>
+</view>
+
+

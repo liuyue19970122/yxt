@@ -1,0 +1,32 @@
+/* components/form-item/form-item.wxss */
+
+.form-item{
+  padding:24rpx 0;
+  font-size:30rpx;
+  color:#333;
+  display: flex;
+  background: #fff;
+  justify-content: space-between;
+  align-items: center;
+}
+.form--input{
+  text-align: right;
+  width:70%;
+}
+.label{
+  font-weight: 500;
+  width:30%;
+}
+
+.border-bottom{
+  border-bottom:2rpx solid #f0f0f0;
+}
+.picker{
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.triggle-close{
+  width:14rpx;
+  height:24rpx;
+}

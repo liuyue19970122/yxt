@@ -1,0 +1,78 @@
+<tab-view tabList='{{tabList}}' type='{{type}}'     
+  bind:change='changeTab'></tab-view>
+<view class='order-list'>
+  <view wx:for="{{orderList}}" 
+    wx:key='{{index}}' 
+    bindtap='goDetail' 
+    data-item='{{item}}' 
+    data-status='{{item.status}}' 
+    data-deliver='{{item.deliveryStatus}}' 
+    data-id='{{item.orderId}}'>
+    <view class='order-item'>
+      <view class='store'>
+        <view class='store-left'>
+          <text class='store-title'>{{item.orgName}}</text>
+          <image  src='/utils/img/close.png' class='triggle-close'></image>
+        </view>
+        <image class='tag' wx:if='{{item.status==0}}' 
+          src='/utils/img/page-icon/before-pay.png'></image>
+        <image class='tag' wx:if='{{item.status==1&&item.deliveryStatus==-1}}' 
+          src='/utils/img/page-icon/before-send.png'></image>
+        <image class='tag' wx:if='{{item.status==1&&item.deliveryStatus===0}}' 
+          src='/utils/img/page-icon/sending.png'></image>
+          <!-- 0待预付，1已预付，2已收货，3售后，9已结清 -->
+        <image class='tag' wx:if='{{item.status==1&&item.deliveryStatus===1}}' 
+          src='/utils/img/page-icon/sended.png'></image>
+        <image class='tag' wx:if='{{item.status==3}}' 
+          src='/utils/img/page-icon/refunding.png'></image>
+        <image class='tag' wx:if='{{item.status==4}}' 
+          src='/utils/img/page-icon/refunded.png'></image>
+        <image class='tag' wx:if='{{item.status==9}}' 
+          src='/utils/img/page-icon/finish.png'></image>
+      </view>
+      <view class='goods-list'>
+        <view class='img-box'>
+          <image wx:for="{{item.goodsInfo}}" wx:key='{{index}}' 
+            wx:for-item="items" 
+            src='{{items.goodsPic}}' 
+            class='goods-img'></image>
+        </view>
+        <view class='right-total'>
+          <view><text class='goods-price'>￥{{item.totalMoney}}</text></view>
+          <view><text class='goods-num'>共{{item.goodsCount}}件</text></view>
+        </view>
+      </view>
+      <view class='goods-time'>{{item.crtTime}}</view>
+      <view class='btn-group'>
+        <button wx:if='{{item.contactShow}}' class='btn-default' 
+          data-index='{{index}}'
+          catchtap='contactStore'>联系卖家</button>
+        <button wx:if='{{item.cancelShow}}' class='btn-red' 
+          data-index='{{index}}'
+          catchtap='cancelOrder'>取消订单</button>
+        <button wx:if='{{item.payShow}}' class='btn-red' 
+          data-index='{{index}}'
+          catchtap='orderPay'>预付款</button>
+        <button wx:if='{{item.flowShow}}' class='btn-default' 
+          data-index='{{index}}'
+          catchtap='scanFlow'>查看物流</button>
+        <button wx:if='{{item.applyShow}}' class='btn-default' 
+          data-index='{{index}}'
+          catchtap='applySale'>申请售后</button>
+        <button wx:if='{{item.queryShow}}' class='btn-red' 
+          data-index='{{index}}'
+          catchtap='confirmReceipt'>确认收货</button>
+        <!-- <button wx:if='{{item.allPayShow}}' class='btn-red' 
+          data-index='{{index}}'
+          catchtap='applySale'>已付尾款</button> -->
+        <button wx:if='{{item.delShow}}' class='btn-default' 
+          data-index='{{index}}'
+          catchtap='delOrder'>删除订单</button>
+      </view>
+    </view>
+  </view>
+</view>
+<view class='none-content' wx:if='{{!hasContent}}'>暂无订单</view>
+<view wx:if='{{!hasNextPage&&hasContent}}' class='reach-bottom'>
+  <image src='../../../../utils/img/arrive-bottom.png'></image>
+</view>

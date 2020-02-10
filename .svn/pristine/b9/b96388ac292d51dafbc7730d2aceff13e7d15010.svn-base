@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "form-title": "/components/form-title/index",
+    "van-notify":"/miniprogram_npm/vant-weapp/notify/index" 
+  }
+}

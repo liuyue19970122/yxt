@@ -1,0 +1,23 @@
+<!--pages/system/base-info/info.wxml-->
+<view class='account-card'>
+  <view class='org-name'>狠人科技</view>
+  <view class='org-level'>会员等级：普通会员</view>
+</view>
+<view class='info-content'>
+  <form-item label='商家认证' isReadon='{{true}}' inputStyle='color:#999' value='已认证' isBorder='{{false}}'></form-item>
+</view>
+<view class='hr-module'></view>
+<view class='info-content'>
+  <form-item label='全称' isReadon='{{true}}' inputStyle='color:#999' value='成都狠人科技有限公司'></form-item>
+  <form-item label='简称' isReadon='{{true}}' inputStyle='color:#999' value='狠人科技'></form-item>
+  <form-item label='真实姓名' isReadon='{{true}}' inputStyle='color:#999' value='钟丁山'></form-item>
+  <form-item label='联系电话' isReadon='{{true}}' inputStyle='color:#999' value='18483661793'></form-item>
+  <form-item label='店铺地址' isReadon='{{true}}' inputStyle='color:#999' value='万茂大厦'></form-item>
+  <form-item label='会员等级' isReadon='{{true}}' inputStyle='color:#999' value='普通会员'  isBorder='{{false}}'></form-item>
+</view>
+<view class='hr-module'></view>
+<view class='info-content'>
+  <form-item label='开始营业时间' isTimePicker='{{true}}' dateType='time' placeholder='请选择开始时间'  value='万茂大厦'></form-item>
+  <form-item label='结束营业时间' isTimePicker='{{true}}' dateType='time' placeholder='请选择结束时间' value='万茂大厦'></form-item>
+  <form-item label='客服电话' type='number' value='' placeholder='请输入联系电话'></form-item>
+</view>

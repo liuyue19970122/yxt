@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "销售报表",
+  "usingComponents": {
+    "cus-fin-pie": "/components/fin-pie/index",
+    "cus-fin-card": "/components/card/fin-card/index",
+    "form-item":"/components/form-item/form-item"
+  }
+}

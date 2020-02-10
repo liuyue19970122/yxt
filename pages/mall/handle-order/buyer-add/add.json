@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "添加商家",
+  "usingComponents": {
+    "van-notify": "/miniprogram_npm/vant-weapp/notify/index"
+  }
+}

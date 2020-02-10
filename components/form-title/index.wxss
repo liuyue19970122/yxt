@@ -1,0 +1,12 @@
+/* components/form-title/index.wxss */
+.title-font{
+  color: #333;
+  background-color: #f0f0f0;
+  font-size: 32rpx;
+  height: 100rpx;
+  line-height: 100rpx;
+  padding:0 24rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; 
+}

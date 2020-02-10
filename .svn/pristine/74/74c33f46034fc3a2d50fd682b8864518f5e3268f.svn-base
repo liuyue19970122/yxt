@@ -1,0 +1,101 @@
+<!--pages/stock/stock-change/stock-change.wxml-->
+<view class='full-page' bindtouchstart="closeActive">
+  <search type='stock' value='{{goodsName}}' bind:input='bindGoodsName' bind:search='bindSearch'></search>
+  <view class='select-view'>
+    <view class='select-item' bindtap='goSelect' data-type='storage'>
+      {{warnList[warnIndex].name}}
+      <image class='down-icon' src='/utils/img/down.png'></image>
+    </view>
+    <view class='select-item' bindtap='goSelect' data-type='storehouse'>
+      {{stockList[stockIndex].locationName}}
+      <image class='down-icon' src='/utils/img/down.png'></image>
+    </view>
+    <view class='select-item' bindtap='goSelect' data-type='type'>
+       {{cateList[cateIndex].cateName}}
+      <image class='down-icon' src='/utils/img/down.png'></image>
+    </view>
+  </view>
+  <view class='choose-overslay' bindtap='cancelSelect' wx:if='{{ifStorage||ifStorehouse||ifType}}'></view>
+  <!-- 库存量选择 -->
+  <view class='content-view' wx:if='{{ifStorage}}'>
+    <view class='content-item' data-flag="{{item.warnFlag}}" data-index='{{index}}' bindtap='bindWarnFlag' wx:for='{{warnList}}'>
+      <view>{{item.name}}</view>
+      <view>
+        <image class='select-icon' src='/utils/img/stock/select.png' wx:if='{{index==warnIndex}}'></image>
+      </view>
+    </view>
+  </view>
+  <!-- 仓库选择 -->
+  <view class='content-view' wx:if='{{ifStorehouse}}'>
+    <view class='content-item' wx:for='{{stockList}}' bindtap='bindStockId' data-index='{{index}}'>
+      <view>{{item.locationName}}</view>
+      <view >
+        <image class='select-icon' src='/utils/img/stock/select.png'  wx:if='{{index==stockIndex}}'></image>
+      </view>
+    </view>
+  </view>
+  <!-- 分类选择 -->
+  <view class='content-view' wx:if='{{ifType}}'>
+    <view class='content-item' wx:for='{{cateList}}' bindtap='bindCateChange' data-index='{{index}}'>
+      <view>{{item.cateName}}</view>
+      <view >
+        <image class='select-icon' src='/utils/img/stock/select.png'  wx:if='{{index==cateIndex}}'></image>
+      </view>
+    </view>
+  </view>
+  <view class='info-module'>
+    <view>合计：50项</view>
+    <view>金额：200.00元</view>
+  </view>
+  <scroll-view class='goods-list' scroll-y bindscrolltolower='goNext'>
+    <view class='goods-item' wx:for='{{goodList}}'>
+      <view class='good-item-info'>
+        <view class='goods-name'>{{item.goodsName}}</view>
+        <view></view>
+      </view>
+      <view class='good-item-info'>
+        <view class='goods-count'>库存量：
+          <text class='goods-uni t'>{{item.goodsCount}}{{item.goodsUnit}}</text>
+        </view>
+        <view class='goods-price'>库存金额：{{item.goodsCount}}</view>
+      </view>
+    </view>
+  </scroll-view>
+
+
+  <!-- <view data-id='{{item.keyId}}' class='{{activeId==item.keyId?"active-item":""}}' wx:for='{{goodList}}'>
+    <view class='good-item'>
+      <view class='good-left-module'>
+        <image src='{{item.goodsPic}}'></image>
+      </view>
+      <view class='good-right-module'>
+        <view>{{item.goodsName}}</view>
+        <view>{{item.locationName}}</view>
+        <view class='bottom-module'>
+          <view>
+            <text class='kg-unit'>{{item.goodsCount}}{{item.goodsUnit}}</text>
+          </view>
+          <view class='time'>{{item.lastTime}}更新</view>
+        </view>
+      </view>
+      <view class='active-dialog' style='top:{{top}}' wx:if='{{activeId==item.keyId}}'>
+        <view catchtap='goBuy' data-id='{{item.keyId}}'>采购入库</view>
+        <view catchtap='goIn' data-id='{{item.keyId}}'>手动入库</view>
+        <view catchtap='goOut' data-id='{{item.keyId}}'>手动出库</view>
+        <view catchtap='goSet' data-index="{{index}}" data-id='{{item.keyId}}'>预警数量</view>
+        <view catchtap='goRecord' data-id='{{item.keyId}}'>库存记录</view>
+      </view>
+    </view>
+  </view> -->
+  <view class='empty' wx:if='{{goodList.length==0}}'>
+    暂时没有货品，快去添加吧~
+  </view>
+  <!-- <button class='btn-stock-in'> -->
+  <!-- <image src='/utils/img/stock-in.png' bindtap='goAdd' class='btn-stock-in'></image> -->
+  <!-- </button> -->
+</view>
+
+
+<van-dialog use-slot title="修改预警数量" show="{{ show }}" show-cancel-button bind:close="onClose" bind:confirm='setWarnCount'>
+  <form-item label="预警数量" labelStyle="color:#999" itemStyle='padding-right:24rpx;padding-left:24rpx;' inputStyle="text-align:left" bind:input='getWarnCount' value='{{warnCount}}'></form-item>
+</van-dialog>

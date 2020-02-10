@@ -1,0 +1,3 @@
+/* pages/serverError/serverPage/serverPage.wxss */
+
+@import '../errPage/errPage'

@@ -1,0 +1,263 @@
+// pages/mall/mall-my-collect/collect.js
+let util = require('../../../utils/util.js');
+const app = getApp()
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    tabList:[
+      { id: 'pro', title: '商品' },
+      {id:'store',title:'店铺'}
+    ],
+    pageType:'pro',
+    proList: [],//收藏商品列表
+    storeList:[],
+    filterData:{
+      collectType:'2',
+      name:'',
+      pageNum:1,
+      pageSize: 10,
+    },
+    scrollTop:0,
+    curIndex:null,
+    hasNextPage:true
+  },
+  //搜索功能
+  onSearch(e){
+    let searchValue=e.detail
+    let filterData = this.data.filterData
+    filterData.name = searchValue
+    filterData.pageNum=1
+    this.setData({
+      filterData,
+      searchValue,
+      scrollTop: 0,
+    })
+    let actType = 'refresh'
+    this.getCollectList(filterData, actType)
+  },
+  //清除
+  onClear(e){
+    if (searchValue){
+      let filterData = this.data.filterData
+      filterData.name = ''
+      this.setData({
+        filterData,
+        scrollTop: 0,
+        searchValue:''
+      })
+      let actType = 'refresh'
+      this.getCollectList(filterData, actType)
+    }else{
+      this.setData({
+        searchValue: ''
+      })
+    }
+  },
+  //切换菜单
+  bindTabChange(e){
+    let pageType = e.detail.type
+    console.log(e)
+    let scrollTop=0
+    let filterData=this.data.filterData
+    filterData.pageNum=1
+    if (pageType === 'pro') {
+      filterData.collectType='2'
+      this.getCollectList(filterData,'refresh')
+    }
+    if(pageType==='store'){
+      filterData.collectType = '1'
+      this.getCollectList(filterData, 'refresh')
+    }
+    this.setData({ pageType, filterData, scrollTop })
+  },
+  //查看商品详情
+  seeProDetail(e) {
+    let index = parseInt(e.detail)
+    let list = this.data.proList
+    let id = list[index].goodsId
+    console.log(id)
+    wx.navigateTo({
+      url: '/pages/mall/pro-details/mall-detail/detail?id=' + id + '&actType=detail'
+    })
+  },
+  //查看商品
+  seeOrgStore(e){
+    let index = parseInt(e.currentTarget.dataset.index)
+    let list = this.data.storeList
+    let storeInfo={
+      orgId: list[index].orgId,
+      orgName: list[index].orgName,
+      collectId: list[index].collectId,
+      isCollect: '1'
+    }
+    let si=JSON.stringify(storeInfo)
+    wx.navigateTo({
+      url: '/pages/mall/mall-buy/buy?storeInfo=' + si
+    })
+  },
+  //取消收藏
+  cancelCollect(e){
+    let index=parseInt(e.target.dataset.index) 
+    this.setData({curIndex:index})
+    let collectId=''
+    let _this=this
+    if(this.data.pageType==='store'){
+      let storeList=this.data.proList
+      collectId=storeList[index].collectId
+    }
+    if(this.data.pageType==='pro'){
+      let proList=this.data.proList
+      collectId=proList[index].collectId
+    }
+    wx.showModal({
+      title: '提示',
+      content: '是否取消收藏',
+      success(res) {
+        if (res.confirm) {
+          _this.delCollect(collectId)
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
+  },
+  //取消店铺收藏
+  delCollect(collectId){
+    let url = app.globalData.baseUrl + 'apiUser/org/collect/delete'
+    util.postRequestList(url, { collectId: collectId}, false, this.delCollectRes)
+  },
+  delCollectRes(res,actType){
+    if (res.data.code == '200') {
+      let curIndex=this.data.curIndex
+      wx.showToast({
+        title: '取消成功',
+        duration:2000,
+      })
+      if(this.data.pageType==='store'){
+        let storeList=this.data.storeList
+        storeList.splice(curIndex,1)
+        console.log(storeList)
+        this.setData({ storeList })
+      }
+      if(this.data.pageType==='pro'){
+        let proList=this.data.proList
+        proList.splice(curIndex,1)
+        console.log(proList)
+        this.setData({ proList })
+      }
+    }
+  },
+  //获取收藏列表
+  ///org/collect/myList
+  //collectType/收藏类型(1:店铺,2:商品)
+  getCollectList(data,actType){
+    let url = app.globalData.baseUrl + 'apiUser/org/collect/myList'
+    util.getRequestListData(url, data, actType, this.getCollectListRes)
+  },
+  getCollectListRes(res,actType){
+    console.log(res)
+    if(res.data.code==='200'){
+      let content = res.data.content
+      let list=content.list
+      let hasNextPage=content.hasNextPage
+      this.setData({hasNextPage})
+      if (this.data.pageType === 'pro') {
+        list.forEach(item=>{
+          item.crtTime=util.formatDate(item.crtTime)
+        })
+        if (actType === 'refresh') {
+          console.log(list)
+          this.setData({
+            proList: list,
+          })
+        }
+        if (actType === 'reachBottom') {
+          let proList = this.data.proList
+          list.forEach(item => {
+            proList.push(item)
+          })
+          this.setData({ proList})
+        }
+      }
+      if (this.data.pageType === 'store') {
+        list.forEach(item=>{
+          item.crtTime=util.formatDate(item.crtTime)
+          if(item.orgLogo!=='null'&&!item.orgLogo){
+            item.orgLogo='/utils/img/default_logo.png'
+          }
+        })
+        if (actType === 'refresh') {
+          console.log(list)
+          this.setData({
+            storeList: list
+          })
+        }
+        if (actType === 'reachBottom') {
+          let storeList = this.data.storeList
+          list.forEach(item => {
+            storeList.push(item)
+          })
+          this.setData({ storeList})
+        }
+      }
+    }
+  },
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    this.getCollectList(this.data.filterData,'refresh')
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+    
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+
+  }
+})

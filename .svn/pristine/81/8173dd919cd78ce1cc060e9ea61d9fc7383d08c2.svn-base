@@ -1,0 +1,40 @@
+<!--pages/system/account-manager/account-manager.wxml-->
+<view class='bg-module'></view>
+<view class='account-card'>
+  <view class='account-card-top'> 
+    <view class='total-title'>总积分</view>
+    <view class='my-code' bindtap='goReset'>
+       重置支付密码
+     <!-- <image  src='/utils/img/pwd.png' class='all-icon' ></image> -->
+    </view>
+  </view>
+  <view class='card-middle'>
+    <view class='total'>{{accountDetail.balance}}</view>
+    <view bindtap='goCharge' class='underline'>会员充值
+      <!-- <image src='/utils/img/close-1.png' class='triggle-close'></image> -->
+    </view>
+  </view>
+  <view class='card-bottom'>
+  <view></view>
+  <view >到期时间：{{accountDetail.expTime}}</view>
+    
+    <!-- <view>昨日收益：{{accountDetail.yesterdayGet=='null'?0:accountDetail.yesterdayGet}}</view>
+    <view>累计收益：{{accountDetail.totalGet=='null'?0:accountDetail.totalGet}}</view> -->
+  </view>
+</view>
+
+
+<view class='list-module'>
+  <view class='list-title'>交易明细</view>
+  <view class='see-all' bindtap='goDetail'>
+    <image src='/utils/img/all.png' class='all-icon'></image> 查看全部
+  </view>
+</view>
+
+<view class='account-list' wx:if='{{accountList.length>0}}'>
+  <acc-item-shadow accountList='{{accountList}}'></acc-item-shadow>
+</view>
+
+<view class='empty' wx:if='{{accountList.length==0}}'>
+    暂无数据~
+  </view>

@@ -1,0 +1,26 @@
+<!--pages/stock/stock-change/stock-out.wxml-->
+<page-title title='出库' isAdd="{{false}}" picker="{{false}}"></page-title>
+<view class='form'>
+  <form-item label="商品名称" value='{{goods.goodsName}}' isReadon="{{true}}"></form-item>
+  <form-item label="出库数量" placeholder="最多保留两位小数" isRequired='{{true}}' isBorder='{{true}}' bind:change="getGoodsCount" value='{{goodsCount}}'></form-item>
+  <form-item label="出库单价" placeholder="最多保留两位小数" bind:change="getPerMoney" value='{{perMoney}}' isRequired='{{true}}' isBorder='{{true}}'></form-item>
+  <form-item label="出库总价" placeholder="最多保留两位小数" bind:change="getTotalMoney" value='{{totalMoney}}' isRequired='{{true}}' isBorder='{{true}}'></form-item>
+
+  <!-- <view class='form-item'>
+    <view class='label'>精品冬枣</view>
+  </view> -->
+  <!-- <view class='btn-box border-bottom'>
+    <button>
+      <image src='/utils/img/upload.png' class='upload-btn'></image>
+    </button>
+  </view> -->
+  <view class='form-item'>
+    <view class='label'>备注</view>
+  </view>
+  <view>
+   <textarea class='remark-content' placeholder="请输入备注" bindinput="getDes" auto-focus />
+  </view>
+  <view >
+    <button type='danger' class='submit-btn' bindtap='outStock'>确认提交</button>
+  </view>
+</view>

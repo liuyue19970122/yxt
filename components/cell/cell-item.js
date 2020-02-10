@@ -1,0 +1,57 @@
+// components/cell/cell-teim.js
+Component({
+  /**
+   * 组件的属性列表
+   */
+  properties: {
+    title: {
+      type: String,
+      value: ''
+    },
+    content: {
+      type: String,
+      value: ''
+    },
+    color: {
+      type: String,
+      value: ''
+    },
+    height: {
+      type: String,
+      value: ''
+    },
+    fontSize: {
+      type: String,
+      value: ''
+    },
+    titleColor: {
+      type: String,
+      value: ''
+    },
+    isBorder:{
+      type: String,
+      value: ''
+    },
+    selectId:{
+      type: Number,
+      value: ''
+    }
+  },
+
+  /**
+   * 组件的初始数据
+   */
+  data: {
+
+  },
+
+  /**
+   * 组件的方法列表
+   */
+  methods: {
+    click:function(e){
+      console.log(e)
+      this.triggerEvent("click",{id:e.currentTarget.dataset.id})
+    }
+  }
+})

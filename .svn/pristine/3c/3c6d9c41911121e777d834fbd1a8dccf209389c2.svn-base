@@ -1,0 +1,29 @@
+<!--pages/common/login/login.wxml-->
+
+
+<view class='login-container'>
+   <!-- <view class='title'>欢迎登录</view> -->
+   <image src='http://118.24.172.172:9999/yxt/img/logo.png' class='logo'></image>
+   <view class='login-form'>
+    <view class='login-form-item'>
+       <image src='/utils/img/user.png'></image>
+       <view>
+         <input type='text' bindinput="inputUser" placeholder="请输入账号~"></input>
+       </view>
+    </view>
+    <view class='login-form-item'>
+       <image src='/utils/img/password.png'></image>
+       <view>
+         <input type='password' bindinput="inputPass" placeholder="请输入密码~"></input>
+       </view>
+    </view>
+    <button class='login-btn' bindtap="login">登录</button>
+    <view class='search-info' bindtap='goSearch'>查询审核进度</view>
+
+    <button class='apply-btn' bindtap='goSurpply'>申请入驻</button>
+   </view>
+     
+</view>
+
+
+<van-toast id="van-toast" />

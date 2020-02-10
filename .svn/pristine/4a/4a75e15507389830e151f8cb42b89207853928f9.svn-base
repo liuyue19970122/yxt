@@ -1,0 +1,11 @@
+<!--components/fin-pie/index.wxml-->
+<view class='pie-container'>
+  <view class='top-line'></view>
+  <view class='circle'>
+    <text class='line'></text>
+    <view class='circle-bg' style='background-color:{{bgColor}}'>
+      <view class='pie-name'>{{title}}</view>
+      <view class='pie-num'><text>{{price}}</text><text>.{{subPrice}}</text></view>
+    </view>
+  </view>
+</view>

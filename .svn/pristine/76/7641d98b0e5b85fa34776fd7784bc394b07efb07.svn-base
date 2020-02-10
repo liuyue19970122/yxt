@@ -1,0 +1,19 @@
+/* pages/receipt/vage/spec/detail.wxss */
+@import '../add/add'
+.spec-form{
+  padding:0 24rpx;
+}
+.block-module-title{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.material-list{
+  /* margin: 0 24rpx; */
+}
+.material-item{
+  display: flex;
+}
+.submit-btn-raduis{
+  margin-top:300rpx;
+}

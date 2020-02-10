@@ -1,0 +1,131 @@
+/* pages/mall/shop-mall/mall.wxss */
+
+.pro-search{
+  display: flex;
+  display: -webkit-flex;
+  align-items: center;
+  background-color: #fe2200;
+}
+.location{
+  display: flex;
+  align-items: center;
+  width: 200rpx;
+  padding-left:20rpx;
+}
+.location>image{
+  width: 48rpx;
+  height: 48rpx;
+  margin-right: 10rpx;
+}
+.location>text{
+  color: #fff;
+}
+.location>text,.item-title{
+  font-size: 28rpx;
+  overflow:hidden;
+  text-overflow:ellipsis; 
+  text-overflow: -o-ellipsis-lastline;
+  display:-webkit-box;
+  -webkit-line-clamp:1;
+  line-clamp: 1;
+  -webkit-box-orient:vertical;
+}
+.search{
+  flex: 1;
+}
+
+.sort{
+  height: 60rpx;
+  font-size: 32rpx;
+  padding: 0 20rpx;
+  line-height: 60rpx;
+  margin: 40rpx 0;
+}
+.sort-condition{
+  display: flex;
+  align-items: center;
+}
+.condition{
+  display: flex;
+  align-items: center;
+  line-height: 60rpx;
+  font-size: 32rpx;
+}
+.condition+.condition{
+  margin-left: 20rpx;
+}
+.condition-arrow{
+  padding: 0 10rpx;
+}
+.triangle-down{
+  display: block;
+  width: 0; 
+  height: 0;
+  border-width: 12rpx;
+  border-style: solid;
+  border-color:#f0f0f0 transparent transparent transparent;
+  margin-top: 4rpx;
+}
+.triangle-up{
+  display: block;
+  width: 0; 
+  height: 0;
+  border-width: 12rpx;
+  border-style: solid;
+  border-color:transparent transparent #f0f0f0  transparent;
+  margin-bottom: 4rpx;
+}
+.card-container{
+  margin: 0 24rpx;
+}
+.card{
+  padding: 24rpx 40rpx 40rpx;
+  border-radius: 24rpx;
+  box-shadow: 0 12rpx 24rpx rgba(0,0,0, .08);
+  margin-bottom: 44rpx;
+}
+.title{
+  font-size: 36rpx;
+  overflow:hidden;
+  color: #333;
+  text-overflow:ellipsis; 
+  text-overflow: -o-ellipsis-lastline;
+  display:-webkit-box;
+  -webkit-line-clamp:1;
+  line-clamp: 1;
+  -webkit-box-orient:vertical;
+}
+.sub-tittle{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 20rpx 0;
+}
+.sub-tittle>text{
+  font-size: 28rpx;
+  color: #999;
+}
+.img-container{
+  display: flex;
+  justify-content: space-between;
+}
+.img-detail{
+  position: relative;
+}
+.img-detail>.price{
+ 
+}
+.img-detail>image{
+  display: inline-block;
+  width: 194rpx;
+  height: 194rpx;
+  border-radius: 24rpx;
+}
+.price{
+  position: absolute;
+  bottom: 20rpx;
+  font-size: 24rpx;
+  color: #fff;
+  width: 100%;
+  text-align: center;
+}

@@ -1,0 +1,220 @@
+// pages/pro_manage/pro_spec_edit/spec.js
+import Notify from '../../../../miniprogram_npm/vant-weapp/notify/notify';
+let util = require('../../../../utils/util.js');
+const app = getApp()
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    switchChecked:true,
+    proActType: 'add',
+    specIndex:0,
+    specInfo:{
+      goodsId: '',//商品ID
+      attrName: '',//规格名称
+      count:'',//上架数量
+      attrPrice:'',//价格（两位小数）
+      status: 1,//是否上下架(0下架/1上架)
+      stockMulti: ''//与库存产品比值(两位小数)
+    }
+  },
+  bindinputName(e){
+    let name ='specInfo.attrName'
+    this.setData({
+      [name]:e.detail.value
+    })
+  },
+  bindinputPrice(e) {
+    let name = 'specInfo.attrPrice'
+    this.setData({
+      [name]: e.detail.value
+    })
+  },
+  bindinputCount(e) {
+    let name = 'specInfo.count'
+    this.setData({
+      [name]: e.detail.value
+    })
+  },
+  bindinputMulti(e) {
+    let name = 'specInfo.stockMulti'
+    this.setData({
+      [name]: e.detail.value
+    })
+  },
+  //是否上架
+  switchChange(e){
+    let status ='specInfo.status'
+    if(e.detail.value){
+      this.setData({
+        [status]:1
+      })
+    }else{
+      this.setData({
+        [status]: 0
+      })
+    }
+  },
+  //提交规格数据/store/inst/newGoodsAttr
+  // 为某个商品增加规格
+  submintAddSpecInfo(){
+    let specInfo=this.data.specInfo
+    let proActType = this.data.proActType
+    let pages = getCurrentPages();
+    let currPage = pages[pages.length - 1];   //当前页面
+    let prevPage = pages[pages.length - 2];  //上一个页面
+    if (proActType === 'add') {
+      let obj = {}
+      for (let key in specInfo) {
+        if (key === 'count') {
+          obj['upCount'] = data[key]
+        }else{
+          obj[key]=data[key]
+        }
+      }
+      let index=this.data.specIndex
+      let arr = prevPage.data.specList
+      arr[index]=obj
+      prevPage.setData({
+        ['specList']: arr
+      });
+      wx.navigateBack({
+        delta: -1
+      })
+    }
+    if (proActType === 'edit') {
+      //goodsId,attrId,attrName,balanceCount,attrPrice,status
+      let obj={}
+      let objInfo={}
+      obj.goodsId = specInfo.goodsId
+      obj.attrId = specInfo.keyId
+      obj.attrName = specInfo.attrName
+      obj.balanceCount = specInfo.count
+      obj.attrPrice = specInfo.attrPrice
+      obj.status = specInfo.status
+      for (let key in specInfo) {
+        if (key === 'count') {
+          objInfo['balanceCount'] = specInfo[key]
+        } else {
+          objInfo[key] = specInfo[key]
+        }
+      }
+      let specIndex=this.data.specIndex
+      let arr = prevPage.data.specList
+      arr[specIndex] = objInfo
+      prevPage.setData({
+        ['specList']: arr
+      });
+      this.editProEditSpec(obj)
+    }
+  },
+  //编辑商品修改规则//store/inst/updateAttr
+  //goodsId,attrId,attrName,balanceCount,attrPrice,status
+  editProEditSpec(data){
+    let url = app.globalData.baseUrl + 'apiMall/store/inst/updateAttr'
+    let actType = false
+    util.postRequestList(url, data, actType, this.editProEditSpecRes)
+  },
+  editProEditSpecRes(res,actType){
+    console.log(res)
+    wx.navigateBack({
+      delta: -1
+    })
+  },
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    let proActType = options.actType
+    let data = JSON.parse(options.data) 
+    console.log(options)
+    console.log(data)
+    let specIndex=options.specIndex
+    this.setData({
+      proActType: proActType,
+      specIndex: specIndex
+    })
+    if (proActType === 'edit') {
+      //goodsId,attrId,attrName,balanceCount,attrPrice,status
+      let goodsId = options.porId
+      let specInfo=this.data.specInfo
+      specInfo.goodsId=goodsId
+      specInfo.keyId=data.keyId
+      for (let key in specInfo){
+        if(key==='count'){
+          specInfo[key] = data.balanceCount
+        }else{
+          specInfo[key]=data[key]
+        }
+      }
+      console.log(specInfo)
+      this.setData({
+        specInfo: specInfo
+      })
+    }
+    if (proActType === 'add') {
+      let specInfo = this.data.specInfo
+      for (let key in specInfo) {
+        if(key==='count'){
+          specInfo[key] = data.upCount
+        }else{
+          specInfo[key] = data[key]
+        }
+      }
+      this.setData({
+        specInfo: specInfo
+      })
+    }
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+
+  }
+})

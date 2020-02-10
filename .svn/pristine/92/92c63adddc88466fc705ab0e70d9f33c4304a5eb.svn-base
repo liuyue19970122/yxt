@@ -1,0 +1,77 @@
+/* pages/receipt/order-food/cart.wxss */
+@import '/pages/mall/mall-buy/buy'
+@import '../vage-list/list'
+
+.spec-content{
+  position: relative;
+}
+.food-title{
+  font-size:32rpx;
+  height:80rpx;
+  line-height: 80rpx;
+  padding-left:24rpx;
+  color:#333;
+  background: #f0f0f0;
+}
+.spec-title{
+  font-size:24rpx;
+  color:#333;
+  margin:40rpx 0 20rpx 24rpx;
+  font-weight: 500
+}
+.spec-list{
+  display: flex;
+  flex-wrap: wrap;
+  padding:0 24rpx;
+  margin-bottom:44rpx;
+}
+.spec-item{
+  background: #f0f0f0;
+  font-size:32rpx;
+  color:#333;
+  padding:0 20rpx;
+  height:60rpx;
+  line-height: 60rpx;
+  border-radius: 8rpx;
+  margin-left:20rpx;
+}
+.select-spec-item{
+  color:#fe2200;
+}
+.add-cart-btn{
+  /* position: absolute;
+  bottom:0;
+  left:0; */
+  width:100%;
+  height:80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  font-size:32rpx;
+  color:#fff;
+  background: #fe2200;
+  border-radius: 0
+}
+button::after{
+  border-radius: 0
+}
+
+.remark{
+  margin:0 24rpx 24rpx;
+  padding:5rpx;
+  border-bottom:2rpx solid #f0f0f0;
+}
+.op-view{
+  display: flex;
+  justify-content: flex-end
+}
+.op-view .count{
+  margin:0 20rpx;
+}
+.choose-spec{
+  padding:8rpx 20rpx;
+  font-size:22rpx;
+  background: #fe2200;
+  color:#fff;
+  border-radius: 50rpx;
+  display: flex;
+}

@@ -1,0 +1,17 @@
+<!--pages/mall/handle-order/order-add/add.wxml-->
+<image src='../../../../utils/img/add.png' 
+  class='btn-stock-in'
+  bindtap='handleAddBuyer'></image>
+<view class='card-container'>
+  <view class='card' wx:for='{{supplierList}}' wx:key='supplierList'>
+    <view class='card-info'  data-index="{{index}}" bindtap="handleChoice">
+      <view class='info-name text-one__line'>{{item.name}}</view>
+      <view class='info-other'>
+        <text>{{item.linkName}}</text>
+        <text>{{item.mobile}}</text>
+      </view>
+    </view>
+    <!-- <image class='triggle-close'
+      src='../../../../utils/img/close.png'></image> -->
+  </view>
+</view>

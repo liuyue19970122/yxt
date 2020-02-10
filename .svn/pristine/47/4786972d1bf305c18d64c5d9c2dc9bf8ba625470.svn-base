@@ -1,0 +1,5 @@
+<!--components/long-tap/long-tap.wxml-->
+<view class='active-dialog'>
+  <view>修改</view>
+  <view>删除</view>
+</view>

@@ -1,0 +1,6 @@
+/* pages/receipt/vege/tpl-food-list/list.wxss */
+
+@import '../default-list/list'
+.default-list{
+  margin:0;
+}

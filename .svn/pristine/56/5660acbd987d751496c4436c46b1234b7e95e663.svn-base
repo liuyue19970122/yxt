@@ -1,0 +1,12 @@
+<!--components/account-item-border/acc-item-border.wxml-->
+<view class='account-item' wx:for='{{accountList}}' wx:key='{{index}}'>
+    <view class='account-left-item'>
+      <view class='account-left-item-title'wx:if='{{item.opType}}'>{{item.opType=="+"?"收益":"支出"}}</view>
+      <view wx:if='{{item.name}}'>{{item.name}}</view>
+      <view class='time' wx:if='{{item.crtTime}}'>{{item.crtTime}}</view>
+      <view class='time' wx:if='{{item.mobile}}'>{{item.mobile}}</view>
+    </view>
+
+    <view class='{{item.opType=="+"?"add-account":"reduce-account"}}' wx:if='{{item.opType}}'>{{item.opType}}{{item.opMoney}}</view>
+    <view wx:if='{{item.orgName}}'>{{item.orgName}}</view>
+  </view>

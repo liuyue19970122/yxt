@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "我的收藏",
+  "usingComponents": {
+    "van-popup": "/miniprogram_npm/vant-weapp/popup/index",
+    "cus-cart": "/components/cart/cart",
+    "cus-pro-card": "/components/card/pro-card/index",
+    "cus-tab-view":"/components/tab-view/tab-view"
+  }
+}

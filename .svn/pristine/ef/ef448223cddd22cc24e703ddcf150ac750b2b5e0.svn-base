@@ -1,0 +1,48 @@
+<!--pages/finance/rem-account/account.wxml-->
+<view class='header'>
+  <picker bindchange="bindDateChange" 
+    bindcancel='bindDateCancel'
+    mode = 'date'
+    fields="month" 
+    start="2019-12" 
+    end="2020-12-31"
+    value="{{curMonth}}">
+    <view>
+      <text>{{curMonth}}</text>
+      <image src='../../../../utils/img/close.png' class='header-img'></image>
+    </view>
+  </picker>
+  <picker bindchange="bindStockChange"
+    bindcancel='bindStockCancel'
+    disabled='{{stockDisabled}}'
+    value="{{stockProIndex}}" 
+    range-key='cusName'
+    range="{{stockProList}}">
+    <view>
+      <text>{{'收入'}}</text>
+      <image src='../../../../utils/img/close.png' class='header-img'></image>  
+    </view>
+  </picker>
+</view>
+<view class='page-container'>
+  <view class='list-container'>
+    <scroll-view class='scroll' scroll-y='{{true}}' 
+      bindscrolltolower='bindReachBottom'>
+      <view class='card'>
+        <view class='card-info'>
+          <text>买菜</text>
+          <text>2019-10-16</text>
+        </view>
+        <text class='info-money'>-1000</text>
+      </view>
+    </scroll-view>
+  </view>
+</view>
+<view class='bottom-fixed'>
+  <view class='bottom-rem' bindtap='bindToAdd'>
+    <view>
+      <image src='../../../../utils/img/rem.png'></image>
+      <text>记一笔</text>
+    </view>
+  </view> 
+</view>

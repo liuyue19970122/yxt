@@ -1,0 +1,65 @@
+/* pages/oa/add-leave/add.wxss */
+
+.form-item {
+  padding: 24rpx 0;
+  font-size: 32rpx;
+  color: #333;
+  margin: 0 24rpx;
+}
+.form{
+  padding:0 24rpx;
+}
+.form-item-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.form--input{
+  display: flex;
+  width:75%;
+  justify-content: space-between;
+  align-items: center;
+}
+.form--input-time{
+  justify-content: flex-end;
+}
+.right-icon{
+  width:15rpx;
+  height:15rpx;
+  color:#B4B4B4;
+}
+.name{
+  width:80%;
+}
+.name-item{
+  position:relative;
+  display: inline-block;
+  padding:5rpx 10rpx;
+  background: #f0f0f0;
+  margin-right:20rpx;
+  border-radius: 4rpx;
+  font-size:28rpx;
+}
+.label {
+  font-weight: 500;
+  width: 25%;
+}
+.reason-content {
+  height: 200rpx;
+  width: 702rpx;
+  margin-top:20rpx;
+}
+
+.del-icon{
+  width:30rpx;
+  height:30rpx;
+  position: absolute;
+  top:-15rpx;
+  right:-15rpx;
+  background: #fff;
+  border-radius: 50%;
+}
+.add-icon-padding{
+  padding:0 0 0 50rpx;
+}

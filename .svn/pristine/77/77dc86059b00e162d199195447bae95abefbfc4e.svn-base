@@ -1,0 +1,38 @@
+<!--pages/finance/rem-account/detail/detail.wxml-->
+<van-notify id="van-notify" />
+<view class="form-container">
+  <view class='form-item form-item__inline'>
+    <label class='form-item__label'>收支类型</label>
+    <view  class='form-item__content content-padding'>{{billInfo.typeName}}</view>
+  </view>
+  <view class='form-item form-item__inline'>
+    <label class='form-item__label'>名称</label>
+    <view  class='form-item__content content-padding'>{{billInfo.title}}</view>
+  </view>
+   <view class='form-item form-item__inline'>
+    <label class='form-item__label'>金额</label>
+    <view  class='form-item__content content-padding'>{{billInfo.money}}</view>
+  </view>
+  <view class='form-item form-item__inline'>
+    <label class='form-item__label'>经办人</label>
+    <view  class='form-item__content content-padding'>{{billInfo.opUserName}}</view>
+  </view>
+  <view class='form-item form-item__inline'>
+    <label class='form-item__label'>日期</label>
+    <view  class='form-item__content content-padding'>{{billInfo.cusBillTime}}</view>
+  </view>
+  <view class='form-item form-item__inline'>
+    <label class='form-item__label'>备注</label>
+    <view  class='form-item__content content-padding'>{{billInfo.remark}}</view>
+  </view>
+  <view class='form-item'>
+  <label class='label-block'>凭证</label>
+    <view class="none-img" wx:if="{{!imgList.length}}">无凭证</view>
+    <view class='img-container'>
+       <view wx:for='{{imgList}}' wx:key='imgList'>
+        <image class='add-img' src='{{item}}' bindtap="handlePreview"></image>
+      </view>
+    </view>
+  </view>
+</view>
+

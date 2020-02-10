@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "我的账户",
+  "usingComponents": {
+    "acc-item-shadow":"/components/account-item-shadow/acc-item-shadow"
+  }
+}

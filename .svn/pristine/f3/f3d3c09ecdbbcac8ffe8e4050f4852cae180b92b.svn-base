@@ -1,0 +1,236 @@
+// pages/receipt/submit-order/submit.js
+var util = require('../../../utils/util.js');
+const app = getApp()
+var times = (new Date()).getTime()
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    foodList: [],
+    desktopList: [],
+    totalMoney: '',
+    totalCount: '',
+    tableId: -1,
+    orderId: '',
+    showType: false,
+    realMoney:'',
+    showPayPwdInput: false, //是否展示密码输入层
+    pwdVal: '', //输入的密码
+    payFocus: true, //文本框焦点
+  },
+  getOrderDetail() {
+    var url = app.globalData.baseUrl + 'apiMall/food/order/detail'
+    var data = {
+      orderId: this.data.orderId
+    }
+    util.getRequestListData(url, data, false, this.detailRes)
+  },
+  detailRes(res) {
+    if (res.data.code == 200) {
+      var detail = res.data.content
+      var orderInfo = detail.orderInfo
+      orderInfo.totalMoney = util.getMoney(orderInfo.totalMoney)
+      var foodList = res.data.content.foodList.map((item) => {
+        item.perMoney = util.getMoney(item.perMoney)
+        item.money = util.getMoney(item.money)
+        return item
+      })
+      this.setData({
+        foodList: foodList,
+        desktopList: res.data.content.deskInfo,
+        orderInfo: orderInfo
+      })
+    } else {
+      wx.showModal({
+        title: '提示',
+        content: res.data.message,
+        showCancel: false
+      })
+    }
+  },
+  goAdd: function() {
+    wx.navigateTo({
+      url: '../order-food/cart?tableId=' + this.data.tableId,
+    })
+  },
+  goPay: function() {
+    var url = app.globalData.baseUrl + 'apiMall/food/order/payOrder'
+    var data = {
+      orderId: this.data.orderId,
+      password: this.data.pwdVal,
+      realMoney: this.data.realMoney
+    }
+    util.postRequestList(url,data,false,this.payRes)
+    this.setData({
+      pwdVal: ''
+    })
+  },
+  payRes(res){
+    if(res.data.code==200){
+      wx.navigateTo({
+        url: '../pay-result/result?orderId='+this.data.orderId,
+      })
+      
+    }else{
+      wx.showModal({
+        title: '提示',
+        content: res.data.message,
+        showCancel:false,
+        success:function(res){
+         
+        }
+      })
+    }
+  },
+  sureMoney(){
+    if(this.data.realMoney==''){
+      wx.showModal({
+        title: '提示',
+        content: '请输入实付金额',
+        showCancel:false
+      })
+    }else{
+      this.showInputLayer()
+    }
+  },
+  goChoose: function() {
+    this.setData({
+      showType: true
+    })
+  },
+  realPay() {
+    console.log("000")
+  },
+  bindRelease(){
+    var url = app.globalData.baseUrl +'apiMall/food/desktop/release'
+    var data={
+      orderId: this.data.orderId 
+    }
+    util.postRequestList(url,data,false,this.releaseRes)
+  },
+  releaseRes(res){
+    if(res.data.code==200){
+      wx.redirectTo({
+        url: '../table-list/list',
+      })
+    }
+  },
+  getRealMoney(e) {
+    this.setData({
+      realMoney: util.clearNoNum(e.detail)
+    })
+  },
+  onClose() {
+    this.setData({
+      showType: false
+    })
+  },
+  /**
+   * 显示支付密码输入层
+   */
+  showInputLayer: function() {
+    this.setData({
+      showPayPwdInput: true,
+      payFocus: true
+    });
+  },
+  /**
+   * 隐藏支付密码输入层
+   */
+  hidePayLayer: function() {
+    var val = this.data.pwdVal;
+    this.setData({
+      showPayPwdInput: false,
+      payFocus: false,
+      // pwdVal: ''
+    });
+
+  },
+  /**
+   * 获取焦点
+   */
+  getFocus: function() {
+    this.setData({
+      payFocus: true
+    });
+  },
+  /**
+   * 输入密码监听
+   */
+  inputPwd: function(e) {
+    this.setData({
+      pwdVal: e.detail.value
+    });
+    if (e.detail.value.length >= 6) {
+      this.hidePayLayer();
+      this.goPay()
+    }
+  },
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function(options) {
+    var prevPage = util.getPrevPage()
+    this.setData({
+      foodList: prevPage.data.foodList,
+      totalMoney: prevPage.data.totalMoney,
+      totalCount: prevPage.data.totalCount,
+      // tableId:options.tableId,
+      orderId: options.orderId
+    })
+    this.getOrderDetail()
+    // if(options.table)
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function() {
+
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function() {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function() {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function() {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function() {
+
+  }
+})

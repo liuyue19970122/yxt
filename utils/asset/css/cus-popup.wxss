@@ -1,0 +1,14 @@
+.pop-set-container{
+  padding: 24rpx 0;
+}
+.pop-set-btn{
+  line-height: 80rpx;
+  color: #333;
+  text-align: center;
+}
+.set-btn__disabled{
+  color:#999 !important;
+}
+.pop-set-btn:hover{
+  background: #f0f0f0;
+}

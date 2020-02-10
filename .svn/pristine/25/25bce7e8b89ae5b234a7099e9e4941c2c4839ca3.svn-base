@@ -1,0 +1,56 @@
+<!--pages/mall/shop-mall/mall.wxml-->
+<view class='pro-search'>
+  <view class='location'>
+    <image src='../../../utils/img/address_white.png'></image>
+    <text>邻水县</text>
+  </view>
+  <view class='search'>
+    <van-search
+      value="{{ value }}"
+      background="#fe2200"
+      shape='round'
+      placeholder="搜索店内商品"
+      bind:search="onSearch">
+    </van-search>
+  </view>
+</view>
+<view class='sort'>
+  <view class='sort-condition'>
+    <cus-tab-sort wx:for='{{compList}}' 
+      wx:key='{{index}}'
+      data-type='{{item.type}}'
+      data-index='{{index}}' 
+      title='{{item.title}}' 
+      up='{{item.up}}'
+      down='{{item.down}}'
+      bind:sort='sortClick'></cus-tab-sort>
+  </view>
+</view>
+<view class='card-container'>
+  <view class='card'  wx:for='{{storeList}}'
+    wx:key='{{index}}' 
+    data-id='{{item.keyId}}'
+    data-name='{{item.orgName}}'
+    bindtap='bindToStore'> 
+    <view class='title'>{{item.orgName}}</view>
+    <view class='sub-tittle'>
+      <text>{{'访问量'+item.visitCount+'|销售'+item.monthCount+'|评价'+item.monthCount}}</text>
+      <text>{{item.address}}</text>
+    </view>
+    <view>
+      <view class='img-container'>
+        <view wx:for='{{item.goodsList}}' wx:key='{{index}}'>
+          <view class='img-detail'>
+            <image src='{{item.goodsPic}}' mode='aspectFit'></image>
+            <view class='price'>
+              <text>{{'￥'+item.cusSalePrice}}</text>
+              <text>{{'￥'+item.cusNormalPrice}}</text>
+            </view>
+            <view class='mask'></view>
+          </view>
+          <view class='item-title'>{{item.goodsName}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

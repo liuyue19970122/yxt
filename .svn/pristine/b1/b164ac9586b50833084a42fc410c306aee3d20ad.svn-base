@@ -1,0 +1,13 @@
+<!--pages/receipt/table-add/add.wxml-->
+<view class='add-form'>
+  <form-item label="桌位编号"  value='{{deskCode}}' bind:input='getDeskCode' isRequired='{{true}}' isBorder='{{true}}'></form-item>
+  <form-item label="可坐人数"  type='number' value='{{peopleNum}}' bind:input='getPeopleNum' isRequired='{{true}}' isBorder='{{true}}'></form-item>
+  <view class='form-item'>
+    <view class='label'>描述</view>
+  </view>
+  <view>
+    <textarea class='remark-content' bindinput='getDes' value='{{description}}' placeholder="请输入关于商品的其它信息（如：来源信息）~"  />
+  </view>
+</view>
+
+<button class='submit-btn-raduis' bindtap='onSubmit'>确认</button>

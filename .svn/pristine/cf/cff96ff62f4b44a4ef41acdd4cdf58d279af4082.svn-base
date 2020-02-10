@@ -1,0 +1,64 @@
+/* pages/purchase/address-manager/address-manager.wxss */
+.address-item{
+  padding:28rpx 24rpx;
+  font-size:32rpx;
+  color:#333;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.select{
+  position: absolute;
+  top:0;
+  left:0;
+  width:60rpx;
+  height:60rpx;
+}
+.reciver-info{
+  flex: 1;
+  padding-left:20rpx;
+}
+.reciver-info>text{
+  display: inline-block;
+}
+.reciver-info>text:first-child{
+  margin-right: 20rpx;
+}
+.btn-edit{
+  padding:0 20rpx; 
+  line-height: 60rpx;
+  color:#999;
+  border-left:2rpx solid #f0f0f0;
+}
+.address-list{
+  margin-bottom:200rpx;
+}
+.save-btn{
+  width:702rpx;
+  position: fixed;
+  bottom:100rpx;
+  left:24rpx;
+  background: #ff2200;
+  color:#fff;
+  font-size: 32rpx;
+  border-radius: 50rpx;
+}
+button::after{
+  border:0;
+}
+.btn-container{
+  padding: 24rpx 0;
+}
+.set-btn{
+  line-height: 80rpx;
+  color: #ff2200;
+  border-bottom:2rpx solid #f0f0f0;
+  text-align: center;
+}
+.set-btn__disabled{
+  color:#999 !important;
+}
+.set-btn:hover{
+  background: #f0f0f0;
+}

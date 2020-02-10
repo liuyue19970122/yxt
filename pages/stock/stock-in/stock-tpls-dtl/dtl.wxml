@@ -1,0 +1,22 @@
+<!--pages/receipt/vege/default-list/list.wxml-->
+<view class="content-container">
+  <scroll-view scroll-y='true' style='height:100%' scroll-top='{{scrollTop}}'
+    bindscrolltolower='bindReachBottom'>
+    <view class='none-content' wx:if='{{!foodList.length}}'>暂无货品</view>
+      <view class='card-container'  wx:for='{{foodList}}' 
+        wx:key="foodList">
+        <view class='card-item'>
+          <image class='card-img' src='{{item.goodsPic}}'></image>
+          <view class='card-info'>
+            <view class="info-name">{{item.goodsName}}</view>
+            <view class="info-unit">{{'单位:'+item.goodsUnit}}</view>
+            <view class='info-desc'>{{item.description}}</view>
+          </view>
+        </view>
+      </view>
+    <view wx:if='{{!hasNextPage&&foodList.length}}' class='reach-bottom'>
+      <image src='/utils/img/arrive-bottom.png'></image>
+    </view>
+  </scroll-view>
+</view>
+

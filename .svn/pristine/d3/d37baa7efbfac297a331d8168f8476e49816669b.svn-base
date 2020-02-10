@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "订单详情",
+  "usingComponents": {
+    "page-title": "/components/page-title/page-title",
+    "form-item": "/components/form-item/form-item",
+    "van-popup": "/miniprogram_npm/vant-weapp/popup/index"
+  }
+}

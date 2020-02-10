@@ -1,0 +1,63 @@
+<!--pages/stock/stock-in/stock-tpls/tpls.wxml-->
+<view class="content-container">
+  <view class='pro-search'>
+    <van-search
+      value="{{ searchValue }}"
+      background="#fff"
+      shape='round'
+      placeholder="请输入搜索关键词"
+      bind:clear="onClear"
+      bind:search="onSearch">
+    </van-search>
+  </view>
+  <view class="scroll-container">
+    <scroll-view scroll-y='true' style='height:100%' scroll-top='{{scrollTop}}'
+      bindscrolltolower='bindReachBottom'>
+      <view class='none-content' wx:if='{{!tplsList.length}}'>暂无模板</view>
+      <checkbox-group bindchange="proCheckboxChange">
+        <view class='card-container'  wx:for='{{tplsList}}' 
+          wx:key="tplsList">
+          <label class="checkbox">
+            <checkbox value="{{index}}" color='#fff' checked="{{item.cusChecked}}"/>
+          </label>
+          <view class='card-item' data-index="{{index}}" bindtap="seeTplsDtl">
+            <view class="info-name">{{item.tempName}}</view>
+            <view class='card-info'>
+              <text class="info-unit">{{'数量:'+item.stockCount}}</text>
+              <text class="info-unit">{{item.cusCrtTime}}</text>
+            </view>
+          </view>
+        </view>
+      </checkbox-group>
+      <view wx:if='{{!hasNextPage&&tplsList.length}}' class='reach-bottom'>
+        <image src='/utils/img/arrive-bottom.png'></image>
+      </view>
+    </scroll-view>
+  </view>
+</view>
+<view class='cart-fixed' style="z-index:999;">
+  <view class='buy-container'>
+    <view class='buy-money' catchtap="seeSelPro">
+      <text>{{'已选:'+selCount}}</text>
+      <text class="buy-see">（点击查看）</text>
+    </view>
+    <text class='buy-btn btn-bgred' catchtap='goToSubmit'>确定</text>
+  </view>
+</view>
+<van-transition show="{{ showPop }}" custom-class="cart-popup">
+  <view class="popup" catchtap="closeSelPro">
+    <view class="popup-container" catchtap="preventPop">
+      <view class='card-container'  wx:for='{{selTplsList}}'
+        wx:key="selTplsList">
+        <view class='card-item'>
+          <view class="info-name">{{item.tempName}}</view>
+          <view class='card-info'>
+            <text class="info-unit">{{'数量:'+item.stockCount}}</text>
+            <text class="info-unit">{{item.cusCrtTime}}</text>
+          </view>
+        </view>
+        <text class="card-del" data-index="{{index}}" bindtap="delSelPro">删除</text>
+      </view>
+    </view>
+  </view>
+</van-transition>

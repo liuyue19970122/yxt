@@ -1,0 +1,33 @@
+<!--pages/stock/stock-batch/stock-batch.wxml-->
+<!--pages/stock/stock-change/stock-change.wxml-->
+
+<view class='full-page' >
+  <page-title title='批次列表' icon='/utils/img/change.png' isAdd='{{false}}' picker="{{false}}" array='{{cateList}}' name="name" range='{{1}}'></page-title>
+
+  <view data-id='{{item.id}}' class='{{activeId==item.id?"active-item":""}}' wx:for='{{goodList}}'>
+    <view class='good-item'>
+      <view class='good-left-module'>
+        <image src='/utils/img/good-img.png'></image>
+      </view>
+      <view class='good-right-module'>
+        <view>精品冬枣5kg/袋</view>
+        <view>库存位置：Al0098号</view>
+        <view class='bottom-module'>
+          <view>库存量：
+            <text class='kg-unit'>500kg</text>
+          </view>
+          <view class='time'>2019-10-11 18:43更新</view>
+        </view>
+      </view>
+      <view class='active-dialog' wx:if='{{activeId==item.id}}'>
+        <view>修改</view>
+        <view>入库</view>
+        <view>出库</view>
+      </view>
+    </view>
+  </view>
+
+  <view class='total-stock'>
+      库存量：<text class='kg-unit'>500kg</text>
+  </view>
+</view>

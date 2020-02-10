@@ -1,0 +1,20 @@
+<view>
+  <view class='panel'  wx:for='{{menuList}}' wx:key='item'>
+    <view class='panel-title' data-id='{{item.id}}' bindtap='tiggle' >
+      <view class='left-title'> 
+        <image class='menu-logo' mode='widthFix' src='{{item.icon}}?t={{timestamp}}'></image>
+        <view class="menu-title">{{item.title}}</view>
+      </view>
+      <view class='right-tiggle'>
+        <image class='tiggle-icon-close' wx:if='{{item.isClose}}' src='/utils/img/close.png'></image>
+        <image class='tiggle-icon-open' wx:if='{{!item.isClose}}' src='/utils/img/open.png'></image>
+      </view>
+    </view>
+    <view class="submenu-list" wx:if='{{!item.isClose}}'>
+      <view class='submenu-item'  wx:for='{{menuList[index].nextMenu}}' wx:for-item='items' wx:key='items' data-id="{{items.keyId}}" data-page='{{items.menuPage}}' bindtap="goPage"> 
+        <image class='submenu-icon' src='{{items.logoUrl}}?t={{timestamp}}'></image>
+        <view class='submenu-title'>{{items.menuName}}</view>
+      </view>
+    </view>
+  </view>
+</view>

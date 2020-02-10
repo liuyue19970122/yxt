@@ -1,0 +1,56 @@
+<van-notify id="van-notify" />
+<view class='address-content'>
+  <view class='hr-module'></view>
+  <view class='form'>
+    <view class='address-map'>
+      <label>收货地址:</label>
+      <view class='form-title' bindtap='toMapAddress'>
+        <text>{{ad_pca}}</text>
+        <image class='triggle-close' src='/utils/img/close.png'></image>
+      </view>
+    </view>
+    <view class='form-textarea'>
+      <label>详细地址<text>*</text>:</label>
+      <view class='form-content'>
+        <textarea  bindinput='getDetailAddress' value='{{adInfo.address}}' ></textarea>
+        <text>街道+楼栋+门牌号</text>
+      </view>
+    </view>
+    <!-- <form-item label="门牌号" 
+      labelStyle="color:#999" 
+      itemStyle='padding-right:24rpx;padding-left:24rpx;' 
+      inputStyle="text-align:left" 
+      bind:input='getDetailAddress' 
+      value='{{adInfo.address}}'></form-item> -->
+    <form-item label="收件人" 
+      labelStyle="color:#999" 
+      itemStyle='padding-right:24rpx;padding-left:24rpx;' 
+      inputStyle="text-align:left"
+      isRequired 
+      bind:input='getName' 
+      value='{{adInfo.linkName}}'></form-item>
+    <form-item label="联系电话" 
+      labelStyle="color:#999" 
+      isRequired
+      itemStyle='padding-right:24rpx;padding-left:24rpx;' 
+      inputStyle="text-align:left" 
+      bind:input='getTel' 
+      value='{{adInfo.mobile}}'></form-item>
+  </view>
+  <view class='hr-module'></view>
+    <view class='form-item'>
+      <view class='label'>设为默认地址</view>
+        <view class='form--input default-triggle'>
+          <van-switch checked="{{adInfo.isDefault}}" 
+            size="24px" bind:change="onChange" 
+            active-color="#ff2200" 
+            inactive-color="#f0f0f0" />
+        </view>
+      </view>
+    <view>
+  </view>
+</view>
+<view >
+  <button class='save-btn' bindtap='saveAddress'>保存</button>
+</view>
+

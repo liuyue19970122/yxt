@@ -1,0 +1,6 @@
+/* pages/receipt/vage/material/detail.wxss */
+
+@import "../spec/detail"
+.submit-btn-raduis{
+  margin-top:400rpx;
+}

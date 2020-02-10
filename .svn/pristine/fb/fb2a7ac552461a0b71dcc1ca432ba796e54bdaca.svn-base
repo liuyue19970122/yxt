@@ -1,0 +1,25 @@
+<!--pages/mall/handle-order/handle-order.wxml-->
+<view class='block-module-title'>收件人信息</view>
+<view class='order-form'>
+  <form-item label='收货人' isRequired="{{true}}" value='{{name}}' inputStyle="text-align:left" bind:input='getName'></form-item>
+  <form-item label='联系电话' isRequired="{{true}}"  value='{{mobile}}' inputStyle="text-align:left" bind:input='getMobile'></form-item>
+  <form-item label='收货地址' isRequired="{{true}}"  isBorder="{{false}}" value='{{address}}' inputStyle="text-align:left" bind:input='getAddress'></form-item>
+</view>
+
+<view class='block-module-title goods-list-title'>商品列表
+  <image class='add-icon' src='/utils/img/add.png' bindtap='goAdd'></image>
+</view>
+
+<view class='goods-item' wx:for='{{goodsList}}'>
+  <view class='goods-img'>
+    <image src="{{item.goodsPic}}"></image>
+  </view>
+  <view class='goods-info'>
+    <view class='goods-name'>{{item.goodsName}}{{item.attrName}}</view>
+    <!-- <view class='goods-local'>{{item.locationName}}:{{item.stockCount*item.buyCount}}</view> -->
+  </view>
+  <view class='goods-num'>×{{item.cusBuyCount}}</view>
+  <view class='goods-price'>￥{{item.cusSalePrice}}</view>
+</view>
+
+<button class='submit-btn-raduis' catchtap="goSubmit" disabled="{{name==''||mobile==''||address==''||goodsList.length==0}}">提交</button>

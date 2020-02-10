@@ -1,0 +1,67 @@
+<view class='tab-view'>
+  <scroll-view scroll-x style="width: auto;overflow:hidden;">
+    <view class='tab-item {{type=="all"?"active-item":""}} ' data-type='all' bindtap='changeTab'>全部</view>
+    <view class='tab-item {{type=="0"?"active-item":""}}' data-type='0' bindtap='changeTab'>待支付</view>
+    <view class='tab-item {{type=="1"?"active-item":""}}' data-type='1' bindtap='changeTab'>待发货</view>
+    <view class='tab-item {{type=="ing"?"active-item":""}}' data-type='ing' bindtap='changeTab'>送货中</view>
+    <view class='tab-item {{type=="2"?"active-item":""}}' data-type='2' bindtap='changeTab'>已完成</view>
+    <view class='tab-item {{type=="3"?"active-item":""}}' data-type='3' bindtap='changeTab'>退款/售后</view>
+  </scroll-view>
+</view>
+
+
+<view class='order-list' bindtap='goDetail'>
+  <view wx:for="{{orderList}}" wx:if='{{item.orderStatus>=type||type=="all"}}'>
+    <view class='order-item' wx:if='{{item.picList.length>1}}'>
+      <view class='store'>
+        <view class='store-left'>
+          <view class='store-title'>{{item.orgName}}</view>
+          <view>
+            <image src='/utils/img/close.png' class='triggle-close'></image>
+          </view>
+        </view>
+        <image src='/utils/img/del-edit.png' data-id='{{item.orderId}}' catchtap='goDel' class='del-icon'></image>
+      </view>
+      <view class='goods-list'>
+        <image src='{{items.goodsPic}}' wx:for="{{item.picList}}" wx:for-item="items" class='goods-img'></image>
+        <view class='right-total'>
+          <view class='goods-price'>￥{{item.totalMoney}}</view>
+          <view class='goods-num'>共{{item.goodsCount}}件</view>
+        </view>
+      </view>
+      <view class='goods-time'>{{item.crtTime}}</view>
+      <view class='btn-group'>
+        <button>联系卖家</button>
+        <button>取消订单</button>
+        <button>付款</button>
+      </view>
+       <image class='tag' src='{{item.ordeStatus>0?(item.ordeStatus>1?(item.ordeStatus>2?(item.ordeStatus>3?"/utils/img/page-icon/refunded.png":"/utils/img/page-icon/refunding.png"):"/utils/img/page-icon/sending.png"):"/utils/img/page-icon/before-send.png"):"/utils/img/page-icon/before-pay.png"}}'></image>
+    </view>
+    <view class='order-item' wx:if='{{item.picList.length==1}}'>
+      <view class='store'>
+        <view class='store-left'>
+          <view class='store-title'>{{item.orgName}}</view>
+          <view>
+            <image src='/utils/img/close.png' class='triggle-close'></image>
+          </view>
+        </view>
+        <image src='/utils/img/del-edit.png' data-id='{{item.orderId}}' catchtap='goDel' class='del-icon'></image>
+      </view>
+      <view class='goods-list'>
+        <image src='{{item.picList[0].goodsPic}}' class='goods-img'></image>
+        <view class='goods-name'>吃串串</view>
+        <view class='goods-info'>
+          <view class='goods-price'>￥{{item.totalMoney}}</view>
+          <view class='goods-num'>共{{item.goodsCount}}件</view>
+        </view>
+      </view>
+      <view class='goods-time'>{{item.crtTime}}</view>
+      <view class='btn-group'>
+        <button>联系卖家</button>
+        <button>取消订单</button>
+        <button>付款</button>
+      </view>
+      <image class='tag' src='{{item.orderStatus>0?(item.orderStatus>1?(item.orderStatus>2?(item.orderStatus>3?"/utils/img/page-icon/refunded.png":"/utils/img/page-icon/refunding.png"):"/utils/img/page-icon/sending.png"):"/utils/img/page-icon/before-send.png"):"/utils/img/page-icon/before-pay.png"}}'></image>
+    </view>
+  </view>
+</view>

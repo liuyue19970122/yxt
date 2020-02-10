@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "我的账户",
+  "usingComponents": {
+    "van-popup": "/miniprogram_npm/vant-weapp/popup/index",
+    "acc-item-shadow":"/components/account-item-shadow/acc-item-shadow"
+  }
+}

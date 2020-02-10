@@ -1,0 +1,13 @@
+<!--components/search/search.wxml-->
+<van-search value="{{ value }}" placeholder="请输入搜索关键词" isMsg='{{isMsg}}' show-action background='{{background}}' bind:search="onSearch" bind:cancel="onCancel" wx:if='{{type=="index"}}' />
+
+
+<view class='search-view'>
+  <input  class='search' style='{{customStyle}}' placeholder-class="search-place" placeholder="{{placeholder}}" value='{{value}}' bindinput='bindInput' bindconfirm="bindConfirm" confirm-type='search'>
+  <view class='search-content'>
+  <image src='/utils/img/stock/search.png' mode='aspectFit' class='search-icon'></image>
+  </view>
+  
+   
+  </input>
+</view>

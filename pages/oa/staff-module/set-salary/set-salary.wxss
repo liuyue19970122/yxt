@@ -1,0 +1,13 @@
+/* pages/oa/staff-module/set-salary/set-salary.wxss */
+
+.form{
+  margin:0 24rpx;
+}
+.input{
+  height:80rpx;
+  line-height: 80rpx;
+  border-bottom:2rpx solid #f5f5f5;
+  font-size:32rpx;
+  color:#333;
+  padding:0 20rpx;
+}

@@ -1,0 +1,16 @@
+<!--components/card/pro-card/index.wxml-->
+<view>
+  <view class='card' bindtap='bindClick' 
+    data-index='{{index}}'>
+    <view  class='imgsize'>
+      <image src='{{imgSrc}}' class='img'></image>
+    </view>  
+    <view class='card-content'>
+      <view class='card-title'>{{title}}</view>
+      <view class='card-subtitle' wx:if='{{subTitle}}'>{{subTitle}}</view>
+      <view class='original-price' wx:if='{{oriPrice>0}}'>{{'￥'+oriPrice}}</view>
+      <slot name='right'/>
+    </view>
+  </view>
+  <slot name='footer'/>
+</view>

@@ -1,0 +1,130 @@
+<!--pages/mall/pro-add/add.wxml-->
+<van-notify id="van-notify" />
+<form bindsubmit="formSubmit" bindreset="formReset">
+  <form-title title='基本设置'></form-title>
+  <view class="form-container">
+    <view class='form-item form-item__inline'>
+      <label class='form-item__label'><text style='color:#fe2200;'>*</text>所属类别</label>
+      <picker mode="multiSelector" class='form-item__content'
+        bindchange="bindCateChange"
+        bindcancel='bindCateCancel'
+        bindcolumnchange="bindCateColumnChange" 
+        disabled='{{cateDisabled}}'
+        value="{{multiProIndex}}" 
+        range-key='cateName'
+        range="{{multiProArray}}">
+        <view class="picker">{{selCateName}}</view>
+      </picker>
+      <view>
+        <text class="set-btn" bindtap="toSetCate" >添加分类</text>
+        <image class='triggle-close' src='../../../utils/img/close.png'></image>
+      </view>
+    </view>
+    <!-- <view class='form-item form-item__inline'>
+      <label class='form-item__label'><text style='color:#fe2200;'>*</text>库存商品</label>
+      <picker class='form-item__content'
+          bindchange="bindStockChange"
+          bindcancel='bindStockCancel'
+          disabled='{{stockDisabled}}'
+          value="{{stockProIndex}}" 
+          range-key='cusName'
+          range="{{stockProList}}">
+        <view class="picker">{{stockName}}</view>
+      </picker>
+      <view>
+        <text class="set-btn" bindtap="toSetCatePro">添加货品</text>
+        <image class='triggle-close' src='../../../utils/img/close.png'></image>
+      </view>
+    </view> -->
+    <view class='form-item form-item__inline'>
+      <label class='form-item__label'><text style='color:#fe2200;'>*</text>商品名称</label>
+      <input placeholder='自定义名称'
+        bindinput='bindProNameInput'
+        value='{{proInfo.goodsName}}' 
+        class='form-item__content content-padding'></input>
+    </view>
+    <view class='form-item'>
+      <label class='label-block'><text style='color:#fe2200;'>*</text>封面展示<text>(至少1张最多上传4张)</text></label>
+      <view class='img-container'>
+        <view wx:for='{{themeImageList}}' wx:key='{{index}}'>
+          <text class='del-img' data-index='{{index}}' catchtap='deleteCurImg'>—</text>
+          <image class='add-img' 
+            src='{{item}}'></image>
+        </view>
+        <view wx:if='{{themeImageList.length!==4}}'>
+          <image class='add-img' 
+            bindtap='bindUploadThemeImg'
+            src='../../../utils/img/upload.png'></image>
+        </view>
+      </view>
+    </view>
+    <view class='form-item'>
+      <label class='label-block'><text style='color:#fe2200;'>*</text>图文详情</label>
+      <view style="margin-bottom:40rpx;">
+        <cus-editor id='proEditor'
+          html='{{editorHtml}}' 
+          placeholder="{{placeholder}}" 
+          bindstatuschange="onStatusChange" 
+          bindinput='getEditorContent'
+          bindready="onEditorReady">
+        </cus-editor>
+      </view>
+    </view>
+  </view>
+  <form-title title='规格列表' required='{{true}}'>
+    <image src='../../../utils/img/stock/add.png' class='add-spec' bindtap='handleAddspec'></image>
+  </form-title>
+  <view class="form-container">
+    <view class='none-spec' wx:if='{{!specList.length}}'>暂未设置规格</view>
+    <checkbox-group bindchange="bindSpecCheck">
+      <view wx:for="{{specList}}" wx:key="sl" class="spec-card">
+        <view class="spec-margin">
+          <checkbox color='#fff'
+            value="{{index}}"
+            checked="{{item.status===1}}"></checkbox>
+        </view>
+        <view class="spec-margin spec-info">{{item.attrName+'/￥'+item.attrPrice}}</view>
+        <view class="spec-edit" data-index='{{index}}' catchtap="handleSpecEdit">
+          <text>编辑</text>
+        </view>
+      </view>
+    </checkbox-group>
+  </view>
+  <form-title title='其他'></form-title>
+  <view class="form-container">
+    <view class='form-item'>
+      <view class='label-block'>商品描述</view>
+      <view>
+        <textarea placeholder='请输入描述' class='content-area'
+        value='{{proInfo.description}}' bindinput='bindinputDes'></textarea>
+      </view>
+    </view>
+    <view class='form-item__switch form-item__inline'>
+      <label class='form-item__label'>是否上架</label>
+      <view style="height:42rpx;">
+        <van-switch checked="{{proInfo.status===1}}" active-color="#fe2200" inactive-color="#fff" bind:change="switchChange" data-index='{{index}}' size='38rpx'/>
+      </view>
+      <!-- <switch  class='form-item__content'
+        checked="{{proInfo.status===1}}" bindchange="switchChange"/> -->
+    </view>
+  </view>
+  <view class='form-preview' bindtap='handleToPreview'>
+    <image class='preview' src='../../../utils/img/preview.png'></image>
+    <text>预览</text>
+  </view>
+  <view class='btn-container'>
+    <button class="btn-full btn-red" bindtap='submitAddProInfo'>确认提交</button>  
+  </view>
+</form>
+<van-popup show="{{editShow}}"
+  position="bottom"
+  z-index='9999'
+  bind:close="bindClose">
+  <view class='pop-btn-container'>
+    <view class='pop-set-btn border-bottom' data-text='edit' 
+      bindtap='bindEditSpec'>修改</view>
+    <view class='pop-set-btn  border-bottom' data-text='delete'
+      bindtap='bindDeleteSpec'>删除</view>
+    <view class='pop-set-btn' bindtap='bindClose'>取消</view>
+  </view>
+</van-popup>

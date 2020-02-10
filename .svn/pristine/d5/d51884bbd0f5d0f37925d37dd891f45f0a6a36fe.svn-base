@@ -1,0 +1,211 @@
+// pages/mall/order-detail/order-detail.js
+let util = require('../../../utils/util.js');
+const app = getApp()
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    proBuyList:[],
+    chooseTimePop:false,
+    deliverTime:null,
+    address:{},
+    favMoney:0,
+    totalMoney:0,
+    orderMoney:0,
+    isChoiceAdress:false
+  },
+  //去地址界面选择地址
+  toAddressPage(){
+    wx.navigateTo({
+      url: '/pages/purchase/address-manager/address-manager?pageInStyle=fromOrder',
+    })
+  },
+  //选择时间
+  choosePop(){
+    this.setData({
+      chooseTimePop:true
+    })
+  },
+  onClose(){
+    this.setData({
+      chooseTimePop: false
+    })
+  },
+  //商品产品隐藏显示
+  bindStoreOpen(e){
+    let index = parseInt(e.currentTarget.dataset.index)
+    let proBuyList = this.data.proBuyList
+    proBuyList[index].isShow = !proBuyList[index].isShow
+    this.setData({
+      proBuyList
+    })
+  },
+  //提交订单///order/inst/add
+  //addressId,deliverTime,
+  //buyDetail:[{goodsId,attrId,buyCount,orgId}]
+  onSubmitOrder(){
+    let data={
+      addressId:this.data.address.keyId, 
+      deliverTime:100000000000000,
+      buyDetail:[]
+    }
+    let list = this.data.proBuyList
+    let arr=[]
+    for(let i=0;i<list.length;i++){
+      for (let j = 0; j < list[i].proList.length; j++){
+        let obj = { goodsId:'', attrId:'', buyCount:'', orgId:''}
+        obj.goodsId = list[i].proList[j].goodsId
+        obj.attrId = list[i].proList[j].keyId
+        obj.buyCount = list[i].proList[j].cusBuyCount
+        obj.orgId = list[i].proList[j].orgId
+        arr.push(obj)
+      }
+    }
+    data.buyDetail=JSON.stringify(arr)
+    console.log(data)
+    let url = app.globalData.baseUrl + 'apiMall/order/inst/add'
+    util.postRequestList(url, data, false, this.addOrderRes)
+    // postRequestList = function (url, data, actType, callBack)
+  },
+  addOrderRes(res,actType){
+    let info=res.data.content[0]
+    let orderId = info.keyId
+    let arr=[]
+    arr.push(orderId)
+    let orderIds=JSON.stringify(arr)
+    let payMoney = info.orderMoney
+    console.log(orderIds)
+    console.log(payMoney)
+    wx.navigateTo({
+      url: '/pages/mall/mall-pay/pay?orderIds=' + orderIds+'&payMoney='+payMoney
+    })
+    console.log(res)
+  },
+  //获取地址列表
+  getAddressList() {
+    var url = app.globalData.baseUrl + 'apiMall/address/list'
+    util.getRequestList(url, false, this.listRes)
+  },
+  listRes(res,actType) {
+    let list = res.data.content
+    let defAdd={}
+    for(let i=0;i<list.length;i++){
+      if(list[i].isDefault){
+        defAdd=list[i]
+        break
+      }
+    }
+    this.setData({
+      address: defAdd
+    })
+    console.log(defAdd)
+  },
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function(options) {
+    let cartList = wx.getStorageSync('cartProList')
+    let cpl=JSON.parse(cartList)
+    let orgArr=[]
+    let npArr=[]
+    let totalMoney=0
+    let orderMoney=0
+    console.log(cpl)
+    for (let i = 0; i < cpl.length;i++){
+      if (cpl[i].cusChecked){
+        totalMoney += cpl[i].attrNormalPrice * cpl[i].cusBuyCount
+        orderMoney += cpl[i].attrPrice * cpl[i].cusBuyCount
+        orgArr.push(cpl[i].orgId)
+        npArr.push(cpl[i])
+      }
+    }
+    console.log(cpl)
+    let favMoney = totalMoney - orderMoney
+    favMoney = util.getMoney(favMoney)
+    totalMoney = util.getMoney(totalMoney)
+    function unique(arr) {
+      return Array.from(new Set(arr))
+    }
+    let ua=unique(orgArr)
+    //getMoney
+    console.log(ua)
+    //订单商品数据组装
+    let npcl=[]
+    for (let i = 0; i < ua.length;i++){
+      let obj = {
+        isShow:false,
+        orgName: '',
+        orgId: ua[i],
+        proList:[]
+      }
+      for (let j = 0; j < npArr.length;j++){
+        if (ua[i] === npArr[j].orgId){
+          obj.orgName = npArr[j].orgName
+          obj.proList.push(npArr[j])
+        }
+      }
+      npcl.push(obj)
+    }
+    console.log(npcl)
+    this.setData({
+      proBuyList: npcl,
+      favMoney:favMoney,
+      totalMoney:totalMoney,
+      orderMoney: orderMoney
+    })
+    console.log(this.data.proBuyList)
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function() {
+    if(!this.data.isChoiceAdress){
+      this.getAddressList()
+    }
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function() {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function() {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function() {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function() {
+
+  }
+})

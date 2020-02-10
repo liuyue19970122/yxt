@@ -1,0 +1,18 @@
+/* components/long-tap/long-tap.wxss */
+
+
+.active-dialog>view{
+  height:69rpx;
+  text-align: center;
+  line-height: 69rpx;
+}
+
+.active-dialog{
+  width:140rpx;
+  box-shadow: 1px 3px 6px rgba(0,0,0,0.1);
+  position: absolute;
+  /* top:40rpx; */
+  left:100rpx;
+  background: #fff;
+  z-index: 1000;
+}

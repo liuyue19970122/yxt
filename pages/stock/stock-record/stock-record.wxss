@@ -1,0 +1,19 @@
+/* pages/stock/stock-record/stock-record.wxss */
+@import '../stock-change/stock-change'
+
+.op-info{
+  color:#333;
+  font-size:26rpx;
+}
+.add-info{
+  color:#75c581;
+}
+.reduce-info{
+  color:#fe2200;
+}
+/* .goods-list{
+  height:
+} */
+.content-list{
+  height:calc(100vh - 112rpx - 44px);
+}

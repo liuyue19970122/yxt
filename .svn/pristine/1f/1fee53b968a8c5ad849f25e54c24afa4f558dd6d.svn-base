@@ -1,0 +1,358 @@
+// pages/mall/order-detail/order-detail.js
+var util = require('../../../../utils/util.js');
+const app = getApp()
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    pageType:'firstIn',
+    readonShow: false,
+    orderShow: false,
+    billShow:false,
+    orderId:'',
+    orderDetail:{},
+    status:'',
+    deliver:"",
+    total: 0,
+    settingShow:false,
+    btnShow:false
+  },
+  //获取订单详情
+  getOrderDetail(){
+    wx.showLoading({
+      title: '加载中...',
+      mask:true
+    })
+    var url = app.globalData.baseUrl +'apiMall/order/admin/detail'
+    var data={
+      orderId:this.data.orderId
+    }
+    util.getRequestListData(url,data,false,this.detailRes)
+  },
+  detailRes(res,type) {
+    wx.hideLoading()
+    if (res.data.code == 200) {
+      let  list = res.data.content
+      let orgId=list.orgId
+      let btnShow=orgId ==-1||orgId=='-1'?false:true
+      let rt=list.requireTime
+      let as=list.address
+      let rm=list.remark
+      if(rt&&rt!='null'){
+        list.requireTime=util.formatTime(Number(rt))
+      }else{
+        list.requireTime='无配送时间'
+      }
+      if(!as&&as=='null'){
+        list.address='无配送地址'
+      }
+      if(!rm&&rm=='null'){
+        list.remark='无'
+      }
+      let total = 0
+      for (var item of list.goodsList) {
+        total += item.orderMoney
+        item.orderMoney = util.getMoney(item.orderMoney)
+      }
+      this.setData({
+        btnShow:btnShow,
+        orderDetail: list,
+        total: util.getMoney(total),
+        status: list.status,
+        deliver: list.deliveryStatus
+      })
+      var status = list.status
+      var deliver = list.deliveryStatus
+      if (status == 1 && deliver == -1) {
+        wx.setNavigationBarTitle({
+          title: '待处理',
+        })
+      } else if (status == 1 && deliver == 0) {
+        wx.setNavigationBarTitle({
+          title: '派送中',
+        })
+      } else if (status == 2) {
+        wx.setNavigationBarTitle({
+          title: '已完成',
+        })
+      } else if (status == 3) {
+        wx.setNavigationBarTitle({
+          title: '售后中',
+        })
+      } else if (status == 4) {
+        wx.setNavigationBarTitle({
+          title: '售后完成',
+        })
+      }
+    }
+  },
+  //实时上传位置///delivery/position
+  //longitude,latitude
+  liveUploadLocation(data){
+    let url = app.globalData.baseUrl + 'apiMall/delivery/position'
+    util.postRequestList(url, data, false, this.uploadLocationRes)
+  },
+  uploadLocationRes(res,type){},
+  //开启实时位置上传
+  realTimeUpload(){
+    //实时监控位置
+    let _this=this
+    let oldTimes = new Date().getTime()
+    let times = 1//次数
+    wx.startLocationUpdateBackground({
+      success(res) {
+        _this.sendOrder()
+        app.globalData.isRealTime=true
+        wx.onLocationChange((res) => {
+          let curTimes = new Date().getTime()
+          let fi = Math.floor((curTimes - oldTimes) / 60000)
+          if (fi === times) {
+            times++
+            let data = {
+              longitude: res.longitude,
+              latitude: res.latitude
+            }
+            _this.liveUploadLocation(data)
+          }
+        })
+      },
+      fail(err) {
+        _this.setData({settingShow:true})
+      },
+    })
+  },
+  //获取授权并实时上传位置
+  locationUpdateAuth(){
+    let _this=this
+    if (wx.canIUse('startLocationUpdateBackground')) {
+      util.getUserLocation.getAuthSetting().then(res => {
+        if (res.authSetting['scope.userLocationBackground'] === true) {
+          _this.realTimeUpload()
+        }
+        if (res.authSetting['scope.userLocationBackground'] === false) {
+          _this.setData({settingShow:true})
+        }
+        if (res.authSetting['scope.userLocationBackground'] === undefined) {
+          _this.realTimeUpload()
+        }
+      }).catch(err => {
+        console.log(err)
+      })
+    } else {
+      wx.showModal({
+        title: '提示',
+        content: '当前微信版本过低，无法使用该功能，请升级到最新微信版本后重试。'
+      })
+    }
+  },
+  //更新订单列表数据
+  refOrderList(){
+    let prePage=util.getPrevPage()
+    let filterData=prePage.data.filterData
+    filterData.pageSize=filterData.pageNum*filterData.pageSize
+    prePage.getOrderList()
+  },
+  //开始派送功能
+  goStart(){
+    if(app.globalData.isRealTime){
+      this.sendOrder()
+    }else{
+      this.locationUpdateAuth()
+    }
+  },
+  //开始派送订单请求
+  sendOrder(){
+    let url = app.globalData.baseUrl + 'apiMall/order/admin/delivery'
+    let data = {
+      orderId: this.data.orderId
+    }
+    util.postRequestList(url, data, false, this.startRes)
+  },
+  startRes(res) {
+    if (res.data.code == 200) {
+      this.refOrderList()
+      this.setData({pageType:'secondIn'})
+      wx.navigateTo({
+        url: '/pages/common/address-review/address-review?orderId=' + this.data.orderId+'&pageInType=ghsOrder',
+      })
+    }
+  },
+  //确认送达
+  goSubmit(){
+    var that = this
+    wx.showModal({
+      title: '提示',
+      content: '确认送达？',
+      success:function(res){
+        if(res.confirm){
+          var url = app.globalData.baseUrl + 'apiMall/order/admin/deliveryStatus'
+          var data = {
+            orderId: that.data.orderId,
+            status: 1
+          }
+          util.postRequestList(url, data, false, that.submitRes)
+        }
+      }
+    })
+  },
+  submitRes(res){
+    var that=this
+    if(res.data.code==200){
+      this.refOrderList()
+      wx.showModal({
+        title: '提示',
+        content: "确认成功",
+        showCancel:false,
+        success:function(){
+          that.getOrderDetail()
+        }
+      })
+    }
+  },
+  //结清账单
+  goSettleBill(){
+    this.setData({
+      billShow:true,
+      billMoney:this.data.total
+    })
+  },
+  //确认结清账单//order/admin/settle
+  //orderId,money
+  payAccConfirm() {
+    let url = app.globalData.baseUrl + 'apiMall/order/admin/settle'
+    let data = {
+      orderId: this.data.orderId,
+      money: this.data.billMoney
+    }
+    this.setData({billShow:false})
+    util.postRequestList(url, data, false, this.settleBileRes)
+  },
+  //settleBileRes
+  settleBileRes(res,type){
+    let _this=this
+    if(res.data.code==='200'){
+      this.refOrderList()
+      wx.showToast({
+        title: '账单结清',
+        mask:true,
+        duration:2000,
+        success:function(){
+          _this.getOrderDetail()
+        }
+      })
+    }
+  },
+  payAccCancel() {
+    this.setData({ billShow: false })
+  },
+  //结算金额变更
+  bindBillInput(e){
+    let price=e.detail.value
+    let val = util.clearNoNum(price)
+    this.setData({billMoney:val})
+  },
+ 
+  goCall(){
+    var that=this
+    wx.makePhoneCall({
+      phoneNumber: that.data.orderDetail.mobile,
+      success:function(res){
+
+      },
+      fail(resp){
+        wx.showModal({
+          title: '提示',
+          content: resp.message,
+          showCancel:false
+        })
+        console.log(resp)
+      }
+    })
+  },
+  //查看地址
+  goAddress(){
+    wx.navigateTo({
+      url: '/pages/common/address-review/address-review?orderId='+this.data.orderId+'&pageInType=ghsOrder',
+    })
+  },
+  showPopup() {
+    this.setData({
+      readonShow: true
+    });
+  },
+  showOrder() {
+    this.setData({
+      orderShow: true
+    });
+  },
+  onClose() {
+    this.setData({
+      readonShow: false,
+      orderShow: false
+    });
+  },
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function(options) {
+    if(options.orderId){
+      this.setData({
+        orderId: options.orderId,
+      })
+    }
+    this.getOrderDetail()
+  },
+  
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function() {
+    if (this.data.pageType ==='secondIn'){
+      this.getOrderDetail()
+    }
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function() {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function() {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function() {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function() {
+
+  }
+})

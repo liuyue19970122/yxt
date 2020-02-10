@@ -1,0 +1,40 @@
+<!--pages/stock/check-detail/detail.wxml-->
+<van-toast id="van-toast" />
+<view class='module-title-big'  wx:if='{{type!="look"}}'>盘点中</view>
+<view class='module-title-big' wx:if='{{goods.status=="-1"}}'>已取消</view>
+<view class='module-title-big' wx:if='{{goods.status=="1"}}'>已完成</view>
+<view class='form'>
+  <form-item label='仓库' isBorder='{{false}}' wx:if='{{type!="look"}}' isRequired='{{true}}' isPicker='{{true}}' array='{{stockList}}' key='locationName' index='{{stockIndex}}' bind:change='bindChangeStock'></form-item>
+  <view wx:if='{{type=="look"}}'>
+    <form-item label='仓库' isReadon='{{true}}' value='{{goods.locationName}}'></form-item>
+    <form-item label='操作时间' isReadon='{{true}}' value='{{goods.crtTime}}'></form-item>
+    <form-item label='操作人' isBorder='{{false}} ' value='{{goods.userName}} ' isReadon='{{true}}'></form-item>
+  </view>
+</view>
+<view class='module-title-big '>添加货品
+  <view class='add-box'>
+    <image wx:if='{{type!="look"}}' class='add-icon-padding ' src='/utils/img/stock/add.png' bindtap='goAdd'></image>
+  </view>
+</view>
+<view>
+  <view class='goods-item' catchtap="goSet" data-index='{{index}}' wx:for='{{goodsList}}'>
+    <view class='goods-check-item {{goods.status!=0?"goods-check-item-status":""}}'>
+      <view class='good-item-info '>
+        <view class='goods-name '>{{item.goodsName}}</view>
+        <view></view>
+      </view>
+      <view class='good-item-info '>
+        <view class='goods-count '>当前库存：{{item.beforeCount}}{{item.goodsUnit}}
+        </view>
+        <view class='goods-price' wx:if='{{item.fixCount==null}}'>本次盘点：未盘点</view>
+        <view class='goods-price' wx:if='{{item.fixCount!=null}}'>本次盘点：{{item.fixCount}}{{item.goodsUnit}}</view>
+      </view>
+    </view>
+    <view class='right-icon' wx:if='{{type!="look"}}'></view>
+  </view>
+</view>
+<view class='op-height'></view>
+<view class='op-btn-group' wx:if='{{type!="look"}}'>
+  <button class='n-btn' catchtap="goCancel">取消盘点</button>
+  <button class='y-btn' catchtap="goSubmit">确认盘点</button>
+</view>

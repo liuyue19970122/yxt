@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "添加人员",
+  "usingComponents": {
+    "form-item":"/components/form-item/form-item"
+  }
+}

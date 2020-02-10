@@ -1,0 +1,10 @@
+{
+  "navigationBarBackgroundColor": "#FE5339",
+  "navigationBarTitleText": "待处理",
+  "navigationBarTextStyle": "white",
+  "usingComponents": {
+    "cell-item":"/components/cell/cell-item",
+    "van-dialog": "/miniprogram_npm/vant-weapp/dialog/index",
+    "van-popup": "/miniprogram_npm/vant-weapp/popup/index"
+  }
+}

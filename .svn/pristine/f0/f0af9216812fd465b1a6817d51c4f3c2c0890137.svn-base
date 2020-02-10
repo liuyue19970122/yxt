@@ -1,0 +1,12 @@
+/* components/cate-picker/cate-picker.wxss */
+
+.tiggle-icon{
+  width:24rpx;
+  height:12rpx;
+  padding-left:20rpx;
+}
+.picker{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}

@@ -1,0 +1,14 @@
+/* pages/stock/stock-record/stock-record.wxss */
+@import '../stock-change/stock-change'
+
+.type-info-module{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.type-info-module>view>view:not(:last-child){
+  margin-bottom:24rpx;
+}
+.good-right-module{
+  width:100%
+}

@@ -1,0 +1,109 @@
+/* pages/mall/order-detail/order-detail.wxss */
+@import '../../mall/order-detail/order-detail'
+.top-module {
+  display: flex;
+  min-height: 120rpx;
+  font-size: 32rpx;
+}
+.reciver-detail{
+  margin-bottom:20rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.reciver{
+  display: flex;
+  margin-bottom:20rpx;
+  color:#999;
+}
+.reciver view{
+  margin-right:20rpx;
+}
+.form-item{
+  display: flex;
+  justify-content: space-between;
+  border-top:2rpx solid #f0f0f0;
+  padding:20rpx 0;
+  /* border-bottom:2rpx solid #f0f0f0; */
+}
+.remark{
+  background: #f0f0f0;
+  width:70%;
+  padding:5rpx;
+  border-radius: 10rpx;
+}
+.icon {
+  width: 120rpx;
+  height: 120rpx;
+  margin-right: 24rpx;
+}
+
+.top-right-module {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: #333;
+}
+
+.mall-goods-list .goods-item:first-child{
+  margin-top:30rpx;
+}
+.mall-title{
+  display: flex;
+  justify-content: space-between;
+  color:#333;
+  font-size: 36rpx;
+  height:80rpx;
+  align-items: center;
+}
+
+
+/* 选择送达时间 */
+.choose-time-content{
+  display: flex;
+  box-sizing: border-box;
+  color:#333;
+  font-size: 28rpx;
+  height:calc(100% - 120rpx);
+  overflow: hidden;
+}
+.day-list{
+  width:120rpx;
+  background: #F5F5F5;
+  height:100%;
+}
+.day-item{
+  height:80rpx;
+  line-height:80rpx;
+  text-align: center;
+}
+.day-item-select{
+  background: #fff;
+}
+.time-list{
+  margin-left:20rpx;
+  width:606rpx;
+}
+.time-item{
+  display: flex;
+  height:80rpx;
+  line-height: 80rpx;
+  padding-right:30rpx;
+  justify-content: space-between;
+  border-bottom:2rpx solid #f5f5f5;
+}
+.time-item-select{
+  color:#fe2200;
+  position: relative;
+}
+.select-time{
+  position: absolute;
+  right:0;
+  top:0;
+  width:60rpx;
+  height:60rpx;
+}
+
+.goods-info{
+  width:480rpx;
+}

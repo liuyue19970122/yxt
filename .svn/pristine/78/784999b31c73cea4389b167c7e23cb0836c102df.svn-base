@@ -1,0 +1,101 @@
+// pages/system/msg-list/list.js
+var util = require('../../../utils/util.js');
+const app = getApp()
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    msgList: [],
+    pageNum: 1,
+    pageSize: 10,
+    pages: 0
+  },
+  getMsgList() {
+    wx.showLoading({
+      title: '获取中',
+    })
+    var url = app.globalData.baseUrl + 'apiMall/msg/list'
+    var data = {
+      pageNum: this.data.pageNum,
+      pageSize: this.data.pageSize
+    }
+    util.getRequestListData(url, data, false, this.getRes)
+  },
+  getRes(res) {
+    wx.hideLoading()
+    res.data.content.list.map((item)=>{
+      item.crtTime=util.formatDate(item.crtTime)
+    })
+    if (this.data.pageNum == 1) {
+      var list = res.data.content.list
+    } else {
+      var list = this.data.msgList.concat(res.data.content.list)
+    }
+    this.setData({
+      msgList: list,
+      pages: res.data.content.pages
+    })
+  },
+  goDetail(e){
+    wx.navigateTo({
+      url: '../msg-detail/detail?id='+e.currentTarget.dataset.id,
+    })
+  },
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function(options) {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function() {
+    this.getMsgList()
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function() {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function() {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function() {
+    util.getNextPage(this, this.data.pages, this.getMsgList)
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function() {
+
+  }
+})

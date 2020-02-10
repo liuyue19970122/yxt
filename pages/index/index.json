@@ -1,0 +1,13 @@
+{
+  "navigationBarBackgroundColor": "#FE2200",
+  "usingComponents": {
+    "search":"/components/search/search",
+    "van-dialog": "/miniprogram_npm/vant-weapp/dialog/index",
+    "van-notice-bar": "/miniprogram_npm/vant-weapp/notice-bar/index",
+    "ec-canvas": "../../ec-canvas/ec-canvas",
+    "banner":"/components/banner/banner",
+    "panel": "/components/panel/panel",
+    "van-picker": "/miniprogram_npm/vant-weapp/picker/index",
+    "van-icon": "/miniprogram_npm/vant-weapp/icon/index"
+  }
+}

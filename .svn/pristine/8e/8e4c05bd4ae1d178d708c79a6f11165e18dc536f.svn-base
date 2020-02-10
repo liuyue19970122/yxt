@@ -1,0 +1,30 @@
+<!--pages/mall/handle-order/order-add/add.wxml-->
+<form-title title='基本信息'></form-title>
+<view class='form-item form-item__inline'>
+  <label class='form-item__label'>供货商</label>
+  <view class='form-item__content'>xxx供应商</view>
+</view>
+<view class='form-item form-item__inline'>
+  <label class='form-item__label'>时间</label>
+  <view class='form-item__content'>2019/12/11</view>
+</view>
+<view class='form-item form-item__inline'>
+  <label class='form-item__label'>操作人</label>
+  <view class='form-item__content'>张三</view>
+</view>
+<form-title title='货品列表'></form-title>
+<view class='card-container'>
+  <view class='card'>
+    <view class='card-info'>
+      <view class='info-name text-one__line'>xxx水果xxx水果xxx水果xxx水果xxx水果xxx水果xxx水果</view>
+      <view class='info-other'>
+        <text>20.00</text>
+        <text>数量：40斤</text>
+      </view>
+    </view>
+    <view class='card-edit'>编辑</view>
+  </view>
+</view>
+<view class='fixed-bottom'>
+  <button class='btn btn-submit'>验收</button>
+</view>

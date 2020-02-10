@@ -1,0 +1,56 @@
+/* pages/stock/stock-warn-set/set.wxss */
+
+@import '../stock-change/stock-change'
+
+.dialog {
+  /* padding:40rpx 40rpx 24rpx; */
+}
+.select-item{
+  max-width:50%;
+}
+.title {
+  color: #333;
+  text-align: center;
+  font-size: 32rpx;
+  margin-top: 40rpx;
+}
+
+.input-item {
+  border: 2rpx solid #333;
+  border-radius: 20rpx;
+  margin: 24rpx 40rpx;
+  width: 514rpx;
+  height: 80rpx;
+}
+
+.input-item input {
+  text-align: center;
+  line-height: 80rpx;
+  height: 80rpx;
+}
+
+.submit-dialog-btn {
+  width: 514rpx;
+  height: 80rpx;
+  text-align: center;
+  line-height: 80rpx;
+  color: #fff;
+  border-radius: 20rpx;
+  background: #fe2200;
+  margin: 30rpx 40rpx;
+}
+
+.goods-item {
+  height: 140rpx;
+  padding: 30rpx 0;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.goods-list{
+  height:calc(100vh - 220rpx);
+}
+.goods-name {
+  margin-bottom: 24rpx;
+}

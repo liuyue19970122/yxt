@@ -1,0 +1,8 @@
+<!--components/tab-sort/index.wxml-->
+<view class='condition' bindtap='bindSort'>
+  <text>{{title}}</text>
+  <view class='condition-arrow'>
+    <text class='triangle-up {{up?"active-up":""}}'></text>
+    <text class='triangle-down {{down?"active-down":""}}'></text>
+  </view>
+</view>

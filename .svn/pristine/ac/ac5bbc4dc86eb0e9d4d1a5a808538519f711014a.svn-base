@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "更新桌位",
+  "usingComponents": {
+    "form-item": "/components/form-item/form-item"
+  }
+}

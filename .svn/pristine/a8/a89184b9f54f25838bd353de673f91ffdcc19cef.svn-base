@@ -1,0 +1,138 @@
+// pages/receipt/vage/spec/detail.js
+var util = require('../../../../utils/util.js');
+const app = getApp()
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    matList:[],
+    name:'',
+    price:'',
+    type:'new',
+    index:''
+  },
+  getName:function(e){
+    this.setData({
+      name:e.detail
+    })
+  },
+  getPrice:function(e){
+    this.setData({
+      price:e.detail
+    })
+  },
+  goAdd(){
+    wx.navigateTo({
+      url: '../material/detail',
+    })
+  },
+  goDetail(e) {
+    wx.navigateTo({
+      url: '../material/detail?index='+e.currentTarget.dataset.index,
+    })
+  },
+  goDel(e){
+    var list=this.data.matList
+    list.splice(e.currentTarget.dataset.index,1)
+    this.setData({
+      matList:list
+    })
+  },
+  onSubmit(){
+    var item={
+      attrName:this.data.name,
+      attrPrice:this.data.price,
+      status:1,
+      matList:this.data.matList
+    }
+    var pages=getCurrentPages()
+    var prevPage=pages[pages.length-2]
+    var list=prevPage.data.specList
+    if(this.data.type=='new'){
+      list.push(item)
+    }else{
+      list.splice(this.data.index,1,item)
+    }
+    prevPage.setData({
+      specList:list
+    })
+    wx.navigateBack({
+      delta:1
+    })
+  },
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    if(options.item){
+       var list=this.data.matList
+       list.push(JSON.parse(options.item))
+       this.setData({
+         matList:list
+       })
+    }
+    if(options.index){
+      // var pages = getCurrentPages()
+      var prevPage = util.getPrevPage()
+      var list = prevPage.data.specList
+      this.setData({
+        name:list[options.index].attrName,
+        price: list[options.index].attrPrice,
+        matList: list[options.index].matList,
+        type:'update',
+        index:options.index
+      })
+    }
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+
+  }
+})

@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "long-tap":"../long-tap/long-tap"
+  }
+}

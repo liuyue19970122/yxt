@@ -1,0 +1,64 @@
+<!--pages/receipt/order-record/list.wxml-->
+<view class='select-view'>
+  <view class='select-item' bindtap='goSelect' data-type='status'>
+    {{statusList[statusIndex].name}}
+    <image class='down-icon' src='/utils/img/down.png'></image>
+  </view>
+  <view class='select-item' bindtap='goSelect' data-type='pay'>
+    {{payList[payIndex].name}}
+    <image class='down-icon' src='/utils/img/down.png'></image>
+  </view>
+</view>
+<view class='hr-module'></view>
+<view class='choose-overslay' bindtap='cancelSelect' wx:if='{{ifStatus||ifPay}}'></view>
+<!-- 状态选择 -->
+<view class='content-view' wx:if='{{ifStatus}}'>
+  <view class='content-item' data-flag="{{item.warnFlag}}" data-index='{{index}}' bindtap='bindStatus' wx:for='{{statusList}}'>
+    <view>{{item.name}}</view>
+    <view>
+      <image class='select-icon' src='/utils/img/stock/select.png' wx:if='{{index==statusIndex}}'></image>
+    </view>
+  </view>
+</view>
+<!-- z支付选择 -->
+<view class='content-view' wx:if='{{ifPay}}'>
+  <view class='content-item' wx:for='{{payList}}' bindtap='bindPay' data-index='{{index}}'>
+    <view>{{item.name}}</view>
+    <view>
+      <image class='select-icon' src='/utils/img/stock/select.png' wx:if='{{index==payIndex}}'></image>
+    </view>
+  </view>
+</view>
+<scroll-view scroll-y bindscrolltolower='getNextPage' class='record-list'>
+  <view class='record-item' wx:for='{{recordList}}'>
+    <view class='info-item border-bottom'>
+      <view class='order-num' wx:if='{{item.deskList.length==0}}'>无座</view>
+      <view class='order-num' wx:if='{{item.deskList.length>0}}'>{{item.deskList[0].deskCode}}
+        <text wx:if='{{item.deskList.length>1}}'>等</text> </view>
+      <view class='info-value pay' wx:if='{{item.payFlag=="1"}}'>已支付
+        <text class='pay' wx:if='{{item.status=="1"}}'>已完成</text>
+        <text class='no-pay' wx:if='{{item.status=="0"}}'>用餐中</text>
+      </view>
+      <view class='info-value no-pay' wx:if='{{item.payFlag=="0"}}'>未支付
+        <text class='pay' wx:if='{{item.status=="1"}}'>已完成</text>
+        <text class='no-pay' wx:if='{{item.status=="0"}}'>用餐中</text>
+      </view>
+    </view>
+    <view class='info-item border-bottom'>
+      <view class='info-value'>菜品：{{item.foodCount}}份</view>
+      <view class='order-price' wx:if='{{item.payFlag=="1"}}'>￥{{item.realMoney}}</view>
+      <view class='order-price' wx:if='{{item.payFlag!="1"}}'>￥{{item.totalMoney}}</view>
+    </view>
+    <view class='info-item border-bottom'>
+      <!-- <view></view> -->
+      <view class='info-label'>{{item.beginTime}}</view>
+      <view class='info-value' bindtap="goDetail" data-id='{{item.keyId}}' data-status='{{item.status}}' data-pay='{{item.payFlag}}'>查看详情</view>
+    </view>
+
+    <!-- <view class='info-item'>
+      <view class='info-value'></view>
+      <view class='info-value'></view>
+    </view> -->
+    <view class='hr-module'></view>
+  </view>
+</scroll-view>

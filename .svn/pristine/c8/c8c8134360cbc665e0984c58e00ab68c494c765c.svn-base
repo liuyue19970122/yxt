@@ -1,0 +1,261 @@
+// pages/stock/stock-in/stock-in.js
+var util = require('../../../utils/util.js');
+import Notify from '../../../miniprogram_npm/vant-weapp/notify/notify';
+const app = getApp()
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    cateList: [],
+    searchName: '',
+    goodList: [],
+    selectCate: 0,
+    index: -1,
+    goodsName: '',
+    isReadon: false,
+    selectLocation: 0,
+    description: '',
+    locationList: [],
+    isExit: false,
+    goodsId: '',
+    locationName: '',
+    goods: {},
+    unitList: [],
+    selectUnit: 0,
+    multiIndex: [0, 0],
+    multiArr: [],
+    goodsPic: '/utils/img/upload.png',
+  },
+  upImage() {
+    var that = this
+    wx.chooseImage({
+      count: 1,
+      success: function(res) {
+        var files = res.tempFilePaths
+        wx.uploadFile({
+          url: app.globalData.fileUploadUrl + '/apiUser/file/upload',
+          filePath: files[0],
+          name: 'file',
+          header: {
+            Authorization: wx.getStorageSync('localToken').token
+          },
+          success(res) {
+            that.setData({
+              goodsPic: JSON.parse(res.data).content
+            })
+          }
+        })
+      },
+    })
+  },
+  getGoodsName(e){
+    this.setData({
+      goodsName:e.detail
+    })
+  },
+  bindMultiPickerChange: function(e) {
+    this.setData({
+      multiIndex: e.detail.value
+    })
+    var index = e.detail.value
+    var that = this
+    this.setData({
+      selectCate: that.data.cateList[index[0]].nextList[index[1]].keyId
+    })
+  },
+  bindMultiPickerColumnChange: function(e) {
+    var data = {
+      multiArr: this.data.multiArr,
+      multiIndex: this.data.multiIndex
+    };
+    data.multiIndex[e.detail.column] = e.detail.value;
+    if (e.detail.column == 0) {
+      var nextArr = this.data.cateList[e.detail.value].nextList.map(item => {
+        return item.cateName
+      })
+      var list = data.multiArr
+      list.splice(1, 1)
+      list.push(nextArr)
+    }
+    this.setData(data);
+
+  },
+  changeCate: function(e) {
+    this.setData({
+      selectCate: e.detail.detail.value
+    })
+  },
+  changeLocation: function(e) {
+    this.setData({
+      selectLocation: e.detail.detail.value
+    })
+  },
+  getCateList() {
+    var url = app.globalData.baseUrl + 'apiStock/stock/cate/list'
+    util.getRequestList(url, false, this.cateListRes)
+  },
+  closeSearch() {
+    this.setData({
+      isSearch: false,
+    })
+  },
+  cateListRes(res) {
+    var list = res.data.content
+    for (var item of list) {
+      item.nextList = JSON.parse(item.nextList)
+    }
+    this.setData({
+      cateList: list,
+      selectCate: list[0].nextList[0].keyId
+    })
+    var multiArr = this.data.cateList.map(item => {
+      return item.cateName
+    })
+    var list = []
+    list.push(multiArr)
+    var nextArr = this.data.cateList[0].nextList.map(item => {
+      return item.cateName
+    })
+    list.push(nextArr)
+    this.setData({
+      multiArr: list
+    })
+  },
+  getDes(e) {
+    this.setData({
+      description: e.detail.value
+    })
+  },
+  addGoods: function() {
+    if (this.data.goodsName == "") {
+      Notify({
+        type: 'warning',
+        message: '商品名称不能为空'
+      });
+      return false
+    }
+    if (this.data.goodsPic.indexOf('util') >= 0) {
+      Notify({
+        type: 'warning',
+        message: '请上传商品图片'
+      });
+      return false
+    }
+    var url = app.globalData.baseUrl + 'apiStock/stock/inst/new'
+    var data = {
+      cateId: this.data.selectCate,
+      locationId: this.data.locationList[this.data.selectLocation].keyId,
+      goodsName: this.data.goodsName,
+      goodsUnit: this.data.unitList[this.data.selectUnit],
+      goodsPic: this.data.goodsPic,
+      description: this.data.description,
+    }
+    util.postRequestList(url, data, false, this.addRes)
+  },
+  addRes(res) {
+    if (res.data.code == 200) {
+      wx.showToast({
+        icon: 'success',
+        title: '添加成功',
+      })
+      this.setData({
+        goodsName: '',
+        goodsPic: '',
+        selectUnit:0,
+        description: '',
+        // selectCate: -1,
+        // selectLocation: -1,
+      })
+      this.getUnitList()
+      this.getCateList()
+    }
+  },
+  getStockList() {
+    var url = app.globalData.baseUrl + 'apiStock/stock/location/list'
+    var data = {
+      pageSize: 5000,
+      pageNum: 1
+    }
+    util.getRequestListData(url, data, false, this.stockListRes)
+  },
+  stockListRes: function(res) {
+    this.setData({
+      locationList: res.data.content.list,
+    })
+  },
+  getUnitList() {
+    var url = app.globalData.baseUrl + 'apiStock/default/unit/list'
+    util.getRequestListData(url, {}, false, this.unitListRes)
+  },
+  unitListRes(res) {
+    this.setData({
+      unitList: res.data.content
+    })
+  },
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function(options) {
+    this.getCateList()
+    this.getStockList()
+    this.getUnitList()
+    if (options.id) {
+      this.setData({
+        goodsId: options.id,
+        isExit: true,
+        isReadon: true
+      })
+      this.getGoodsInfo()
+    }
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function() {
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function() {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function() {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function() {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function() {
+
+  }
+})

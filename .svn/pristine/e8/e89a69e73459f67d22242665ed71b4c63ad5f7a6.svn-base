@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "page-title":"/components/page-title/page-title",
+    "shadow-list":"/components/shadow-list/shadow-list"
+  }
+}

@@ -1,0 +1,42 @@
+<!--pages/receipt/vage-list/list.wxml-->
+<view class='box'>
+  <!-- 左侧一级分类 -->
+  <view class='left-module'>
+    <view data-index='{{index}}' bindtap='changeFirstCate' class='type-first-item {{index==selectFirstIndex?"select-first-item":""}}' wx:for='{{cateList}}'>{{item.cateName}}</view>
+  </view>
+  <!-- 右侧二级分类及商品列表 -->
+  <view class='right-module'>
+    <view class='type-second-list ' wx:if='{{cateList[selectFirstIndex].nextList.length>0}}'>
+      <van-tabs active="{{ selectSecondIndex }}" tab-class='tab' nav-class="tab" custom-class="tab" tab-active-class='tab-active' line-height='0' border='{{false}}' color='#fe2200' bind:click='changeSecondCateTab'>
+        <van-tab title="{{item.cateName}}"  data-index='{{index}}' wx:for='{{cateList[selectFirstIndex].nextList}}'></van-tab>
+      </van-tabs>
+      <image class='arrow-down' bindtap='bindTabCollapse' src='{{showTypeModule?"/utils/img/arrow_up.png":"/utils/img/arrow_down.png"}}'></image>
+    </view>
+    <view class='type-module' wx:if='{{showTypeModule}}'>
+      <view class='select-second-item {{selectSecondIndex==index?"type-item":""}}' data-index='{{index}}' bindtap='changeSecondCate' wx:for='{{cateList[selectFirstIndex].nextList}}'>{{item.cateName}}</view>
+    </view>
+    <scroll-view scroll-y bindscrolltolower='getNextPage' class='vage-list'>
+      <view class='vage-item' data-id='{{item.keyId}}' wx:for='{{foodList}}'>
+        <image class='vage-img' src='{{item.mainPic}}'>
+        <view class='status' wx:if='{{!item.useFlag}}'>已下架</view>
+        </image>
+        <view class='vage-detail'>
+          <view class='vage-title '>
+            <text class='text-over name'>{{item.foodName}}</text>
+            <!-- <text class='num' wx:if='{{item.noCountLimit=="1"}}'>无线库存</text> -->
+            <text class='num' wx:if='{{item.noCountLimit!="1"}}'>{{item.limitCount}}</text>
+          </view>
+          <view class='vage-info'>
+            <view class='vage-price'>
+              <text class='price'>{{item.attrList[0].sellPrice}}</text>元/{{item.attrList[0].attrName}}</view>
+            <image src='/utils/img/receipt/edit.png' data-id='{{item.keyId}}' class='edit-icon' catchtap='goEdit'></image>
+          </view>
+        </view>
+      </view>
+      <view class='empty' wx:if='{{foodList.length==0}}'>暂无数据</view>
+    </scroll-view>
+  </view>
+</view>
+
+<image src='/utils/img/receipt/insert.png' class='btn-stock-insert' bindtap='goInsert'></image>
+<image src='/utils/img/add.png' class='btn-stock-in' bindtap='goAdd'></image>

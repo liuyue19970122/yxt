@@ -1,0 +1,29 @@
+/* pages/receipt/credit-manager/credit-detail/detail.wxss */
+
+@import '/pages/system/account-manager/account-manager'
+@import '/pages/stock/stock-change/stock-change'
+@import '../people-list/list'
+
+.account-card{
+  height:232rpx;
+}
+.right-icon{
+  width:15rpx;
+  height:15rpx;
+}
+.content-view,.choose-overslay{
+  top:400rpx;
+}
+.left-info{
+  display: flex;
+  align-items: center;
+  width:70%
+}
+.left-item{
+  margin-left:20rpx;
+  width:100%;
+}
+.check-box{
+  width:30%;
+  margin:30rpx 0 0 20rpx;
+}

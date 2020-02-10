@@ -1,0 +1,4 @@
+/* pages/oa/person-list/list.wxss */
+.list{
+  margin:0 24rpx;
+}

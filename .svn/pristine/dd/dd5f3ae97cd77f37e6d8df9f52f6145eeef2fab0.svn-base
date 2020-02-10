@@ -1,0 +1,50 @@
+<!--pages/mall/handle-order/order-add/add.wxml-->
+<form-title title='基本信息'></form-title>
+<view class='form-item form-item__inline'>
+  <label class='form-item__label'>供货商</label>
+  <view class='form-item__content'>{{orderInfo.producerName}}</view>
+</view>
+<view class='form-item form-item__inline'>
+  <label class='form-item__label'>时间</label>
+  <view class='form-item__content'>{{orderInfo.openTime}}</view>
+</view>
+<view class='form-item form-item__inline'>
+  <label class='form-item__label'>操作人</label>
+  <view class='form-item__content'>{{orderInfo.userName}}</view>
+</view>
+<form-title title='货品列表'></form-title>
+<view class='card-container'>
+  <view class='card' wx:for='{{proList}}' wx:key='pl'>
+    <view class='card-info'>
+      <view class='info-name text-one__line'>{{item.stockName}}</view>
+      <view class='info-other'>
+        <text>{{"￥"+item.perMoney+"元"}}</text>
+        <view>
+          <text>数量：{{item.count+item.stockUnit+' '}}</text>
+          <text>修正数量：{{item.fixCount+item.stockUnit}}</text>
+        </view>
+      </view>
+    </view>
+    <view class='card-edit' data-index="{{index}}" bindtap="hanleVerify">修正</view>
+  </view>
+</view>
+<view class='fixed-bottom'>
+  <button class='btn btn-submit' bindtap="hanleConfirm">验收</button>
+</view>
+<van-dialog use-slot title="修正数量"
+  show="{{ verifyShow }}"
+  show-cancel-button
+  bind:confirm='verifyConfirm' bind:cancel='verifyCancel'>
+  <view class='charge'>
+    <label class='charge-label'>原数量:</label>
+    <view>{{oriValue}}</view>
+  </view>
+  <view class='charge'>
+    <label class='charge-label'>修正数量:</label>
+    <input placeholder='修正数量(必填)'
+      bindinput='bindVerifyInput'
+      type="digit"
+      value='{{verifyValue}}' 
+      class='charge-input'></input>
+  </view>
+</van-dialog>

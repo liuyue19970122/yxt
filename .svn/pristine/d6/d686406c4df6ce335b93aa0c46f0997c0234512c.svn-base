@@ -1,0 +1,7 @@
+<!--pages/stock/set-check/set.wxml-->
+<view class='form'>
+  <form-item label='货品名称' value='精品冬枣' isReadon='{{true}}'></form-item>
+  <form-item label='单价' value='20' isReadon='{{true}}'></form-item>
+  <form-item label='单位' value='kg' isReadon='{{true}}'></form-item>
+  <form-item label='实际数量' value='500'></form-item>
+</view>

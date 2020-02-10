@@ -1,0 +1,79 @@
+/* pages/receipt/table-list/list.wxss */
+@import '/pages/stock/stock-change/stock-change'
+.page{
+  min-height:100vh;
+  width:750rpx;
+}
+.table-item {
+  width: 220rpx;
+  height: 120rpx;
+  margin-top: 40rpx;
+  box-shadow: 0 0 8rpx #ccc;
+  border-radius: 20rpx;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 32rpx;
+  color: #333;
+}
+
+.select-will-item{
+  background: #FFE793;
+  color:#fff;
+}
+
+.select-used-item{
+  background: #75c581;
+  color:#fff;
+}
+
+.table-item:not(:nth-child(3n+3)) {
+  margin-right: 21rpx;
+}
+.count{
+  font-size:30rpx;
+}
+.no {
+  margin-bottom: 10rpx;
+  text-align: center;
+}
+.time{
+  color:#fff;
+}
+.table-list {
+  margin: 0 24rpx;
+  display: flex;
+  flex-wrap: wrap;
+}
+.status-list{
+  display: flex;
+  justify-content: flex-end;
+  margin-top:24rpx;
+}
+.status-item{
+  display: flex;
+  font-size:28rpx;
+  margin-right:24rpx;
+  align-items: center;
+  color:#333;
+}
+.status-item .item{
+  width:30rpx;
+  height:30rpx;
+  margin-right:10rpx;
+}
+.used{
+  background: #75c581;
+  border:1rpx solid #333;
+
+}
+.will{
+  background: #FFE793;
+  border:1rpx solid #333;
+}
+.none{
+  background: #fff;
+  border:1rpx solid #333;
+}

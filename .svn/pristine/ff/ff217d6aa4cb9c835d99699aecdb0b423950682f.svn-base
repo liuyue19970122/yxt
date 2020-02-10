@@ -1,0 +1,9 @@
+/* pages/purchase/order-manager/order-manager.wxss */
+@import '../../mall/order-manager/order-manager'
+.store{
+  display: flex;
+  justify-content: space-between;
+}
+.tab-view{
+  width:750rpx;
+}

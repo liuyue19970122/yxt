@@ -1,0 +1,9 @@
+{
+  "navigationBarBackgroundColor": "#ffffff",
+  "navigationBarTitleText": "规格设置",
+  "navigationBarTextStyle": "black",
+  "usingComponents": {
+    "form-title": "/components/form-title/index",
+    "van-notify":"/miniprogram_npm/vant-weapp/notify/index" 
+  }
+}

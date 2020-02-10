@@ -1,0 +1,10 @@
+/* pages/mall/handle-order/handle-order.wxss */
+@import '../order-detail/order-detail'
+.order-form{
+  margin:0 24rpx;
+}
+.goods-list-title{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

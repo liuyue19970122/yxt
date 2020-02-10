@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "form-item": "/components/form-item/form-item",
+    "page-title":"/components/page-title/page-title",
+    "van-notify": "/miniprogram_npm/vant-weapp/notify/index",
+    "van-toast": "/miniprogram_npm/vant-weapp/toast/index"
+  }
+}

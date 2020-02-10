@@ -1,0 +1,15 @@
+<!--pages/system/charge-money/recharge.wxml-->
+<view class='charge-view'>
+  <!-- <view class='title'>请选择充值金额:</view> -->
+  <view class='title'>普通版</view>
+  <view class='money-list'>
+    <view class='money-item {{index==chargeIndex?"active-item":""}}' bindtap='selectItem' wx:if='{{item.level==0}}' data-detail='{{item.description}}' data-index='{{index}}' data-money='{{item.chargeMoney}}' wx:for='{{rechargeList}}'>{{item.chargeMoney}} <text class='text-info'>元</text></view>
+  </view>
+  <view class='title'>升级版</view>
+  <view class='money-list'>
+    <view wx:if='{{item.level==1}}' class='money-item {{index==chargeIndex?"active-item":""}}' bindtap='selectItem' data-detail='{{item.description}}' data-money='{{item.chargeMoney}}' data-index='{{index}}' wx:for='{{rechargeList}}'>{{item.chargeMoney}} <text class='text-info'>元</text></view>
+  </view>
+</view>
+ <view class='detail'>注：充{{rechargeList[chargeIndex].chargeMoney}}元，<text class='detail-msg'>赠送{{rechargeList[chargeIndex].givePoint}}积分（{{rechargeList[chargeIndex].month}}个月）</text>，积分可用户支付采购商品货款。</view>
+ <!-- <view class='msg-info'>积分可用于支付采购商品货款</view> -->
+<button class='big-submit-btn' bindtap='wxChargeAcc'>确定</button>

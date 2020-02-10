@@ -1,0 +1,12 @@
+<!--pages/stock/set-check/set.wxml-->
+<view class='form'>
+  <form-item label='货品名称' value='{{goods.goodsName}}' isReadon='{{true}}'></form-item>
+  <form-item label='现有库存' value='{{goods.beforeCount}}' isReadon='{{true}}'></form-item>
+  <form-item label='单位' value='{{goods.goodsUnit}}' isReadon='{{true}}'></form-item>
+  <form-item label='盘点数量' value='{{goods.fixCount}}' bind:input='bindFixCount' placeholder='请输入盘点数量'></form-item>
+</view>
+<view class='op-btn-group' wx:if='{{type=="new"}}'>
+  <button class='n-btn' bindtap='goCancel'>取消盘点</button>
+  <button class='y-btn' bindtap='goUpdate'>确认盘点</button>
+</view>
+<button class='big-submit-btn' wx:if='{{type!="new"}}' bindtap='goUpdate'>确认</button>

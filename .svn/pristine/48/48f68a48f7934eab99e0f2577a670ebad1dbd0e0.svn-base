@@ -1,0 +1,11 @@
+<!--components/list-item/list-item.wxml-->
+<view class='list-item'>
+  <view class='list-item-left'>
+    <slot name='left' />
+    <slot name='center' />
+  </view>
+  <view>
+    <slot name='right' />
+    <!-- <image src='/utils/img/close.png' class='triggle-close'></image> -->
+  </view>
+</view>

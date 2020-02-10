@@ -1,0 +1,60 @@
+/* pages/pro_manage/pro_list/list.wxss */
+@import '/utils/asset/css/cus-mall.wxss';
+@import '/utils/asset/css/cus-pro-card.wxss';
+page{
+  width: 100%;
+  height: 100%;
+  overflow: hidden
+}
+.pro{
+  height: 100%;
+  position: relative;
+}
+.pro-search{
+  position: absolute;
+  width: 100%;
+}
+.van-search__content{
+  border: 2rpx solid #ccc;
+}
+.van-search{
+  padding:20rpx !important;
+}
+
+.state-container{
+  display: flex;
+  display: -webkit-flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.selling-price{
+  font-size: 32rpx;
+  color: #fe2200;
+  font-weight: bold;
+}
+.selling-state{
+  font-size: 28rpx;
+  color: #333;
+}
+.btn-container{
+  text-align: right;
+  padding: 48rpx 0 0;
+}
+.pro-btn{
+  display: inline-block;
+  height: 30px;
+  line-height: 30px;
+  border: 1px solid #ccc;
+  color: #333;
+  font-size: 28rpx;
+  border-radius: 15px;
+  background-color: #fff;
+}
+.pro-btn+.pro-btn{
+  margin-left: 20rpx;
+}
+.btn-del{
+  color: #fe2200;
+  border: 1px solid #fe2200;
+}
+

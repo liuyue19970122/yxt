@@ -1,0 +1,22 @@
+/* pages/mall/handle-order/buyer-add/add.wxss */
+@import '../../../../utils/asset/css/cus-form.wxss';
+.del-container{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin: 24rpx 0;
+}
+.del-img{
+  display: flex;
+  align-items: center;
+}
+.rub-class{
+  height: 36rpx;
+  width: 36rpx;
+  margin-right: 12rpx;
+}
+
+.rub-text{
+  color: #666;
+  font-size: 36rpx;
+}

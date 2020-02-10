@@ -1,0 +1,28 @@
+<tab-view tabList='{{tabList}}' type='{{type}}' bind:change='changeTab'></tab-view>
+<view class='card-container' wx:for='{{orderList}}' wx:key='{{index}}'
+  data-status='{{item.status}}' 
+  data-deliver='{{item.deliveryStatus}}' 
+  data-id='{{item.keyId}}'
+  bindtap='goDetail'>
+  <view class='order-card'>
+    <view class='card-info'>
+      <view class='img-container'>
+        <image src='../../../../utils/img/good-img.png'></image>
+      </view>
+      <view class='card-content'>
+        <view class='card-title'>{{item.orgName}}</view>
+        <view class='card-num'>{{"数量:"+item.goodsCount}}</view>
+      </view>
+    </view>
+    <view class='card-subinfo'>
+      <text>{{"总价:￥"+item.orderMoney}}</text>
+      <text>{{'时间:'+item.crtTime}}</text>
+    </view>
+    <view class='card-tag' 
+      style='background:{{item.bgColor}}'>{{item.statusText}}</view>
+  </view>
+</view>
+<view class='none-content' wx:if='{{!hasContent}}'>暂无订单</view>
+<view wx:if='{{!hasNextPage&&hasContent}}' class='reach-bottom'>
+  <image src='../../../../utils/img/arrive-bottom.png'></image>
+</view>

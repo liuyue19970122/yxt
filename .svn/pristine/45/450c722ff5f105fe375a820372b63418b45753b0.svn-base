@@ -1,0 +1,77 @@
+<!--pages/stock/stock-change/stock-change.wxml-->
+<view class='full-page' bindtouchstart="closeActive">
+  <view class='search-view'>
+    <search type='stock' bind:search='bindSearch' bind:input='bindStockName' value='{{stockName}}'></search>
+    <!-- <image src='/utils/img/stock/add.png' bindtap='goAdd' class='check-add-icon'></image> -->
+  </view>
+
+  <view class='select-view'>
+    <view class='select-item' bindtap='goSelect' data-type='status'>
+      <view class='text-title-over'>
+        {{statusList[statusIndex].status}}
+      </view>
+      <image class='down-icon' src='/utils/img/down.png'></image>
+    </view>
+    <view class='select-item' bindtap='goSelect' data-type='storehouse'>
+      <view class='text-title-over'>
+        {{stockList[stockIndex].locationName}}
+      </view>
+      <image class='down-icon' src='/utils/img/down.png'></image>
+    </view>
+    <view class='select-item' bindtap='goSelect' data-type='type'>
+      <!-- 盘点日期 -->
+      <picker mode="date" value="{{date}}" start="2019-12-01" end="2050-09-01" bindchange="bindDateChange">
+        <view class="picker">
+          {{date}}
+        </view>
+      </picker>
+      <image class='down-icon' src='/utils/img/down.png'></image>
+    </view>
+  </view>
+  <view class='choose-overslay' bindtap='cancelSelect' wx:if='{{ifStorage||ifStatus||ifType}}'></view>
+  <!-- 状态选择 -->
+  <view class='content-view' wx:if='{{ifStatus}}'>
+    <view class='content-item' bindtap="bindChangeStatus" wx:for='{{statusList}}' data-index='{{index}}'>
+      <view>{{item.status}}</view>
+      <image class='select-icon' src='/utils/img/stock/select.png' wx:if='{{statusIndex==index}}'></image>
+    </view>
+  </view>
+  <!-- 仓库选择 -->
+  <view class='content-view' wx:if='{{ifStorehouse}}'>
+    <view class='content-item' wx:for='{{stockList}}' bindtap='bindStockId' data-index='{{index}}'>
+      <view>{{item.locationName}}</view>
+      <view>
+        <image class='select-icon' src='/utils/img/stock/select.png' wx:if='{{index==stockIndex}}'></image>
+      </view>
+    </view>
+  </view>
+  <view class='hr-module'></view>
+  <scroll-view class='goods-list' scroll-y bindscrolltolower='goNext'>
+    <view class='goods-item' wx:for='{{goodsList}}' data-index='{{index}}' bindtap='goDetail' data-status='{{item.status}}'>
+      <view class='goods-check-item'>
+        <view class='good-item-info'>
+          <view class='goods-name'>{{item.goodsName}}</view>
+          <view class='tag finish-tag' wx:if='{{item.status=="1"}}'>已完成</view>
+          <view class='tag ing-tag' wx:if='{{item.status=="0"}}'>盘点中</view>
+          <view class='tag cancel-tag' wx:if='{{item.status=="-1"}}'>已取消</view>
+        </view>
+        <view class='good-item-info'>
+          <view class='goods-count'>盘点数量：
+            <text class='goods-unit'>{{item.fixCount}}{{item.goodsUnit}}</text>
+          </view>
+          <view class='goods-price'>盘点日期：{{item.crtTime}}</view>
+        </view>
+      </view>
+      <view class='right-icon'></view>
+    </view>
+  </scroll-view>
+  <view class='empty' wx:if='{{goodList.length==0}}'>
+    暂时没有货品，快去添加吧~
+  </view>
+</view>
+
+ <image class='btn-stock-in' src='/utils/img/add.png' bindtap='goAdd'></image>
+<van-dialog use-slot title="修改预警数量" show="{{ show }}" show-cancel-button bind:close="onClose" bind:confirm='setWarnCount'>
+  <form-item label="预警数量" labelStyle="color:#999" itemStyle='padding-right:24rpx;padding-left:24rpx;' inputStyle="text-align:left" bind:input='getWarnCount' value='{{warnCount}}'></form-item>
+</van-dialog>
+

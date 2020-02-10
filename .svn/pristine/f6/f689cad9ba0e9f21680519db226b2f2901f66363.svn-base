@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "我的供货商",
+  "usingComponents": {
+    "van-popup": "/miniprogram_npm/vant-weapp/popup/index"
+  }
+}

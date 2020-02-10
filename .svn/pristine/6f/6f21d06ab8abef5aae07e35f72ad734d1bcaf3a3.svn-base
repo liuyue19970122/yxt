@@ -1,0 +1,33 @@
+<view class='full-page' bindtap="closeActive">
+  <page-title title='货品类别' icon='/utils/img/stork-set.png' bind:add='addFn' picker='{{false}}' bind:edit="editFn" isEdit='{{true}}' editIcon='{{editIcon}}'></page-title>
+  <view wx:for='{{cateList}}' wx:key='item' >
+    <view>
+      <view class='cate-title'>
+        <view data-id='{{item.keyId}}' data-name='{{item.cateName}}'>
+          <view wx:if='{{!(activeId==item.keyId)}}'>{{item.cateName}}</view>
+          <!-- <input auto-focus="{{true}}" bindinput='inputName' value='{{newName}}' class='input-change' wx:if='{{activeId==item.keyId}}'></input> -->
+          <image wx:if='{{isEdit}}' catchtap='delCate' data-id='{{item.keyId}}' src='/utils/img/del.png' class='del-icon'></image>
+        </view>
+        <!-- <image src="/utils/img/edit.png" class='edit'></image> -->
+      </view>
+    </view>
+    <view class='stock-list'>
+      <view wx:for='{{item.nextList}}' catchtap="goList" data-name='{{items.cateName}}' wx:for-item='items' data-id='{{items.keyId}}' class='{{activeId==items.keyId?"active-item stock-item":"stock-item"}}'>
+        <view wx:if='{{!(activeId==items.keyId)}}'>{{items.cateName}}</view>
+        <view wx:if='{{activeId==items.keyId}}'>
+          <!-- <input auto-focus="{{true}}" bindinput='inputName' value='{{newName}}' class='input-change'></input> -->
+        </view>
+        <!-- <view class='active-dialog' wx:if='{{activeId==items.keyId&&isFinish}}'>
+          <view data-id='{{items.keyId}}' data-name='{{items.cateName}}' catchtap="tiggleChange">修改</view>
+          <view>删除</view>
+        </view> -->
+        <image wx:if='{{isEdit}}' catchtap='delCate' data-id='{{items.keyId}}' src='/utils/img/del.png' class='del-icon'></image>
+      </view>
+    </view>
+  </view>
+
+  <view class='empty' wx:if='{{cateList.length==0}}'>
+    暂时没有货架，快去添加吧~
+  </view>
+</view>
+<van-dialog id="van-dialog" />

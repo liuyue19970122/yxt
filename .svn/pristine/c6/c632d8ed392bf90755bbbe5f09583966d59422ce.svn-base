@@ -1,0 +1,32 @@
+<!--pages/purchase/address-manager/address-manager.wxml-->
+<view class='address-list'>
+  <view class='address-item border-bottom'
+    wx:for='{{addressList}}' 
+    wx:key='{{index}}'
+    data-index='{{index}}'
+    bindtap='choiceAddress'>
+    <image src='/utils/img/page-icon/ad-select.png' wx:if='{{item.isDefault}}' class='select'></image>
+    <view class='reciver-info'>
+      <text>{{item.contactName}}</text>
+      <text>{{item.phone}}</text>
+      <view class='address'>{{item.address}}</view>
+    </view>
+    <view class='btn-edit' data-index='{{index}}' catchtap='editAddress'>编辑</view>
+  </view>
+</view>
+<van-popup show="{{editShow}}"
+  position="bottom"
+  z-index='9999'
+  bind:close="bindClose">
+  <view class='set-container'>
+    <view class='set-btn border-bottom' bindtap='updateAddress'>修改地址</view>
+    <view class='set-btn border-bottom {{isDefault?"set-btn__disabled":""}}' 
+      bindtap='setDefaultAddress'>设为默认地址</view>
+    <view class='set-btn border-bottom' 
+      bindtap='setDelAddress'>删除</view>
+    <view class='set-btn' bindtap='bindClose'>取消</view>
+  </view>
+</van-popup>
+<view class="fixed-bottom">
+  <button class='bottom-full' bindtap='goAdd'>新建收货地址</button>
+</view>

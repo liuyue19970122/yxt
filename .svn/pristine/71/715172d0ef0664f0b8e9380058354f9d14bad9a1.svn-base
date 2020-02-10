@@ -1,0 +1,142 @@
+// pages/stock/stock-change/stock-change.js
+var util = require('../../../utils/util.js');
+const app = getApp()
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    cateList: [],
+    goodList: [],
+    selectCate: 0,
+    activeId: 0,
+    pageSize: 10,
+    pageNum: 1,
+    total:0
+  },
+  goCurrect:function(e){
+    wx.navigateTo({
+      url:'../stock-correct/stock-correct?id='+e.currentTarget.dataset.id
+    })
+  },
+  changeCate: function (e) {
+    this.setData({
+      selectCate: e.detail.detail.value
+    })
+    this.getGoodList()
+  },
+  getCateList() {
+    var url = app.globalData.baseUrl + 'apiStock/stock/cate/list'
+    util.getRequestList(url, false, this.cateListRes)
+  },
+  cateListRes(res) {
+    var list = res.data.content
+    this.setData({
+      cateList: list
+    })
+    this.getGoodList()
+  },
+  goAdd() {
+    wx.navigateTo({
+      url: '../stock-in/stock-in',
+    })
+  },
+  getGoodList: function () {
+    var url = app.globalData.baseUrl + 'apiStock/stock/inst/incomeList'
+    var data = {
+      keyId: this.data.goodsId,
+    }
+    util.getRequestListData(url, data, false, this.goodListRes)
+  },
+  goodListRes(res) {
+    console.log(res)
+    var total=0
+    if (res.data.code == 200) {
+      var list = res.data.content
+      for(var item of list){
+        // console.log(item)
+        // console.log(item.lastTime)
+        total+=item.balanceCount
+        // console.log(util.formatTime(item.lastTime))
+        item.lastTime = util.formatTime(item.lastTime)
+      }
+      // console.log(list)
+      this.setData({
+        goodList: list,
+        total:total
+      })
+    }
+    console.log(this.data.goodList)
+  },
+  clickItem: function (e) {
+    console.log('click')
+    this.setData({
+      activeId: e.currentTarget.dataset.id
+    })
+    console.log(this.activeId)
+  },
+  closeActive: function () {
+    this.setData({
+      activeId: 0
+    })
+  },
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    this.setData({
+      goodsId:options.id
+    })
+    // this.getCateList()
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+    this.getGoodList()
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+
+  }
+})

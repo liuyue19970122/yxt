@@ -1,0 +1,48 @@
+/* components/card/pro-card/index.wxss */
+.card{
+  display: flex;
+  display: -webkit-flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.img{
+  width: 100%;
+  height: 100%;
+}
+.card .card-content{
+  margin-left: 20rpx;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  /* height:160rpx; */
+}
+.card-title{
+  font-size: 32rpx;
+  overflow:hidden;
+  text-overflow:ellipsis; 
+  text-overflow: -o-ellipsis-lastline;
+  display:-webkit-box;
+  -webkit-line-clamp:2;
+  line-clamp: 2;
+  -webkit-box-orient:vertical;
+}
+.card-subtitle{
+  font-size: 28rpx;
+  color: #999;
+  overflow:hidden;
+  text-overflow:ellipsis; 
+  text-overflow: -o-ellipsis-lastline;
+  display:-webkit-box;
+  -webkit-line-clamp:2;
+  line-clamp: 2;
+  -webkit-box-orient:vertical;
+  
+}
+.original-price{
+  margin-top: 20rpx;
+  font-size: 24rpx;
+  color: #999;
+  text-decoration: line-through;
+}
+

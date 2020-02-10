@@ -1,0 +1,67 @@
+/* pages/receipt/place-order/list.wxss */
+
+.total-module {
+  height: 120rpx;
+  text-align: center;
+  line-height: 120rpx;
+  font-size: 36rpx;
+  color: #333;
+  font-weight: 400;
+}
+
+.food-list {
+  min-height:400rpx;
+}
+
+.food-item {
+  display: flex;
+  padding: 20rpx 24rpx;
+  justify-content: space-between;
+  align-items:center;
+}
+
+.op-count {
+  display: flex;
+  align-items: center;
+}
+
+.food-count {
+  font-size: 28rpx;
+  margin: 0 10rpx;
+  color: #333;
+}
+
+.food-price {
+  font-size: 30rpx;
+  margin-top: 20rpx;
+  color: #333;
+}
+
+.food-remark {
+  font-size: 28rpx;
+  margin-top: 5rpx;
+  color: #999;
+}
+
+.printer-list {
+  height: 120rpx;
+  display: flex;
+  align-items: center;
+  background: #f5f5f5;
+  position: fixed;
+  bottom:120rpx;
+  left:0;
+  width:750rpx;
+  padding-left:40rpx;
+}
+
+.printer-item {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  box-shadow: 0 3px 6px #f4d5a7;
+}
+
+.printer-item{
+  margin-right:60rpx;
+}

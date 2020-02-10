@@ -1,0 +1,23 @@
+<!--pages/mall/mall-my-ghs/ghs.wxml-->
+<view wx:for='{{storeList}}' bindtouchmove='bindTouchMove' wx:key='{{index}}'>
+  <view class='card' data-id='{{item.orgId}}' catchtap='seeOrgDetail'>
+    <view class='img-container'>
+      <image src='{{item.orgLogo}}'></image>
+    </view>
+    <view class='info'>
+      <view class='info-name'>{{item.orgName}}</view>
+      <view class='info-other'>
+        <text>{{"成交量"+item.buyCount+"件"}}</text>
+        <image src='../../../utils/img/biaoqian.png' catchtap='catchTag'></image>
+      </view>
+    </view>
+  </view>
+  <view class='info-mark'>
+    <text>{{item.content}}</text>
+  </view>
+</view>
+<view style='top:{{top}}px' class='pop' wx:if='{{showPop}}'>
+  <text>添加标签</text>
+  <text>删除</text>
+</view>
+

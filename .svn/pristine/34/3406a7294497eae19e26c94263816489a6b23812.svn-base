@@ -1,0 +1,80 @@
+/* components/panel/panel.wxss */
+
+.panel{
+  width:702rpx;
+  box-sizing: border-box;
+  /* border-radius: 5rpx; */
+  margin:44rpx 24rpx 0 24rpx;
+  /* padding:0 24rpx 0 24rpx; */
+  /* border:1px solid #f0f0f0; */
+  box-shadow:0px 3px 6px rgba(0,0,0,0.1);
+  border-radius: 18rpx;
+}
+.panel-title{
+  height:100rpx;
+  line-height: 100rpx;
+  display: flex;
+  color:#333;
+  padding:0 24rpx 0 24rpx;
+  justify-content: space-between;
+  font-size:36rpx;
+  background: #FBFFF9;
+  border-bottom:1px solid #f0f0f0;
+  border-radius: 18rpx 18rpx 0 0;
+}
+.panel-title .menu-logo{
+  width:60rpx;
+  height:60rpx;
+  margin-top:20rpx;
+}
+.panel-title .left-title{
+ width:80%; 
+ display: flex
+}
+.panel-title .menu-title{
+  margin-left:24rpx;
+  font-weight: 500;
+}
+.submenu-list{
+  color:#333;
+  display: flex;
+  /* justify-content: space-between; */
+  flex-wrap: wrap;
+  width:100%;
+  margin-top:24rpx;
+  transition: height 0.5s;
+}
+.open{
+ min-height:140rpx;
+}
+.close{
+  height:0;
+}
+.submenu-item{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width:25%;
+  margin-bottom:44rpx;
+}
+.submenu-icon{
+  width:120rpx;
+  height:120rpx;
+}
+.submenu-title{
+  margin-top:20rpx;
+  font-size:26rpx;
+}
+.tiggle-icon-close{
+  width:22rpx;
+  height:40rpx;
+}
+.tiggle-icon-open{
+  width:40rpx;
+  height:22rpx;
+}
+.right-tiggle{
+  display: flex;
+  align-items:center;
+  justify-content: center;
+}

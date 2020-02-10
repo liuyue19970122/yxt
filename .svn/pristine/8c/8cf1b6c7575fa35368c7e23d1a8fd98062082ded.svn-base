@@ -1,0 +1,8 @@
+<!--components/wx-field/wx-field.wxml-->
+<van-field
+    value="{{value}}"
+    type='{{type}}'
+    label="{{label}}"
+    required="{{required}}"
+    size='{{size}}'
+  />

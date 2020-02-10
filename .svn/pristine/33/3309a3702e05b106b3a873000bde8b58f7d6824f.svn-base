@@ -1,0 +1,83 @@
+<tab-view tabList='{{tabList}}' type='{{type}}'     
+  bind:change='changeTab'></tab-view>
+<view class='order-list'>
+  <view wx:for="{{orderList}}" 
+    wx:key='orderList' 
+    bindtap='goDetail' 
+    data-item='{{item}}' 
+    data-status='{{item.status}}' 
+    data-deliver='{{item.deliveryStatus}}' 
+    data-id='{{item.orderId}}'>
+    <view class='order-item'>
+      <view class='store'>
+        <view class='store-left'>
+          <text class='store-title'>{{item.orgName}}</text>
+          <image  src='/utils/img/close.png' class='triggle-close'></image>
+        </view>
+        <image class='tag' wx:if='{{item.status==0}}' 
+          src='http://118.24.172.172:9999/yxt/img/5b9742bb-8789-49d2-a583-58983bf42e77.png'></image>
+        <image class='tag' wx:if='{{item.status==1&&item.deliveryStatus==-1}}' 
+          src='http://118.24.172.172:9999/yxt/img/e504e620-1a3a-4c55-93bf-d57c81e7416c.png'></image>
+        <image class='tag' wx:if='{{item.status==1&&item.deliveryStatus===0}}' 
+          src='http://118.24.172.172:9999/yxt/img/60ee5a90-ffd1-4b2c-aeda-d39112142146.png'></image>
+          <!-- 0待预付，1已预付，2已收货，3售后，9已结清 -->
+        <image class='tag' wx:if='{{item.status==1&&item.deliveryStatus===1}}' 
+          src='http://118.24.172.172:9999/yxt/img/b69534be-78db-49df-9059-00f78d8aa506.png'></image>
+        <image class='tag' wx:if='{{item.status==2&&item.deliveryStatus===1}}' 
+          src='http://118.24.172.172:9999/yxt/img/0524745c-9f51-4441-bb50-efd4c11a8346.png'></image>
+        <image class='tag' wx:if='{{item.status==3}}' 
+          src='http://118.24.172.172:9999/yxt/img/125276df-d168-441a-8ac4-aa7cd673c02f.png'></image>
+        <image class='tag' wx:if='{{item.status==4}}' 
+          src='http://118.24.172.172:9999/yxt/img/f4e17260-9729-4b80-bb43-11707c234a93.png'></image>
+        <image class='tag' wx:if='{{item.status==9}}' 
+          src='http://118.24.172.172:9999/yxt/img/e10557a0-b849-49fe-a8ae-7245e68ff530.png'></image>
+      </view>
+      <view class='goods-list'>
+        <view class='img-box'>
+          <image wx:for="{{item.goodsInfo}}" wx:key='goodsInfo' 
+            wx:for-item="items" 
+            src='{{items.goodsPic}}' 
+            class='goods-img'></image>
+        </view>
+        <view class='right-total'>
+          <view><text class='goods-price'>￥{{item.totalMoney}}</text></view>
+          <view><text class='goods-num'>共{{item.goodsCount}}件</text></view>
+        </view>
+      </view>
+      <view class='goods-time'>{{item.crtTime}}</view>
+      <view class='btn-group'>
+        <button wx:if='{{item.contactShow}}' class='btn-default' 
+          data-index='{{index}}'
+          catchtap='contactStore'>联系卖家</button>
+        <button wx:if='{{item.cancelShow}}' class='btn-red' 
+          data-index='{{index}}'
+          catchtap='cancelOrder'>取消订单</button>
+        <button wx:if='{{item.payShow}}' class='btn-red' 
+          data-index='{{index}}'
+          catchtap='orderPay'>预付款</button>
+        <button wx:if='{{item.flowShow}}' class='btn-default' 
+          data-index='{{index}}'
+          catchtap='scanFlow'>查看物流</button>
+        <button wx:if='{{item.detailShow}}' class='btn-default' 
+          data-index='{{index}}'
+          catchtap='scanOrderDetail'>订单详情</button>
+        <button wx:if='{{item.applyShow}}' class='btn-default' 
+          data-index='{{index}}'
+          catchtap='applySale'>申请售后</button>
+        <button wx:if='{{item.queryShow}}' class='btn-red' 
+          data-index='{{index}}'
+          catchtap='confirmReceipt'>确认收货</button>
+        <!-- <button wx:if='{{item.allPayShow}}' class='btn-red' 
+          data-index='{{index}}'
+          catchtap='applySale'>已付尾款</button> -->
+        <button wx:if='{{item.delShow}}' class='btn-default' 
+          data-index='{{index}}'
+          catchtap='delOrder'>删除订单</button>
+      </view>
+    </view>
+  </view>
+</view>
+<view class='none-content' wx:if='{{!hasContent}}'>暂无订单</view>
+<view wx:if='{{!hasNextPage&&hasContent}}' class='reach-bottom'>
+  <image src='../../../../utils/img/arrive-bottom.png'></image>
+</view>

@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "选购列表",
+  "usingComponents": {
+    "form-item":"/components/form-item/form-item"
+  }
+}

@@ -1,0 +1,12 @@
+/* pages/stock/check-detail/detail.wxss */
+@import '../../stock-change/stock-change'
+@import '../stock-check/check'
+
+.module-title-big{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.good-list{
+  height:calc(100vh - 328rpx);
+}

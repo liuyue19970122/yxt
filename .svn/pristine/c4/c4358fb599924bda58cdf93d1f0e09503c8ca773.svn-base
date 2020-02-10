@@ -1,0 +1,273 @@
+// pages/oa/add-role/add-role.js
+
+var util = require('../../../utils/util.js');
+const app = getApp()
+var timestamp = Date.parse(new Date())
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    menuList:[],
+    mainActiveIndex: 0,
+    activeId: [],
+    max: 255,
+    name:'',
+    roleId:'',
+    sort:'',
+    menuIds:[],
+    isAdd:true,
+    isSubmit:false
+  },
+  onClickNav({
+    detail = {}
+  }) {
+    console.log( detail)
+    this.setData({
+      mainActiveIndex: detail.index || 0
+    });
+  },
+
+  onClickItem({
+    detail = {}
+  }) {
+    console.log(detail)
+    const {
+      activeId
+    } = this.data;
+
+    const index = activeId.indexOf(detail.id);
+    if (index > -1) {
+      activeId.splice(index, 1);
+    } else {
+      activeId.push(detail.id);
+    }
+
+    this.setData({
+      activeId
+    });
+  },
+  getMenuList() {
+    var url = app.globalData.baseUrl + 'apiUser/menu/list?t=' + timestamp
+    util.getRequestList(url, false, this.menuRes)
+  },
+  menuRes(res) {
+    console.log(res)
+    var menuList = res.data.content
+    var list = []
+    for (var item of menuList) {
+      var jtem = {
+        disabled: false,
+        text: item.menuName,
+        id: item.keyId,
+      }
+      let nextMenu = JSON.parse(item.nextMenu)
+      var next=[]
+      for(var ptem of nextMenu){
+        var btem={
+          text: ptem.menuName,
+          id: ptem.keyId,
+          disabled:false
+        }
+        next.push(btem)
+      }
+      jtem.children = next
+      console.log(jtem)
+      list.push(jtem)
+    }
+    this.setData({
+      menuList: list
+    })
+  },
+  getName(e){
+    this.setData({
+      name:e.detail
+    })
+  },
+  getSort(e) {
+    this.setData({
+      sort: e.detail
+    })
+  },
+  goAdd(){
+    this.setData({
+      isSubmit:true
+    })
+    var activeId = this.data.activeId
+    var list=this.data.menuList
+    console.log(list)
+    for(var item of list){
+      for (var jtem of item.children){
+        if(activeId.indexOf(jtem.id)>0){
+          activeId.push(item.id)
+          break
+        }
+      }
+    }
+    this.setData({
+      menuIds:activeId
+    })
+    var data={
+      roleName:this.data.name,
+      sortName:this.data.sort
+    }
+    if (!this.data.isAdd){
+      data.roleId = this.data.roleId 
+      var url = app.globalData.baseUrl + 'apiUser/role/update'
+      // this.setMenu()
+    }else{
+      var url = app.globalData.baseUrl + 'apiUser/role/add'
+    }
+    util.postRequestList(url, data, false, this.addRes)
+  },
+  addRes(res){
+    if(res.data.code==200){
+      if(this.data.isAdd){
+        this.setData({
+          roleId: res.data.content.keyId
+        })
+      }
+      this.setMenu()
+    }
+  },
+  setMenu(){
+    var url = app.globalData.baseUrl + 'apiUser/menu/setRoleMenu'
+    var data = {
+      roleId: this.data.roleId,
+      menuIds: this.data.menuIds
+    }
+    util.postRequestList(url, data, false, this.setRes)
+  },
+
+  setRes(res){
+    this.setData({
+      isSubmit: false
+    })
+    if(res.data.code==200){
+      wx.navigateBack({
+        delta: 1
+      })
+    }else{
+      wx.showToast({
+        title: res.data.message,
+      })
+    }
+  },
+  getMenu() {
+    var url = app.globalData.baseUrl + 'apiUser/menu/roleMenu'
+    var roleId=this.data.roleId
+    if(this.data.isAdd){
+      var userinfo = wx.getStorageSync('localToken').userInfo
+      roleId=userinfo.roleId
+    }
+    var data = {
+      roleId: roleId,
+    }
+    util.getRequestListData(url, data, false, this.getRes)
+  },
+  getRes(res){
+    var list=res.data.content
+    var arr=[]
+    for(var item of list){
+      for (var jtem of JSON.parse(item.nextMenu)){
+        if(jtem.isSelect=="1"&&!this.data.isAdd){
+          arr.push(jtem.keyId)
+        }
+      }
+    }
+    this.setData({
+      activeId:arr
+    })
+    var menuList = res.data.content
+    var list = []
+    for (var item of menuList) {
+      var jtem = {
+        disabled: false,
+        text: item.menuName,
+        id: item.keyId,
+      }
+      let nextMenu = JSON.parse(item.nextMenu)
+      var next = []
+      for (var ptem of nextMenu) {
+        var btem = {
+          text: ptem.menuName,
+          id: ptem.keyId,
+          disabled: false
+        }
+        next.push(btem)
+      }
+      jtem.children = next
+      console.log(jtem)
+      list.push(jtem)
+    }
+    this.setData({
+      menuList: list
+    })
+  },
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function(options) {
+    if(options.item){
+      var item = JSON.parse(options.item)
+      console.log(item)
+      this.setData({
+        roleId: item.keyId,
+        name: item.roleName,
+        sort: item.sortNum,
+        isAdd:false
+      })
+    }
+    this.getMenu()
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function() {
+    // this.getMenuList()
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function() {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function() {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function() {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function() {
+
+  }
+})

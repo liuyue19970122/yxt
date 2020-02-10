@@ -1,0 +1,71 @@
+/* pages/mall/chat-list/chat-list.wxss */
+
+.info-module{
+  width:702rpx;
+  margin:0 24rpx;
+  font-size: 36rpx;
+  color:#333;
+  text-align: center;
+  border-radius: 20rpx 20rpx 0 0;
+  height:120rpx;
+  background: #fff;
+  line-height: 120rpx;
+  box-shadow: 0px 3px 6px rgba(0,0,0,0.1)
+}
+.bg-top{
+  height:50rpx;
+  background: #ff2200;
+}
+.chat-list{
+  margin-top:94rpx;
+}
+.chat-item{
+  height:146rpx;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  margin-left:24rpx;
+}
+.chat-avator{
+  width:98rpx;
+  height:98rpx;
+  position: relative;
+
+}
+.chat-avator image{
+  width:100%;
+  height:100%;
+  border-radius: 10rpx;
+}
+.chat-info-content{
+  height:100%;
+  width:600rpx;
+  margin-left: 24rpx;
+  border-bottom:2rpx solid #f0f0f0;
+  display: flex;
+  align-items: center;
+}
+.chat-info{
+  display: flex;
+  height:84rpx;
+  width:100%;  
+  flex-direction: column;
+  justify-content: space-between;
+  padding-right:24rpx;
+}
+.chat-title{
+  display: flex;
+  justify-content: space-between;
+}
+.name{
+  font-size: 32rpx;
+  color:#333;
+}
+.time{
+  font-size: 26rpx;
+  color:#999;
+}
+.msg{
+  font-size: 28rpx;
+  color:#999
+}

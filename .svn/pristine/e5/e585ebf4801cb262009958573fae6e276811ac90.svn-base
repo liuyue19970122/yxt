@@ -1,0 +1,26 @@
+/* pages/stock/stock-check/check.wxss */
+
+@import '../../stock-change/stock-change'
+.goods-list {
+  height: calc(100vh - 232rpx);
+}
+
+.search-view {
+  display: flex;
+  align-items: center;
+}
+
+.check-add-icon {
+  width: 60rpx;
+  height: 60rpx;
+}
+
+.goods-check-item {
+  width: 662rpx;
+}
+
+.goods-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

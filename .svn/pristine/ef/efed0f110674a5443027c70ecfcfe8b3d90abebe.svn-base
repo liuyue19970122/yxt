@@ -1,0 +1,297 @@
+//index.js
+//获取应用实例
+var util = require('../../utils/util.js');
+import * as echarts from '../../ec-canvas/echarts';
+const app = getApp()
+var list = []
+var list1 = []
+var timestamp = Date.parse(new Date())
+
+function initChart(canvas, width, height) {
+  const chart = echarts.init(canvas, null, {
+    width: width,
+    height: height
+  });
+  canvas.setChart(chart);
+
+  var option = {
+    // title: {
+    //   text: '测试下面legend的红色区域不应被裁剪',
+    //   left: 'center'
+    // },
+    color: ["#37A2DA", "#67E0E3", "#9FE6B8"],
+    // legend: {
+    //   data: ['A', 'B', 'C'],
+    //   top: 50,
+    //   left: 'center',
+    //   backgroundColor: 'red',
+    //   z: 100,
+    // },
+    grid: {
+      containLabel: true,
+      left: 12,
+      top: 12,
+      bottom: 12,
+      right: 20
+    },
+    tooltip: {
+      show: true,
+      trigger: 'none'
+    },
+    xAxis: {
+      type: 'category',
+      boundaryGap: false,
+      data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
+      axisLabel: {
+        // textStyle: {
+        //   fontSize: 14,
+        // },
+        fontSize: 14,
+      },
+      rich: {},
+    },
+    yAxis: {
+      x: 'center',
+      type: 'value',
+      splitLine: {
+        lineStyle: {
+          type: 'dashed',
+        }
+      },
+      axisLabel: {
+        // textStyle: {
+        //   fontSize: 14,
+        // },
+        // rich: {},
+        fontSize: 14,
+      },
+      rich: {},
+    },
+
+
+    series: [
+      // {
+      //   label:{
+      //     normal:{
+      //       fontSize:18,
+      //       rich:{}
+      //     }
+      //   }
+      // },
+      {
+        name: 'A',
+        type: 'line',
+        smooth: true,
+        data: [18, 36, 65, 30, 78, 40, 33]
+      }, {
+        name: 'B',
+        type: 'line',
+        smooth: true,
+        data: [12, 50, 51, 35, 70, 30, 20]
+      }, {
+        name: 'C',
+        type: 'line',
+        smooth: true,
+        data: [10, 30, 31, 50, 40, 20, 10]
+      },
+    ],
+  };
+
+  chart.setOption(option);
+  return chart;
+}
+Page({
+  data: {
+    ec: {
+      onInit: initChart
+    },
+    isMsg: true,
+    motto: 'Hello World',
+    userInfo: {},
+    value: '',
+    background: '#FE2200',
+    hasUserInfo: false,
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    range: '1',
+    token:'',
+    rangeArray: [{
+      id: '1',
+      // range: 'week',
+      name: '周'
+    }, {
+      id: '2',
+      // range: 'month',
+      name: '月'
+    }],
+    menuList: [{
+        id: '1',
+        icon: '/utils/img/stork-manager.png',
+        title: '库存管理',
+        isClose: true,
+        submenu: [{
+          id: '11',
+          icon: '/utils/img/stork-set.png',
+          title: '仓库设置',
+        }, {
+          id: '12',
+          icon: '/utils/img/stork-set.png',
+          title: '货品类别',
+        }, {
+          id: '13',
+          icon: '/utils/img/stork-set.png',
+          title: '库存记录',
+        }, {
+          id: '14',
+          icon: '/utils/img/stork-set.png',
+          title: '实时库存',
+        }, {
+          id: '15',
+          icon: '/utils/img/stork-set.png',
+          title: '库存调整',
+        }, ]
+      },
+      {
+        id: '2',
+        icon: '/utils/img/stork-manager.png',
+        title: '库存管理',
+        isClose: true,
+        submenu: [{
+          id: '11',
+          icon: '/utils/img/stork-set.png',
+          title: '仓库设置',
+        }, {
+          id: '12',
+          icon: '/utils/img/stork-set.png',
+          title: '货品类别',
+        }, {
+          id: '13',
+          icon: '/utils/img/stork-set.png',
+          title: '库存记录',
+        }, {
+          id: '14',
+          icon: '/utils/img/stork-set.png',
+          title: '实时库存',
+        }, {
+          id: '15',
+          icon: '/utils/img/stork-set.png',
+          title: '库存调整',
+        }, ]
+      }
+    ]
+  },
+  unlogin() {
+    wx.removeStorageSync("localToken")
+    const data = {
+      toOrgId: '',
+      toUser: '',
+      fromUser: this.data.token,
+      msgType: 'close',
+      content: ''
+    };
+    console.log(JSON.stringify(data))
+    wx.sendSocketMessage({
+      data: JSON.stringify(data),
+      success: function(res) {
+        console.log(res)
+      },
+      fail: function(res) {
+        console.log(res)
+      }
+    })
+    wx.closeSocket({});
+    wx.redirectTo({
+      url: '/pages/common/login/login',
+    })
+  },
+  //事件处理函数
+  bindViewTap: function() {
+    wx.navigateTo({
+      url: '../logs/logs'
+    })
+  },
+  onSearch: function() {},
+  onCancel: function() {},
+  getMenuList() {
+    var url = app.globalData.baseUrl + 'apiUser/menu/list?t=' + timestamp
+    util.getRequestList(url, false, this.menuRes)
+  },
+  menuRes(res) {
+    var menuList = res.data.content
+    var list = []
+    for (var item of menuList) {
+      var jtem = {
+        icon: item.logoUrl,
+        isClose: true,
+        title: item.menuName,
+        id: item.keyId,
+        nextMenu: JSON.parse(item.nextMenu)
+      }
+      list.push(jtem)
+    }
+    this.setData({
+      menuList: list
+    })
+  },
+  onShow() {
+    this.getMenuList()
+    var userInfo = wx.getStorageSync('localToken').userInfo
+    wx.setNavigationBarTitle({
+      title: userInfo.orgName,
+    })
+    var token = wx.getStorageSync("localToken").token
+    this.setData({
+      token:token
+    })
+    wx.connectSocket({
+      url: 'ws://192.168.124.101:8704/websocket/' + token
+    })
+    wx.onSocketClose(res => {
+      console.log('WebSocket 已关闭！')
+    })
+    wx.onSocketError(res => {
+      console.log(res);
+      console.log('WebSocket连接打开失败，请检查！')
+    })
+  },
+  onLoad: function() {
+    wx.hideHomeButton({
+      success: function(res) {
+
+      }
+    })
+    // util.setTitle()
+    if (app.globalData.userInfo) {
+      this.setData({
+        userInfo: app.globalData.userInfo,
+        hasUserInfo: true
+      })
+    } else if (this.data.canIUse) {
+      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
+      // 所以此处加入 callback 以防止这种情况
+      app.userInfoReadyCallback = res => {
+        this.setData({
+          userInfo: res.userInfo,
+          hasUserInfo: true
+        })
+      }
+    } else {
+      // 在没有 open-type=getUserInfo 版本的兼容处理
+      wx.getUserInfo({
+        success: res => {
+          app.globalData.userInfo = res.userInfo
+          this.setData({
+            userInfo: res.userInfo,
+            hasUserInfo: true
+          })
+        }
+      })
+    }
+  },
+  getUserInfo: function(e) {
+    app.globalData.userInfo = e.detail.userInfo
+    this.setData({
+      userInfo: e.detail.userInfo,
+      hasUserInfo: true
+    })
+  }
+})

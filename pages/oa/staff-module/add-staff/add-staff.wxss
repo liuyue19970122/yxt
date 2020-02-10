@@ -1,0 +1,38 @@
+/* pages/oa/add-staff/add-staff.wxss */
+@import '../../../../utils/common'
+.form{
+  padding:0 24rpx;
+}
+.block-module-title{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+/* .add-icon{
+} */
+.remark-content{
+  margin-bottom:24rpx;
+}
+
+.dialog{
+  width:590rpx;
+}
+.title {
+  color: #333;
+  text-align: center;
+  font-size: 32rpx;
+  margin-top: 40rpx;
+}
+.input-item {
+  border: 2rpx solid #333;
+  border-radius: 20rpx;
+  margin: 24rpx 40rpx;
+  width: 514rpx;
+  height: 80rpx;
+}
+
+.input-item input {
+  text-align: center;
+  line-height: 80rpx;
+  height: 80rpx;
+}

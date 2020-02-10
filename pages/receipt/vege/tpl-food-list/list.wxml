@@ -1,0 +1,18 @@
+<!--pages/receipt/vege/default-list/list.wxml-->
+<view class='default-list'>
+    <view class='vage-item' catchtap="goDetail" data-id='{{item.keyId}}' wx:for='{{foodList}}'>
+      <image class='vage-img' src='{{item.mainPic}}'></image>
+      <view class='vage-detail'>
+        <view class='vage-left-info'>
+          <view class='vage-title'>{{item.foodName}}
+          </view>
+          <view class='vage-info'>
+            <view class='vage-price'>
+              <text class='price'>{{item.sellPrice}}</text>元/份</view>
+          </view>
+        </view>
+        <view>
+        </view>
+      </view>
+    </view>
+</view>

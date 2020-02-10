@@ -1,0 +1,70 @@
+<!--pages/mall/mall-my-collect/collect.wxml-->
+
+<view class="page-container">
+  <!-- <view class='pro-search'>
+    <van-search
+      value="{{ searchValue }}"
+      background="#fff"
+      shape='round'
+      placeholder="请输入搜索关键词"
+      bind:clear="onClear"
+      bind:search="onSearch">
+    </van-search>
+  </view> -->
+  <view class="tab-container">
+    <cus-tab-view tabList='{{tabList}}'
+      type='{{pageType}}' 
+      bind:change='bindTabChange'></cus-tab-view>
+  </view>
+  <view class="content-container">
+    <scroll-view scroll-y='true' style='height:100%' scroll-top='{{scrollTop}}'>
+      <view  wx:if='{{pageType==="pro"}}'>
+        <view class='none-content' wx:if='{{!proList.length}}'>暂无收藏</view>
+        <view class='card-style' 
+          wx:for='{{proList}}' 
+          wx:key='proList'>
+          <cus-pro-card index='{{index}}' 
+            title='{{item.orgName}}'
+            subTitle='{{item.goodsName}}'
+            imgsize='img-size' 
+            imgSrc='{{item.goodsPic}}' 
+            bind:click='seeProDetail'>
+            <view slot='right' class='info-other'>
+              <text>{{item.crtTime}}</text>
+              <button data-index="{{index}}" 
+                class="cel-collect" 
+                catchtap='cancelCollect'>取消收藏</button>
+            </view>
+          </cus-pro-card>
+        </view>
+         <view wx:if='{{!hasNextPage&&proList.length}}' class='reach-bottom'>
+          <image src='../../../utils/img/arrive-bottom.png'></image>
+        </view>
+      </view>
+      <view wx:if='{{pageType==="store"}}'>
+        <view class='none-content' wx:if='{{!storeList.length}}'>暂无收藏</view>
+        <view class='card' wx:for='{{storeList}}'
+          wx:key='storeList' 
+          data-index='{{index}}' 
+          catchtap='seeOrgStore'>
+          <view class='img-container'>
+            <image src='{{item.orgLogo}}'></image>
+          </view>
+          <view class='info'>
+            <view class='info-name'>{{item.orgName}}</view>
+            <view class='info-other'>
+              <text>{{item.crtTime}}</text>
+              <button data-index="{{index}}" 
+                class="cel-collect" 
+                catchtap='cancelCollect'>取消收藏</button>
+            </view>
+          </view>
+        </view>
+        <view wx:if='{{!hasNextPage&&storeList.length}}' class='reach-bottom'>
+          <image src='../../../utils/img/arrive-bottom.png'></image>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+</view>
+

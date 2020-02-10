@@ -1,0 +1,5 @@
+/* pages/receipt/credit-manager/add-person/add.wxss */
+
+.form{
+  padding:0 24rpx;
+}

@@ -1,0 +1,13 @@
+/* components/cell/cell-teim.wxss */
+
+.cell-item{
+  display: flex;
+  font-size: 28rpx;
+  justify-content: space-between;
+  height:80rpx;
+  align-items: center;
+  border-bottom: 2rpx solid #f0f0f0;
+}
+.cell-item .cell-title{
+  color:#999;
+}

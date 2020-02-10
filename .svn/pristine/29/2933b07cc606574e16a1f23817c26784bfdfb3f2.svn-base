@@ -1,0 +1,90 @@
+<!--pages/stock/stock-change/stock-change.wxml-->
+<view class='full-page' bindtouchstart="closeActive">
+  <view class='search-view'>
+    <search type='stock' customStyle='width:614rpx;' value='{{goodsName}}'></search>
+    <image src='/utils/img/stock/add.png' class='check-add-icon'></image>
+  </view>
+
+  <view class='select-view'>
+    <view class='select-item' bindtap='goSelect' data-type='storage'>
+      状态
+      <image class='down-icon' src='/utils/img/down.png'></image>
+    </view>
+    <view class='select-item' bindtap='goSelect' data-type='storehouse'>
+      仓库
+      <image class='down-icon' src='/utils/img/down.png'></image>
+    </view>
+    <view class='select-item' bindtap='goSelect' data-type='type'>
+      <!-- 盘点日期 -->
+      <picker mode="date" value="{{date}}" start="2015-09-01" end="2017-09-01" bindchange="bindDateChange">
+        <view class="picker">
+          盘点日期{{date}}
+        </view>
+      </picker>
+      <image class='down-icon' src='/utils/img/down.png'></image>
+    </view>
+  </view>
+  <view class='choose-overslay' bindtap='cancelSelect' wx:if='{{ifStorage||ifStorehouse||ifType}}'></view>
+  <!-- 状态选择 -->
+  <view class='content-view' wx:if='{{ifStorage}}'>
+    <view class='content-item'>
+      <view>全部</view>
+      <image class='select-icon' src='/utils/img/stock/select.png'></image>
+    </view>
+    <view class='content-item'>
+      <view>已完成</view>
+      <view></view>
+    </view>
+    <view class='content-item'>
+      <view>盘点中</view>
+      <view></view>
+    </view>
+    <view class='content-item'>
+      <view>已取消</view>
+      <view></view>
+    </view>
+  </view>
+  <!-- 仓库选择 -->
+  <view class='content-view' wx:if='{{ifStorehouse}}'>
+    <view class='content-item'>
+      <view>001</view>
+      <image class='select-icon' src='/utils/img/stock/select.png'></image>
+    </view>
+    <view class='content-item'>
+      <view>002</view>
+      <view></view>
+    </view>
+    <view class='content-item'>
+      <view>003</view>
+      <view></view>
+    </view>
+  </view>
+  <view class='hr-module'></view>
+  <scroll-view class='goods-list' scroll-y>
+    <view class='goods-item' wx:for='{{goodList}}'>
+      <view class='goods-check-item'>
+        <view class='good-item-info'>
+          <view class='goods-name'>{{item.goodsName}}</view>
+          <view class='tag finish-tag'>已完成</view>
+        </view>
+        <view class='good-item-info'>
+          <view class='goods-count'>库存量：
+            <text class='goods-uni t'>{{item.goodsCount}}{{item.goodsUnit}}</text>
+          </view>
+          <view class='goods-price'>库存金额：{{item.goodsCount}}</view>
+        </view>
+      </view>
+      <view class='right-icon'></view>
+    </view>
+  </scroll-view>
+
+
+  <view class='empty' wx:if='{{goodList.length==0}}'>
+    暂时没有货品，快去添加吧~
+  </view>
+</view>
+
+
+<van-dialog use-slot title="修改预警数量" show="{{ show }}" show-cancel-button bind:close="onClose" bind:confirm='setWarnCount'>
+  <form-item label="预警数量" labelStyle="color:#999" itemStyle='padding-right:24rpx;padding-left:24rpx;' inputStyle="text-align:left" bind:input='getWarnCount' value='{{warnCount}}'></form-item>
+</van-dialog>

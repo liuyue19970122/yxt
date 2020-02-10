@@ -1,0 +1,12 @@
+{
+  "navigationBarBackgroundColor": "#FE5339",
+  "navigationBarTitleText": "订单结算",
+  "navigationBarTextStyle": "white",
+  "usingComponents": {
+    "cell-item": "/components/cell/cell-item",
+    "van-popup": "/miniprogram_npm/vant-weapp/popup/index",
+    "van-notify": "/miniprogram_npm/vant-weapp/notify/index",
+    "van-switch": "/miniprogram_npm/vant-weapp/switch/index",
+    "van-submit-bar": "/miniprogram_npm/vant-weapp/submit-bar/index"
+  }
+}

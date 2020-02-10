@@ -1,0 +1,4 @@
+<!--pages/stock/set-warn/set.wxml-->
+<view class='info-form'>
+ <form-item label='预警数量'></form-item>
+</view>

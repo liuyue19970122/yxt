@@ -1,0 +1,12 @@
+{
+  "navigationBarTitleText": "添加菜品",
+  "usingComponents": {
+    "form-item":"/components/form-item/form-item",
+    "van-checkbox-group": "/miniprogram_npm/vant-weapp/checkbox-group/index",
+    "van-cell-group": "/miniprogram_npm/vant-weapp/cell-group/index",
+    "van-cell": "/miniprogram_npm/vant-weapp/cell/index",
+    "van-checkbox": "/miniprogram_npm/vant-weapp/checkbox/index",
+    "van-switch": "/miniprogram_npm/vant-weapp/switch/index",
+    "van-swipe-cell": "/miniprogram_npm/vant-weapp/swipe-cell/index"
+  }
+}

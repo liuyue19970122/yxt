@@ -1,0 +1,38 @@
+/* pages/pro_manage/pro_spec_edit/spec.wxss */
+@import '../../../../utils/asset/css/cus-form.wxss';
+.add-spec{
+  width: 60rpx;
+  height: 60rpx;
+}
+.form-item__switch{
+  height: 80rpx;
+  font-size: 30rpx;
+  border-bottom: 1px solid #f0f0f0;
+  color: #333;
+}
+.mtl-container{
+  margin: 24rpx;
+  min-height: 100rpx;
+  position: relative;
+}
+.mtl-card{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 12rpx 0;
+}
+.mtl-card+.mtl-card{
+  border-top: 2rpx solid #f0f0f0;
+}
+.mtl-info{
+  flex: 1;
+}
+.mtl-edit>text{
+  display: inline-block;
+  padding: 8rpx 0 8rpx 24rpx;
+  border-left: 2rpx solid #f0f0f0;
+  color: #666;
+}
+.margin-bottom{
+   margin-bottom: 40rpx;
+}

@@ -1,0 +1,31 @@
+<!--pages/mall/pro-details/detail.wxml-->
+<swiper indicator-dots="{{indicatorDots}}"
+  class='swiper'
+  indicator-color='#333'
+  indicator-active-color='#fe2200'
+  autoplay="{{autoplay}}" interval="{{interval}}" 
+  duration="{{duration}}">
+  <block wx:for="{{picList}}" wx:key="{{index}}">
+    <swiper-item>
+      <image src='{{item}}' class='swiper-img'></image>
+    </swiper-item>
+  </block>
+</swiper>
+<!-- 商品名称价格 -->
+<view class='pro-container'>
+  <view class='pro-name'>
+    <text class='font-title'>{{goodsInfo.goodsName}}</text>
+    <image src='../asset/img/share.png' class='share-img'></image>
+  </view>
+  <view class='pro-price'>￥12.96</view>
+  <view class='pro-desc'>{{goodsInfo.description}}</view>
+</view>
+<view class='pro-blank'></view>
+<!-- 商品详情 -->
+<view class='pro-container'>
+  <view class='pro-title font-title'>商品详情</view>
+  <view>
+    <rich-text nodes="{{detailInfo}}"></rich-text>
+  </view>
+</view>
+

@@ -1,0 +1,23 @@
+<!--pages/mall/mall-pay/pay.wxml-->
+<view class='pay'>
+  <view class='pay-info'>
+    <view class='pay-money'><text></text>￥<text>{{payMoney}}</text></view>
+    <view class='pay-time'><text>支付剩余时间：</text>{{remainTime}}</view>
+  </view>
+</view>
+<view class='pay-choice'>
+   <radio-group class="radio-group" bindchange="radioChange">
+    <view  wx:for-items="{{payArrList}}" 
+      class='pay-way'  wx:key="name">
+      <view class='pay-way__info'>
+        <image src='{{item.logoUrl}}'></image>
+        <text>{{item.payName}}</text>
+      </view>
+       <radio class="radio" color='#fe2200'
+        value="{{index}}" 
+        checked="{{item.checked}}">
+      </radio>
+    </view>
+  </radio-group>
+</view>
+<view class='btn-fixed' bindtap='bindQueryPay'>确认支付</view>

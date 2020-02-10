@@ -1,0 +1,33 @@
+<!--pages/mall/chat-list/chat-list.wxml-->
+<!-- <view class='bg-top'>
+  <view class='info-module'>
+    你有
+    <text>18</text>条消息未处理
+  </view>
+</view> -->
+
+
+<view class='chat-list' wx:if='{{msgList.length>0}}'>
+  <view class='chat-item' bindtap='goDetail' data-id='{{item.keyId}}' wx:for='{{msgList}}'>
+    <!-- <view class='chat-avator'>
+      <image src='{{item.avator}}'>
+      </image>
+        <view class='dot' wx:if='{{item.haveNum}}'>{{item.haveNum}}</view>
+    </view> -->
+    <view class='chat-info-content'>
+      <view class='chat-info'>
+        <view class='chat-title'>
+          <view class='name'>
+          <view class='text-over'>{{item.title}}</view>
+          <view class='tag cancel-tag' wx:if='{{item.readFlag==0}}'>未读</view>
+          <view class='tag finish-tag' wx:if='{{item.readFlag==1}}'>已读</view>
+          </view>
+          <view class='time'>{{item.crtTime}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+<view class='empty' wx:if='{{msgList.length==0}}'>
+  暂时没有消息~
+</view>

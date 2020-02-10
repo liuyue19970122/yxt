@@ -1,0 +1,5 @@
+<!--components/cell/cell-teim.wxml-->
+<view class='cell-item border-bottom' style="height:{{height}};font-size:{{fontSize}};border:{{isBorder}}" bindtap='click' data-id='{{selectId}}'>
+  <view class='cell-title' style="color:{{titleColor}}">{{title}}</view>
+  <view class='cell-content' style="color:{{color}}">{{content}}</view>
+</view>

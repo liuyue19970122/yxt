@@ -1,0 +1,5 @@
+/* pages/receipt/table-add/add.wxss */
+@import "../../../utils/common"
+.add-form{
+  margin:0 24rpx;
+}

@@ -1,0 +1,45 @@
+<!--pages/mall/mall-my-collect/collect.wxml-->
+<view>
+  <view>
+    <cus-tab-view tabList='{{tabList}}'
+      type='{{pageType}}' 
+      bind:change='bindTabChange'></cus-tab-view>
+  </view>
+  <view>
+    <scroll-view scroll-y='true' style='height:100%' scroll-top='{{scrollTop}}'>
+      <view wx:if='{{pageType==="pro"}}' class='card-style' 
+        wx:for='{{proList}}' 
+        wx:key='{{index}}'>
+        <cus-pro-card index='{{index}}' 
+          title='{{item.orgName}}'
+          subTitle='{{item.goodsName}}'
+          imgsize='img-size' 
+          imgSrc='{{item.goodsPic}}' 
+          bind:click='seeProDetail'>
+            <view slot='right' class='state-container'>
+              <image class='state-img' data-index='{{index}}'
+                src='../../../utils/img/add.png' 
+                catchtap='bindBuy'></image>
+            </view>
+        </cus-pro-card>
+      </view>
+      <view wx:if='{{pageType==="store"}}'>
+        <view class='card' wx:for='{{storeList}}'
+          wx:key='storeList' 
+          data-id='{{item.orgId}}' 
+          catchtap='seeOrgStore'>
+          <view class='img-container'>
+            <image src='{{item.orgLogo}}'></image>
+          </view>
+          <view class='info'>
+            <view class='info-name'>{{item.orgName}}</view>
+            <view class='info-other'>
+              <text>{{"成交量"+item.buyCount+"件"}}</text>
+              <image src='../../../utils/img/biaoqian.png' catchtap='catchTag'></image>
+            </view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+</view>

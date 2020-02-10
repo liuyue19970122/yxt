@@ -1,0 +1,63 @@
+/* pages/common/login/login.wxss */
+
+/* .login-form{
+  padding:24rpx;
+} */
+
+.login-container{
+  margin-top:120rpx;
+}
+.login-container .title{
+  margin-left:81rpx;
+  font-size:60rpx;
+  font-weight: 500;
+  color:#333;
+}
+.login-form{
+  margin-top:160rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width:100%;
+}
+.login-form-item{
+  display: flex;
+  margin-top:60rpx;
+  align-items: flex-end;
+}
+.login-form-item image{
+  width:42rpx;
+  height:48rpx;
+  margin-right:40rpx;
+}
+.login-form-item view{
+  width:506rpx;
+}
+.login-form-item view input{
+  /* width:100%; */
+  border-bottom: 3rpx solid #999;
+  padding:10rpx 20rpx;
+}
+.login-btn{
+  width:590rpx;
+  border:2rpx solid #fe2200;
+  background: #fff;
+  height:60rpx;
+  border-radius: 20rpx;
+  color:#333;
+  font-size:32rpx;
+  line-height: 60rpx;
+  margin-top:120rpx;
+  font-weight: 550
+}
+.apply-btn{
+  width:260rpx;
+  height:60rpx;
+  line-height:60rpx;
+  background: #fe2200;
+  margin-top:240rpx;
+  color:#fff;
+  font-size:40rpx;
+  font-weight: bold;
+  border-radius: 50rpx;
+}

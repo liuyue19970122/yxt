@@ -1,0 +1,153 @@
+/* pages/system/account-manager/account-manager.wxss */
+
+page {
+  /* position: relative; */
+  box-sizing: border-box;
+  min-height: 300rpx;
+}
+
+.bg-module {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 120rpx;
+  background: #fe2200;
+  width: 750rpx;
+  z-index: -1;
+}
+
+.account-card {
+  box-sizing: border-box;
+  height: 348rpx;
+  margin: 40rpx 24rpx;
+  width: 702rpx;
+  padding: 40rpx 30rpx;
+  /* background-image:url(http://192.168.124.241:9999/card.png); */
+  background: url('http://118.24.172.172:9999/yxt/img/5f8f068b-48ef-4ade-b090-9990144e5082.png') no-repeat;
+  background-size: cover;
+  border-radius: 20rpx;
+  color: #fff;
+  font-size: 32rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-middle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.total {
+  font-size: 80rpx;
+  font-weight: 500;
+}
+
+.card-bottom {
+  display: flex;
+  font-size: 24rpx;
+  justify-content: space-between;
+}
+
+.list-module {
+  display: flex;
+  justify-content: space-between;
+  margin: 60rpx 24rpx 44rpx 24rpx;
+  align-items: center;
+}
+
+.list-title {
+  font-size: 40rpx;
+  color: #333;
+  font-weight: 600;
+}
+
+.see-all {
+  color: #999;
+  font-size: 24rpx;
+  display: flex;
+  align-items: center;
+}
+
+.account-list {
+  margin: 0 24rpx;
+}
+
+.account-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 140rpx;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.08);
+  padding:0 20rpx;
+  border-radius: 10rpx;
+}
+
+.account-left-item-title {
+  font-size: 32rpx;
+  color: #333;
+  font-weight: 600;
+}
+
+.add-account {
+  color: #fe3800;
+  font-size: 40rpx;
+  font-weight: 600;
+}
+
+.reduce-account {
+  color: #333;
+  font-size: 40rpx;
+  font-weight: 600;
+}
+
+.account-card-top{
+  display: flex;
+  justify-content: space-between;
+}
+.my-code{
+  font-size:24rpx;
+  text-decoration:underline;
+}
+.my-code image{
+  width:40rpx;
+  height:40rpx;
+}
+
+
+.dialog {
+  /* padding:40rpx 40rpx 24rpx; */
+}
+
+.title {
+  color: #333;
+  text-align: center;
+  font-size: 32rpx;
+  margin-top: 40rpx;
+}
+
+.input-item {
+  border: 2rpx solid #333;
+  border-radius: 20rpx;
+  margin: 24rpx 40rpx;
+  width: 514rpx;
+  height: 80rpx;
+}
+
+.input-item input {
+  text-align: center;
+  line-height: 80rpx;
+  height: 80rpx;
+}
+
+.submit-dialog-btn {
+  width: 514rpx;
+  height: 80rpx;
+  text-align: center;
+  line-height: 80rpx;
+  color: #fff;
+  border-radius: 20rpx;
+  background: #fe2200;
+  margin: 30rpx 40rpx;
+}

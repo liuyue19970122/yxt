@@ -1,0 +1,766 @@
+// pages/mall/pro_add/add.js
+import Notify from '../../../miniprogram_npm/vant-weapp/notify/notify';
+let util = require('../../../utils/util.js');
+const app = getApp()
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    proId:'',
+    proCateList:[],
+    sliderId:'',
+    tabId:'',
+    multiProArray:[],//类别数组
+    multiProIndex:[],
+    oldMultiProIndex:[],
+    cateDisabled:false,
+    stockProList:[],//分类库存商品
+    stockProIndex:[],
+    oldStockProIndex:[],
+    stockDisabled:false,
+    themeImageList: [],
+    proInfo: {
+      cateId: '',
+      goodsName: '',
+      description: '',
+      goodsPics: [],
+      stockId: '',
+      stockCode: '',
+      status: 1,
+      detail: '',//图文详情
+      attrsList: []//规格列表
+    },
+    proInfoRules:{
+      cateId: { required: true, msg: '请选择所属类别'} ,
+      goodsName: { required: true, msg: '请填写商品名称' },
+      stockId: { required: true, msg: '请选择库存商品' },
+      themeImg: { required: true, msg: '至少上传一张封面图'},
+      detail: { required: true, msg: '请编辑商品图文详情' },//图文详情
+      attrList: { required: true, msg: '至少添加一种规格'},
+      description: { required: false, msg: '请填写商品描述' },
+      status: { required: true, msg: '请选择是否上架' },
+    },
+    specList: [],
+    specSelArr:[],
+    actType:'add',//新增或修改商品判断/add新增/edit修改
+    editorObj:null,
+    editorHtml:'',
+    specActType:'edit',//获取规格操作动作类型
+    delSpecIndex:0//获取删除下标
+  },
+  //商品分类改变
+  bindCateChange(e){
+    let cateId='proInfo.cateId'
+    let val=e.detail.value
+    let id=this.data.multiProArray[1][val[1]].id
+    let actType=false
+    this.setData({
+      [cateId]:id,
+    })
+    this.getStorageProList(id, actType)
+  },
+  bindCateCancel(e){
+    let data = {
+      multiProArray: this.data.multiProArray,
+      multiProIndex: this.data.multiProIndex
+    };
+    let cateList = this.data.proCateList
+    let arr=JSON.parse(this.data.oldMultiProIndex)
+    data.multiProIndex[0] = arr[0]
+    data.multiProIndex[1]=arr[1]
+    let index=arr[0]
+    let cateId = this.data.multiProArray[0][index].id
+    let obj = ''
+    cateList.forEach(item => {
+      if (item.keyId === cateId) {
+        obj = item.nextList
+      }
+    })
+    let nextList = JSON.parse(obj)
+    let nextArr = []
+    nextList.forEach(item => {
+      let obj = {
+        id: item.keyId,
+        name: item.cateName
+      }
+      nextArr.push(obj)
+    })
+    data.multiProArray[1] = nextArr
+    this.setData(data)
+  },
+  bindCateColumnChange(e) {
+    let data = {
+      multiProArray: this.data.multiProArray,
+      multiProIndex: this.data.multiProIndex
+    };
+    let cateList = this.data.proCateList
+    let columnIndex = e.detail.column
+    data.multiProIndex[columnIndex] = e.detail.value;
+    switch (columnIndex) {
+      case 0:
+        let cateId = data.multiProArray[columnIndex][e.detail.value].id
+        let obj = ''
+        cateList.forEach(item => {
+          if (item.keyId === cateId) {
+            obj = item.nextList
+          }
+        })
+        let nextList = JSON.parse(obj)
+        let nextArr = []
+        nextList.forEach(item => {
+          let obj = {
+            id: item.keyId,
+            name: item.cateName
+          }
+          nextArr.push(obj)
+        })
+        data.multiProArray[1] = nextArr
+        data.multiProIndex[1] = 0;
+        break;
+      case 1:
+        data.multiProIndex[1] = e.detail.value;
+        break;
+    }
+    this.setData(data);
+  },
+  
+  //去选择库存产品
+  bindStockChange(e){
+    let index=parseInt(e.detail.value)
+    let list=this.data.stockProList
+    //console.log(list)
+    let sd=list[index].keyId
+    this.setData({
+      ['proInfo.stockId']:sd
+    })
+    //console.log(this.data.proInfo.stockId)
+  },
+  bindStockCancel(e){
+
+  },
+  //自定义名称
+  bindProNameInput(e){
+    let goodsName ='proInfo.goodsName'
+    let val=e.detail.value
+    this.setData({
+      [goodsName]:val
+    })
+    //console.log(this.data.proInfo)
+  },
+  
+  //封面展示
+  bindUploadThemeImg(){
+    let actType=this.data.actType
+    wx.chooseImage({
+      count: 1,
+      sizeType: ['original', 'compressed'],
+      sourceType: ['album', 'camera'],
+      success(res) {
+        // tempFilePath可以作为img标签的src属性显示图片
+        const tempFilePaths = res.tempFilePaths
+        const width=375
+        const height=250
+        //console.log(tempFilePaths)
+        if(actType==='add'){
+          wx.navigateTo({
+            url: '/pages/common/cut-image/cut-image?imgSrc=' + tempFilePaths[0] + '&width=' + width + '&height=' + height + '&key=themeImageList&&type=Array'
+          })
+        }
+        if (actType === 'edit') {
+          wx.navigateTo({
+            url: '/pages/common/cut-image/cut-image?imgSrc=' + tempFilePaths[0] + '&width=' + width + '&height=' + height + '&key=addImgRequest&&type=method'
+          })
+        }
+      }
+    })
+  },
+  //删除图片
+  deleteCurImg(e){
+    let actType=this.data.actType
+    let that=this
+    wx.showModal({
+      title: '提示',
+      content: '确认是否删除该图片？',
+      success(res) {
+        if (res.confirm) {
+          let index = parseInt(e.currentTarget.dataset.index)
+          let imgList = that.data.themeImageList
+          if (actType === 'add') { 
+            imgList.splice(index, 1)
+            that.setData({
+              themeImageList: imgList
+            })
+          }
+          if(actType==='edit'){
+            let url=imgList[index]
+            let arr=url.split('?')
+            let id=arr[1]
+            that.deletImgRequest(id)
+            imgList.splice(index, 1)
+            that.setData({
+              themeImageList: imgList
+            })
+          }
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
+  },
+  //修改商品删除图片//store/inst/deletePic
+  //goodsId,picId
+  deletImgRequest(picId){
+    let url = app.globalData.baseUrl + 'apiMall/store/inst/deletePic'
+    let data = {
+      goodsId:this.data.proId,
+      picId:picId
+    }
+    util.postRequestList(url, data, false, this.delImgRes)
+  },
+  delImgRes(res,actType){},
+  //修改商品删除图片/store/inst/upPic
+  //goodsId,picUrl,isMain
+  addImgRequest(picUrl) { 
+    //console.log(picUrl)
+    let url = app.globalData.baseUrl + 'apiMall/store/inst/upPic'
+    let data = {
+      goodsId:this.data.proId, 
+      picUrl: picUrl, 
+      isMain:0
+    }
+    let actType=false
+    util.postRequestList(url, data, actType, this.addImgRes)
+  },
+  addImgRes(res, actType) {
+    let info=res.data.content
+    let url=info.imgUrl+'?'+info.keyId
+    let list=this.data.themeImageList
+    list.push(url)
+    this.setData({
+      themeImageList:list
+    })
+  },
+  //获取editor内容，图文详情
+  getEditorContent(e){
+    let html=e.detail.html
+    let htmlContent='proInfo.detail'
+    this.setData({
+      [htmlContent]:html
+    })
+  },
+  
+  //添加商品规格
+  handleAddspec() {
+    let act = this.data.actType
+    let nav ='/pages/mall/pro-spec/add/add'
+    if (act==='edit'){
+      nav +='?proActType='+act+'&proId='+this.data.proId
+    }
+    if(act==='add'){
+      nav += '?proActType=' + act 
+    }
+    wx.navigateTo({
+      url: nav
+    })
+  },
+  //规格选择
+  bindSpecCheck(e){
+    let actType=this.data.actType
+    let curSelArr=e.detail.value
+    let list=this.data.specList
+    let specSelArr=this.data.specSelArr
+    let difArr=this.getArrDifference(curSelArr,specSelArr)
+    console.log(difArr)
+    let index=parseInt(difArr[0])
+    let status = list[index].status ? 0 : 1
+    list[index].status = status
+    this.setData({
+      specList:list,
+      specSelArr: curSelArr
+    })
+    if(actType==='edit'){
+      let attrId=list[index].keyId
+      this.changeSpecStatus(attrId, status)
+    }
+  },
+  //获取两个数组中不中的值
+  getArrDifference(arr1, arr2) {
+    return arr1.concat(arr2).filter(function (v, i, arr) {
+      return arr.indexOf(v) === arr.lastIndexOf(v);
+    });
+  },
+  //编辑商品修改规格上下架/store/inst/upOrDown
+  //goodsId,attrId,status
+  changeSpecStatus(attrId,status){
+    let url = app.globalData.baseUrl + 'apiMall/store/inst/upOrDown'
+    let data={
+      goodsId:'',
+      attrId: attrId,
+      status: status
+    }
+    util.postRequestList(url, data, false, this.changeSpecStatusRes)
+  },
+  changeSpecStatusRes(res,actType){
+    if(res.stockCode===200&&res.data.code!=='200'){
+
+    }
+  },
+  //修改规格
+  bindEditSpec(e) {
+    let specActType = e.currentTarget.dataset.text
+    this.setData({specActType})
+    let index = e.currentTarget.dataset.index
+    let specList=this.data.specList
+    let actType=this.data.actType
+    let data = specList[index]
+    if(actType==='edit'){
+      data.goodsId = this.data.proId
+    }
+    console.log(data)
+    let dataStr=JSON.stringify(data)
+    wx.navigateTo({
+      url: '/pages/mall/pro-spec/edit/edit?data=' + dataStr + '&actType=' + actType+'&specIndex='+index
+    })
+  },
+  //删除某个规格
+  bindDeleteSpec(e) { 
+    console.log(e)
+    let specActType = e.currentTarget.dataset.text
+    let delSpecIndex =parseInt(e.currentTarget.dataset.index)
+    this.setData({
+      specActType,
+      delSpecIndex
+    })
+  }, 
+  onClose(event) {
+    let that=this
+    const { position, instance } = event.detail;
+    console.log(event)
+    switch (position) {
+      case 'left':
+      case 'cell':
+        instance.close();
+        break;
+      case 'right':
+        setTimeout(()=>{
+          if (that.data.specActType==='delete'){
+            wx.showModal({
+              title: '提示',
+              content: '确认是否删除？',
+              success(res) {
+                if (res.confirm) {
+                  if (that.data.actType === 'add') {
+                    let curIndex = that.data.delSpecIndex
+                    let list = that.data.specList
+                    list.splice(curIndex,1)
+                    let sels = []
+                    list.forEach((item, index) => {
+                      if (item.status === 1) {
+                        sels.push(index.toString())
+                      }
+                    })
+                    that.setData({
+                      specList:list,
+                      specSelArr: sels
+                    })
+                  }
+                  if (that.data.actType==='edit'){
+                    that.deleteProAttr()
+                  }
+                } else if (res.cancel) {
+                  console.log('用户点击取消')
+                }
+              }
+            })
+          }
+        },200)
+        instance.close();
+        break;
+    }
+  },
+  //删除某个商品的规格/store/inst/deleteAttr
+  //goodsId,attrId
+  deleteProAttr(){
+    let sels = this.data.specSelArr
+    let list=this.data.specList
+    let index=this.data.delSpecIndex
+    console.log(list)
+    console.log(sels)
+    let url = app.globalData.baseUrl + 'apiMall/store/inst/deleteAttr'
+    let data={
+      goodsId: this.data.proId,
+      attrId: list[index].attrId
+    }
+    util.postRequestList(url, data, false, this.deleteProAttrRes)
+  },
+  deleteProAttrRes(res,type){
+    let curIndex = this.data.delSpecIndex
+    let list = this.data.specList
+    let sels = []
+    list.splice(curIndex, 1)
+    list.forEach((item,index)=>{
+      if(item.status===1){
+        sels.push(index.toString())
+      }
+    })
+    this.setData({
+      specList: list,
+      specSelArr: sels
+    })
+  },
+  //商品描述
+  bindinputDes(e){
+    let des='proInfo.description'
+    this.setData({
+      [des]:e.detail.value
+    })
+  },
+  //是否上架
+  switchChange(e){
+    let status = 'proInfo.status'
+    if (e.detail.value) {
+      this.setData({
+        [status]: 1
+      })
+    } else {
+      this.setData({
+        [status]: 0
+      })
+    }
+  },
+  //预览详情
+  handleToPreview(){
+    let proInfo = JSON.stringify(this.data.proInfo)
+    let proInfoStr1 = proInfo.replace(/=/g, '**')
+    let proInfoStr2 = proInfoStr1.replace(/&/g, '*')
+    let specList = JSON.stringify(this.data.specList)
+    let imgList = JSON.stringify(this.data.themeImageList)
+    let imgListStr = imgList.replace(/\?/g, '*')
+    let imgListStr2 = imgListStr.replace(/=/g, '**')
+    // let html = this.data.editorHtml
+    // let htmlStr=html.replace(/=/g,'**')
+    // let htmlStr2 = htmlStr.replace(/&/g,'*')
+    wx.navigateTo({
+      url: '/pages/mall/pro-details/detail?actType=preview&proInfo=' + proInfoStr2 + '&specLsit=' + specList + '&imgList=' + imgListStr2 
+      //+ '&html=' + htmlStr2
+    })
+  },
+  //新增商品数据提交///store/inst/add
+  submitAddProInfo() {
+    let proInfo = this.data.proInfo
+    let proInfoRules=this.data.proInfoRules
+    for(let key in proInfoRules){
+      if(key==='themeImg'){
+        if (!this.data.themeImageList.length && proInfoRules[key].required){
+          Notify({ type: 'danger', message: proInfoRules[key].msg });
+          return;
+        }
+      }else if(key==='attrList'){
+        if (!this.data.specList.length && proInfoRules[key].required){
+          Notify({ type: 'danger', message: proInfoRules[key].msg });
+          return;
+        }
+      }else{
+        if (proInfoRules[key].required) {
+          if (proInfo[key] === '' && !proInfo[key]) {
+            console.log(key)
+            console.log(proInfo[key])
+            Notify({ type: 'danger', message: proInfoRules[key].msg });
+            return;
+          }
+        }
+      }
+    }
+    let actType=this.data.actType
+    if(actType==='add'){
+      console.log(proInfo)
+      proInfo.goodsPics = JSON.stringify(this.data.themeImageList)
+      proInfo.attrsList = JSON.stringify(this.data.specList)
+      let url = app.globalData.baseUrl + 'apiMall/store/inst/add'
+      util.postRequestList(url, proInfo, actType, this.addProInfoRes)
+    }
+    if(actType==='edit'){
+      ///store/inst/updateInfo
+      //goodsId,goodsName,description,status,detail
+      let goodsId=this.data.proId
+      let updateData={
+        goodsId: goodsId,
+        goodsName:proInfo.goodsName,
+        description: proInfo.description,
+        detail: proInfo.detail,
+        status: proInfo.status,
+      }
+      let url = app.globalData.baseUrl + 'apiMall/store/inst/updateInfo'
+      util.postRequestList(url, updateData, actType, this.updateProInfoRes)
+    }
+  },
+  addProInfoRes(res, actType) {
+    if(res.data.code==='200'){
+      let data = res.data.content
+      let prevPage = util.getPrevPage(); //上一个页面
+      prevPage.getProInfoList(prevPage.filterData, 'refresh') 
+      wx.navigateBack({
+        delta: -1
+      })
+    }
+  },
+  updateProInfoRes(res, actType){
+    if(res.statusCode===200&&res.data.code==='200'){
+      let prevPage = util.getPrevPage(); //上一个页面
+      prevPage.getProInfoList(prevPage.filterData, 'refresh') 
+      wx.navigateBack({
+        delta: -1
+      })
+    }
+    console.log(res)
+  },
+  //获取商品分类列表//apiStock/stock/cate/list
+  getProCateList(actType) {
+    let url = app.globalData.baseUrl + 'apiStock/stock/cate/list'
+    util.getRequestList(url, actType, this.proCateListRes)
+  },
+  proCateListRes(res, actType) {
+    console.log(res)
+    if(res.data.code==='200'){
+      console.log(111)
+      let cateList = res.data.content
+      let nextList = []
+      let sliderId = parseInt(this.data.sliderId)
+      let tabId = parseInt(this.data.tabId)
+      let arr = []
+      let nextArr = []
+      let twoArr = []
+      let multiProIndex = [0, 0]
+      cateList.forEach((item, index) => {
+        let obj = {
+          id: item.keyId,
+          name: item.cateName
+        }
+        arr.push(obj)
+        if (item.keyId === sliderId) {
+          multiProIndex[0] = index
+          nextList = JSON.parse(item.nextList)
+        }
+      })
+      if(sliderId===-1){
+        nextList = JSON.parse(cateList[0].nextList)
+      }
+      nextList.forEach((item, index) => {
+        let obj = {
+          id: item.keyId,
+          name: item.cateName
+        }
+        if (item.keyId === tabId) {
+          multiProIndex[1] = index
+        }
+        nextArr.push(obj)
+      })
+      twoArr[0] = arr
+      twoArr[1] = nextArr
+      tabId = nextArr[multiProIndex[1]].id
+      let multiProIndexStr = JSON.stringify(multiProIndex)
+      console.log(multiProIndexStr)
+      this.setData({
+        proCateList: cateList,
+        multiProArray: twoArr,
+        multiProIndex: multiProIndex,
+        oldMultiProIndex: multiProIndexStr,
+        ['proInfo.cateId']: tabId
+      })
+      console.log(this.data.proInfo.cateId)
+      if (actType === 'add') {
+        this.getStorageProList(tabId, actType)
+      }
+      if (actType === 'edit') {
+        let id = this.data.proId
+        let actType = 'edit'
+        this.getProDetail(id, actType)
+      }
+    }
+  },
+  //获取仓库某类产品列表///stock/inst/list
+  getStorageProList(cateId, actType) {
+    let  data = {
+      cateId: cateId,
+      locationId: '',//
+      //仓库ID
+      goodsName: '',
+      //产品名称
+      warnFlag: '0',
+      //1是0否只显示告警
+      pageNum: 1,
+      pageSize: 9999
+    }
+    let url = app.globalData.baseUrl + 'apiStock/stock/inst/list'
+    util.getRequestListData(url, data, actType, this.storageProListRes)
+    //getRequestListData = function (url, data,actType, callBack)
+  },
+  storageProListRes(res, actType) {
+    console.log(res)
+    let list = res.data.content.list
+    if(list.length){
+      list.forEach(item => {
+        item.date = util.formatTime(item.lastTime)
+        item.cusName = item.goodsName + '/' + item.goodsCount + item.goodsUnit
+      })
+      this.setData({
+        stockProList: list
+      })
+      let stockProIndex = this.data.stockProIndex
+      if (actType === 'edit') { 
+        let stockId=this.data.proInfo.stockId
+        list.forEach((item,index)=>{
+          if(item.keyId===stockId){
+            stockProIndex[0]=index
+          }
+        })
+        this.setData({ 
+          cateDisabled:true,
+          stockDisabled:true,
+        })
+      }
+      if(actType==='add'){
+        stockProIndex[0] = 0
+        this.setData({
+          ['proInfo.stockId']: list[0].keyId,
+          ['proInfo.stockCode']: list[0].goodsCode
+        })
+      }
+      console.log(this.data.proInfo.stockId)
+      console.log(list)
+      this.setData({ stockProIndex })
+    }else{
+      wx.showModal({
+        title: '提示',
+        content: '请前往库存管理添加库存商品',
+        showCancel:false,
+        success(res) {
+          if (res.confirm) {
+            wx.navigateBack({
+              delta:1
+            })
+          } else if (res.cancel) {
+            console.log('用户点击取消')
+          }
+        }
+      })
+    }
+    console.log(list)
+  },
+  //获取商品实例详情///store/inst/detail
+  //goodsId
+  getProDetail(id,actType){
+    let url = app.globalData.baseUrl + 'apiMall/store/inst/detail'
+    let data = { goodsId:id}
+    util.getRequestListData(url, data, actType,this.proDetailRes)
+    //getRequestListData = function (url, data,actType, callBack)
+  },
+  proDetailRes(res,actType){
+    let data=res.data.content
+    if(actType==='edit'){
+      let goodsInfo = data.goodsInfo
+      let detailInfo = data.detailInfo
+      let imgList = data.imgList
+      let themeImageList = this.data.themeImageList
+      imgList.forEach(item=>{
+        let url=item.url+'?'+item.keyId
+        themeImageList.push(url)
+      })
+      let attrList = data.attrList
+      let specSelArr=[]
+      attrList.forEach((item,index)=>{
+        item.attrId=item.keyId
+        item.attrPrice = util.getMoney(item.attrPrice).toString()
+        item.attrNormalPrice = util.getMoney(item.attrNormalPrice).toString()
+        if(item.status===1){
+          specSelArr.push(index.toString())
+        }
+      })
+      this.setData({
+        ['proInfo.cateId']: goodsInfo.cateId,
+        ['proInfo.goodsName']: goodsInfo.goodsName,
+        ['proInfo.detail']: detailInfo.detail,
+        ['proInfo.description']: goodsInfo.description,
+        ['proInfo.stockId']: goodsInfo.stockId,
+        ['proInfo.stockCode']: goodsInfo.stockCode,
+        ['proInfo.status']: goodsInfo.status,
+        specList: attrList,
+        themeImageList: themeImageList,
+        editorHtml: detailInfo.detail,
+        specSelArr: specSelArr
+      })
+      this.getStorageProList(this.data.tabId,actType)
+      //this.data.editorObj.editorSetContent(detailInfo.detail)
+    }
+  },
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    console.log(options)
+    let actType=options.actType
+    let proId = options.id
+    this.setData({
+      actType:actType,
+      proId:proId,
+      sliderId:options.sliderId,
+      tabId:options.tabId
+    })
+    this.getProCateList(actType)
+    console.log(this.data.sliderId)
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+    //获取editor组件对象
+    this.setData({
+      editorObj: this.selectComponent('#proEditor')
+    })
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+
+  }
+})

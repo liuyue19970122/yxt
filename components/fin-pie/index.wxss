@@ -1,0 +1,73 @@
+/* components/fin-pie/index.wxss */
+.pie-container{
+  width: 100%;
+  height: 560rpx;
+  background: linear-gradient(to bottom right,#FC6262 0%,#FB6E65 50%,#FE9567 100%);
+  background:-webkit-linear-gradient(to bottom right,#FC6262 0%,#FB6E65 50%,#FE9567 100%);
+  background:-ms-linear-gradient(to bottom right,#FC6262 0%,#FB6E65 50%,#FE9567 100%);
+  background:-moz-linear-gradient(to bottom right,#FC6262 0%,#FB6E65 50%,#FE9567 100%);
+  background:-o-linear-gradient(to bottom right,#FC6262 0%,#FB6E65 50%,#FE9567 100%);
+}
+.top-line{
+  height: 6rpx;
+  background: linear-gradient(to bottom,#DC1D00 0%,#FC6262 100%);
+  background:-webkit-linear-gradient(to bottom,#DC1D00 0%,#FC6262 100%);
+  background:-ms-linear-gradient(to bottom,#DC1D00 0%,#FC6262 100%);
+  background:-moz-linear-gradient(to bottom,#DC1D00 0%,#FC6262 100%);
+  background:-o-linear-gradient(to bottom,#DC1D00 0%,#FC6262 100%);
+}
+.circle{
+  width: 400rpx;
+  height: 400rpx;
+  position: relative;
+  left:50%;
+  top:50%;
+  transform: translate(-50%,-50%);
+  -webkit-transform: translate(-50%,-50%);
+  -moz-transform: translate(-50%,-50%);
+  -o-transform: translate(-50%,-50%);
+  border:4rpx solid #FFECC7;
+  border-radius: 50%;
+  box-sizing: border-box;
+}
+.circle>text{
+  position: absolute;
+  top:192rpx;
+  display: inline-block;
+  width:396rpx;
+  /* border-top: 2rpx solid #FF9900; 
+  border-bottom: 2rpx solid #FFECC7; */
+  z-index: 100;
+}
+.circle-bg{
+  position: relative;
+  width: 340rpx;
+  height: 340rpx;
+  left:50%;
+  top:50%;
+  transform: translate(-50%,-50%);
+  -webkit-transform: translate(-50%,-50%);
+  -moz-transform: translate(-50%,-50%);
+  -o-transform: translate(-50%,-50%);
+  border-radius: 50%;
+  box-shadow: 0 8rpx 20rpx #FF5B42 ;
+}
+
+.pie-name,.pie-num{
+  position: relative;
+  text-align: center;
+  line-height: 80rpx;
+  top:90rpx;
+  color:#fff;
+}
+.pie-name{
+  font-size: 36rpx;
+}
+.pie-num>text:first-child{
+  font-size: 40rpx;
+  font-weight: bold;
+}
+.pie-num>text:last-child{
+  font-size: 28rpx;
+  font-weight: bold;
+}

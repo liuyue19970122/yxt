@@ -1,0 +1,59 @@
+// components/form-item/form-item.js
+Component({
+  /**
+   * 组件的属性列表
+   */
+  properties: {
+    isBorder:{
+      type:Boolean,
+      value:true
+    },
+    label:{
+      type:String,
+      value:''
+    },
+    isRequired:{
+      type: Boolean,
+      value: false
+    },
+    value:{
+      type: String,
+      value: ''
+    },
+    isReadon:{
+      type: Boolean,
+      value: false
+    },
+    type:{
+      type:String,
+      value:'text'
+    },
+    placeholder:{
+      type: String,
+      value: ''
+    }
+  },
+
+  /**
+   * 组件的初始数据
+   */
+  data: {
+
+  },
+
+  /**
+   * 组件的方法列表
+   */
+  methods: {
+    onInput(event) {
+      const { value = '' } = event.detail || {};
+      this.setData({ value }, () => {
+        this.emitChange(value);
+      });
+    },
+    emitChange(value) {
+      this.triggerEvent('input', value);
+      this.triggerEvent('change', value);
+    }
+  }
+})

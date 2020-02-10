@@ -1,0 +1,47 @@
+<!--pages/receipt/pay-order/pay.wxml-->
+<page-title title='应付：95.00' isAdd='{{false}}' picker='{{false}}'></page-title>
+<view class='order-form'>
+  <form-item label='商品折扣' isBorder='{{false}}' value="100%" isReadon="{{true}}" inputStyle='text-align:left'></form-item>
+  <form-item label='优惠金额' isBorder='{{false}}' value="100%" isReadon="{{true}}" inputStyle='text-align:left'></form-item>
+  <form-item label='抹零' isRequired='{{true}}' isBorder='{{false}}' value="100%" inputStyle='text-align:left'></form-item>
+</view>
+<page-title title='实付：95.00' isAdd='{{false}}' picker='{{false}}'></page-title>
+
+
+<view class='op-btn-group'>
+  <button class='y-btn'>付款</button>
+</view>
+
+<van-popup show="{{ true }}" position='bottom' bind:close="onClose">
+  <view class='pop-content'>
+    <view class='pop-title border-bottom'>收款：
+      <view class='order-price'>￥70.00</view>
+    </view>
+    <view class='pay-type-list'>
+      <view class='pay-type-item'>
+        <image src='/utils/img/receipt/zhifb.png' class='type-icon'></image>
+        <view>微信</view>
+      </view>
+      <view class='pay-type-item'>
+        <image src='/utils/img/receipt/zhifb.png' class='type-icon'></image>
+        <view>微信</view>
+      </view>
+      <view class='pay-type-item'>
+        <image src='/utils/img/receipt/zhifb.png' class='type-icon'></image>
+        <view>微信</view>
+      </view>
+      <view class='pay-type-item'>
+        <image src='/utils/img/receipt/zhifb.png' class='type-icon'></image>
+        <view>微信</view>
+      </view>
+      <view class='pay-type-item'>
+        <image src='/utils/img/receipt/zhifb.png' class='type-icon'></image>
+        <view>微信</view>
+      </view>
+      <view class='pay-type-item'>
+        <image src='/utils/img/receipt/zhifb.png' class='type-icon'></image>
+        <view>微信</view>
+      </view>
+    </view>
+  </view>
+</van-popup>

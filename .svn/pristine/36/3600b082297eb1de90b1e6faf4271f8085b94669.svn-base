@@ -1,0 +1,39 @@
+.card{
+  display: flex;
+  align-items: center;
+  margin: 24rpx;
+  padding-bottom: 20rpx;
+  border-bottom: 2rpx solid #f0f0f0;
+}
+.img-container{
+  width:120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 24rpx;
+}
+.img-container>image{
+  width:100%;
+  height: 100%;
+}
+.info{
+  flex:1;
+}
+.info-name{
+  margin-bottom: 20rpx;
+}
+.info-other{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.info-other>text{
+  flex: 1;
+  font-size:28rpx;
+  color: #333;
+}
+
+.info-other>image{
+  width: 80rpx;
+  height: 40rpx;
+}

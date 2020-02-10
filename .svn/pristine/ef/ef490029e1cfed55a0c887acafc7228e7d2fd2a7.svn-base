@@ -1,0 +1,41 @@
+<!--pages/pro_manage/pro_spec_edit/spec.wxml-->
+<van-notify id="van-notify" />
+<form bindsubmit="formSubmit" bindreset="formReset">
+  <form-title title='规格列表'></form-title>
+  <view class='form-item form-item__inline'>
+    <label class='form-item__label'>名称</label>
+    <input placeholder='请输入名称' 
+      bindinput='bindinputName'
+      value='{{specInfo.attrName}}'
+      class='form-item__content'></input>
+  </view>
+  <view class='form-item form-item__inline'>
+    <label class='form-item__label'>售价</label>
+    <input placeholder='请输入售价' 
+      bindinput='bindinputPrice'
+      value='{{specInfo.attrPrice}}'
+      class='form-item__content'></input>
+  </view>
+  <view class='form-item form-item__inline'>
+    <label class='form-item__label'>上架数量</label>
+    <input placeholder='请输入促销价'
+      bindinput='bindinputCount' 
+      value='{{specInfo.upCount}}'
+      class='form-item__content'></input>
+  </view>
+  <view class='form-item form-item__inline'>
+    <label class='form-item__label'>库存比例</label>
+    <input placeholder='请输入库存比例' 
+      bindinput='bindinputMulti'
+      value='{{specInfo.stockMulti}}'
+      class='form-item__content'></input>
+  </view>
+  <view class='form-item form-item__inline'>
+    <label class='form-item__label'>是否上架</label>
+    <switch  class='form-item__content'
+      checked="{{switchChecked}}" bindchange="switchChange"/>
+  </view>
+  <view class='form-btn'>
+    <button bindtap='submintAddSpecInfo'>确认</button>  
+  </view>
+</form>

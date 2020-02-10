@@ -1,0 +1,2 @@
+/* pages/mall/pro-details/detail.wxss */
+@import '../../../../utils/asset/css/cus-pro-detail.wxss';

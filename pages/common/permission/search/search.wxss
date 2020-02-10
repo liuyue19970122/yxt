@@ -1,0 +1,2 @@
+/* pages/common/permission/search/search.wxss */
+@import '../../login/login'

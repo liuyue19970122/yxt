@@ -1,0 +1,22 @@
+<!--pages/receipt/order-record/list.wxml-->
+<view class='record-list'>
+  <view class='record-item'>
+    <view class='info-item border-bottom'>
+      <view class='order-num'>0880949249343412</view>
+      <view class='info-value'>张三</view>
+    </view>
+    <view class='info-item border-bottom'>
+      <view class='info-label'>2019-11-09 12:35:43</view>
+      <view class='info-value'>7号桌</view>
+    </view>
+    <view class='info-item border-bottom'>
+      <view class='info-value'>共6件菜品</view>
+      <view class='order-price'>￥70.00</view>
+    </view>
+    <view class='info-item'>
+      <view class='info-value'></view>
+      <view class='info-value'>查看详情</view>
+    </view>
+    <view class='hr-module'></view>
+  </view>
+</view>

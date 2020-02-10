@@ -1,0 +1,138 @@
+/**index.wxss**/
+.yxt-index-top{
+  background: #FE2200;
+  height:150rpx;
+}
+
+ec-canvas {
+  width: 100%;
+  height: 100%;
+  z-index:1
+}
+.banner-box{
+  margin:20rpx 24rpx 32rpx 24rpx;
+  width:702rpx;
+  height:280rpx;
+}
+.banner{
+  width:702rpx;
+  height:280rpx;
+}
+.echart-box{
+  width:750rpx;
+  height:300px;
+}
+.second-banner-box{
+  display: flex;
+  justify-content: space-between;
+  margin:32rpx 25rpx;
+}
+/* .second-banner-box.first-banner-box{
+  margin-top:140rpx;
+
+} */
+.echart-title{
+  margin:25rpx;
+  font-size: 36rpx;
+  color:#fff;
+  display: flex;
+  justify-content: space-between
+}
+.echart-title>view>view{
+  padding:0 20rpx;
+  height:60rpx;
+  line-height: 60rpx;
+  background: red;
+  margin-right:20rpx;
+  display: inline-block
+}
+.echart-title .btn{
+  padding:0 20rpx;
+  height:60rpx;
+  line-height: 60rpx;
+  background: red;
+  margin:0 !important;
+  display: flex
+}
+.panel-box{
+  margin-bottom:40rpx;
+}
+.bottom-info{
+  width:750rpx;
+  height:60rpx;
+  text-align: center
+}
+.bottom-info image{
+  width:124rpx;
+  height:18rpx;
+}
+
+.unlogin-btn{
+  width:702rpx;
+  margin:40rpx 24rpx;
+  background: #fff;
+  color:#333;
+  border-radius: 5rpx;
+  font-size:32rpx;
+  height:100rpx;
+  line-height:100rpx;
+  text-align: center;
+  box-shadow: 1px 3px 6px rgba(0,0,0,0.08)
+}
+.unlogin-btn::after{
+  border:0;
+  border-radius:0
+}
+.add{
+  font-size:46rpx;
+}
+
+.add-order-btn{
+  width:124rpx;
+  position: fixed;
+  right:0;
+  background: #fff;
+  height:120rpx;
+  box-shadow: 0 0 18rpx rgba(0,0,0,0.3);
+  border-radius: 50% 0 0 50%;
+  z-index:9999999999;
+}
+image.op-icon{
+  padding:20rpx 24rpx 20rpx 20rpx;
+  border-radius: 50% 0 0 50%;
+  width:80rpx;
+  height:80rpx;
+  position: fixed;
+  right:0;
+  /* margin-right:24rpx; */
+  box-shadow: 0 4rpx 8rpx rgba(0,0,0,0.2);
+  
+  /* top:750rpx; */
+  background: #fff;
+}
+.echarts-time{
+  display: flex;
+  margin:40rpx 24rpx;
+}
+.echarts-time view{
+  width:110rpx;
+  height:60rpx;
+  font-size:32rpx;
+  color:#666;
+  border:2rpx solid #FFAC03;
+  background: #fff;
+  text-align: center;
+  line-height: 60rpx;
+}
+.echarts-time view:first-child{
+  border-radius: 50rpx 0 0 50rpx;
+  border-right:0;
+}
+.echarts-time view:nth-child(3){
+  border-radius: 0 50rpx 50rpx 0;
+  border-left:0;
+}
+.echarts-time view.select-item{
+  background: #FFAC03;
+  color:#fff;
+}

@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "添加订单",
+  "usingComponents": {
+    "van-notify": "/miniprogram_npm/vant-weapp/notify/index",
+    "form-title": "/components/form-title/index"
+  }
+}

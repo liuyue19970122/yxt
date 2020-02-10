@@ -1,0 +1,36 @@
+<!--pages/mall/handle-order/pro-search/search.wxml-->
+<view class='search-container'>
+  <view class='search'>
+    <van-search
+      value="{{ searchValue }}"
+      background="#fff"
+      shape='round'
+      placeholder="搜索店内商品"
+      bind:clear='onClear'
+      bind:search="onSearch">
+    </van-search>
+  </view>
+</view>
+<view>
+  <checkbox-group bindchange="cartCheckboxChange">
+    <view class='card'  wx:for='{{proList}}' 
+      wx:key="{{index}}">
+      <label class="checkbox">
+        <checkbox value="{{index}}" color='#fff'
+          checked="{{item.cusChecked}}"/>
+      </label>
+      <view class='card-info'>
+        <view class='info-name text-one__line'>{{item.name}}</view>
+        <view class='info-other'>
+          <text>{{item.price}}</text>
+          <text>数量：{{item.count}}</text>
+        </view>
+      </view>
+    </view>
+  </checkbox-group>
+</view>
+<view class='fixed-bottom'>
+  <button class='btn btn-save'>已选货品（1000）</button>
+  <button class='btn btn-submit'>确定</button>
+</view>
+

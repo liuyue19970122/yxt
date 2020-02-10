@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "cate-picker": "/components/cate-picker/cate-picker",
+    "page-title": "/components/page-title/page-title",
+    "van-search": "/miniprogram_npm/vant-weapp/search/index"
+  }
+}

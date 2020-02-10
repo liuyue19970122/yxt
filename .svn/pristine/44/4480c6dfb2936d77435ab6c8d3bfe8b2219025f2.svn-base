@@ -1,0 +1,22 @@
+<view class='full-page' >
+  <page-title title='系统类别'  bind:add='addFn' picker='{{false}}' isAdd='{{false}}'></page-title>
+  <view wx:for='{{cateList}}' wx:key='item'>
+    <view>
+      <view class='cate-title'>
+        <view>{{item.cateName}}</view>
+        <!-- <image src="/utils/img/edit.png" class='edit'></image> -->
+      </view>
+    </view>
+    <view class='stock-list'>
+      <view wx:for='{{item.nextList}}' wx:for-item='items' catchtap="clickItem" data-id='{{items.keyId}}' class='{{items.isSelect||items.status==1?"active-item stock-item":"stock-item"}}'>
+        <view>{{items.cateName}}</view>
+      </view>
+    </view>
+  </view>
+  <button class='submit-btn' bindtap="submitCate">确定</button>
+<!-- 
+  <view class='empty' wx:if='{{cateList.length==0}}'>
+    暂时没有货架，快去添加吧~
+  </view> -->
+</view>
+<van-dialog id="van-dialog" />

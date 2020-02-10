@@ -1,0 +1,128 @@
+/* pages/receipt/vage-list/list.wxss */
+.box{
+  display: flex;
+}
+.left-module{
+  width:176rpx;
+  min-height:100vh;
+  height:100%;
+  background: #f5f5f5;
+}
+.right-module{
+  width:550rpx;
+  margin-left:24rpx;
+}
+
+.type-first-item{
+  height:100rpx;
+  text-align: center;
+  line-height: 100rpx;
+}
+.select-first-item{
+  background: #fff;
+  border-left:4rpx solid #fe2200;
+}
+.type-second-list{
+  display: flex;
+  height:60rpx;
+}
+.type-second-list{
+  display: flex;
+  font-size: 32rpx; 
+  box-sizing: border-box;
+  color:#333;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+  width:550rpx;
+  margin:24rpx 0;
+  /* position: fixed;
+  top:0;
+  right:0; */
+  background: #fff;
+}
+.type-second-item{
+  min-width:118rpx;
+  text-align: center;
+  height:60rpx;
+  line-height: 60rpx;
+  margin-right:20rpx;
+  padding:0 24rpx;
+  box-sizing: border-box;
+  display: inline-block;
+  background: #f5f5f5;
+  color:#666;
+  font-size:28rpx;
+  border-radius: 5rpx;
+}
+.select-second-item{
+  background:#FF9B00;
+  color:#fff;
+}
+.vage-list{
+  /* position: fixed;
+  top:180rpx;
+  right:0; */
+  width:550rpx;
+  height:calc(100vh - 180rpx);
+}
+.vage-item{
+  display: flex;
+  color:#333;
+  height:120rpx;
+  padding:20rpx 0;
+  border-bottom:2rpx solid #F0F0F0;
+}
+.vage-img{
+  width:120rpx;
+  height:120rpx;
+  border-radius: 20rpx;
+}
+.vage-detail{
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  margin-left:24rpx;
+  width:382rpx;
+  padding-right:24rpx;
+}
+.num{
+  border-radius: 50rpx;
+  color:#fff;
+  background: #FF9B00;
+  margin-left:20rpx;
+  padding:0 10rpx;
+  font-size:24rpx;
+}
+.price{
+  font-size:26rpx;
+  color:#fe2200;
+}
+.vage-price{
+  font-size:24rpx;
+  color:#B1B1B1;
+}
+.vage-info{
+  display: flex;
+  justify-content: space-between;
+}
+.edit-icon{
+  width:44rpx;
+  height:44rpx;
+}
+.btn-group{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-right:24rpx;
+  width:500rpx;
+  margin-top:24rpx;
+  /* position: fixed;
+  top:120rpx;
+  right:0; */
+}
+.btn-group image{
+  width:60rpx;
+  height:60rpx;
+  margin-left:40rpx;
+}

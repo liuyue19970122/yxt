@@ -1,0 +1,41 @@
+<!--pages/mall/mall-suborder/order.wxml-->
+<van-notify id="van-notify"/>
+<view>
+  <view class='bg-color'>
+  </view>
+  <view class='order-detail'>
+    <view class='top-module'>
+      <view style="width:100%;">
+        <view class='reciver-detail' bindtap='toAddressPage'>
+          <view wx:if='{{!hasAddress}}'>选择地址</view>
+          <view wx:if='{{hasAddress}}'>
+            <view class='reciver'>
+              <view>{{address.contactName}}</view>
+              <view class='phone'>{{address.phone}}</view>
+            </view>
+            <view class='address'>{{address.wholeAddress}}</view>
+          </view>
+          <image class='triggle-close' src='/utils/img/close.png'></image>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+<form-title title='货品信息'></form-title>
+<view class='card-container'>
+  <view class='card' wx:for='{{proList}}' wx:key='{{item.stockId}}'
+    data-index="{{index}}"
+    bindtap="handleEdit">
+    <view class='card-info'>
+      <view class='info-name text-one__line'>{{item.stockName}}</view>
+      <view class='info-other'>
+        <text>{{"￥"+item.perMoney}}</text>
+        <text>数量：{{item.count+item.stockUnit}}</text>
+      </view>
+    </view>
+    <image class='triggle-close'
+      src='../../../../utils/img/close.png'></image>
+  </view>
+</view>
+<van-submit-bar price="{{ orderMoney }}" 
+    button-text="提交订单" bind:submit="onSubmitOrder" />

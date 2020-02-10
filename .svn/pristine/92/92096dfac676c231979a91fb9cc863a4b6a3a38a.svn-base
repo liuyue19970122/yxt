@@ -1,0 +1,48 @@
+/* components/page-title/page-title.wxss */
+/* pages/stock/set/set.wxss */
+
+.title-module {
+  height: 108rpx;
+  line-height: 108px;
+  background: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24rpx;
+}
+
+.left-title {
+  display: flex;
+  height: 100%;
+  align-items: center;
+}
+
+.left-title image {
+  width: 80rpx;
+  height: 80rpx;
+  margin-right: 20rpx;
+}
+
+.left-title view {
+  font-weight: 550;
+  /* color:#333; */
+}
+.right-title{
+  height:100%;
+  display: flex;
+  align-items: center;
+}
+.right-title image{
+  width:48rpx;
+  height:48rpx;
+}
+.right-title .tiggle-icon{
+    width:24rpx;
+  height:12rpx;
+}
+.picker{
+  min-width:100rpx;
+  text-align: right;
+  font-size: 28rpx;
+  color:#333;
+}

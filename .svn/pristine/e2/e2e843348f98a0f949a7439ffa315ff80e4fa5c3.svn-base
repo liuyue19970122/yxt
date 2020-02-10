@@ -1,0 +1,7 @@
+/* pages/common/reset-pwd/reset-pwd.wxss */
+
+@import '../permission/first-step/first'
+
+.form{
+  padding:0 24rpx;
+}

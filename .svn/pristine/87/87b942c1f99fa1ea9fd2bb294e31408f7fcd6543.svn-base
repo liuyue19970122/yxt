@@ -1,0 +1,36 @@
+/* components/account-item-border/acc-item-border.wxss */
+
+.account-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 140rpx;
+  /* box-shadow: 0 3px 6px rgba(0,0,0,0.08); */
+  /* padding:0 20rpx; */
+
+  /* border-radius: 10rpx; */
+  border-bottom:2rpx solid #f0f0f0;
+}
+
+.account-left-item-title {
+  font-size: 32rpx;
+  color: #333;
+  font-weight: 600;
+}
+
+.add-account {
+  color: #fe3800;
+  font-size: 40rpx;
+  font-weight: 600;
+}
+
+.reduce-account {
+  color: #333;
+  font-size: 40rpx;
+  font-weight: 600;
+}
+
+.time{
+  font-size:24rpx;
+  color:#999;
+}

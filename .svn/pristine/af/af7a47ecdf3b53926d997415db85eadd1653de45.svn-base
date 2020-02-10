@@ -1,0 +1,77 @@
+<!--pages/stock/stock-record/stock-record.wxml-->
+
+<!--pages/stock/stock-change/stock-change.wxml-->
+
+<view class='full-page' bindtouchstart="closeActive">
+  <search type='stock' value='{{stockName}}' bind:search='getRecordList' bind:input='bindStockName'></search>
+  <van-tabs active="{{ active }}" bind:change="onChange">
+    <van-tab title="全部">
+      <scroll-view scroll-y="{{true}}" bindscrolltolower='getNextPage' class='content-list' data-id='{{item.id}}'>
+        <view class='good-item'  wx:for='{{recordList}}'>
+          <view class='good-item-info'>
+            <view class='goods-name'>{{item.goodsName}}</view>
+            <view class='op-info'>操作类型：{{item.typeName}}</view>
+          </view>
+          <view class='good-item-info'>
+            <view class='op-info'>变更数量：
+              <text wx:if='{{item.beforeCount>item.afterCount}}' class='reduce-info'>-</text>
+              <text wx:if='{{item.beforeCount<item.afterCount}}' class='add-info'>+</text>
+              <text class='{{item.beforeCount>item.afterCount?"reduce-info":"add-info"}}'>{{item.opCount}}</text>{{item.goodsUnit}}</view>
+            <view class='time'>{{item.crtTime}}</view>
+          </view>
+        </view>
+      </scroll-view>
+    </van-tab>
+    <van-tab title="入库">
+      <scroll-view scroll-y="{{true}}" bindscrolltolower='getNextPage'  class='content-list' data-id='{{item.id}}' >
+        <view class='good-item' wx:for='{{recordList}}'>
+          <view class='good-item-info'>
+            <view class='goods-name'>{{item.goodsName}}</view>
+            <view class='op-info'>操作类型：{{item.typeName}}</view>
+          </view>
+          <view class='good-item-info'>
+            <view class='op-info'>变更数量：
+              <text wx:if='{{item.beforeCount>item.afterCount}}' class='reduce-info'>-</text>
+              <text wx:if='{{item.beforeCount<item.afterCount}}' class='add-info'>+</text>
+              <text class='{{item.beforeCount>item.afterCount?"reduce-info":"add-info"}}'>{{item.opCount}}</text>{{item.goodsUnit}}</view>
+            <view class='time'>{{item.crtTime}}</view>
+          </view>
+        </view>
+      </scroll-view>
+    </van-tab>
+    <van-tab title="出库">
+      <scroll-view scroll-y="{{true}}" bindscrolltolower='getNextPage'  class='content-list' data-id='{{item.id}}'>
+        <view class='good-item'  wx:for='{{recordList}}'>
+          <view class='good-item-info'>
+            <view class='goods-name'>{{item.goodsName}}</view>
+            <view class='op-info'>操作类型：{{item.typeName}}</view>
+          </view>
+          <view class='good-item-info'>
+            <view class='op-info'>变更数量：
+              <text wx:if='{{item.beforeCount>item.afterCount}}' class='reduce-info'>-</text>
+              <text wx:if='{{item.beforeCount<item.afterCount}}' class='add-info'>+</text>
+              <text class='{{item.beforeCount>item.afterCount?"reduce-info":"add-info"}}'>{{item.opCount}}</text>{{item.goodsUnit}}</view>
+            <view class='time'>{{item.crtTime}}</view>
+          </view>
+        </view>
+      </scroll-view>
+    </van-tab>
+    <van-tab title="盘点">
+      <scroll-view scroll-y="{{true}}" bindscrolltolower='getNextPage'  class='content-list' data-id='{{item.id}}' >
+        <view class='good-item' wx:for='{{recordList}}'>
+          <view class='good-item-info'>
+            <view class='goods-name'>{{item.goodsName}}</view>
+            <view class='op-info'>操作类型：{{item.typeName}}</view>
+          </view>
+          <view class='good-item-info'>
+            <view class='op-info'>变更数量：
+              <text wx:if='{{item.beforeCount>item.afterCount}}' class='reduce-info'>-</text>
+              <text wx:if='{{item.beforeCount<item.afterCount}}' class='add-info'>+</text>
+              <text class='{{item.beforeCount>item.afterCount?"reduce-info":"add-info"}}'>{{item.opCount}}</text>{{item.goodsUnit}}</view>
+            <view class='time'>{{item.crtTime}}</view>
+          </view>
+        </view>
+      </scroll-view>
+    </van-tab>
+  </van-tabs>
+</view>

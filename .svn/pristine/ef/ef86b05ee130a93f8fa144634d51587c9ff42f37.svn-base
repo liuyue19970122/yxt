@@ -1,0 +1,113 @@
+// pages/receipt/table-add/add.js
+var util = require('../../../utils/util.js');
+const app = getApp()
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    deskCode:'',
+    des:'',
+    peopleNum:'',
+  },
+  getDeskCode:function(e){
+    this.setData({
+      deskCode:e.detail
+    })
+  },
+  getPeopleNum: function (e) {
+    this.setData({
+      peopleNum: e.detail
+    })
+  },
+  getDes:function(e){
+    this.setData({
+      des:e.detail.value
+    })
+  },
+  onSubmit:function(){
+    var url = app.globalData.baseUrl +'apiMall/food/desktop/add'
+    var data={
+      deskCode: this.data.deskCode,
+      description: this.data.des,
+      peopleNum: this.data.peopleNum,
+    }
+    util.postRequestList(url,data,false,this.submitRes)
+  },
+  submitRes(res){
+    if(res.data.code==200){
+      wx.showModal({
+        title: '提示',
+        content: '添加成功',
+        cancelText:'继续',
+        confirmText:'返回',
+        success:function(res){
+          if(res.confirm){
+            wx.navigateBack({
+              delta:1
+            })
+          }
+          if(res.cancel){
+            return
+          }
+        }
+      })
+    }
+  },
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+
+  }
+})

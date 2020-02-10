@@ -1,0 +1,2 @@
+/* pages/stock/stock-warn/list.wxss */
+@import '../stock-change/stock-change'

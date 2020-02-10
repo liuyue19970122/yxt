@@ -1,0 +1,5 @@
+/* components/search/search.wxss */
+.van-search__content{
+  background-color: var(--search-background-color,#fff);
+  border-radius:50px
+}

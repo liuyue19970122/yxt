@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "新建地址",
+  "navigationBarTextStyle": "white",
+  "usingComponents": {
+    "form-item":"/components/form-item/form-item",
+    "van-notify": "/miniprogram_npm/vant-weapp/notify/index",
+    "van-switch": "/miniprogram_npm/vant-weapp/switch/index"
+  }
+}

@@ -1,0 +1,378 @@
+// pages/stock/stock-change/stock-change.js
+var util = require('../../../utils/util.js');
+const app = getApp()
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    cateList: [],
+    goodList: [],
+    activeId: 0,
+    pageSize: 10,
+    pageNum: 1,
+    isSelect: true,
+    top: '80%',
+    height: 0,
+    width: 0,
+    radio: '1',
+    ifStorage: false,
+    ifStorehouse: false,
+    ifType: false,
+    stockList: [],
+    goodsName: '',
+    warnFlag: false,
+    stockIndex: 0,
+    cateIndex: 0,
+    total:0,
+    warnList: [{
+      warnFlag: false,
+      name: '全部'
+    }, {
+      warnFlag: true,
+      name: '库存告急'
+    }],
+    warnIndex: 0,
+    isGong:false,
+  },
+  goSelect: function(e) {
+    var _this = this
+    var type = e.currentTarget.dataset.type
+    if (type == 'storage') {
+      this.setData({
+        ifStorage: !_this.data.ifStorage,
+        ifStorehouse: false,
+        ifType: false
+      })
+    } else if (type == 'storehouse') {
+      this.setData({
+        ifStorage: false,
+        ifStorehouse: !_this.data.ifStorehouse,
+        ifType: false
+      })
+    } else if (type == 'type') {
+      this.setData({
+        ifStorage: false,
+        ifStorehouse: false,
+        ifType: !_this.data.ifType
+      })
+    }
+  },
+  bindGoodsName(e) {
+    this.setData({
+      goodsName: e.detail.value,
+    })
+  },
+  bindSearch() {
+    this.setData({
+      pageNum: 1
+    })
+    this.getGoodList()
+    this.getTotalMoney()
+  },
+  bindStockId(e) {
+    this.setData({
+      stockIndex: e.currentTarget.dataset.index,
+      ifStorehouse: false,
+    })
+    this.getGoodList()
+    this.getTotalMoney()
+  },
+  bindCateChange(e) {
+    this.setData({
+      cateIndex: e.currentTarget.dataset.index,
+      ifType: false,
+      pageNum: 1
+    })
+    this.getGoodList()
+    this.getTotalMoney()
+  },
+  cancelSelect() {
+    this.setData({
+      ifStorage: false,
+      ifStorehouse: false,
+      ifType: false
+    })
+  },
+  bindMultiPickerChange: function(e) {
+    this.setData({
+      multiIndex: e.detail.value
+    })
+    var index = e.detail.value
+    var that = this
+    if (index[0] == 0) {
+      this.setData({
+        selectCate: -1
+      })
+    } else {
+      this.setData({
+        selectCate: that.data.cateList[index[0]].nextList[index[1]].keyId
+      })
+    }
+    this.getGoodList()
+  },
+  bindMultiPickerColumnChange: function(e) {
+    var data = {
+      multiArr: this.data.multiArr,
+      multiIndex: this.data.multiIndex
+    };
+    data.multiIndex[e.detail.column] = e.detail.value;
+    if (e.detail.column == 0) {
+      var nextArr = this.data.cateList[e.detail.value].nextList.map(item => {
+        return item.cateName
+      })
+      var list = data.multiArr
+      list.splice(1, 1)
+      list.push(nextArr)
+    }
+    this.setData(data);
+
+  },
+  getStockList() {
+    var url = app.globalData.baseUrl + 'apiStock/stock/location/list'
+    var data = {
+      pageSize: 9999,
+      pageNum: 1
+    }
+    util.getRequestListData(url, data, false, this.stockListRes)
+  },
+  stockListRes: function(res) {
+    setTimeout(() => {
+      wx.hideLoading()
+    }, 100)
+    var list = res.data.content.list
+    var item = {
+      keyId: -1,
+      locationName: '全部'
+    }
+    list.unshift(item)
+    this.setData({
+      stockList: list
+    })
+    this.getGoodList()
+    this.getTotalMoney()
+  },
+  changeCate: function(e) {
+    this.setData({
+      selectCate: e.detail.detail.value,
+      pageNum: 1
+    })
+    this.getGoodList()
+  },
+  changeSecondCate: function(e) {
+    this.setData({
+      secondCate: e.detail.detail.value
+    })
+    this.getGoodList()
+  },
+  getCateList() {
+    var url = app.globalData.baseUrl + 'apiStock/stock/cate/list'
+    util.getRequestList(url, false, this.cateListRes)
+  },
+  cateListRes(res) {
+    var list = res.data.content
+    for (var item of list) {
+      item.nextList = JSON.parse(item.nextList)
+    }
+    list.unshift({
+      keyId: -1,
+      cateName: '全部',
+      nextList: []
+    })
+    this.setData({
+      cateList: list
+    })
+    this.getStockList()
+  },
+  goAdd() {
+    wx.navigateTo({
+      url: '../stock-in/stock-in',
+    })
+  },
+  bindWarnFlag(e) {
+    this.setData({
+      warnFlag: e.currentTarget.dataset.flag?1:0,
+      ifStorage: false,
+      warnIndex: e.currentTarget.dataset.index,
+      pageNum: 1
+    })
+    this.getGoodList()
+    this.getTotalMoney()
+  },
+  getTotalMoney(){
+    var url = app.globalData.baseUrl + 'apiStock/stock/inst/money'
+    var data={
+      cateId: this.data.cateList[this.data.cateIndex].keyId,
+      locationId: this.data.stockList[this.data.stockIndex].keyId,
+      goodsName: this.data.goodsName,
+      warnFlag: this.data.warnFlag?1:0
+    }
+    util.getRequestListData(url, data, false,this.totalMoneyRes)
+  },
+  totalMoneyRes(res){
+    if(res.data.code=200){
+      this.setData({
+        totalMoney: util.getMoney(res.data.content).toLocaleString()
+      })
+    }
+  },
+  getGoodList: function() {
+    wx.showLoading({
+      title: '获取中...',
+    })
+    var url = app.globalData.baseUrl + 'apiStock/stock/inst/list'
+    var data = {
+      cateId: this.data.cateList[this.data.cateIndex].keyId,
+      locationId: this.data.stockList[this.data.stockIndex].keyId,
+      goodsName: this.data.goodsName,
+      warnFlag: this.data.warnFlag?1:0,
+      pageNum:this.data.pageNum,
+      pageSize:this.data.pageSize
+    }
+    util.getRequestListData(url, data, false, this.goodListRes)
+  },
+  goodListRes(res) {
+    wx.hideLoading()
+    if (res.data.code == 200) {
+      var list = res.data.content.list
+      for (var item of list) {
+        var time = util.formatTime(item.lastTime)
+        item.totalMoney = util.getMoney(item.totalMoney).toLocaleString()
+        item.lastTime = time
+      }
+      var goodsList = this.data.pageNum > 1 ? this.data.goodList.concat(list) : list
+      this.setData({
+        goodList: goodsList,
+        pages: res.data.content.pages,
+        total:res.data.content.total
+      })
+    }
+  },
+  goNext() {
+    util.getNextPage(this, this.data.pages, this.getGoodList)
+  },
+  cateChange: function(e) {
+    this.setData({
+      selectCate: e.detail.value
+    })
+  },
+  clickItem: function(e) {
+    var itemHeight = e.detail.y
+    if (itemHeight > this.data.height - 200) {
+      this.setData({
+        top: '-100%'
+      })
+    }
+    this.setData({
+      activeId: e.currentTarget.dataset.id
+    })
+  },
+  closeActive: function() {
+    this.setData({
+      activeId: 0
+    })
+  },
+  goInList(e) {
+    wx.navigateTo({
+      url: '../stock-inlist/stock-inlist?id=' + e.currentTarget.dataset.id,
+    })
+  },
+  goPage(e){
+    var type=e.currentTarget.dataset.type
+    if(type=='mall'){
+      wx.navigateTo({
+        url: '/pages/mall/mall-store/store',
+      })
+    }else if(type=='order'){
+      wx.navigateTo({
+        url: '/pages/mall/handle-order/order-manager/manager',
+      })
+    }else{
+      wx.navigateTo({
+        url: '/pages/mall/mall-my-collect/collect',
+      })
+    }
+  },
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function(options) {
+    // if (options.cateId) {
+    //   this.setData({
+    //     selectCate: options.cateId,
+    //     isSelect: false
+    //   })
+    // }
+    if(options.flag){
+      this.setData({
+        warnFlag:1,
+        warnIndex:1
+      })
+    }
+    this.getCateList()
+    var that = this
+    wx.getSystemInfo({
+      success: function(res) {
+        that.setData({
+          height: res.windowHeight,
+          width: res.windowWidth,
+        })
+      },
+    })
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function() {
+    var userInfo = wx.getStorageSync('localToken').userInfo
+    if (userInfo.orgType == '1'){
+      this.setData({
+        isGong:true
+      })
+    }
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function() {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function() {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function() {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function() {
+
+  }
+})

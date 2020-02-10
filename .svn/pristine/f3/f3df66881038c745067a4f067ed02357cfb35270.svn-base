@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "新增货品",
+  "usingComponents": {
+    "page-title": "/components/page-title/page-title",
+    "cate-picker": "/components/cate-picker/cate-picker",
+    "form-item": "/components/form-item/form-item",
+    "van-search": "/miniprogram_npm/vant-weapp/search/index",
+    "van-notify": "/miniprogram_npm/vant-weapp/notify/index",
+    "van-overlay": "/miniprogram_npm/vant-weapp/overlay/index"
+  }
+}

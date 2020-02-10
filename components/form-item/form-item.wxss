@@ -1,0 +1,44 @@
+/* components/form-item/form-item.wxss */
+.form{
+  padding:0 24rpx;
+}
+.form-item{
+  padding:24rpx 0;
+  font-size:32rpx;
+  color:#333;
+  display: flex;
+  background: #fff;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+}
+.form--input{
+  text-align: right;
+  width:70%;
+}
+.label{
+  /* font-weight: 500; */
+  width:30%;
+}
+
+.border-bottom{
+  border-bottom:2rpx solid #f0f0f0;
+}
+.picker{
+  display:flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.triggle-close{
+  width:14rpx;
+  height:24rpx;
+  margin-left:20rpx
+}
+
+.right-icon{
+  border-top:4rpx solid #999;
+  border-right:4rpx solid #999;
+  transform: rotate(45deg);
+  width:14rpx;
+  height:14rpx;
+}

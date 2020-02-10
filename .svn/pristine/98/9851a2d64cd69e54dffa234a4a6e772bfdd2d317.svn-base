@@ -1,0 +1,55 @@
+/* pages/stock/stock-in/stock-in.wxss */
+
+@import '../stock-out/stock-out'
+.form-box{
+  position: relative;
+}
+.overslay{
+  position: absolute;
+  width:100%;
+  height:calc(100vh - 216rpx);
+  top:0;
+  left:0;
+  background: rgba(0,0,0,0.2);
+  z-index:50;
+}
+.search-module {
+  position: relative;
+}
+.search-list-box{
+  position: absolute;
+  top: 100rpx;
+  left: 30rpx;
+  color:#333;
+  z-index: 10000;
+}
+.search-list {
+  width: 690rpx;
+  background: #fff;
+  border-radius: 10rpx;
+  border: 2rpx solid #f0f0f0;
+  box-sizing: border-box;
+  max-height:400rpx;
+  overflow: scroll;
+
+  /* margin:0  */
+}
+
+.search-item {
+  height: 100rpx;
+  line-height: 100rpx;
+  font-size: 28rpx;
+  padding: 0 24rpx;
+}
+
+.search-item:not(:last-child) {
+  border-bottom: 2rpx solid #f0f0f0;
+}
+.close-btn{
+  height: 60rpx;
+  line-height: 60rpx;
+  font-size: 28rpx;
+  padding: 0 24rpx;
+  text-align: center;
+  background: #f0f0f0;
+}

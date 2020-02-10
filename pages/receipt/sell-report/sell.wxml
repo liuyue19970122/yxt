@@ -1,0 +1,15 @@
+<!--pages/finance/statement/income/income.wxml-->
+<cus-fin-pie title='累计销售' 
+  price='12300' subPrice='00'
+  line='line' 
+  bgColor='#C4E566'></cus-fin-pie>
+<view class='form'>
+  <form-item label="销售统计" isTimePicker='{{true}}' dateType='date' fields='year' date='{{year}}'></form-item>
+</view>
+<cus-fin-card name='1' rightText='2019年11月' 
+  leftText='1200.00'
+  gradient='gradient'
+  dotColor='#ebde30'
+  width='50%' bind:click='bindClick'></cus-fin-card>
+
+ 

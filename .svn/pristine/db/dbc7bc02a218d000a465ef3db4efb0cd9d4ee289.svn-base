@@ -1,0 +1,15 @@
+<!--pages/system/charge-money/recharge.wxml-->
+<view class='charge-view'>
+  <view class='title'>请选择充值金额:</view>
+  <view class='title'>普通版</view>
+  <view class='money-list'>
+    <view class='money-item {{money==item?"active-item":""}}' bindtap='selectItem' data-money='{{item}}' wx:for='{{moneyList}}'>{{item}}</view>
+  </view>
+  <view class='title'>升级版</view>
+
+  <view class='money-list'>
+    <view class='money-item {{money==item?"active-item":""}}' bindtap='selectItem' data-money='{{item}}' wx:for='{{vipMoney}}'>{{item}}</view>
+  </view>
+</view>
+
+<button class='big-submit-btn' bindtap='wxChargeAcc'>确定</button>

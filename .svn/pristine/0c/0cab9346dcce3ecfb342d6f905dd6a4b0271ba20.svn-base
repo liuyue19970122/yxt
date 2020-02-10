@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "选择桌位",
+  "usingComponents": {
+    "page-title":"/components/page-title/page-title",
+    "van-action-sheet": "/miniprogram_npm/vant-weapp/action-sheet/index"
+  }
+}

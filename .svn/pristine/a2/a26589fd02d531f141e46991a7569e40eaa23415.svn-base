@@ -1,0 +1,119 @@
+const formatTime = date => {
+  const year = date.getFullYear()
+  const month = date.getMonth() + 1
+  const day = date.getDate()
+  const hour = date.getHours()
+  const minute = date.getMinutes()
+  const second = date.getSeconds()
+
+  return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
+}
+
+const formatNumber = n => {
+  n = n.toString()
+  return n[1] ? n : '0' + n
+}
+//获取token
+const getToken = function () {
+  return new Promise((resolve, reject) => {
+    wx.getStorage({
+      key: 'localToken',
+      success: function (res) {
+        var token = res.data.token_type + res.data.access_token
+        resolve(token)
+      },
+      fail: function (res) {
+        reject(res)
+      },
+    })
+  })
+}
+//get 封装
+const getRequest = function (url, token) {
+  return new Promise((resolve, reject) => {
+    //init
+    var postToken = token;
+    //网络请求
+    wx.request({
+      url: url,
+      method: 'GET',
+      header: {
+        Authorization: postToken,
+      },
+      success: function (res) { //服务器返回数据
+        resolve(res);
+        if (res.statusCode === 404 || res.statusCode === 500) {
+          errHandle() //404 500错误处理
+        }
+      },
+      fail: function (e) {
+        if (!app.globalData.isShowErr) {
+          netErr()
+        } else {
+          return
+        }
+      }
+    })
+  });
+}
+//post 封装
+const postRequest = function (url, data, token) {
+  return new Promise((resolve, reject) => {
+    //init
+    var postToken = token;
+    //网络请求
+    wx.request({
+      url: url,
+      method: 'POST',
+      data: data,
+      header: {
+        "content-type": "application/x-www-form-urlencoded",
+        Authorization: postToken
+      },
+      success: function (res) { //服务器返回数据
+        resolve(res);
+        if (res.statusCode === 404 || res.statusCode === 500) {
+          errHandle() //404 500错误处理
+        }
+      },
+      fail: function (e) {
+        if (!app.globalData.isShowErr) {
+          netErr()
+        } else {
+          return
+        }
+      }
+    })
+  });
+}
+//internet err网络错误提示
+const netErr = function () {
+  wx.hideLoading()
+  wx.showModal({
+    title: '提示',
+    content: '网络故障',
+    showCancel: false,
+    success: function (res) {
+      if (res.confirm) {
+        wx.navigateBack({
+          delta: 1
+        })
+      }
+    }
+  })
+}
+//404 500错误处理
+const errHandle = function () {
+  var url = getCurrentPageUrl()
+  if (!app.globalData.isGo) {
+    app.globalData.isGo = true
+    wx.navigateTo({
+      url: '../../pages/erroPage/erroPage',
+    })
+  } else {
+    return
+  }
+}
+module.exports = {
+  formatTime: formatTime
+}

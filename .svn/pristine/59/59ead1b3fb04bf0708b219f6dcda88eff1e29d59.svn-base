@@ -1,0 +1,53 @@
+<!--pages/mall/chat-detail/chat-detail.wxml-->
+<scroll-view class='msg-list' scroll-y scroll-with-animation scroll-top="{{ scrollTop }}" scroll-into-view="{{ lastId }}">
+  <view class=''>
+    <view class='left-item'>
+      <view>
+        <image  class='avator' src='/utils/img/del.png'></image>
+      </view>
+     <image class='msg-img' src='/utils/img/good-img.png' mode='aspectFit'></image>
+    </view>
+    <view class='left-item'>
+      <view>
+        <image  class='avator' src='/utils/img/del.png'></image>
+      </view>
+      <view class='msg'>这是消息XXX</view>
+    </view>
+    <view class='right-item'>
+      <view class='msg'>这是消息XXX</view>
+      <view>
+        <image  class='avator' src='/utils/img/del.png'></image>
+      </view>
+    </view>
+    <view class='right-item'>
+      <view class='msg'>这是消息XXX</view>
+      <view>
+        <image  class='avator' src='/utils/img/del.png'></image>
+      </view>
+    </view>
+    <view class='right-item'>
+      <!-- <view class='msg'>
+        这是消息XXX</view> -->
+      <image class='msg-img' src='/utils/img/good-img.png' mode='aspectFit'></image>
+
+      <view>
+        <image class='avator' src='/utils/img/del.png'></image>
+      </view>
+    </view>
+  </view>
+</scroll-view>
+
+
+<view class='input-module'>
+  <view class='choose-image'>
+    <image src='/utils/img/add.png'></image>
+  </view>
+  <view class='content-box'>
+    <textarea contenteditable="true" maxlength='250' contenteditable="true" auto-height="true" bindinput="inputContent" fixed="true"></textarea>
+    <!-- <input></input> -->
+  </view>
+  <view class='choose-image'>
+    <button>发送</button>
+    <!-- <image src='/utils/img/add.png'></image> -->
+  </view>
+</view>

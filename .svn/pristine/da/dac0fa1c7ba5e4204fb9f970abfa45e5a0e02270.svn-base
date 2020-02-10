@@ -1,0 +1,36 @@
+/* pages/purchase/address-manager/address-manager.wxss */
+.address-item{
+  padding:28rpx 24rpx;
+  font-size:32rpx;
+  color:#333;
+  position: relative;
+}
+.reciver-info{
+  display: flex;
+}
+.address{
+  margin-top:20rpx;
+}
+.reciver-name{
+  margin-right:40rpx;
+}
+.select{
+  position: absolute;
+  top:0;
+  left:0;
+  width:60rpx;
+  height:60rpx;
+}
+.save-btn{
+  width:702rpx;
+  position: fixed;
+  bottom:100rpx;
+  left:24rpx;
+  background: #ff2200;
+  color:#fff;
+  font-size: 32rpx;
+  border-radius: 50rpx;
+}
+button::after{
+  border:0;
+}

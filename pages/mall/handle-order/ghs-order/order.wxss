@@ -1,0 +1,162 @@
+/*pages/mall/mall-suborder/order.wxss */
+.none-content-container{
+  height: 1320rpx;
+}
+.bg-color {
+  width: 750rpx;
+  height: 300rpx;
+  background: linear-gradient(to bottom, #fe5339, #fff);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -10;
+}
+
+.order-detail {
+  margin: 24rpx;
+  padding: 24rpx;
+  width: 654rpx;
+  border-radius: 20rpx;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+  font-size: 28rpx;
+  background: #fff;
+  margin-bottom: 240rpx;
+}
+.top-module {
+  display: flex;
+  min-height: 120rpx;
+  font-size: 32rpx;
+}
+.reciver-detail{
+  margin-bottom:20rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.reciver{
+  display: flex;
+  margin-bottom:20rpx;
+  color:#999;
+}
+.reciver view{
+  margin-right:20rpx;
+}
+
+.form-item{
+  display: flex;
+  justify-content: space-between;
+  border-top:2rpx solid #f0f0f0;
+  padding:20rpx 0;
+  /* border-bottom:2rpx solid #f0f0f0; */
+}
+.remark{
+  background: #f0f0f0;
+  width:70%;
+  padding:5rpx;
+  border-radius: 10rpx;
+}
+
+.mall-title{
+  display: flex;
+  justify-content: space-between;
+  color:#333;
+  font-size: 36rpx;
+  height:80rpx;
+  align-items: center;
+}
+
+.goods-item {
+  display: flex;
+  font-size: 28rpx;
+  color: #333;
+  align-items: center;
+  margin-bottom: 10rpx;
+  padding: 20rpx 0;
+}
+
+.goods-img, .goods-img image {
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 10rpx;
+  margin-right: 20rpx;
+}
+
+.goods-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-grow: 1;
+  min-width: 55%;
+}
+.goods-name{
+  width: 100%;
+  overflow: hidden;
+  word-break:break-all;
+  text-overflow:ellipsis; 
+  text-overflow: -o-ellipsis-lastline;
+  display:-webkit-box;
+  -webkit-line-clamp:2;
+  line-clamp: 2;
+  -webkit-box-orient:vertical;
+}
+.goods-num{
+  color: #999;
+}
+.goods-num>text:first-child{
+  font-size: 20rpx;
+}
+.goods-num>text:last-child{
+  font-size: 28rpx;
+}
+.goods-price {
+  flex-shrink: 1;
+  padding-left: 12rpx;
+}
+
+/* 选择送达时间 */
+.choose-time-content{
+  display: flex;
+  box-sizing: border-box;
+  color:#333;
+  font-size: 28rpx;
+  height:calc(100% - 120rpx);
+  overflow: hidden;
+}
+.day-list{
+  width:120rpx;
+  background: #F5F5F5;
+  height:100%;
+}
+.day-item{
+  height:80rpx;
+  line-height:80rpx;
+  text-align: center;
+}
+.day-item-select{
+  background: #fff;
+}
+.time-list{
+  margin-left:20rpx;
+  width:606rpx;
+  overflow: auto;
+}
+.time-item{
+  display: flex;
+  height:80rpx;
+  line-height: 80rpx;
+  padding-right:30rpx;
+  justify-content: space-between;
+  border-bottom:2rpx solid #f5f5f5;
+}
+.time-item-select{
+  color:#fe2200;
+  position: relative;
+}
+.select-time{
+  position: absolute;
+  right:0;
+  top:0;
+  width:60rpx;
+  height:60rpx;
+}

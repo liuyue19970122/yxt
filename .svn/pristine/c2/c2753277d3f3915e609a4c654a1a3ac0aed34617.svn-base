@@ -1,0 +1,205 @@
+<!--pages/common/permission/first-step/first.wxml-->
+<van-notify id="van-notify" />
+<view>
+  <van-steps custom-class='steps' steps="{{ steps }}" active="{{ step }}" />
+</view>
+<view class='hr-module'></view>
+<!-- 第一步 -->
+<view class='first-step' wx:if='{{step==0}}'>
+  <view class='form'>
+    <form-item label='手机号' placeholder='请输入您的手机号' isReadon='{{isReadon||status==-1}}' labelStyle='font-size:32rpx;' type='number' value='{{userInfoRules.mobile.value}}' inputStyle='text-align:left' bind:input='bindMobile'></form-item>
+    <form-item label='密码' placeholder='请输入六位数密码' wx:if='{{!isReadon}}' isReadon='{{isReadon}}' type='password' labelStyle='font-size:32rpx;' value='{{userInfoRules.password.value}}' inputStyle='text-align:left' bind:input='bindPassword'></form-item>
+    <view class='form-item border-bottom' wx:if='{{!isReadon}}'>
+      <view class='label'>验证码
+        <text class='required'>*</text>
+      </view>
+      <view class='form--input'>
+        <input class='vali-input' required type='number' value='{{userInfoRules.smsCode.value}}' bindinput="bindSmsCode"></input>
+        <button class='vali-btn' bindtap='sendSmsCode' wx:if='{{seconds>0}}' disabled="{{true}}">{{seconds}}s</button>
+        <button class='vali-btn' wx:if='{{seconds==0}}' bindtap='sendSmsCode'>获取验证码</button>
+      </view>
+    </view>
+  </view>
+  <view class='choose-type'>
+    <view class='choose-label'>
+      <image class='label-icon' src='/utils/img/system/label-icon.png'></image>
+      <view class='label'>你的角色
+        <text class='required'>*</text>
+      </view>
+    </view>
+    <view class='choose-content'>
+      <view class='radio-item' bindtap='bindApplyType' data-type='1'>
+        <image class='icon-item' src="{{applyType==1?'/utils/img/system/select.png':'/utils/img/system/no-select.png'}}"></image>
+        <image class='label-img' src='http://118.24.172.172:9999/yxt/img/7b2b31c6-74f7-415d-a7e4-0df4a1a65901.png'></image>
+
+      </view>
+      <view class='radio-item' bindtap='bindApplyType' data-type='2'>
+        <image class='icon-item' src="{{applyType==2?'/utils/img/system/select.png':'/utils/img/system/no-select.png'}}"></image>
+        <image class='label-img' src='http://118.24.172.172:9999/yxt/img/f1a9cc71-46bc-4398-8667-63afaf3734d2.png'></image>
+      </view>
+    </view>
+  </view>
+  <view class='step-bottom'>
+    <view class='agree-content'>
+      <van-checkbox custom-class='checkbox' icon-size='32rpx' checked-color='#FF7A7A' use-icon-slot shape="square" bind:change="onChangeAgree">
+        <view class='agree-info'>我已经阅读并同意
+          <view class='agree-name' catchtap="downFile">《怡县通用户协议》</view>
+        </view>
+        <image class='check-icon' slot="icon" src="{{ ifAgree ? '/utils/img/system/check.png':'/utils/img/system/no-check.png' }}"></image>
+      </van-checkbox>
+    </view>
+  </view>
+  <view class='op-step-group'>
+    <button class='step-btn' bindtap='goNextStep'>下一步</button>
+  </view>
+</view>
+<!-- 第二步 -->
+<view class='second-step' wx:if='{{step==1}}'>
+  <view class='form'>
+    <form-item label='商家名称' isRequired="{{true}}" isReadon='{{isReadon}}' bind:input='bindOrgName' value="{{orgInfoRules.orgName.value}}" labelStyle='font-size:32rpx;'></form-item>
+    <form-item label='联系人' isRequired='{{true}}' value="{{orgInfoRules.linkName.value}}" isReadon='{{isReadon}}' bind:input='bindLinkName' labelStyle='font-size:32rpx;'></form-item>
+    <form-item label='经营范围' isRequired="{{true}}" wx:if='{{isReadon}}' isReadon='{{true}}' labelStyle='font-size:32rpx;' value='{{scopeName}}'></form-item>
+    <view class='form-item border-bottom' wx:if='{{!isReadon}}'>
+      <view class='label'>经营类别
+        <text class='required'>*</text>
+      </view>
+      <view class='form--input'>
+        <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{scopeIndex}}" range="{{selectScopeList}}">
+          <view class="picker">
+            {{selectScopeList[0][scopeIndex[0]]}} {{selectScopeList[1][scopeIndex[1]]}}
+            <view class='right-icon'></view>
+          </view>
+        </picker>
+      </view>
+    </view>
+    <view class='choose-label'>营业执照
+      <!-- <text class='required'>*</text> -->
+    </view>
+    <view class='btn-box border-bottom'>
+      <button wx:if='{{isReadon}}' data-type='company' catchtap='reviewImg' data-type='company'>
+        <image class='upload-btn' src='{{orgInfoRules.companyUrl}}'></image>
+      </button>
+      <button wx:if='{{!isReadon}}' bindtap='chooseImg' data-type='company'>
+        <image src='{{orgInfoRules.companyUrl}}' class='upload-btn'></image>
+      </button>
+    </view>
+    <view class='choose-label'>相应资质</view>
+    <view class='btn-box border-bottom'>
+      <view class="picture_list" wx:if='{{isReadon}}'>
+        <view wx:for="{{orgInfoRules.specialUrl}}" data-index='{{index}}' data-type='special' catchtap='reviewImg' class="picture_item">
+          <image src="{{item}}" mode="aspectFill"></image>
+        </view>
+      </view>
+      <view class="picture_list" wx:if='{{!isReadon}}'>
+        <view wx:for="{{upload_picture_list}}" class="picture_item" wx:key="{{index}}">
+          <image wx:if="{{item.upload_percent < 100}}" src="{{item.path}}" mode="aspectFill"></image>
+          <image wx:if="{{item.upload_percent == 100}}" src="{{item.path_server}}" mode="aspectFill"></image>
+          <view class="upload_progress" wx:if="{{item.upload_percent < 100}}" data-index="{{index}}" bindtap="previewImg">{{item.upload_percent}}%</view>
+          <text class='del' bindtap='deleteImg' data-src='{{image}}' style='display:{{isDel}}' data-index="{{index}}">×</text>
+        </view>
+        <view class='picture_item' bindtap='uploadpic' wx:if='{{upload_picture_list.length<9}}'>
+          <image class='upload-btn' src='/utils/img/upload.png'> </image>
+        </view>
+      </view>
+    </view>
+    <!-- </view> -->
+    <view class='choose-label'>上传法人身份证
+      <text class='required'>*</text>
+    </view>
+    <view class='btn-box '>
+      <image class='id-card' data-type='cardFront' bindtap='chooseImg' wx:if='{{orgInfoRules.cardFromUrl.length==0}}' src='/utils/img/system/front.png'></image>
+      <image class='id-card' data-type='cardFront' catchtap='chooseImg' src='{{orgInfoRules.cardFromUrl}}' wx:if='{{orgInfoRules.cardFromUrl.length>0}}'></image>
+      <image class='id-card' bindtap='chooseImg' data-type='cardBack' wx:if='{{orgInfoRules.cardbackUrl.length==0}}' src='/utils/img/system/after.png'></image>
+      <image class='id-card' data-type='cardBack' catchtap='chooseImg' src='{{orgInfoRules.cardbackUrl}}' wx:if='{{orgInfoRules.cardbackUrl.length>0}}'></image>
+    </view>
+  </view>
+  <view class='op-step-group'>
+    <button class='step-btn first' bindtap='goLastStep'>上一步</button>
+    <button class='step-btn second' bindtap='goNextStep'>下一步</button>
+  </view>
+</view>
+<!-- 第三步 -->
+<view class='third-step' wx:if='{{step==2}}'>
+  <view class='form'>
+    <view class='form-item border-bottom' wx:if='{{!isReadon}}'>
+      <view class='label'>省份
+        <text class='required'>*</text>
+      </view>
+      <view class='form--input'>
+        <picker disabled="{{isReadon}}" bindchange="bindProChange" value="{{pIndex}}" range="{{provinceList}}" range-key="name">
+          <view class="picker">
+            {{provinceList[pIndex].name}}
+            <view class='right-icon'></view>
+          </view>
+        </picker>
+      </view>
+    </view>
+    <form-item label='省份' isRequired='{{true}}' wx:if='{{isReadon}}' isReadon='{{true}}' labelStyle='font-size:32rpx;' value='{{addressRules.province.value}}'></form-item>
+    <view class='form-item border-bottom' wx:if='{{!isReadon}}'>
+      <view class='label'>地/市
+        <text class='required'>*</text>
+      </view>
+      <view class='form--input'>
+        <picker disabled="{{isReadon}}" bindchange="bindCityChange" value="{{cIndex}}" range="{{selectCityList}}" range-key="name">
+          <view class="picker">
+            {{selectCityList[cIndex].name}}
+            <view class='right-icon'></view>
+          </view>
+        </picker>
+      </view>
+    </view>
+    <form-item label='地/市' isRequired='{{true}}' wx:if='{{isReadon}}' isReadon='{{true}}' labelStyle='font-size:32rpx;' value='{{addressRules.city.value}}'></form-item>
+    <view class='form-item border-bottom' wx:if='{{!isReadon}}'>
+      <view class='label'>区/县
+        <text class='required'>*</text>
+      </view>
+      <view class='form--input'>
+        <picker disabled="{{isReadon}}" bindchange="bindAreaChange" value="{{aIndex}}" range="{{selectAreaList}}" range-key="name">
+          <view class="picker">
+            {{selectAreaList[aIndex].name}}
+            <view class='right-icon'></view>
+          </view>
+        </picker>
+      </view>
+    </view>
+    <form-item label='区/县' isRequired='{{true}}' wx:if='{{isReadon}}' isReadon='{{true}}' labelStyle='font-size:32rpx;' value='{{addressRules.district.value}}'></form-item>
+    <view class='form-item border-bottom' wx:if='{{!isReadon}}'>
+      <view class='label'>详细地址
+        <text class='required'>*</text>
+      </view>
+      <view class='form--input'>
+        <image src='/utils/img/system/markers.png' class='marker'></image>
+        <input required value='{{addressRules.address.value}}' bindtap="chooseLocation" disabled="{{true}}"></input>
+        <view class='right-icon'></view>
+      </view>
+    </view>
+    <form-item labelStyle='font-size:32rpx' label='详细地址' value='{{addressRules.address.value}}' isRequired="{{true}}" wx:if='{{isReadon}}' isReadon='{{isReadon}}' bind:focus='chooseLocation'></form-item>
+  </view>
+  <view class='map-content'>
+    <!-- <map 
+enable-scroll="{{true}}" bindregionchange="bindregionchange" id="myMap" markers="{{markers}}" style="width:100%;height:300px;" longitude="{{poi.longitude}}" latitude="{{poi.latitude}}" scale='16' show-location>
+    </map> -->
+  </view>
+  <view class='op-step-group'>
+    <button class='step-btn first' bindtap='goLastStep'>上一步</button>
+    <button class='step-btn second' bindtap='goNextStep' wx:if='{{isReadon}}'>下一步</button>
+    <button class='step-btn second' bindtap='goNextStep' wx:if='{{!isReadon}}'>提交</button>
+  </view>
+</view>
+<!-- 第四步 -->
+<view class='four-step' wx:if='{{step==3}}'>
+  <image src='{{status==0?"http://118.24.172.172:9999/yxt/img/1f58cccb-1e93-475a-b37c-25d6d04fae28.png":(status==1?"http://118.24.172.172:9999/yxt/img/a50439db-efbe-4998-b688-f6a9a2346aba.png":"http://118.24.172.172:9999/yxt/img/27355f54-e378-476d-b5ef-4480b1089a28.png")}}'
+    class='check-image'></image>
+  <view class='check-status ing' wx:if='{{status==0}}'>审核中</view>
+  <view class='check-status success' wx:if='{{status==1}}'>已通过</view>
+  <view class='check-status fail' wx:if='{{status==-1}}'>未通过</view>
+  <view wx:if='{{status==-1}}' class='reply-content'>{{replyContent}}</view>
+  <view class='op-step-group'>
+    <button class='step-btn first' bindtap="goChange" wx:if='{{status==-1}}'>修改信息</button>
+    <button class='step-btn first' bindtap="goLastStep" wx:if='{{status!=-1||!isReadon}}'>上一页</button>
+    <button class='step-btn {{status==0&&isReadon?"second":""}}' bindtap="goLogin">返回</button>
+  </view>
+</view>
+<!-- 协议弹窗 -->
+
+<van-toast id="van-toast" />

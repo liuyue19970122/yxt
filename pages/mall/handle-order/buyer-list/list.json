@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "商家信息",
+  "usingComponents": {
+    "van-search": "/miniprogram_npm/vant-weapp/search/index"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "重置支付密码",
+  "usingComponents": {
+    "van-notify": "/miniprogram_npm/vant-weapp/notify/index",
+    "van-toast": "/miniprogram_npm/vant-weapp/toast/index",
+    "form-item": "/components/form-item/form-item"
+  }
+}

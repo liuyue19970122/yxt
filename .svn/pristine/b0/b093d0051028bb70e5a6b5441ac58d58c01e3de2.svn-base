@@ -1,0 +1,68 @@
+/* pages/mall/order-manager/order-manager.wxss */
+.tab-view{
+  display: flex;
+  font-size: 32rpx; 
+  box-sizing: border-box;
+  color:#333;
+  justify-content: space-between;
+}
+.tab-item{
+  min-width:118rpx;
+  text-align: center;
+  height:80rpx;
+  line-height: 80rpx;
+  padding:0 24rpx;
+  box-sizing: border-box;
+}
+.active-item{
+  border-bottom: 6rpx solid #ff0022;
+}
+
+.order-list{
+  border-top:20rpx solid #f0f0f0;
+}
+.order-item{
+  display: flex;
+  position: relative;
+  margin:20rpx 24rpx;
+  height:172rpx;
+  border-radius: 20rpx;
+  box-shadow: 0px 3px 6px rgba(0,0,0,0.1);
+  width:702rpx;
+  box-sizing: border-box;
+}
+.goods-img{
+  width:80rpx;
+  height:80rpx;
+  margin:24rpx;
+}
+.goods-info{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding:24rpx 24rpx 24rpx 0;
+  font-size: 24rpx;
+  color:#999;
+}
+.goods-name{
+  font-size: 36rpx;
+  color:#333;
+}
+.goods-info-2{
+  display: flex;
+  justify-content: space-between;
+  width:574rpx;
+}
+.tag{
+  position: absolute;
+  right:-24rpx;
+  top:0;
+  width:132rpx;
+  height:52rpx;
+  text-align: center;
+  line-height: 52rpx;
+  color:#fff;
+  border-radius: 50rpx 0 0 50rpx;
+  font-size: 28rpx;
+}
+

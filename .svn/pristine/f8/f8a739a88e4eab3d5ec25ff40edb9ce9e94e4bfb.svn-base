@@ -1,0 +1,90 @@
+<!--pages/pro_manage/pro_list/list.wxml-->
+<image src='../../../utils/img/add.png' 
+  class='btn-stock-in'
+  bindtap='handleAddPro'></image>
+<view class='pro'>
+  <!--搜索-->
+  <view class='pro-search'>
+    <van-search
+      value="{{ searchValue }}"
+      background="#fff"
+      shape='round'
+      placeholder="请输入搜索关键词"
+      bind:clear="onClear"
+      bind:search="onSearch">
+    </van-search>
+  </view>
+  <!--分类 -->
+  <view class='pro-container'>
+    <view class='cate-first'>
+      <van-sidebar custom-class='cate-first__container' 
+        active="{{activeSlider}}" 
+        bind:change="onFirstCateChange">
+        <van-sidebar-item custom-class='cate-item'
+          wx:for='{{sliderList}}'
+          wx:key='sliderList' 
+          title="{{item.cateName}}" />
+      </van-sidebar>
+    </view>
+    <view class='cate-second'>
+      <view class='second-list'>
+        <van-transition show="{{tabShow}}" name="fade-up">
+          <view class='tabs-drop'>
+            <cus-tab-block list='{{tabList}}' bind:click='handleClickTab'
+              key='cateName' active='{{activeTab}}'></cus-tab-block>
+          </view>
+        </van-transition>
+        <view class='tabs-container'>
+          <view class='tabs-list'>
+            <van-tabs active="{{ activeTab }}" 
+              line-height='0' 
+              swipe-threshold='3' 
+              bind:change='onSecondCateChange'>
+              <van-tab wx:for='{{tabList}}'
+                name='{{index}}' 
+                wx:key='tabList'
+                title="{{item.cateName}}"></van-tab>
+            </van-tabs>
+          </view>
+          <image class='arrow-down' bindtap='bindTabCollapse'
+            src='{{tabShow?"../../../utils/img/arrow_up.png":"../../../utils/img/arrow_down.png"}}'></image>
+        </view>
+      </view>
+      <view class='pro-detail'>
+        <view class='detail-container'>
+          <view class='none-content' wx:if='{{!proList.length}}'>暂无商品</view>
+          <scroll-view scroll-y='true' style='height:100%' scroll-top='{{scrollTop}}'
+            bindscrolltolower='bindReachBottom'>
+            <view class='card-container'>
+              <view class='card-style' wx:for='{{proList}}'
+                wx:key='proList'>
+                <cus-pro-card index='{{index}}' 
+                  title='{{item.goodsName}}'
+                  oriPrice='{{item.cusOriPrice}}'
+                  imgSrc='{{item.goodsPic}}'
+                  imgsize='img-size' 
+                  bind:click='seeProDetail'>
+                  <view slot='right' class='state-container'>
+                    <text class='selling-price'>{{'￥'+item.cusSalePrice}}</text>
+                    <text class='selling-state'>{{item.status===0?'已下架':'销售中'}}</text>
+                  </view>
+                  <view slot='footer' class='btn-container'>
+                    <button class='pro-btn' 
+                      data-index='{{index}}' bindtap='bindEdit'>修改</button>
+                    <button class='pro-btn' 
+                      data-index='{{index}}' 
+                      bindtap='bindChangeStatus'>
+                        {{item.status===0?'上架':'下架'}}</button>
+                  </view>
+                </cus-pro-card>
+              </view>
+              <view wx:if='{{!hasNextPage&&proList.length}}' class='reach-bottom'>
+                <image src='../../../utils/img/arrive-bottom.png'></image>
+              </view>
+            </view>
+          </scroll-view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

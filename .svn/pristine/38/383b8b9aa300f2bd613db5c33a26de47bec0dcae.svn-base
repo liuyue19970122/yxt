@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "挂账记录",
+  "usingComponents": {
+    "search": "/components/search/search",
+    "van-action-sheet": "/miniprogram_npm/vant-weapp/action-sheet/index"
+  }
+}

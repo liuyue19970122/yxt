@@ -1,0 +1,264 @@
+// pages/stock/set/set.js
+
+var util = require('../../../utils/util.js');
+const app = getApp()
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    titleArray: ["编号", "描述", "操作"],
+    dataArray: [{
+      "编号": '1',
+      "描述": 44,
+      "操作": ''
+    }],
+    activeName: 1,
+    pageTotal: 1,
+    pages: [],
+    pageSize: 20,
+    pageNum: 1,
+    show: false,
+    selectId: '',
+    selectNo: "",
+    selectDes: '',
+    isAdd: false,
+    showAddDialog: false,
+    selectIndex: 0,
+    showSetDialog: false,
+    actions: [{
+        name: '修改',
+        color: '07c160',
+        index: 0
+      },
+      {
+        name: '删除',
+        color: 'fe2200',
+        index: 1
+      }
+    ]
+  },
+  onChange(event) {
+    this.setData({
+      activeName: event.detail
+    });
+  },
+  bindShowSet(e) {
+    this.setData({
+      showSetDialog: true,
+      selectIndex: e.currentTarget.dataset.index
+    })
+  },
+  showPopup(e) {
+    var that = this
+    this.setData({
+      showAddDialog: true,
+      isAdd: false,
+      showSetDialog: false,
+      selectId: that.data.dataArray[that.data.selectIndex].keyId,
+      selectNo: that.data.dataArray[that.data.selectIndex].locationName,
+      selectDes: that.data.dataArray[that.data.selectIndex].description,
+    });
+  },
+  showPopupNew() {
+    this.setData({
+      showAddDialog: true,
+      isAdd: true,
+      selectId: '',
+      selectNo: '',
+      selectDes: '',
+    });
+  },
+  bindCloseSet() {
+    this.setData({
+      showSetDialog: false
+    })
+  },
+  onClose() {
+    this.setData({
+      showAddDialog: false,
+    });
+  },
+  onSelect(e) {
+    console.log(e)
+    var that=this
+    var index = e.detail.index
+    if (index == 1) {
+      wx.showModal({
+        title: '提示',
+        content: '确定删除该仓库么',
+        success: function(res) {
+          if (res.confirm) {
+            var url=app.globalData.baseUrl+'apiStock/stock/location/delete'
+            var data={
+              locationId:that.data.dataArray[that.data.selectIndex].keyId
+            }
+            util.postRequestList(url,data,false,that.delRes)
+          }
+        }
+      })
+    } else {
+      this.showPopup()
+    }
+  },
+  delRes(res){
+    if(res.data.code==200){
+      var that=this
+      var dataArray=that.data.dataArray
+      var index=that.data.selectIndex
+      dataArray.splice(index,1)
+      this.setData({
+        dataArray:dataArray,
+        showSetDialog:false
+      })
+    }else{
+      wx.showToast({
+        title: res.data.message,
+      })
+      this.setData({
+        showSetDialog: false
+      })
+    }
+  },
+  changeName(e) {
+    this.setData({
+      selectNo: e.detail.value
+    })
+  },
+  changeDes(e) {
+    this.setData({
+      selectDes: e.detail.value
+    })
+  },
+  getStockList() {
+    var url = app.globalData.baseUrl + 'apiStock/stock/location/list'
+    var data = {
+      pageSize: this.data.pageSize,
+      pageNum: this.data.pageNum
+    }
+    util.getRequestListData(url, data, false, this.stockListRes)
+  },
+  stockListRes: function(res) {
+    setTimeout(() => {
+      wx.hideLoading()
+    }, 100)
+    if (this.data.pageNum == 1) {
+      var list = res.data.content.list
+    } else {
+      var list = this.data.dataArray.concat(res.data.content.list)
+    }
+    this.setData({
+      dataArray: list,
+      pages: res.data.content.navigatepageNums,
+      pageTotal: res.data.content.pages
+    })
+  },
+  getFirstPage() {
+    this.setData({
+      pageNum: 1
+    })
+    wx.showLoading({
+      title: '获取中...',
+    })
+    this.getStockList()
+  },
+  getNextPage() {
+    var that = this
+    if (this.data.pageTotal > this.data.pageSize) {
+      this.setData({
+        pageNum: ++that.data.pageNum
+      })
+      wx.showLoading({
+        title: '获取中...',
+      })
+      this.getStockList()
+    } else {
+      wx.showToast({
+        title: '已经是最后一页!',
+      })
+    }
+
+  },
+  addStock() {
+    var url = app.globalData.baseUrl + 'apiStock/stock/location/add'
+    var data = {
+      locationName: this.data.selectNo,
+      description: this.data.selectDes
+    }
+    util.postRequestList(url, data, false, this.addRes)
+  },
+  changeStock() {
+    var url = app.globalData.baseUrl + 'apiStock/stock/location/updateName'
+    var data = {
+      locationId: this.data.selectId,
+      locationName: this.data.selectNo,
+      description: this.data.selectDes
+    }
+    util.postRequestList(url, data, false, this.addRes)
+  },
+  addRes(res) {
+    this.setData({
+      showAddDialog: false,
+      selectNo: '',
+      selectId: '',
+      selectDes: ''
+    })
+    this.getStockList()
+  },
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function(options) {
+    this.getStockList()
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function() {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function() {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function() {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function() {
+
+  }
+})

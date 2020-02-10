@@ -1,0 +1,18 @@
+<!--components/card/fin-card/index.wxml-->
+<view class='card'>
+  <view class='card-info' bindtap='clickTap' data-name='{{name}}'>
+    <view class='info-date'>
+      <text style='background-color:{{dotColor}}'></text>
+      <text>{{rightText}}</text>
+    </view>
+    <view class='info-money'>
+      <text>{{leftText}}</text>
+      <view class="right-icon"></view>
+      <!-- <image class='arrow-down'src='./asset/close.png'></image> -->
+    </view>
+  </view>
+  <view class='info-slider'>
+    <text class='slider-default'></text>
+    <text class='slider-active gradient' style='width:{{width}}'></text>
+  </view>
+</view>

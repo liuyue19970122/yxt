@@ -1,0 +1,96 @@
+/* pages/mall/mall-pay/pay.wxss */
+page{
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+}
+.pay{
+  background-color: #f0f0f0;
+  padding-bottom: 20rpx;
+}
+.pay-info{
+  background-color: #fff;
+  margin-bottom: 20rpx;
+  padding: 80rpx 20rpx;
+  text-align: center;
+  color:#333;
+}
+.pay-money{
+  color:#fe2200;
+  text-align: center;
+  margin-bottom: 20rpx;
+}
+.pay-money>text:last-child{
+  font-size: 60rpx;
+}
+.pay-way{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2rpx solid #f0f0f0;
+  padding:24rpx 0;
+  margin: 0 24rpx;
+}
+.pay-way__info{
+  font-size: 36rpx;
+  color:#333;
+}
+.pay-way__info>image{
+  width: 80rpx;
+  height: 80rpx;
+  margin-right: 40rpx;
+  vertical-align: middle;
+}
+.btn-fixed{
+  background-color: #fe2200;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  text-align:center;
+  font-size: 36rpx;
+  color: #fff;
+  line-height: 120rpx;
+}
+.btn-query{
+  display: inline-block;
+  margin-right: 12rpx;
+}
+.btn-money{
+  display: inline-block;
+  font-size: 40rpx;
+}
+.charge{
+  display:flex;
+  align-items:center;
+  padding:24rpx 48rpx;
+  margin-bottom:24rpx;
+}
+.charge-label{
+  padding-right: 24rpx;
+}
+.charge-input{
+  flex:1;
+  border:2rpx solid #f0f0f0;
+  padding:12rpx;
+  border-radius:12rpx;
+}
+.charge-password{
+  display: flex;
+  align-items: center;
+  padding: 24rpx 48rpx;
+  justify-content: space-between;
+}
+.password-text{
+  padding: 8rpx 0;
+  text-align: center;
+  border: 2rpx solid #f0f0f0;
+  border-radius: 8rpx;
+  width:14%;
+  line-height:60rpx;
+  height:60rpx;
+  flex-grow: 0;
+}
+.password-input__hidden{
+  position: fixed;
+  bottom:-100rpx;
+}

@@ -1,0 +1,101 @@
+/* pages/oa/leave-detail/detail.wxss */
+
+.detail-box {
+  margin: 24rpx;
+}
+
+.leave-info {
+  font-size: 26rpx;
+  color: #999;
+  padding: 5rpx 0;
+}
+
+.leave-title {
+  color: #333;
+  font-size: 32rpx;
+  display: flex;
+  align-items: flex-start;
+}
+
+.leave-info-box {
+  margin: 24rpx;
+}
+
+.btn-group {
+  display: flex;
+  position: fixed;
+  bottom:0;
+  left:0;
+  flex: 1;
+  width: 750rpx;
+}
+
+.op-btn {
+  flex: 1;
+  height: 100rpx;
+  line-height: 100rpx;
+  background: #fff;
+  color: #333;
+  font-size: 32rpx;
+  text-align: center;
+  border-top:2rpx solid #f0f0f0;
+  border-radius: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.add-icon{
+  margin-right:10rpx;
+  width:36rpx;
+  height:36rpx;
+}
+button::after{
+  border-radius: 0;
+}
+.op-btn:first-child{
+  border-right: 2rpx solid #f0f0f0;
+}
+.reason-content{
+  font-size:28rpx;
+  color:#333;
+  margin-top:20rpx;
+}
+
+.refuse-content{
+  text-align: left;
+  margin:40rpx 80rpx;
+  color:#333;
+  box-sizing: border-box;
+  font-size: 40rpx;
+}
+.reason{
+  height:308rpx;
+  width:590rpx;
+  margin-top:40rpx;
+  padding:10rpx;
+  font-size: 28rpx;
+  border:2rpx solid #999;
+}
+.red-dot{
+  width:10rpx;
+  height:10rpx;
+  border-radius: 50%;
+  background: #fe2200;
+  margin-right:20rpx;
+}
+.status{
+  color:#333;
+  font-size:32rpx;
+}
+.content{
+  padding:0 20rpx;
+  display: flex;
+  align-items:center;
+}
+.module{
+  padding:24rpx;
+}
+.title{
+  font-size:30rpx;
+  color:#333;
+}

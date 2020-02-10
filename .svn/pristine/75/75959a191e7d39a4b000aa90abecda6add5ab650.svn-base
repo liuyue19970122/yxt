@@ -1,0 +1,56 @@
+<!--pages/system/account-manager/account-manager.wxml-->
+<view class='bg-module'></view>
+<view class='account-card'>
+  <view class='account-card-top'>
+    <view class='total-title'>{{detail.name}}：{{detail.mobile}}</view>
+    <view class='my-code' bindtap='goReset'>
+      修改信息
+    </view>
+  </view>
+  <view class='card-middle'>
+    <view class='total'>{{detail.billMoney}}</view>
+  </view>
+</view>
+
+
+<view class='list-module'>
+  <view class='list-title'>挂账明细</view>
+  <view class='see-all' bindtap='selectStatus'>
+    {{statusList[statusIndex].status}}
+    <view class='right-icon'></view>
+  </view>
+</view>
+<view class='choose-overslay' bindtap='cancelSelect' wx:if='{{ifStatus}}'></view>
+
+<view class='content-view' wx:if='{{ifStatus}}'>
+  <view class='content-item' wx:for='{{statusList}}' data-index='{{index}}' bindtap='bindStatus'>
+    <view>{{item.status}}</view>
+    <view>
+      <image class='select-icon' src='/utils/img/stock/select.png' wx:if='{{index==statusIndex}}'></image>
+    </view>
+  </view>
+</view>
+<view class='people-list'>
+  <van-checkbox-group value="{{ result }}" bind:change="onChange">
+    <view>
+      <view class='account-item' wx:for='{{hangList}}' wx:if='{{hangList.length>0}}' data-id='{{item.keyId}}' data-index='{{index}}'>
+        <view class='left-info'>
+          <van-checkbox icon-size='50rpx' checked-color="#fe2200" wx:if='{{statusIndex==0}}' name="{{item.keyId}}"></van-checkbox>
+          <view class='left-item'>
+            <view class='name text-over'>单号：{{item.orderNo}}</view>
+            <view class='time'>{{item.crtTime}}</view>
+          </view>
+        </view>
+        <view class='money'>{{item.realMoney}}</view>
+      </view>
+    </view>
+  </van-checkbox-group>
+  <view class='empty' wx:if='{{hangList.length==0}}'>暂无数据~</view>
+</view>
+<view class='op-height'></view>
+<view class='op-btn-group' wx:if='{{statusIndex==0&&hangList.length>0}}'>
+  <view class='check-box'>
+    <van-checkbox icon-size='50rpx' value="{{ allCheck }}" checked-color="#fe2200" bind:change="bindAllCheck">全选</van-checkbox>
+  </view>
+  <button class='{{result.length>0?"y-btn":"n-btn"}}' bindtap='bindSubmit'>结清 <text wx:if='{{totalMoney>0}}'>（{{totalMoney}}）</text> </button>
+</view>

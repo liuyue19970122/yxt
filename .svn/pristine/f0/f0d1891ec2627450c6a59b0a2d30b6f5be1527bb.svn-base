@@ -1,0 +1,187 @@
+// pages/receipt/vage-list/list.js
+var util = require('../../../utils/util.js');
+const app = getApp()
+var times = (new Date()).getTime()
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    cateList: [],
+    selectFirstIndex: 0,
+    selectSecondIndex: 0,
+    pageNum: 1,
+    pages: 1,
+    pageSize: 10,
+    foodList: [],
+    showTypeModule:false
+  },
+  goEdit(e){
+    wx.navigateTo({
+      url: '../vage/add/add?id='+e.currentTarget.dataset.id,
+    })
+  },
+  bindTabCollapse(){
+    var showTypeModule=!this.data.showTypeModule
+    this.setData({showTypeModule})
+  },
+  goAdd() {
+    wx.navigateTo({
+      url: '../vage/add/add',
+    })
+  },
+  goDetail(e){
+    wx.navigateTo({
+      url: '../vege/vege-detail/detail?id='+e.currentTarget.dataset.id+"&type=1",
+    })
+  },
+  getCateList() {
+    var url = app.globalData.baseUrl + 'apiMall/food/cate/list?t=' + times
+    util.getRequestList(url, false, this.cateListRes)
+  },
+  cateListRes(res) {
+    var list = res.data.content
+    var that = this
+    for (var item of list) {
+      item.nextList = JSON.parse(item.nextList)
+    }
+    this.setData({
+      cateList: list,
+    })
+    wx.showLoading({
+      title: '获取中',
+    })
+    this.getFoodList()
+  },
+  changeFirstCate: function(e) {
+    this.setData({
+      selectFirstIndex: e.currentTarget.dataset.index,
+      pageNum:1,
+      selectSecondIndex: 0,
+    })
+    console.log(e.currentTarget.dataset.index)
+    wx.showLoading({
+      title: '获取中',
+    })
+    this.getFoodList()
+  },
+  changeSecondCateTab(e) {
+    this.setData({
+      selectSecondIndex: e.detail.index,
+      showTypeModule: false,
+      pageNum: 1
+    })
+    wx.showLoading({
+      title: '获取中',
+    })
+    this.getFoodList()
+  },
+  changeSecondCate(e) {
+    console.log(e)
+    this.setData({
+      selectSecondIndex: e.currentTarget.dataset.index,
+      showTypeModule:false
+    })
+  },
+  goInsert() {
+    wx.navigateTo({
+      url: '../vege/default-list/list',
+    })
+  },
+  getFoodList() {
+    var url = app.globalData.baseUrl + 'apiMall/food/admin/list?t=' + times
+    var data = {
+      cateId: this.data.cateList[this.data.selectFirstIndex].nextList.length > 0 ? this.data.cateList[this.data.selectFirstIndex].nextList[this.data.selectSecondIndex].keyId : this.data.cateList[this.data.selectFirstIndex].keyId,
+      pageNum: this.data.pageNum,
+      pageSize: this.data.pageSize
+    }
+    util.getRequestListData(url, data, false, this.foodListRes)
+  },
+  foodListRes(res) {
+    res.data.content.list.map((item)=>{
+      item.attrList=JSON.parse(item.attrList)
+      item.attrList.map((jtem)=>{
+        jtem.sellPrice=util.getMoney(jtem.sellPrice)
+      })
+    })
+    wx.hideLoading()
+    this.setData({
+      foodList: res.data.content.list,
+      pages: res.data.content.pages
+    })
+  },
+  getNextPage() {
+    var that = this
+    if (that.data.pages > that.data.pageNum) {
+      this.setData({
+        pageNum: ++that.data.pageNum
+      })
+      wx.showLoading({
+        title: '获取中',
+      })
+      that.getFoodList()
+    } else {
+      wx.showToast({
+        title: '已经是最后一页',
+        duration: 2,
+      })
+    }
+
+  },
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function(options) {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function() {
+    this.getCateList()
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function() {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function() {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function() {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function() {
+
+  }
+})

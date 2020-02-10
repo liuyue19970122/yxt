@@ -1,0 +1,36 @@
+<!--pages/mall/handle-order/supplier-add/add.wxml-->
+<van-notify id="van-notify" />
+<view class="form-container">
+  <view class='form-item form-item__inline'>
+    <label class='form-item__label'><text style='color:#fe2200;'>*</text>供货商名称</label>
+    <input placeholder='请输入供货商名称(必填)'
+      bindinput='bindNameInput'
+      value='{{supplierInfo.name}}' 
+      class='form-item__content content-padding'></input>
+  </view>
+  <view class='form-item form-item__inline'>
+    <label class='form-item__label'><text style='color:#fe2200;'>*</text>联系人</label>
+    <input placeholder='请输入联系人(必填)'
+      bindinput='bindLinkNameInput'
+      value='{{supplierInfo.linkName}}' 
+      class='form-item__content content-padding'></input>
+  </view>
+  <view class='form-item form-item__inline'>
+    <label class='form-item__label'><text style='color:#fe2200;'>*</text>手机号码</label>
+    <input placeholder='请输入手机号码(必填)'
+      bindinput='bindMobileInput'
+      value='{{supplierInfo.mobile}}' 
+      class='form-item__content content-padding'></input>
+  </view>
+  <view class='form-item form-item__inline'>
+    <label class='form-item__label'>地址</label>
+    <input placeholder='请输入单位(选填)'
+      bindinput='bindAddressInput'
+      value='{{supplierInfo.address}}' 
+      class='form-item__content content-padding'></input>
+  </view>
+</view>
+<view class='btn-container'>
+  <button class='btn-full btn-red' bindtap='addSubmit'>确定</button>
+</view>
+

@@ -1,0 +1,186 @@
+// pages/stock/stock-correct/stock-correct.js
+var util = require('../../../utils/util.js');
+const app = getApp()
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    goodsId: '',
+    goods: {},
+    fixCount: '',
+    description: '',
+    incomeCount: '',
+    goodsList: {},
+    orderId: '',
+    stockList:[]
+  },
+  //获取库存列表///stock/inst/list
+  getStockList(){
+    let data={
+      cateId:-1,
+      locationId:'',
+      goodsName:'',
+      warnFlag:0
+    }
+    let url = app.globalData.baseUrl + 'apiStock/stock/inst/list'
+    util.getRequestListData(url, data, false, this.getStockListRes)
+  },
+  getStockListRes(res,type){
+    if(res.data.code==='200'){
+      let stockList=res.data.content
+      this.setData({stockList})
+      this.getGoodsDetail()
+    }
+  },
+  //获取订单详情
+  getGoodsDetail() {
+    var url = app.globalData.baseUrl + 'apiMall/order/inst/sureOrderList'
+    var data = {
+      orderId: this.data.orderId
+    }
+    util.getRequestListData(url, data, false, this.detailRes)
+  },
+  detailRes(res){
+    var list=res.data.content
+    list.map((item)=>{
+      item.fixCount=item.stockCount
+    })
+    this.setData({
+      goodsList:list
+    })
+  },
+  getFixCount(e) {
+    var list = this.data.goodsList
+    list.map((item, index) => {
+      if (index == e.currentTarget.dataset.index) {
+        item.fixCount = e.detail.value
+        console.log(item.fixCount)
+        if(item.fixCount>item.stockCount){
+          wx.showModal({
+            title: '提示',
+            content: '需小于购买总量',
+            showCancel:false,
+            success:function(res){
+              item.fixCount=''
+            }
+          })
+        }
+      }
+    })
+    this.setData({
+      goodsList: list
+    })
+  },
+  submitOrder(){
+    var detail=this.data.goodsList.map((item)=>{
+      console.log(item)
+      var jtem={
+        keyId: item.detailKeyId,
+        fixCount:item.fixCount,
+        cateId: item.myCateId
+      }
+      return jtem
+    })
+    for(var item of detail){
+      if(item.fixCount==''){
+        wx.showModal({
+          title: '提示',
+          content: '修正数量不能为空',
+          showCancel:false,
+          success:function(){
+            return false
+          }
+        })
+        return false
+      }
+    }
+    var url = app.globalData.baseUrl + 'apiMall/order/inst/sureOrder'
+    var data = {
+      orderId: this.data.orderId,
+      fixDetail:JSON.stringify(detail)
+    }
+    util.postRequestList(url, data, false, this.submitRes)
+  },
+  submitRes(res) {
+    if (res.data.code == 200) {
+      wx.showModal({
+        title: '提示',
+        content: '入库成功',
+        showCancel: false,
+        success: function(res) {
+          wx.navigateBack({
+            delta: 1
+          })
+        }
+      })
+    } else {
+      wx.showToast({
+        title: res.data.message,
+        duration: 2000
+      })
+    }
+  },
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function(options) {
+    var pages = getCurrentPages()
+    var prevPage = pages[pages.length - 2]
+    this.setData({
+      //orderId: prevPage.data.orderId
+      orderId: 92
+    })
+    this.getStockList()
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function() {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function() {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function() {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function() {
+
+  }
+})

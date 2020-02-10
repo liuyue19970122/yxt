@@ -1,0 +1,47 @@
+<!--pages/stock/stock-change/stock-out.wxml-->
+<van-notify id="van-notify" />
+<view hidden="{{!pageReady}}" wx:for='{{goodsList}}' wx:key='goodsList'>
+  <!-- <page-title title='修正' isAdd="{{false}}" picker="{{false}}"></page-title> -->
+  <view class='block-module-title'>{{item.stockName+"("+item.attrName+")"}}</view>
+  <view class='form-container'>
+    <!-- <form-item label="商品名称" value='{{item.goodsName}}' isReadon='{{true}}'></form-item> -->
+  <form-item label="购买数量" placeholder='最多保留两位小数' 
+    type='number' bind:input='getIncomeCount' 
+    value='{{item.stockCount}}' 
+    isBorder='{{true}}' 
+    isReadon="{{true}}"></form-item>
+  <form-item label="修正数量" placeholder='最多保留两位小数' 
+    type='number' bind:blur='getFixCount' 
+    value='{{item.fixCount}}' 
+    data-index='{{index}}' 
+    isBorder='{{true}}'></form-item>
+  <!-- <form-item label="商品单位" isReadon="{{true}}" 
+    value='{{item.stockUnit}}' 
+    isBorder='{{true}}'></form-item> -->
+  <view class='form-item form-item__inline'>
+    <label class='form-item__label'>库存归属</label>
+    <picker class='form-item__content'
+      bindchange="bindStockChange"
+      bindcancel='bindStockCancel'
+      disabled="{{item.cusDisabled}}"
+      data-index='{{index}}'
+      value="{{item.stockProIndex}}" 
+      range-key='cusName'
+      range="{{stockProList}}">
+      <view class="picker">{{item.cusName}}</view>
+    </picker>
+    <view>
+      <text wx:if='{{!item.cusDisabled}}' class="set-btn" bindtap="toSetCatePro">添加货品</text>
+      <image class='triggle-close'src='../../../utils/img/close.png'></image>
+    </view>
+  </view>
+    <!-- <form-item label="货品归属" type='number' 
+      value='{{item.myCateName}}' 
+      bind:input='getFixCount' 
+      isBorder='{{true}}'  
+      isReadon="{{true}}"></form-item> -->
+  </view>
+</view>
+<view hidden="{{!pageReady}}" class="btn-container">
+  <button class='btn-full btn-red' bindtap='submitOrder'>确认提交</button>
+</view>

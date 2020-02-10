@@ -1,0 +1,28 @@
+<!--pages/finance/salary/salary-list/list.wxml-->
+<view class='cate'>
+  <van-tabs active="{{ activeNum }}" 
+    swipe-threshold='{{3}}' 
+    bind:change='onCateChange'>
+    <van-tab wx:for='{{cateList}}'
+      name='{{index}}'
+      title-style='font-weight:bold;' 
+      wx:key='{{index}}'
+      title="{{item.name}}"></van-tab>
+  </van-tabs>
+</view>
+<view class='page-container'>
+  <view class='list-container'>
+    <scroll-view class='scroll' scroll-y='{{true}}' 
+      bindscrolltolower='bindReachBottom'>
+      <view class='card'>
+        <view class='card-info'>
+          <text>2019年9月员工薪资表</text>
+          <text>待审核</text>
+        </view>
+        <text class='info-scan'>查看</text>
+      </view>
+    </scroll-view>
+  </view>
+</view>
+
+

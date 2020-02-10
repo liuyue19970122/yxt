@@ -1,0 +1,71 @@
+<!--pages/finance/rem-account/add/add.wxml-->
+<view class='form-item form-item__inline'>
+  <label class='form-item__label'>
+    <text style='color:#fe2200;'>*</text>收支类型
+  </label>
+  <picker class='form-item__content'
+    bindchange="bindStockChange"
+    bindcancel='bindStockCancel'
+    disabled='{{stockDisabled}}'
+    value="{{stockProIndex}}" 
+    range-key='cusName'
+    range="{{stockProList}}">
+    <view class="picker">{{stockProList[stockProIndex[0]].cusName}}</view>
+  </picker>
+  <image class='arrow-down'src='../../../../utils/img/close.png'></image>
+</view>
+<view class='form-item form-item__inline'>
+  <label class='form-item__label'>
+    <text style='color:#fe2200;'>*</text>项目
+  </label>
+  <input placeholder='项目'
+    bindinput='bindProNameInput'
+    value='{{proInfo.goodsName}}' 
+    class='form-item__content content-padding'>
+  </input>
+</view>
+<view class='form-item form-item__inline'>
+  <label class='form-item__label'>
+    <text style='color:#fe2200;'>*</text>金额
+  </label>
+  <input placeholder='金额'
+    bindinput='bindProNameInput'
+    value='{{proInfo.goodsName}}' 
+    class='form-item__content content-padding'>
+  </input>
+</view>
+<view class='form-item form-item__inline'>
+  <label class='form-item__label'>
+    <text style='color:#fe2200;'>*</text>经办人
+  </label>
+  <input placeholder='经办人'
+    bindinput='bindProNameInput'
+    value='{{proInfo.goodsName}}' 
+    class='form-item__content content-padding'>
+  </input>
+</view>
+<view class='form-item form-item__inline'>
+  <label class='form-item__label'>
+    <text style='color:#fe2200;'>*</text>日期
+  </label>
+  <picker class='form-item__content'
+    bindchange="bindStockChange"
+    bindcancel='bindStockCancel'
+    disabled='{{stockDisabled}}'
+    value="{{stockProIndex}}" 
+    range-key='cusName'
+    range="{{stockProList}}">
+    <view class="picker">{{stockProList[stockProIndex[0]].cusName}}</view>
+  </picker>
+  <image class='arrow-down'src='../../../../utils/img/close.png'></image>
+</view>
+<view class='form-item'>
+  <view class='label-block'>备注</view>
+  <view>
+    <textarea placeholder='请输入备注' class='content-area'
+    value='{{proInfo.description}}' bindinput='bindinputDes'></textarea>
+  </view>
+</view>
+<view class='fixed-bottom'>
+  <view>确定</view>
+</view>

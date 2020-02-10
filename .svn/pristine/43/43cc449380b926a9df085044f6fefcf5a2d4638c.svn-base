@@ -1,0 +1,47 @@
+
+<view class='tab-view'>
+  <view class='tab-item {{type=="all"?"active-item":""}} ' data-type='all' bindtap='changeTab'>全部</view>
+  <view class='tab-item {{type=="new"?"active-item":""}}' data-type='new' bindtap='changeTab'>新单</view>
+  <view class='tab-item {{type=="ing"?"active-item":""}}' data-type='ing' bindtap='changeTab'>派送中</view>
+  <view class='tab-item {{type=="finish"?"active-item":""}}' data-type='finish' bindtap='changeTab'>已完成</view>
+  <view class='tab-item {{type=="after"?"active-item":""}}' data-type='after' bindtap='changeTab'>退款/售后</view>
+</view>
+
+<view class='order-list'>
+   <view class='order-item'>
+     <image class='goods-img'></image>
+     <view class='goods-info'>
+      <view class='goods-name'>精品火龙果四斤装</view>
+      <view class='goods-num'>数量：3</view>
+      <view class='goods-info-2'>
+        <view class='goods-price'>总价：￥53</view>
+        <view class='goods-time'>下单时间：2019-10-25</view>
+      </view>
+     </view>
+     <view class='tag tag-red'>待处理</view>
+   </view>
+   <view class='order-item'>
+     <image class='goods-img'></image>
+     <view class='goods-info'>
+      <view class='goods-name'>精品火龙果四斤装</view>
+      <view class='goods-num'>数量：3</view>
+      <view class='goods-info-2'>
+        <view class='goods-price'>总价：￥53</view>
+        <view class='goods-time'>下单时间：2019-10-25</view>
+      </view>
+     </view>
+     <view class='tag tag-yellow'>派送中</view>
+   </view>
+   <view class='order-item'>
+     <image class='goods-img'></image>
+     <view class='goods-info'>
+      <view class='goods-name'>精品火龙果四斤装</view>
+      <view class='goods-num'>数量：3</view>
+      <view class='goods-info-2'>
+        <view class='goods-price'>总价：￥53</view>
+        <view class='goods-time'>下单时间：2019-10-25</view>
+      </view>
+     </view>
+     <view class='tag tag-green'>已完成</view>
+   </view>
+</view>

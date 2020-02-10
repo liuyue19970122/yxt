@@ -1,0 +1,11 @@
+/* pages/stock/stock-inlist/stock-inlist.wxss */
+@import '../stock-change/stock-change'
+.total-stock{
+  height:80rpx;
+  margin-top:44rpx;
+  font-size:24rpx;
+  text-align:right;
+  padding:0 24rpx;
+  line-height: 80rpx;
+  background: #f0f0f0;
+}

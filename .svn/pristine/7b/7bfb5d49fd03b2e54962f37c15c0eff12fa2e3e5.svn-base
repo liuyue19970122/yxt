@@ -1,0 +1,6 @@
+<!--pages/mall/mall-my-ghs/remark/remark.wxml-->
+<view class='remark'>
+  <textarea bindinput='bindRemarkInput' 
+    placeholder='请输入备注' 
+    value='{{remarkValue}}'></textarea>
+</view>

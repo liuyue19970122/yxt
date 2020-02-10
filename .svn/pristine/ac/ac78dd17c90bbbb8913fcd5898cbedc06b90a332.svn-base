@@ -1,0 +1,64 @@
+<!--pages/mall/handle-order/order-add/add.wxml-->
+<van-notify id="van-notify" />
+<form-title title='基本信息'></form-title>
+<view class="form-container">
+  <view class='form-item form-item__inline'>
+    <label class='form-item__label'><text style='color:#fe2200;'>*</text>供货商</label>
+      <picker class='form-item__content'
+        bindchange="bindSupplierChange"
+        bindcancel='bindSupplierCancel'
+        disabled='{{stockDisabled}}'
+        value="{{supplierIndex}}" 
+        range-key='name'
+        range="{{supplierList}}">
+      <view class="picker">{{selSupName}}</view>
+    </picker>
+    <image class='triggle-close'
+      src='../../../../utils/img/close.png'></image>
+    <image src='../../../../utils/img/add.png' class='add-supplier' 
+      bindtap='handleAddSupplier'></image>
+  </view>
+  <view class='form-item form-item__inline'>
+    <label class='form-item__label'><text style='color:#fe2200;'>*</text>时间</label>
+      <picker class='form-item__content'
+        bindchange="bindDateChange"
+        bindcancel='bindDateCancel'
+        mode='date'>
+      <view class="picker">{{orderDate}}</view>
+    </picker>
+    <image class='triggle-close'
+      src='../../../../utils/img/close.png'></image>
+  </view>
+  <view class='form-item form-item__inline'>
+    <label class='form-item__label'><text style='color:#fe2200;'>*</text>操作人</label>
+    <view class='form-item__content content-padding'>{{userName}}</view>
+  </view>
+</view>
+
+<form-title title='添加货品'>
+  <view>
+    <!-- <image src='../../../../utils/img/import.png' class='add-spec'     
+      bindtap='handleImportPro'></image> -->
+    <image src='../../../../utils/img/add.png' class='add-spec'     
+      bindtap='handleAddPro'></image>
+  </view>
+</form-title>
+<view class='card-container'>
+  <view class='card' wx:for='{{proList}}' wx:key='{{item.stockId}}'
+    data-index="{{index}}"
+    bindtap="handleEdit">
+    <view class='card-info'>
+      <view class='info-name text-one__line'>{{item.stockName}}</view>
+      <view class='info-other'>
+        <text>{{"￥"+item.perMoney}}</text>
+        <text>数量：{{item.count+item.stockUnit}}</text>
+      </view>
+    </view>
+    <image class='triggle-close'
+      src='../../../../utils/img/close.png'></image>
+  </view>
+</view>
+<view class='fixed-bottom'>
+  <button class='btn-half btn-green' bindtap="handleSave" >保存</button>
+  <button class='btn-half btn-red'  bindtap="handleSubmit">提交</button>
+</view>

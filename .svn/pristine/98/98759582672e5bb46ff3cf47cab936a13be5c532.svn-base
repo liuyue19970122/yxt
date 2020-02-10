@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "form-title": "/components/form-title/index"
+  }
+}

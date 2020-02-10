@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "申请退款",
+  "usingComponents": {
+    "mall-title":"/components/mall-title/mall-title",
+    "van-checkbox": "/miniprogram_npm/vant-weapp/checkbox/index",
+    "van-checkbox-group": "/miniprogram_npm/vant-weapp/checkbox-group/index"
+  }
+} 

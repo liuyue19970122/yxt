@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "店铺信息",
+  "usingComponents": {
+    "van-notify": "/miniprogram_npm/vant-weapp/notify/index",
+    "form-item":"/components/form-item/form-item"
+  }
+}

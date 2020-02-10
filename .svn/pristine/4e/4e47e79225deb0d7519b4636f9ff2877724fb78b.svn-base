@@ -1,0 +1,2 @@
+/* pages/stock/stock-record/stock-record.wxss */
+@import '../stock-change/stock-change'

@@ -1,0 +1,37 @@
+<!--pages/system/account-list/account-list.wxml-->
+<view class='choose-type-module'>
+  <view>
+    <view>
+      <picker mode="date" value="{{date}}" start="2015-09-01" fields='month' end="2017-09-01" bindchange="bindDateChange">
+        <view class="picker">
+          {{date}}
+          <image src='/utils/img/close.png' class='triggle-close'></image>
+        </view>
+      </picker>
+    </view>
+    <view class='detail'>
+      总收入：500.00，总支出：1000.00
+    </view>
+  </view>
+  <view>
+    <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}" range-key="title">
+      <view class="picker">
+        {{array[index].title}}
+        <image src='/utils/img/close.png' class='triggle-close'></image>
+      </view>
+    </picker>
+  </view>
+</view>
+
+
+<view class='account-list'>
+  <acc-item-border accountList="{{accountList}}"></acc-item-border>
+  <!-- <view class='account-item'>
+    <view class='account-left-item'>
+      <view class='account-left-item-title'>收益</view>
+      <view class='time'>2019-08-39 11:99:00</view>
+    </view>
+    <view class='add-account'>+1000</view>
+  </view> -->
+</view>
+<!-- </view> -->

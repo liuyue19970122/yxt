@@ -1,0 +1,79 @@
+/**index.wxss**/
+.yxt-index-top{
+  background: #FE2200;
+  height:150rpx;
+}
+
+ec-canvas {
+  width: 100%;
+  height: 100%;
+}
+.banner-box{
+  position: relative;
+  /* height:140rpx; */
+  height:30rpx;
+}
+.banner-box banner{
+  position: absolute;
+  top:-140rpx;
+  /* top:-250rpx; */
+  margin-bottom:20rpx;
+}
+.echart-box{
+  width:750rpx;
+  height:300px;
+}
+.first-banner-box{
+  /* margin-top:140rpx; */
+}
+.second-banner-box{
+  display: flex;
+  justify-content: space-between;
+  margin:25rpx;
+}
+.second-banner-box.first-banner-box{
+  margin-top:140rpx;
+
+}
+.echart-title{
+  margin:25rpx;
+  font-size: 36rpx;
+  color:#fff;
+}
+.echart-title>view{
+  padding:0 20rpx;
+  height:60rpx;
+  line-height: 60rpx;
+  background: red;
+  margin-right:20rpx;
+  display: inline-block
+}
+.panel-box{
+  margin-bottom:40rpx;
+}
+.bottom-info{
+  width:750rpx;
+  height:60rpx;
+  text-align: center
+}
+.bottom-info image{
+  width:124rpx;
+  height:18rpx;
+}
+
+.unlogin-btn{
+  width:702rpx;
+  margin:40rpx 24rpx;
+  background: #fff;
+  color:#333;
+  border-radius: 5rpx;
+  font-size:32rpx;
+  height:100rpx;
+  line-height:100rpx;
+  text-align: center;
+  box-shadow: 1px 3px 6px rgba(0,0,0,0.08)
+}
+.unlogin-btn::after{
+  border:0;
+  border-radius:0
+}

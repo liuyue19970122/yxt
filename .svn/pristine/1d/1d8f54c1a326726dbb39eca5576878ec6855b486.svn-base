@@ -1,0 +1,10 @@
+{
+  "usingComponents": {
+    "van-steps": "/miniprogram_npm/vant-weapp/steps/index",
+    "form-item":"/components/form-item/form-item",
+    "van-switch": "/miniprogram_npm/vant-weapp/switch/index",
+    "van-notify": "/miniprogram_npm/vant-weapp/notify/index",
+    "van-toast": "/miniprogram_npm/vant-weapp/toast/index",
+    "van-checkbox": "/miniprogram_npm/vant-weapp/checkbox/index"
+  }
+}

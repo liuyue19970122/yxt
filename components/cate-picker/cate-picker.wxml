@@ -1,0 +1,11 @@
+<!--components/cate-picker/cate-picker.wxml-->
+<picker disabled="{{isReadon}}" mode='{{mode}}' bindcolumnchange='bindColumnChange' bindchange="bindPickerChange" value="{{range}}" range="{{cateList}}" range-key="{{name}}">
+  <view class="picker" wx:if='{{name!=""}}'>
+    {{cateList[range][name]}}
+    <image class="tiggle-icon" src='/utils/img/down.png'></image>
+  </view>
+   <view class="picker" wx:if='{{name==""}}'>
+    {{cateList[range]}}
+    <image class="tiggle-icon" src='/utils/img/down.png'></image>
+  </view>
+</picker>

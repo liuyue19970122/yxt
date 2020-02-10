@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "线下开单",
+  "usingComponents": {
+    "van-notify": "/miniprogram_npm/vant-weapp/notify/index",
+    "form-title": "/components/form-title/index",
+    "van-submit-bar": "/miniprogram_npm/vant-weapp/submit-bar/index"
+  }
+}

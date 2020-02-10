@@ -1,0 +1,93 @@
+<view class='full-page'>
+  <van-search
+    value="{{ searchValue }}"
+    background="#fff"
+    shape='round'
+    placeholder="搜索货品"
+    bind:clear='onClear'
+    bind:search="onSearch">
+  </van-search>
+  <view class='select-view'>
+    <view class='select-item' bindtap='goSelect' data-type='storage'>
+      {{warnList[warnIndex].name}}
+      <image class='down-icon' src='/utils/img/down.png'></image>
+    </view>
+    <view class='select-item' bindtap='goSelect' data-type='storehouse'>
+      {{stockList[stockIndex].locationName}}
+      <image class='down-icon' src='/utils/img/down.png'></image>
+    </view>
+    <view class='select-item' bindtap='goSelect' data-type='type'>
+       {{cateList[cateIndex].cateName}}
+      <image class='down-icon' src='/utils/img/down.png'></image>
+    </view>
+  </view>
+  <view class='choose-overslay' bindtap='cancelSelect' wx:if='{{ifStorage||ifStorehouse||ifType}}'></view>
+  <!-- 库存量选择 -->
+  <view class='content-view' wx:if='{{ifStorage}}'>
+    <view class='content-item' data-flag="{{item.warnFlag}}" data-index='{{index}}' bindtap='bindWarnFlag' wx:for='{{warnList}}'>
+      <view>{{item.name}}</view>
+      <view>
+        <image class='select-icon' src='/utils/img/stock/select.png' wx:if='{{index==warnIndex}}'></image>
+      </view>
+    </view>
+  </view>
+  <!-- 仓库选择 -->
+  <view class='content-view' wx:if='{{ifStorehouse}}'>
+    <view class='content-item' wx:for='{{stockList}}' bindtap='bindStockId' data-index='{{index}}'>
+      <view>{{item.locationName}}</view>
+      <view >
+        <image class='select-icon' src='/utils/img/stock/select.png'  wx:if='{{index==stockIndex}}'></image>
+      </view>
+    </view>
+  </view>
+  <!-- 分类选择 -->
+  <view class='content-view' wx:if='{{ifType}}'>
+    <view class='content-item' wx:for='{{cateList}}' bindtap='bindCateChange' data-index='{{index}}'>
+      <view>{{item.cateName}}</view>
+      <view >
+        <image class='select-icon' src='/utils/img/stock/select.png'  wx:if='{{index==cateIndex}}'></image>
+      </view>
+    </view>
+  </view>
+  <view class='info-module'>
+    <view>合计：{{total}}项</view>
+    <view>金额：{{totalMoney}}元</view>
+  </view>
+  <scroll-view class='cur-goods-container' 
+    scroll-top='{{scrollTop}}'
+    scroll-y   
+    bindscrolltolower='bindReachBottom'>
+    <view class='none-content' wx:if='{{!goodList.length}}'> 暂无货品</view>
+    <view class='card-container'  wx:for='{{goodList}}' 
+      wx:key="goodList">
+      <view class='card-item'>
+        <image class='card-img' src='{{item.goodsPic}}'></image>
+        <view class='card-info'>
+          <view class="info-name">{{item.goodsName}}</view>
+          <view class="info-unit">{{'单位:'+item.goodsUnit}}</view>
+          <view class="info-unit">{{'数量:'+item.goodsCount}}</view>
+          <view class="info-unit">{{'时间:'+item.lastTime}}</view>
+        </view>
+      </view>
+      <text class="card-del" data-index="{{index}}" bindtap="handleEdit">编辑</text>
+    </view>
+    <view wx:if='{{!hasNextPage&&goodList.length}}' class='reach-bottom'>
+      <image src='/utils/img/arrive-bottom.png'></image>
+    </view>
+    <view style="height:160rpx"></view>
+  </scroll-view>
+</view>
+<van-popup show="{{editShow}}"
+  position="bottom"
+  z-index='9999'
+  bind:close="bindClose">
+  <view class='pop-btn-container'>
+    <view class='pop-set-btn border-bottom' data-text='edit' 
+      bindtap='bindEditGoods'>修改</view>
+    <view class='pop-set-btn  border-bottom' data-text='delete'
+      bindtap='bindDelGoods'>删除</view>
+    <view class='pop-set-btn' bindtap='bindClose'>取消</view>
+  </view>
+</van-popup>
+<image src='/utils/img/insert.png' class='btn-stock-insert' bindtap='goInsert'></image>
+<image class='btn-stock-in' src='/utils/img/add.png' bindtap='goAdd'></image>

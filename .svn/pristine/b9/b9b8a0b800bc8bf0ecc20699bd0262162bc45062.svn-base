@@ -1,0 +1,14 @@
+<!--pages/oa/add-role/add-role.wxml-->
+<view class='page-view'>
+  <view class='block-module-title'>基本信息</view>
+  <form-item label="角色名称" isRequired='{{true}}' itemStyle='padding-right:24rpx;padding-left:24rpx;'  inputStyle="text-align:left" bind:input='getName' value='{{name}}'></form-item>
+  <!-- <form-item label="角色排序"  type='number' itemStyle='padding-right:24rpx;padding-left:24rpx;' isReadon='{{!isAdd}}' inputStyle="text-align:left" bind:input='getSortNum' value='{{sortNum}}'></form-item> -->
+  <form-item label="角色排序" isRequired='{{true}}' itemStyle='padding-right:24rpx;padding-left:24rpx;' inputStyle="text-align:left" bind:input='getSort' value='{{sort}}' type='number'></form-item>
+  <view class='block-module-title'>选择权限</view>
+  <view class='tree-box'>
+    <van-tree-select items="{{ menuList }}" main-active-index="{{ mainActiveIndex }}" active-id="{{ activeId }}" max="{{ max }}" bind:click-nav="onClickNav" bind:click-item="onClickItem" />
+  </view>
+</view>
+<view class='op-btn-group'>
+  <button class='y-btn' bindtap='goAdd' disabled="{{name==''||activeId.length==0}}">提交</button>
+</view>

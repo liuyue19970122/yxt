@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "",
+  "usingComponents": {
+    "form-item":"/components/form-item/form-item",
+    "van-toast": "/miniprogram_npm/vant-weapp/toast/index"
+  }
+}

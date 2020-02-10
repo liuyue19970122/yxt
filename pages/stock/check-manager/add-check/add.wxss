@@ -1,0 +1,38 @@
+/* pages/stock/check-manager/add-check/add.wxss */
+@import '/pages/receipt/vege/default-list/list'
+@import '../check-detail/detail'
+
+.goods-item{
+  width:702rpx;
+}
+.goods-check-item {
+  width: 642rpx;
+}
+.op-height{
+  height:180rpx;
+}
+.all-check{
+  display: flex;
+  font-size:26rpx;
+  color:#999;
+  background: #f5f5f5;
+  height:80rpx;
+  align-items: center;
+  position: fixed;
+  bottom:100rpx;
+  left:0;
+  padding:0 24rpx;
+  width:750rpx;
+}
+.check-num{
+  color:#7878c6;
+}
+
+.input-num{
+  width:80rpx;
+  display: inline-block;
+  text-align: center;
+}
+.goods-content{
+  height:calc(100vh - 292rpx);
+}

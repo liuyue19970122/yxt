@@ -1,0 +1,135 @@
+// pages/mall/handle-order/handle-order.js
+var util = require('../../../utils/util.js');
+const app = getApp()
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    goodsList:[],
+    name:'',
+    mobile:'',
+    address:'',
+  },
+  goAdd(){
+    var userinfo=wx.getStorageSync('localToken').userInfo
+    wx.navigateTo({
+      url: '../mall-buy/buy?id=' + userinfo.orgId+"&name="+userinfo.orgName+'&type="handle"',
+    })
+  },
+  goSubmit(){
+    var url=app.globalData.baseUrl+'apiMall/order/admin/openOrder'
+    var goodsList=this.data.goodsList.map((item)=>{
+      var jtem={}
+      jtem.goodsId = item.goodsId
+      jtem.attrId = item.keyId
+      jtem.buyCount = item.cusBuyCount
+      return jtem
+    })
+    var data={
+      linkName:this.data.name,
+      mobile: this.data.mobile,
+      address: this.data.address,
+      buyDetail:JSON.stringify(goodsList)
+    }
+    util.postRequestList(url,data,false,this.submitRes)
+  },
+  submitRes(res){
+    if(res.data.code==200){
+      wx.showModal({
+        title: '提示',
+        content: '提交成功',
+        cancelText:'继续',
+        confirmText:'返回',
+        success:function(res){
+          if(res.confirm){
+            wx.navigateBack({
+              delta:1
+            })
+          }else{
+            return
+          }
+        }
+      })
+    }else{
+      wx.showToast({
+        title: res.data.message,
+      })
+    }
+  },
+  getName(e){
+    this.setData({
+      name:e.detail
+    })
+  },
+  getMobile(e) {
+    this.setData({
+      mobile: e.detail
+    })
+  },
+  getAddress(e) {
+    this.setData({
+      address: e.detail
+    })
+  },
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+    console.log(this.data.goodsList)
+    // var prevPage = util.getPrevPage()
+    // this.setData({
+    //   goodsList: prevPage.data.cartProList
+    // })
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+
+  }
+})

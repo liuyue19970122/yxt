@@ -1,0 +1,7 @@
+<view class='account-list' wx:if='{{accountList.length>0}}'>
+  <acc-item-border accountList="{{accountList}}"></acc-item-border>
+</view>
+
+<view class='empty' wx:if='{{accountList.length==0}}'>
+    暂无数据~
+  </view>

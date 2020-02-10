@@ -1,0 +1,100 @@
+/* pages/receipt/order-record/list.wxss */
+.record-item{
+}
+.info-item{
+  padding:0 24rpx;
+  height:80rpx;
+  line-height: 80rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.order-num{
+  font-size:32rpx;
+  color:#76c582;
+}
+.order-price{
+  font-size:32rpx;
+  color:#333;
+  /* color:#fe2200; */
+}
+.info-label{
+  font-size:32rpx;
+  color:#999;
+}
+.info-value{
+  font-size:32rpx;
+  color:#333;
+}
+.record-list{
+  height:calc(100vh - 120rpx);
+}
+.select-view {
+  width: 750rpx;
+  height: 100rpx;
+  box-sizing: border-box;
+  padding: 20rpx 24rpx;
+  display: flex;
+  align-items: center;
+}
+
+.select-item {
+  flex: 1;
+  font-size: 28rpx;
+  color: #333;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 50%;
+}
+
+.text-title-over {
+  max-width: 70%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.select-view .select-item:first-child{
+  border-right: 2rpx solid #ccc;
+}
+
+.pay{
+  color:#76c582
+}
+.no-pay{
+  color:#fe2200;
+}
+
+.content-view {
+  position: fixed;
+  top: 100rpx;
+  left: 0;
+  width: 750rpx;
+  z-index: 100;
+  background: #fff;
+  border-top: 2rpx solid #f0f0f0;
+}
+
+.content-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 24rpx;
+  height: 100rpx;
+}
+
+.content-item:not(:first-child) {
+  border-top: 2rpx solid #f0f0f0;
+}
+
+.choose-overslay {
+  position: fixed;
+  top: 100rpx;
+  left: 0;
+  width: 750rpx;
+  height: calc(100vh - 100rpx);
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 99;
+}

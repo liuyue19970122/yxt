@@ -1,0 +1,411 @@
+// pages/purchase/address-detail/address-map/map.js
+let util = require('../../../../utils/util.js');
+let QQMapWX = require('../../../../utils/qqmap-wx-jssdk.min.js');
+var qqmapsdk; 
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    locationInfo: {
+      show: true,
+      county: '定位中...',
+    },
+    region: [],
+    latitude: 34.796491,
+    longitude: 113.665299,
+    suggestList:[],
+    locFilterData:{
+      get_poi: 1,
+      location: {},// {latitude,longitude}
+      poi_options: 'policy=2;radius=3000;page_size=10;page_index=1',
+      //'policy=2;radius=3000;page_size=10;page_index=1'
+      page_index:1
+    },
+    keyFilterData:{
+      keyword:'', 
+      region:'', 
+      policy:1,
+      location: '', //location：39.11457,116.55332
+      page_index:1,
+      page_size:1
+    },
+    searchVal:'',
+    isSearch:false,
+    actType:'add'
+  },
+  //onSearch搜索
+  onSearch(e){
+    let searchVal = e.detail
+    if (searchVal){
+      let keyFilterData = this.data.keyFilterData
+      let region = this.data.region
+      keyFilterData.keyword = searchVal
+      keyFilterData.region = region[1]
+      keyFilterData.location = this.data.latitude + ',' + this.data.longitude
+      keyFilterData.page_index = 1
+      this.setData({ searchVal, keyFilterData })
+      this.getKeywordSuggest(keyFilterData)
+    }
+  },
+  //清除搜索
+  onClear(e){
+    let searchVal = ''
+    this.setData({ searchVal})
+  },
+  //选择位置
+  bindRegionChange(e){
+    let region = e.detail.value
+    let locationInfo={
+      show: true,
+      county: region[2]
+    }
+    this.setData({ region, locationInfo })
+    let options={
+      address: region[1] + region[2],
+      region: region[1] 
+    }
+    this.addressToCode(options)
+  },
+  //点击跳转设置位置
+  tapSuggestList(e){
+    console.log(e)
+    let info = e.currentTarget.dataset.info
+    let location = e.currentTarget.dataset.location
+    let latObj=JSON.parse(location)
+    let address = e.currentTarget.dataset.address
+    let infoObj=JSON.parse(info)
+    let pages = getCurrentPages();
+    let currPage = pages[pages.length - 1];   //当前页面
+    let prevPage = pages[pages.length - 2];  //上一个页面
+    prevPage.setData({
+      ad_pca: infoObj.province + '/' + infoObj.city + '/' + infoObj.district,
+      ['adInfo.provice']: infoObj.province,
+      ['adInfo.city']: infoObj.city,
+      ['adInfo.area']: infoObj.district,
+      ['adInfo.address']: address,
+      ['adInfo.latitude']: latObj.lat,
+      ['adInfo.longitude']: latObj.lng
+    })
+    wx.navigateBack({
+      delta:1
+    })
+  },
+  // 视图发生改变，修改中心点
+  mapchangeTap: function (e) {
+    // 中心点
+    let that = this;
+    this.mapCtx = wx.createMapContext('map');
+    if (e.detail.type==='end'){
+      this.mapCtx.getCenterLocation({
+        success(res) {
+          const latitude = res.latitude
+          const longitude = res.longitude
+          // that.setData({ latitude, longitude})
+          let locFilterData = that.data.locFilterData
+          let location = { latitude, longitude }// {latitude,longitude}
+          locFilterData.location = location
+          let prevNumStr = 'page_index=' + locFilterData.page_index
+          let nextNumStr = 'page_index=1'
+          let poiOptions = locFilterData.poi_options
+          locFilterData.poi_options = poiOptions.replace(prevNumStr, nextNumStr)
+          that.setData({locFilterData})
+          let actType = 'refresh'
+          that.getLocationSuggest(locFilterData, actType)
+        }
+      })
+    }
+  },
+  //地址解析-code
+  addressToCode(options){
+    let _this=this
+    qqmapsdk.geocoder({
+      address: options.address,
+      region: options.region,
+      success: function (res) { //搜索成功后的回调
+        let location=res.result.location
+        let latitude = location.lat
+        let longitude = location.lng
+        _this.setData({ latitude, longitude })
+      },
+      fail: function (error) {
+      },
+      complete: function (res) {
+      }
+    })
+  },
+
+  //触发关键词输入提示事件
+  getKeywordSuggest(options){
+    // console.log(e)
+    var _this = this;
+    //调用关键词提示接口
+    qqmapsdk.getSuggestion({
+      keyword: options.keyword,//
+      region: options.region,
+      location: options.location,//location：39.11457,116.55332
+      policy: options.policy,
+      page_size: options.page_size,
+      page_index: options.page_index,
+      success: function (res) { //搜索成功后的回调
+        let dataList=res.data
+        if(dataList.length){
+          let location=res.data[0].location
+          let latitude = location.lat
+          let longitude = location.lng
+          let adInfo = res.data[0]
+          let locationInfo= {show : true,
+            county : adInfo.district
+          }
+          let region = _this.data.region
+          region[0] = adInfo.province
+          region[1] = adInfo.city
+          region[2] = adInfo.district
+          _this.setData({ latitude, longitude, locationInfo, region })
+        }
+       
+      },
+      fail: function (error) {
+      },
+      complete: function (res) {
+      }
+    });
+  },
+  //地理位置信息和附近poi列表
+  getLocationSuggest: function (options,actType) {
+    wx.showLoading({
+      title: '加载中...',
+      mask:true
+    })
+    // console.log(e)
+    var _this = this;
+    //调用关键词提示接口
+    qqmapsdk.reverseGeocoder({
+      get_poi: options.get_poi,
+      location: options.location,// {latitude,longitude}
+      poi_options: options.poi_options,//'policy=2;radius=3000;page_size=10;page_index=1'
+      success: function (res) { //搜索成功后的回调
+        //地址新增region赋值
+        if(_this.data.actType==='add'){
+          let adInfo = res.result.ad_info
+          let locationInfo = _this.data.locationInfo
+          locationInfo.show = true
+          locationInfo.county = adInfo.district
+          let region = _this.data.region
+          region[0] = adInfo.province
+          region[1] = adInfo.city
+          region[2] = adInfo.district
+          _this.setData({ locationInfo, region})
+        }
+        //建议列表设置
+        let sl = res.result.pois
+        sl.forEach(item => {
+          item.cusAdInfo = JSON.stringify(item.ad_info)
+          item.cusLocation = JSON.stringify(item.location)
+        })
+        if(actType==='refresh'){
+          _this.setData({
+            suggestList: sl
+          })
+        }
+        if(actType==='reachBottom'){
+          let suggestList = _this.data.suggestList
+          sl.forEach(item=>{
+            suggestList.push(item)
+          })
+          _this.setData({suggestList})
+        }
+      },
+      fail: function (error) {
+        if (_this.data.actType === 'add') {
+          let locationInfo = _this.data.locationInfo
+          locationInfo.show = false
+          locationInfo.county = '定位中...'
+          _this.setData({
+            locationInfo
+          })
+        }
+      },
+      complete: function (res) {
+        wx.hideLoading()
+      }
+    });
+  },
+  //获取位置
+  handleOpenSetting(res) {
+    let auth = res.detail.authSetting['scope.userLocation']
+    if (auth) {
+      this.getLocal()
+    } else {
+      this.authFail('拒绝授权')
+    }
+  },
+  getLocal: function () {
+    let vm = this;
+    util.getUserLocation.location().then(res => {
+      let latitude = res.latitude
+      let longitude = res.longitude
+      vm.setData({ latitude, longitude})
+      let locFilterData = vm.data.locFilterData
+      let location = { latitude, longitude }// {latitude,longitude}
+      locFilterData.location = location
+      vm.setData({
+        locFilterData
+      })
+      let actType='refresh'
+      vm.getLocationSuggest(locFilterData, actType)
+    }).catch(err => {
+      console.log(err)
+    })
+  },
+  //拒绝授权或授权失败
+  authFail(title) {
+    wx.showToast({
+      title: title,
+      icon: 'none',
+      mask: true
+    })
+    let locationInfo = this.data.locationInfo
+    locationInfo.show = false
+    locationInfo.county = '定位中...'
+    this.setData({
+      locationInfo
+    })
+  },
+  //获取更多
+  bindReachBottom(){
+    let locFilterData=this.data.locFilterData
+    let prevNumStr = 'page_index=' + locFilterData.page_index
+    locFilterData.page_index+=1
+    let nextNumStr = 'page_index=' + locFilterData.page_index
+    let poiOptions = locFilterData.poi_options
+    locFilterData.poi_options = poiOptions.replace(prevNumStr, nextNumStr)
+    this.setData({ locFilterData})
+    let actType='reachBottom'
+    this.getLocationSuggest(locFilterData, actType)
+  },
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    // 实例化API核心类
+    qqmapsdk = new QQMapWX({
+      key: 'APYBZ-TKQ6X-GAJ4A-7CDCW-JHK4K-LFB2Q'
+    });
+    let actType=options.actType
+    this.setData({
+      actType
+    })
+    //新建进入
+    if(actType==='add'){
+      util.getUserLocation.getAuthSetting().then(res => {
+        if (res.authSetting['scope.userLocation'] === true) {
+          this.getLocal()
+        }
+        if (res.authSetting['scope.userLocation'] === false) {
+          wx.showModal({
+            title: '请求授权当前位置',
+            content: '需要获取您的地理位置，请确认授权',
+            success: function (res) {
+              if (res.cancel) {
+                vm.authFail('拒绝授权')
+              } else if (res.confirm) {
+                util.getUserLocation.againAuth().then(res => {
+                  vm.getLocal()
+                })
+              }
+            }
+          })
+        }
+        if (res.authSetting['scope.userLocation'] === undefined) {
+          wx.authorize({
+            scope: 'scope.userLocation',
+            success: (res) => {
+              vm.getLocal()
+            },
+            fail: (res) => {
+              vm.authFail('拒绝授权')
+            },
+          })
+        }
+      }).catch(err => {
+        console.log(err)
+      })
+    }
+    //编辑进入
+    if(actType==='edit'){
+      console.log(options)
+      let adInfo = JSON.parse(options.ad_info)
+      let locationInfo={
+        show:true,
+        county:adInfo.area
+      }
+      let region = this.data.region
+      region[0] = adInfo.provice
+      region[1] = adInfo.city
+      region[2] = adInfo.district
+      let keyFilterData = this.data.keyFilterData
+      keyFilterData.keyword = adInfo.address
+      keyFilterData.region = region[1]
+      keyFilterData.location = adInfo.latitude + ',' + adInfo.longitude
+      keyFilterData.page_index = 1
+      this.setData({ 
+        locationInfo, 
+        region, 
+        keyFilterData,
+        latitude:adInfo.latitude,
+        longitude:adInfo.longitude
+      })
+      this.getKeywordSuggest(keyFilterData)
+    }
+  },
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+
+  }
+})

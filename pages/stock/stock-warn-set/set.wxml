@@ -1,0 +1,60 @@
+<!--pages/stock/stock-warn-set/set.wxml-->
+<view class='search-view'>
+  <search value='{{goodsName}}' bind:input='changeGoodsName' bind:search='goSearch' placeholder='请输入您想要搜索的货品'></search>
+</view>
+<!-- <page-title title='货品分类' picker='{{true}}' isAdd='{{false}}' array='{{cateList}}' name='cateName' bind:change="bindChangeCate" range='{{cateIndex}}'></page-title> -->
+  <view class='select-view'>
+   <view class='select-item' bindtap='goSelect' data-type='storehouse'>
+      {{stockList[stockIndex].locationName}}
+      <image class='down-icon' src='/utils/img/down.png'></image>
+    </view>
+     <view class='select-item' bindtap='goSelect' data-type='type'>
+       {{cateList[cateIndex].cateName}}
+      <image class='down-icon' src='/utils/img/down.png'></image>
+    </view>
+  </view>
+  <view class='hr-module'></view>
+  <view class='choose-overslay' bindtap='cancelSelect' wx:if='{{ifStorehouse||ifType}}'></view>
+  <!-- 仓库选择 -->
+  <view class='content-view' wx:if='{{ifStorehouse}}'>
+    <view class='content-item' wx:for='{{stockList}}' bindtap='bindStockId' data-index='{{index}}'>
+      <view>{{item.locationName}}</view>
+      <view >
+        <image class='select-icon' src='/utils/img/stock/select.png'  wx:if='{{index==stockIndex}}'></image>
+      </view>
+    </view>
+  </view>
+  <!-- 分类选择 -->
+  <view class='content-view' wx:if='{{ifType}}'>
+    <view class='content-item' wx:for='{{cateList}}' bindtap='bindCateChange' data-index='{{index}}'>
+      <view>{{item.cateName}}</view>
+      <view >
+        <image class='select-icon' src='/utils/img/stock/select.png'  wx:if='{{index==cateIndex}}'></image>
+      </view>
+    </view>
+  </view>
+<scroll-view scroll-y='{{true}}' wx:if='{{goodList.length>0}}' bindscrolltolower='getNextPage' class='goods-list'>
+  <view class='goods-item' wx:for='{{goodList}}'>
+    <view class='goods-right-item'>
+      <view class='goods-name'>{{item.goodsName}}</view>
+      <view class='goods-count' wx:if='{{item.warnFlag=="0"}}'>不预警</view>
+      <view class='goods-count' data-index='{{index}}' wx:if='{{item.warnFlag=="1"}}' bindtap='goSet'>设置预警数量 <text class='text-underline'>{{item.warnCount}}</text></view>
+    </view>
+    <view class='goods-left-item'>
+      <van-switch checked="{{ item.warnFlag==1 }}" active-color="#fe2200" inactive-color="#fff" bind:change="onChange" data-index='{{index}}' size='38rpx'/>
+    </view>
+  </view>
+</scroll-view>
+<view class='empty' wx:if='{{goodList.length==0}}'>
+    暂时没有货品，快去添加吧~
+  </view>
+<van-popup show="{{ showWarnDialog }}" round position='center' bind:close="onClose">
+  <view class='dialog'>
+    <view class='title'>请输入预警数量</view>
+    <view class='input-item'>
+      <input value='{{warnCount}}' bindinput="getWarnCount"></input>
+    </view>
+    <view class='border-bottom'></view>
+    <button class='submit-dialog-btn' bindtap='setWarnCount'>确定</button>
+  </view>
+</van-popup>

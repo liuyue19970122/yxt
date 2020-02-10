@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "商品详情",
+  "usingComponents": {
+    "van-popup": "/miniprogram_npm/vant-weapp/popup/index",
+    "van-transition": "/miniprogram_npm/vant-weapp/transition/index",
+    "cus-cart":"/components/cart/cart",
+    "cus-pro-card":"/components/card/pro-card/index"
+  }
+}

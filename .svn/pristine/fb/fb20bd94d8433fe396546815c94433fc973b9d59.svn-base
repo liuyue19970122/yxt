@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "角色列表",
+  "usingComponents": {
+    "van-swipe-cell": "/miniprogram_npm/vant-weapp/swipe-cell/index",
+    "van-cell-group": "/miniprogram_npm/vant-weapp/cell-group/index",
+    "van-action-sheet": "/miniprogram_npm/vant-weapp/action-sheet/index",
+    "van-cell": "/miniprogram_npm/vant-weapp/cell/index",
+    "list-item":"/components/list-item/list-item",
+    "page-title":"/components/page-title/page-title"
+  }
+}

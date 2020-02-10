@@ -1,0 +1,2 @@
+/* pages/mall/handle-order/pro-add/add.wxss */
+@import '../../../../utils/asset/css/cus-form.wxss';

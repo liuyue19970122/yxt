@@ -1,0 +1,44 @@
+<page-title title='仓库设置' icon='/utils/img/stork-set.png' picker='{{false}}' bind:add='showPopupNew'></page-title>
+<!-- 表格 -->
+<view class=" panel flex-column">
+  <view class="flex-cell flex-row flex-table-title">
+    <view class="flex-cell flex-row first">编号</view>
+    <view class="flex-cell flex-row">描述</view>
+    <view class='flex-cell flex-row'>操作</view>
+  </view>
+  <!-- <view > -->
+  <view class="flex-cell flex-row flex-table-title" wx:for='{{dataArray}}'>
+    <view class="flex-cell flex-row first">{{item.locationName}}</view>
+    <view class="flex-cell flex-row">{{item.description}}</view>
+    <view class="flex-cell flex-row">
+      <image src='/utils/img/edit.png' data-des='{{item.description}}' data-no="{{item.locationName}}" data-id='{{item.keyId}}' class='edit' bindtap='showPopup'></image>
+    </view>
+  </view>
+</view>
+<view class='empty' wx:if='{{dataArray.length==0}}'>
+  暂时没有货架，快去添加吧~
+</view>
+<van-popup show="{{ show }}" class='popup' bind:close="onClose">
+  <view class="panel edit-panel flex-column">
+    <view class="flex-cell flex-row flex-table-title">
+      <view class="flex-cell flex-row first">编号</view>
+      <view class="flex-cell flex-row">
+      <!-- <van-field value="{{ selectNo }}" placeholder="" bind:change="changeName" /> -->
+      <input class='input' value="{{ selectNo }}" bindinput='changeName'></input>
+      </view>
+      <!-- <view class='flex-cell flex-row'>操作</view> -->
+    </view>
+    <!-- <view > -->
+    <view class="flex-cell flex-row flex-table-title">
+      <view class="flex-cell flex-row first">描述</view>
+      <view class="flex-cell flex-row">
+        <!-- <van-field value="{{ selectDes }}" placeholder="" bind:change="changeDes" border="false"/> -->
+        <input class='input' bindinput='changeDes' value="{{ selectDes }}"></input>
+      </view>
+    </view>
+  </view>
+  <view class='btn'>
+    <van-button round type="danger" size="small" bindtap='changeStock' wx:if='{{!isAdd}}'>确认</van-button>
+    <van-button round type="danger" size="small" bindtap='addStock' wx:if='{{isAdd}}'>确认</van-button>
+  </view>
+</van-popup>

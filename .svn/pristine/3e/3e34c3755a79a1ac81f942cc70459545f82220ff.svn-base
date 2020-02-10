@@ -1,0 +1,88 @@
+<!--pages/mall/handle-order/pro-add/add.wxml-->
+<van-notify id="van-notify" />
+<view class='form-item form-item__inline'>
+    <label class='form-item__label'><text style='color:#fe2200;'>*</text>所属类别</label>
+  <picker mode="multiSelector" class='form-item__content'
+    bindchange="bindCateChange"
+    bindcancel='bindCateCancel'
+    bindcolumnchange="bindCateColumnChange" 
+    disabled='{{cateDisabled}}'
+    value="{{multiProIndex}}" 
+    range-key='cateName'
+    range="{{multiProArray}}">
+    <view class="picker">{{multiCateName}}</view>
+  </picker>
+  <image class='triggle-close'src='../../../../utils/img/close.png'></image>
+</view>
+<view class='form-item form-item__inline'>
+    <label class='form-item__label'><text style='color:#fe2200;'>*</text>库存归属</label>
+     <picker class='form-item__content'
+        bindchange="bindStockChange"
+        bindcancel='bindStockCancel'
+        disabled='{{stockDisabled}}'
+        value="{{stockProIndex}}" 
+        range-key='cusName'
+        range="{{stockProList}}">
+      <view class="picker">{{stockProList[stockProIndex].cusName}}</view>
+    </picker>
+    <image class='triggle-close'src='../../../../utils/img/close.png'></image>
+  </view>
+  <view class='form-item form-item__inline'>
+    <label class='form-item__label'>库存位置</label>
+     <picker class='form-item__content'
+        bindchange="bindLocatinoChange"
+        bindcancel='bindLocatinoCancel'
+        value="{{locationIndex}}" 
+        range-key='locationName'
+        range="{{locationList}}">
+      <view class="picker">{{locationList[locationIndex].locationName}}</view>
+    </picker>
+    <image class='triggle-close'src='../../../../utils/img/close.png'></image>
+  </view>
+<view class='form-item form-item__inline'>
+  <label class='form-item__label'><text style='color:#fe2200;'>*</text>货品名称</label>
+  <input placeholder='请输入货品名称(必填)'
+    bindinput='bindNameInput'
+    value='{{proInfo.stockName}}' 
+    class='form-item__content content-padding'></input>
+</view>
+<view class='form-item form-item__inline'>
+  <label class='form-item__label'><text style='color:#fe2200;'>*</text>单位</label>
+  <view class='form-item__content content-padding'>{{proInfo.stockUnit}}</view>
+  <!-- <input placeholder='请输入单位(必填)'
+    bindinput='bindUnitInput'
+    value='{{proInfo.stockUnit}}' 
+    class='form-item__content content-padding'></input> -->
+</view>
+<view class='form-item form-item__inline'>
+  <label class='form-item__label'><text style='color:#fe2200;'>*</text>单价</label>
+  <input placeholder='请输入单价(必填)'
+    bindinput='bindMoneyInput'
+    type="digit"
+    value='{{proInfo.perMoney}}' 
+    class='form-item__content content-padding'></input>
+</view>
+<view class='form-item form-item__inline'>
+  <label class='form-item__label'><text style='color:#fe2200;'>*</text>数量</label>
+  <input placeholder='请输入数量(必填)'
+    bindinput='bindCountInput'
+    type="digit"
+    value='{{proInfo.count}}' 
+    class='form-item__content content-padding'></input>
+</view>
+<!-- <view class='form-item'>
+  <view class='label-block'>商品备注</view>
+  <view>
+    <textarea placeholder='请输入商品备注(选填)' class='content-area'
+    value='{{proInfo.description}}' bindinput='bindinputDes'></textarea>
+  </view>
+</view> -->
+<view class='btn-container'>
+  <button class='btn-submit' bindtap="bindSubmit">确定</button>
+  <view class="del-container">
+    <view bindtap="delCurPro">
+      <image class="rub-class" src="../../../../uitls/img/rubbish.png"></image>
+      <text class="rub-text">删除该商品</text>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,45 @@
+/* pages/stock/stock-out/stock-out.wxss */
+.form{
+  margin:0 24rpx;
+}
+.form-item{
+  padding:24rpx 0;
+  font-size:30rpx;
+  color:#333;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.form--input{
+  text-align: right;
+  min-width:150rpx;
+}
+.label{
+  font-weight: 500;
+}
+
+.upload-btn{
+  width:120rpx;
+  height:120rpx;
+}
+.btn-box button{
+  width:120rpx;
+  height:120rpx;
+  padding:0;
+  position: absolute;
+  left:0;
+  top:0;
+}
+.btn-box{
+  position: relative;
+  height:120rpx;
+  padding-bottom:24rpx;
+}
+.remark-content{
+  border:1px solid #f0f0f0;
+  width:100%;
+  padding:24rpx 20rpx;
+  box-sizing: border-box;
+  font-size:24rpx;
+  color:#333;
+}

@@ -1,0 +1,650 @@
+// pages/receipt/vage/add/add.js
+var util = require('../../../../utils/util.js');
+const app = getApp()
+var times = (new Date()).getTime()
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    activeIcon: '/utils/img/receipt/check.png',
+    inactiveIcon: '/utils/img/receipt/no-check.png',
+    select: [],
+    checked: true,
+    specList: [],
+    name: '',
+    typeName: '',
+    sort: '',
+    isMore: true,
+    num: '',
+    isOpen: true,
+    mainImg: '',
+    description: '',
+    detail: '',
+    imgList: [],
+    list: '',
+    upload_picture_list: [],
+    selectFirstIndex: 0,
+    selectSecondIndex: 0,
+    cateList: [],
+    cateId: '',
+    foodId: '',
+    type: 'add',
+    imgIndex: '',
+    specIndex:0,
+    changeList:[]
+  },
+  chooseMainImg: function() {
+    var that = this
+    wx.chooseImage({
+      count: 1,
+      success: function(res) {
+        wx.showLoading({
+          title: '正在上传...',
+        })
+        var temp = res.tempFilePaths
+        wx.uploadFile({
+          url: app.globalData.fileUploadUrl + '/apiUser/file/upload',
+          filePath: temp[0],
+          name: 'file',
+          header: {
+            Authorization: wx.getStorageSync('localToken').token
+          },
+          success: function(res) {
+            console.log(res)
+            wx.hideLoading()
+            if (that.data.type == 'update') {
+              var url = app.globalData.baseUrl + 'apiMall/food/admin/newPic'
+              var data = {
+                foodId: that.data.foodId,
+                picUrl: JSON.parse(res.data).content,
+                isMain: 1
+              }
+              util.postRequestList(url,data,false,that.mainRes)
+            } else {
+              that.setData({
+                mainImg: JSON.parse(res.data).content
+              })
+            }
+
+
+          },
+          fail: function(res) {
+            wx.hideLoading()
+            wx.showToast({
+              title: '上传失败',
+            })
+          }
+        })
+      },
+    })
+  },
+  mainRes(res){
+    var that=this
+    if(res.data.code==200){
+      var content=res.data.content.imgUrl
+      wx.showModal({
+        title: '提示',
+        content: '添加成功',
+        showCancel:false,
+        success(res){
+          that.setData({
+            mainImg: content
+          })
+        }
+      })
+    }else{
+      wx.showModal({
+        title: '提示',
+        content: res.data.message,
+      })
+    }
+  },
+  uploadImgList() {
+    wx.chooseImage({
+      count: 9,
+      success: function(res) {
+        wx.showLoading({
+          title: '正在上传...',
+        })
+        var temp = res.tempFilePaths
+        for (var item of temp) {
+          wx.uploadFile({
+            url: app.globalData.baseUrl + 'apiUser/file/upload',
+            filePath: item,
+            name: 'file',
+            success: function(res) {
+              wx.hideLoading()
+            },
+            fail: function(res) {
+              wx.hideLoading()
+              wx.showToast({
+                title: '上传失败',
+              })
+            }
+          })
+        }
+      },
+    })
+  },
+
+  //选择图片方法
+  uploadpic: function(e) {
+    var that = this //获取上下文
+    var upload_picture_list = that.data.upload_picture_list
+    //选择图片
+    wx.chooseImage({
+      count: 9 - that.data.upload_picture_list.length,
+      sizeType: ['compressed'],
+      sourceType: ['album', 'camera'],
+      success: function(res) {
+        var tempFiles = res.tempFiles
+        //把选择的图片 添加到集合里
+        for (var i in tempFiles) {
+          tempFiles[i]['upload_percent'] = 0
+          tempFiles[i]['path_server'] = ''
+          upload_picture_list.push(tempFiles[i])
+        }
+        //显示
+        that.setData({
+          upload_picture_list: upload_picture_list,
+        });
+        that.uploadimage()
+      }
+    })
+  },
+  //点击上传事件
+  uploadimage: function() {
+    var page = this
+    var upload_picture_list = page.data.upload_picture_list
+    //循环把图片上传到服务器 并显示进度       
+    for (var j in upload_picture_list) {
+      if (upload_picture_list[j]['upload_percent'] == 0) {　　　　　　 //调用函数
+        page.upload_file_server(upload_picture_list, j)
+      }
+    }
+  },
+  //上传方法
+  upload_file_server: function(upload_picture_list, j) {
+    var that = this
+    //上传返回值
+    const upload_task = wx.uploadFile({
+      // 模拟https
+      url: app.globalData.fileUploadUrl + '/apiUser/file/upload', //需要用HTTPS，同时在微信公众平台后台添加服务器地址  
+      filePath: upload_picture_list[j]['path'], //上传的文件本地地址    
+      name: 'file',
+      header: {
+        Authorization: wx.getStorageSync("localToken").token
+      },
+      //附近数据，这里为路径     
+      success: function(res) {
+        var data = JSON.parse(res.data);
+        // //字符串转化为JSON  
+        // console.log(res)
+        if (JSON.parse(res.data).code == 200) {
+          var filename = data.content //存储地址 显示
+          if (that.data.type == 'update') {
+            var url = app.globalData.baseUrl + 'apiMall/food/admin/newPic'
+            var data = {
+              foodId: that.data.foodId,
+              picUrl: filename,
+              isMain: 0
+            }
+            util.postRequestList(url, data, false, that.uploadRes)
+          } else {
+            upload_picture_list[j]['path_server'] = filename
+            that.setData({
+              upload_picture_list: upload_picture_list
+            });
+          }
+        }
+      }
+    })
+    //上传 进度方法
+    upload_task.onProgressUpdate((res) => {
+      upload_picture_list[j]['upload_percent'] = res.progress
+      that.setData({
+        upload_picture_list: upload_picture_list
+      });
+    });
+  },
+  uploadRes: function(res) {
+    var that = this
+    if (res.data.code != 200) {
+      wx.showModal({
+        title: '提示',
+        content: res.data.message,
+        showCancel: false,
+        success: function(res) {
+          var list = that.data.upload_picture_list
+          list.splice(list.length - 1, 1)
+          that.setData({
+            upload_picture_list: list
+          })
+        }
+      })
+    } else {
+      var content = res.data.content
+      wx.showModal({
+        title: '提示',
+        content: '添加成功',
+        showCancel: false,
+        success: function() {
+          var list = that.data.upload_picture_list
+          list.splice(list.length - 1, 1)
+          var item = {
+            foodId: content.foodId,
+            keyId: content.keyId,
+            path_server: content.imgUrl,
+            upload_percent: 100
+          }
+          list.push(item)
+          that.setData({
+            upload_picture_list: list
+          })
+        }
+      })
+    }
+  },
+  // 删除图片
+  deleteImg: function(e) {
+    var that = this
+    let index = e.currentTarget.dataset.index;
+    this.setData({
+      imgIndex: index
+    })
+    wx.showModal({
+      title: '提示',
+      content: '确定删除么',
+      success: function(res) {
+        if (res.confirm) {
+          if (that.data.type == 'update') {
+            var url = app.globalData.baseUrl + 'apiMall/food/admin/deletePic'
+            var data = {
+              foodId: that.data.foodId,
+              picId: that.data.upload_picture_list[index].keyId
+            }
+            util.postRequestList(url, data, false, that.delRes)
+          } else {
+            let upload_picture_list = that.data.upload_picture_list;
+            upload_picture_list.splice(index, 1);
+            that.setData({
+              upload_picture_list: upload_picture_list
+            });
+          }
+        }
+      }
+    })
+  },
+  delRes(res) {
+    var that = this
+    if (res.data.code == 200) {
+      wx.showModal({
+        title: '提示',
+        content: '删除成功',
+        showCancel: false,
+        success: function(res) {
+          let upload_picture_list = that.data.upload_picture_list;
+          upload_picture_list.splice(that.data.imgIndex, 1);
+          that.setData({
+            upload_picture_list: upload_picture_list
+          });
+        }
+      })
+    } else {
+      wx.showModal({
+        title: '提示',
+        content: res.data.message,
+        showCancel: false,
+        success: function(res) {}
+      })
+    }
+  },
+  getDes: function(e) {
+    this.setData({
+      description: e.detail.value,
+    })
+  },
+  getDetail: function(e) {
+    this.setData({
+      detail: e.detail.value,
+    })
+  },
+  isMoreFn({
+    detail
+  }) {
+    this.setData({
+      isMore: detail
+    })
+  },
+  isOpenFn({
+    detail
+  }) {
+    this.setData({
+      isOpen: detail
+    })
+  },
+  getSort(e) {
+    this.setData({
+      sort: e.detail
+    })
+  },
+  getNum(e) {
+    this.setData({
+      num: e.detail
+    })
+  },
+  selectSpec(e) {
+    var result = e.detail
+    var list = this.data.specList
+    var that=this
+    if(this.data.type=='update'){
+      var url = app.globalData.baseUrl +'apiMall/food/admin/updateAttr'
+      for (var item of result) {
+        list.map((jtem, index) => {
+          if (item == index) {
+            jtem.status = jtem.status == 1 ? 0 : 1
+            var data={
+              attrId:jtem.keyId,
+              attrName:jtem.attrName,
+              sellPrice: jtem.attrPrice,
+              status: jtem.status
+            }
+            util.postRequestList(url,data,false,that.updateSpecRes)
+          }
+        })
+      }
+      this.setData({
+        changeList:list
+      })
+    }else{
+      for (var item of result) {
+        list.map((jtem, index) => {
+          if (item == index) {
+            jtem.status = jtem.status == 1 ? 0 : 1
+          }
+        })
+      }
+      this.setData({
+        specList: list
+      });
+    }
+  },
+  updateSpecRes(res){
+    var that=this
+    if(res.data.code==200){
+      wx.showModal({
+        title: '提示',
+        content: '修改成功',
+        showCancel:false,
+        success:function(res){
+          that.setData({
+            specList:that.data.changeList
+          })
+        }
+      })
+    }else{
+      wx.showModal({
+        title: '提示',
+        content: res.data.message,
+        showCancel:false,
+      })
+    }
+  },
+  goAdd: function() {
+    wx.navigateTo({
+      url: '../spec/detail',
+    })
+  },
+  goDetail(e) {
+    wx.navigateTo({
+      url: '../spec/detail?index=' + e.currentTarget.dataset.index,
+    })
+  },
+  getName(e) {
+    this.setData({
+      name: e.detail
+    })
+  },
+  delSpec(e){
+    var index=e.currentTarget.dataset.index
+    this.setData({
+      specIndex:index
+    })
+    if(this.data.type=='update'){
+      var url = app.globalData.baseUrl + 'apiMall/food/admin/deleteAttr'
+      var data = {
+        attrId: this.data.specList[index].keyId,
+        foodId: this.data.foodId
+      }
+      util.postRequestList(url, data, false, this.delSpecRes)
+    }else{
+      var list = this.data.specList
+      list.splice(index, 1)
+      this.setData({
+        specList: list
+      })
+    }
+  },
+  delSpecRes(res){
+    var that=this
+    if(res.data.code==200){
+      wx.showModal({
+        title: '提示',
+        content: '删除成功',
+        showCancel:false,
+        success:function(res){
+          var list=that.data.specList
+          list.splice(that.data.specIndex,1)
+          that.setData({
+            specList:list
+          })
+        }
+      })
+    }else{
+      wx.showModal({
+        title: '提示',
+        content: res.data.message,
+      })
+    }
+  },
+  onSubmit() {
+    var list = this.data.upload_picture_list
+    var imgList = []
+    if (this.data.type != 'update') {
+      for (var item of list) {
+        imgList.push(item.path_server)
+      }
+      var url = app.globalData.baseUrl + 'apiMall/food/admin/add'
+      var data = {
+        cateId: this.data.cateId,
+        foodName: this.data.name,
+        mainPic: this.data.mainImg,
+        noCountLimit: this.data.isMore ? 1 : 0,
+        description: this.data.description,
+        status: this.data.isOpen ? 1 : 0,
+        attrsDetail: JSON.stringify(this.data.specList),
+        detail: this.data.detail,
+        imgList: imgList
+      }
+      if (!this.data.isMore) {
+        data.limitCount = this.data.num
+      }
+      util.postRequestList(url, data, false, this.addRes)
+    } else {
+      var url = app.globalData.baseUrl + 'apiMall/food/admin/update'
+      var data = {
+        foodId: this.data.foodId,
+        cateId: this.data.cateId,
+        foodName: this.data.name,
+        mainPic: this.data.mainImg,
+        noCountLimit: this.data.isMore ? 1 : 0,
+        description: this.data.description,
+        status: this.data.isOpen ? 1 : 0,
+        detail: this.data.detail,
+      }
+      console.log(data)
+      if (!this.data.isMore) {
+        data.limitCount = this.data.num
+      }
+      util.postRequestList(url, data, false, this.updateRes)
+    }
+  },
+  addRes(res) {
+    if (res.data.code == 200) {
+      wx.showModal({
+        title: '提示',
+        content: "添加成功",
+        confirmText: '返回',
+        showCancel: false,
+        success: function(res) {
+          wx.navigateBack({
+            delta: 1
+          })
+        }
+      })
+    } else {
+      wx.showToast({
+        title: res.data.message,
+        duration: 2000
+      })
+    }
+  },
+  updateRes(res) {
+    if (res.data.code == 200) {
+      wx.showModal({
+        title: '提示',
+        content: "修改成功",
+        confirmText: '返回',
+        showCancel: false,
+        success: function(res) {
+          wx.navigateBack({
+            delta: 1
+          })
+        }
+      })
+    } else {
+      wx.showToast({
+        title: res.data.message,
+        duration: 2000
+      })
+    }
+  },
+  getFoodDetail() {
+    var url = app.globalData.baseUrl + 'apiMall/food/admin/detail'
+    var data = {
+      foodId: this.data.foodId
+    }
+    util.getRequestListData(url, data, false, this.detailRes)
+  },
+  detailRes(res) {
+    var detail = res.data.content
+    var imgList = []
+    detail.imgList.map((item) => {
+      if (!item.isMain) {
+        var jtem = {}
+        jtem.upload_percent = 100
+        jtem.path_server = item.imgUrl
+        jtem.keyId = item.keyId
+        imgList.push(jtem)
+      }
+    })
+    console.log(imgList)
+    var specList = detail.attrList.map((item) => {
+      item.attrPrice = util.getMoney(item.sellPrice)
+      item.status=item.useFlag?1:0
+      return item
+    })
+    console.log(specList)
+    console.log(detail)
+    this.setData({
+      name: detail.foodInfo.foodName,
+      mainImg: detail.foodInfo.mainPic,
+      isMore: detail.foodInfo.noCountLimit == "1",
+      num: detail.foodInfo.limitCount,
+      typeName: detail.foodInfo.cateName,
+      cateId: detail.foodInfo.cateId,
+      isOpen: detail.foodInfo.useFlag,
+      detail: detail.foodDetail.detail,
+      description: detail.foodInfo.desctiption,
+      upload_picture_list: imgList,
+      specList: specList
+    })
+  },
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function(options) {
+    if (options.id) {
+      this.setData({
+        foodId: options.id,
+        type: 'update'
+      })
+      this.getFoodDetail()
+    } else {
+      var pages = getCurrentPages()
+      var prevPage = pages[pages.length - 2]
+      var cateList = prevPage.data.cateList
+      var selectFirstIndex = prevPage.data.selectFirstIndex
+      var selectSecondIndex = prevPage.data.selectSecondIndex
+      this.setData({
+        cateList: cateList,
+        selectSecondIndex: selectSecondIndex,
+        selectFirstIndex: selectFirstIndex,
+        typeName: cateList[selectFirstIndex].nextList.length > 0 ? cateList[selectFirstIndex].nextList[selectSecondIndex].cateName : cateList[selectFirstIndex].cateName,
+        cateId: cateList[selectFirstIndex].nextList.length > 0 ? cateList[selectFirstIndex].nextList[selectSecondIndex].keyId : cateList[selectFirstIndex].keyId
+      })
+    }
+
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function() {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function() {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function() {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function() {
+
+  }
+})

@@ -1,0 +1,32 @@
+/* components/search/search.wxss */
+.van-search__content{
+  background-color: var(--search-background-color,#fff);
+  border-radius:50px
+}
+
+.search{
+  width:702rpx;
+  margin:20rpx 24rpx;
+  height:72rpx;
+  border-radius: 50rpx;
+  box-shadow: 0 0 12rpx rgba(0,0,0,0.12);
+  padding:5rpx 20rpx;
+  padding-left:60rpx;
+  box-sizing: border-box;
+  color:#333;
+  position: relative;
+  font-size:32rpx;
+}
+.search-place{
+  font-size:24rpx;
+  color:#ccc;
+}
+.search-icon{
+  width:32rpx;
+  height:32rpx;
+  position:absolute;
+  left:20rpx;
+  top:15rpx;
+  z-index:444;
+  overflow: visible
+}

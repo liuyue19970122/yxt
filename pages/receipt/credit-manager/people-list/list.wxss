@@ -1,0 +1,52 @@
+/* pages/receipt/credit-manager/people-list/list.wxss *//* components/account-item-shadow/acc-item-shadow.wxss */
+/* components/account-item-border/acc-item-border.wxss */
+
+.account-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 140rpx;
+  box-shadow: 0 0 6px rgba(0,0,0,0.08);
+  padding:0 20rpx;
+  border-radius: 10rpx;
+  margin-bottom:40rpx;
+}
+.people-list{
+  padding:0 24rpx;
+}
+.account-left-item-title {
+  font-size: 32rpx;
+  color: #333;
+  font-weight: 600;
+}
+
+.add-account {
+  color: #fe3800;
+  font-size: 40rpx;
+  font-weight: 600;
+}
+
+.reduce-account {
+  color: #333;
+  font-size: 40rpx;
+  font-weight: 600;
+}
+
+.time{
+  font-size:24rpx;
+  color:#999;
+}
+.name{
+  font-size:32rpx;
+  color:#333;
+  font-weight: 500;
+  margin-bottom:20rpx;
+}
+.money{
+  color:#fe2200;
+  font-weight: 500;
+  font-size:36rpx;
+}
+/* .left-item{
+  displ
+} */

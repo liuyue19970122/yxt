@@ -1,0 +1,4 @@
+/* pages/stock/stock-record-detail/detail.wxss */
+.detail{
+  padding:0 24rpx;
+}

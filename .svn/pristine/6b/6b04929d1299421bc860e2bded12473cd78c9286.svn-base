@@ -1,0 +1,57 @@
+<!--pages/stock/stock-in/stock-in.wxml-->
+<van-notify id="van-notify" />
+<page-title title='添加货品' isAdd="{{false}}" picker="{{false}}"></page-title>
+<view class='form-container'>
+  <view class='form-item form-item__inline'>
+    <label class='form-item__label'><text style='color:#fe2200;'>*</text>货品类别</label>
+    <picker mode="multiSelector" class='form-item__content'
+      bindchange="bindCateChange"
+      bindcancel='bindCateCancel'
+      bindcolumnchange="bindCateColumnChange" 
+      value="{{multiProIndex}}" 
+      range-key='cateName'
+      range="{{multiProArray}}">
+      <view class="picker">{{multiCateName}}</view>
+    </picker>
+    <view>
+      <text class="set-btn" bindtap="toSetCate">添加分类</text>
+      <image class='triggle-close'src='/utils/img/close.png'></image>
+    </view>
+  </view>
+  <view class='form-item form-item__inline'>
+    <label class='form-item__label'>库存位置</label>
+    <picker class='form-item__content'
+        bindchange="bindLocatinoChange"
+        bindcancel='bindLocatinoCancel'
+        value="{{locationIndex}}" 
+        range-key='locationName'
+        range="{{locationList}}">
+      <view class="picker">{{selLocationName}}</view>
+    </picker>
+    <image class='triggle-close' src='/utils/img/close.png'></image>
+  </view>
+</view>
+<form-title title='添加货品'>
+  <view>
+    <image src='/utils/img/stock/import.png' class='add-spec'     
+      bindtap='handleImportPro'></image>
+    <!-- <image src='/utils/img/stock/add.png' class='add-spec'     
+      bindtap='handleAddPro'></image> -->
+  </view>
+</form-title>
+<view style="padding-bottom:100rpx;">
+  <view class='card-container'  wx:for='{{proList}}' 
+    wx:key="proList">
+    <view class='card-item'>
+      <image class='card-small-img' src='{{item.goodsPic}}'></image>
+      <view class='card-info'>
+        <view class="info-name">{{item.goodsName}}</view>
+        <view class="info-unit">{{'单位:'+item.goodsUnit}}</view>
+      </view>
+      <text class="card-del" data-index="{{index}}" bindtap="delSelPro">删除</text>
+    </view>
+  </view>
+</view>
+<view class="fixed-bottom">
+  <button class='bottom-full btn-red' bindtap='addSubmit' >确认</button>
+</view>

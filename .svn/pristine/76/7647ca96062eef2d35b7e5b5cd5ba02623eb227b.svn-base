@@ -1,0 +1,7 @@
+/* pages/stock/set-check/set.wxss */
+.form{
+  padding:0 24rpx;
+}
+.set-icon{
+  padding:20rpx 20rpx 20rpx 50rpx;
+}

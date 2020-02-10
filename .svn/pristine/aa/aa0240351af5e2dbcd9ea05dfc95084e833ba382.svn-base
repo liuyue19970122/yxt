@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "实时库存",
+  "usingComponents": {
+    "cate-picker": "/components/cate-picker/cate-picker",
+    "page-title":"/components/page-title/page-title",
+    "form-item":"/components/form-item/form-item",
+    "van-dialog": "/miniprogram_npm/vant-weapp/dialog/index",
+    "search":"/components/search/search"
+  }
+}

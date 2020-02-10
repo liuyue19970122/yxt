@@ -1,0 +1,43 @@
+/* pages/finance/statement/income/income.wxss */
+.line{
+   border-top: 2rpx solid #93C407; 
+  border-bottom: 2rpx solid #F8FFE5;
+}
+
+.form-item{
+  padding: 0 24rpx;
+  line-height: 100rpx;
+  font-size: 36rpx;
+  margin: 24rpx 0;
+}
+
+.form-item__inline{
+  display: flex;
+  display: -webkit-flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.form-item__label{
+  padding-right: 24rpx;
+}
+
+.form-item__content{
+  flex: 1;
+  text-align: right;
+  color: #fe2200;
+}
+.arrow-down{
+  background-color: #fff;
+  margin-left: 24rpx;
+  width: 24rpx;
+  height: 40rpx;
+}
+
+.gradient{
+  background: linear-gradient(to right,#8fff75 0%,#dcfe67 100%);
+  background:-webkit-linear-gradient(to right,#8fff75 0%,#dcfe67 100%);
+  background:-ms-linear-gradient(to right,#8fff75 0%,#dcfe67 100%);
+  background:-moz-linear-gradient(to right,#8fff75 0%,#dcfe67 100%);
+  background:-o-linear-gradient(to right,#8fff75 0%,#dcfe67 100%);
+}
+

@@ -1,0 +1,237 @@
+// pages/common/address-review/address-review.js
+let util = require('../../../utils/util.js');
+const app = getApp()
+var QQMapWX = require('../../../utils/qqmap-wx-jssdk.min.js');
+var qqmapsdk;
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    markers: [],
+    centerPoint: {},
+    polyline: [],
+    distance: '',
+    duration: '',
+    address:""
+  },
+  //获取路径点
+  getPathPoint(id){
+    let url = app.globalData.baseUrl + 'apiMall/delivery/orderPos'
+    util.getRequestListData(url, { orderId: id }, false, this.pathPointRes)
+  },
+  pathPointRes(res,type){
+    if(res.data.code==='200'){
+      let points=res.data.content
+      let latTotal=0
+      let lgtTotal=0
+      let len=points.length
+      let polyline=[]
+      let plObj={
+        //经纬度数组	array
+        points:[],
+        color:'#fe2200',//	线的颜色	string
+        width:4//线的宽度	number
+      }
+      points.forEach(item=>{
+        let obj={latitude: item.latitude, longitude: item.longitude}
+        latTotal=util.accAdd(latTotal,item.latitude)
+        lgtTotal=util.accAdd(lgtTotal,item.longitude)
+        plObj.points.push(obj)
+      })
+      let centerPoint={
+        latitude:util.accDiv(latTotal,len),
+        longitude:util.accDiv(lgtTotal,len)
+      }
+      polyline.push(plObj)
+      this.setData({centerPoint,polyline})
+      console.log(latTotal,lgtTotal)
+      console.log(polyline)
+      console.log(res)
+    }
+  },
+  getAddress() {
+    var _this = this
+    qqmapsdk.geocoder({
+      address: _this.data.address,
+      success: function(res) {
+        // console.log(res)
+        var res = res.result;
+        var latitude = res.location.lat;
+        var longitude = res.location.lng;
+        _this.setData({ // 获取返回结果，放到markers及poi中，并在地图展示
+          markers: [{
+            id: 0,
+            title: res.title,
+            latitude: latitude,
+            longitude: longitude,
+            iconPath: '/utils/img/location.png', //图标路径
+            width: 20,
+            height: 20,
+            callout: { //可根据需求是否展示经纬度
+              content: "终",
+              color: '#000',
+              display: 'ALWAYS',
+              padding: "5"
+            }
+          }],
+          poi: { //根据自己data数据设置相应的地图中心坐标变量名称
+            latitude: latitude,
+            longitude: longitude
+          }
+        });
+        _this.getLocation()
+        _this.getWay()
+      }
+    })
+  },
+  getLocation() {
+    var _this = this
+    wx.getLocation({
+      success: function(res) {
+        var item = {
+          id: 1,
+          //  title: res.title,
+          latitude: res.latitude,
+          longitude: res.longitude,
+          iconPath: '/utils/img/location.png', //图标路径
+          width: 20,
+          height: 20,
+          callout: { //可根据需求是否展示经纬度
+            content: "当前位置",
+            color: '#000',
+            display: 'ALWAYS',
+            padding: "5"
+          }
+        }
+        var mark = _this.data.markers
+        mark.push(item)
+        _this.setData({
+          markers: mark
+        })
+      },
+    })
+  },
+  getWay() {
+    var _this = this
+    qqmapsdk.direction({
+      mode: 'bicycling', //可选值：'driving'（驾车）、'walking'（步行）、'bicycling'（骑行），不填默认：'driving',可不填
+      //from参数不填默认当前地址
+      // from: e.detail.value.start,
+      to: _this.data.poi,
+      success: function(res) {
+        console.log(res);
+        var ret = res;
+        var coors = ret.result.routes[0].polyline,
+          pl = [];
+        //坐标解压（返回的点串坐标，通过前向差分进行压缩）
+        var kr = 1000000;
+        for (var i = 2; i < coors.length; i++) {
+          coors[i] = Number(coors[i - 2]) + Number(coors[i]) / kr;
+        }
+        //将解压后的坐标放入点串数组pl中
+        for (var i = 0; i < coors.length; i += 2) {
+          pl.push({
+            latitude: coors[i],
+            longitude: coors[i + 1]
+          })
+        }
+        // console.log(pl)
+        //设置polyline属性，将路线显示出来,将解压坐标第一个数据作为起点
+        _this.setData({
+          latitude: pl[0].latitude,
+          longitude: pl[0].longitude,
+          polyline: [{
+            points: pl,
+            color: '#FF0000DD',
+            width: 4
+          }],
+          distance: _this.getDis(ret.result.routes[0].distance),
+          duration: ret.result.routes[0].duration + "分钟"
+        })
+      },
+      fail: function(error) {
+        console.error(error);
+      },
+      complete: function(res) {
+        // console.log(res);
+      }
+    });
+  },
+  getDis(data) {
+    // var distance = 700;
+    if (data < 1000) {
+      data = data + "米";
+    } else if (data > 1000) {
+      data = (Math.round(data / 100) / 10).toFixed(1) + "公里"
+    }
+    return data
+  },
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function(options) {
+    let orderId=options.orderId
+    this.getPathPoint(orderId)
+    // console.log(options)
+    // qqmapsdk = new QQMapWX({
+    //   key: 'APYBZ-TKQ6X-GAJ4A-7CDCW-JHK4K-LFB2Q'
+    // });
+    // if(options.address){
+    //   this.setData({
+    //     address:options.address
+    //   })
+    // }
+    // this.getAddress()
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function() {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function() {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function() {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function() {
+
+  }
+})

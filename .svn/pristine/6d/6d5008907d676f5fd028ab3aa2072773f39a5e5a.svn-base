@@ -1,0 +1,65 @@
+<!--pages/stock/stock-change/stock-change.wxml-->
+
+<view class='full-page' bindtouchstart="closeActive">
+  <page-title title='实时库存' icon='/utils/img/change.png' isAdd='{{false}}' picker="{{false}}" array='{{dateList}}' name="name" range='{{1}}'></page-title>
+
+  <view class='content' wx:if='{{isSelect}}'>
+    <view>
+      <!-- <cate-picker bind:change='changeCate' cateList='{{cateList}}' range="{{selectCate}}" name='cateName'></cate-picker> -->
+      <view class="section">
+        <!-- <view class="section__title">多列选择器</view> -->
+        <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArr}}">
+          <view class="picker">
+            {{multiArr[0][multiIndex[0]]}}   {{multiArr[1][multiIndex[1]]}}
+          </view>
+        </picker>
+      </view>
+    </view>
+    <view>
+      <cate-picker bind:change='changeSecondCate' cateList='{{cateList[selectCate].nextList}}' range="{{secondCate}}" name='cateName'></cate-picker>
+    </view>
+  </view>
+  <view data-id='{{item.keyId}}' class='{{activeId==item.keyId?"active-item":""}}' wx:for='{{goodList}}'>
+    <view class='good-item'>
+      <view class='good-left-module'>
+        <image src='{{item.goodsPic}}'></image>
+      </view>
+      <view class='good-right-module'> 
+        <view>{{item.goodsName}}</view>
+        <view>{{item.locationName}}</view>
+        <view class='bottom-module'>
+          <view>
+            <text class='kg-unit'>{{item.goodsCount}}{{item.goodsUnit}}</text>
+          </view>
+          <view class='time'>{{item.lastTime}}更新</view>
+        </view>
+      </view>
+      <view class='active-dialog' style='top:{{top}}' wx:if='{{activeId==item.keyId}}'>
+        <!-- <view catchtap='goInList' data-id='{{item.keyId}}'>批次列表</view> -->
+        <view catchtap='goBuy' data-id='{{item.keyId}}'>采购入库</view>
+        <view catchtap='goIn' data-id='{{item.keyId}}'>手动入库</view>
+        <view catchtap='goOut' data-id='{{item.keyId}}'>手动出库</view>
+        <view catchtap='goSet' data-index="{{index}}" data-id='{{item.keyId}}'>预警数量</view>
+        <view catchtap='goRecord' data-id='{{item.keyId}}'>库存记录</view>
+      </view>
+    </view>
+  </view>
+  <view class='empty' wx:if='{{goodList.length==0}}'>
+    暂时没有货品，快去添加吧~
+  </view>
+  <!-- <button class='btn-stock-in'> -->
+  <!-- <image src='/utils/img/stock-in.png' bindtap='goAdd' class='btn-stock-in'></image> -->
+  <!-- </button> -->
+</view>
+
+
+<van-dialog
+  use-slot
+  title="修改预警数量"
+  show="{{ show }}"
+  show-cancel-button
+  bind:close="onClose"
+  bind:confirm='setWarnCount'
+>
+  <form-item label="预警数量" labelStyle="color:#999" itemStyle='padding-right:24rpx;padding-left:24rpx;'  inputStyle="text-align:left" bind:input='getWarnCount' value='{{warnCount}}'></form-item>
+</van-dialog>

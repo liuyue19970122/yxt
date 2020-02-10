@@ -1,0 +1,2 @@
+/* pages/pro_manage/pro_spec_edit/spec.wxss */
+@import '../../../../utils/asset/css/cus-form.wxss';

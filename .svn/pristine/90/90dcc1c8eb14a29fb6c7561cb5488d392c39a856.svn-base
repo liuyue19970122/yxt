@@ -1,0 +1,49 @@
+<!--pages/oa/staff-module/salary-info-list/list.wxml-->
+<!-- <view class='block-module-title'>薪资信息
+  <image class='add-icon-padding' src='/utils/img/stock/add.png' bindtap='goAddSalary'></image>
+</view> -->
+
+<view class='salary-list'>
+  <view class='salary-item' wx:for='{{salaryList}}'>
+    <view class='left'>{{item.type}}</view>
+    <view class='right' bindtap='goSet' data-index='{{index}}'>
+      <view>{{item.money}}</view>
+      <view class='right-icon'></view>
+    </view>
+  </view>
+</view>
+
+<image class='btn-stock-in' src='/utils/img/add.png' bindtap="goAdd"></image>
+
+
+
+<van-popup show="{{ showAddDialog }}" round class='popup' bind:close="onClose">
+  <view class='dialog'>
+    <view class='form-item' wx:if='{{isHave}}'>
+      <view class='title'>已有类型</view>
+      <view class='input-item'>
+        <picker bindchange="bindTypeChange" value="{{typeIndex}}" range="{{typeList}}">
+          <view class="picker">
+            {{typeList[typeIndex]}}
+            <view class='right-icon'></view>
+          </view>
+        </picker>
+      </view>
+      <view class='border-bottom'></view>
+    </view>
+    <view class='form-item' wx:if='{{isNew}}'>
+      <view class='title'>新增类型</view>
+      <view class='input-item'>
+        <input class='input' value='{{typeName}}' bindinput="getTypeName"></input>
+      </view>
+    </view>
+    <view class='form-item'>
+      <view class='title'>金额</view>
+      <view class='input-item'>
+        <input class='input' type='digit' bindinput='bindMoney' value="{{ money }}"></input>
+      </view>
+      <view class='border-bottom'></view>
+    </view>
+    <button class='submit-dialog-btn' bindtap='addType' disabled="{{money==''}}">确定</button>
+  </view>
+</van-popup>

@@ -1,0 +1,66 @@
+/* pages/purchase/address-detail/address-detail.wxss */
+.address-content{
+  width:750rpx;
+  height:100vh;
+  background: #f0f0f0;
+  /* padding: */
+}
+.form-item{
+  padding:24rpx 24rpx;
+  font-size:24rpx;
+  color:#333;
+  display: flex;
+  background: #fff;
+  justify-content: space-between;
+  align-items: center;
+}
+.form--input{
+  text-align: text;
+  display: flex;
+  justify-content: space-between;
+  width:70%;
+}
+.address{
+  width:80%;
+}
+.label{
+  font-weight: 500;
+}
+
+.area-tiggle{
+  width:40rpx;
+  height:40rpx;
+}
+.suggest-content{
+  position: relative;
+}
+.suggest-list{
+  width:500rpx;
+  height:600rpx;
+  position: absolute;
+  top:95rpx;
+  right:24rpx;
+  z-index:1000;
+  background: #fff;
+  box-shadow: 0px 3px 6px rgba(0,0,0,0.2)
+}
+.suggest-item{
+  color:#333;
+}
+.save-btn{
+  width:702rpx;
+  position: fixed;
+  bottom:100rpx;
+  left:24rpx;
+  background: #ff2200;
+  color:#fff;
+  font-size: 32rpx;
+  border-radius: 50rpx;
+}
+button::after{
+  border:0;
+}
+.default-triggle{
+  display: flex;
+  justify-content: flex-end;
+}

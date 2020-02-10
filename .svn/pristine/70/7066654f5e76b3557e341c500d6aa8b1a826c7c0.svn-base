@@ -1,0 +1,184 @@
+// pages/receipt/vage/material/detail.js
+var util = require('../../../../utils/util.js');
+const app = getApp()
+var times = (new Date()).getTime()
+
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+     goodsList:[],
+     goodsName:'',
+     count:'',
+     stockId:'',
+     type:'new',
+     stockIndex:0
+  },
+  getNum(e){
+    this.setData({
+      count:e.detail
+    })
+  },
+  getName(e){
+    var that=this
+    this.setData({
+      goodsName:that.data.goodsList[e.detail.value].goodsName,
+      stockId: that.data.goodsList[e.detail.value].keyId,
+      stockIndex: e.detail.value
+    })
+  },
+  getGoodsList(){
+    var url = app.globalData.baseUrl +'apiStock/stock/inst/list'
+    var data={}
+    util.getRequestListData(url,data,false,this.getRes)
+  },
+  getRes(res){
+    this.setData({
+      goodsList:res.data.content,
+      goodsName: res.data.content[0].goodsName
+    })
+  },
+  onSubmit(){
+    var item={
+      stockId: this.data.stockId == '' ? this.data.goodsList[0].keyId : this.data.stockId,
+      goodsName: this.data.goodsName,
+      count: this.data.count,
+      stockIndex: this.data.stockIndex
+    }
+    var prevPage = util.getPrevPage()
+    var list = prevPage.data.matInfo
+    console.log('prevPage.data.lastType=' + prevPage.data.lastType)
+    if(prevPage.data.lastType=='update'){
+      console.log('update')
+      if (this.data.type == 'new') {
+        console.log('new')
+        var url = app.globalData.baseUrl +'apiMall/food/admin/addAttrMat'
+        var data={
+          foodId: prevPage.data.foodId,
+          attrId:prevPage.data.attrId,
+          stockId: this.data.stockId == '' ? this.data.goodsList[0].keyId : this.data.stockId,
+          count:this.data.count,
+        }
+        util.postRequestList(url,data,false,this.addRes)
+      } else {
+        var url = app.globalData.baseUrl + 'apiMall/food/admin/addAttrMat'
+        var data = {
+          foodId: prevPage.data.foodId,
+          attrId: getPrevPage.data.attrId,
+          stockId: this.data.stockId == '' ? this.data.goodsList[0].keyId : this.data.stockId,
+          count: this.data.count
+        }
+        util.postRequestList(url, data, false, this.addRes)
+      }
+    }else{
+      if (this.data.type == 'new') {
+        list.push(item)
+      } else {
+        list.splice(this.data.index, 1, item)
+      }
+      prevPage.setData({
+        matInfo: list
+      })
+      wx.navigateBack({
+        delta: 1
+      })
+    }
+  },
+  addRes(res) {
+    if (res.data.code == 200) {
+      wx.showModal({
+        title: '提示',
+        content: '添加成功',
+        showCancel: false,
+        success: function (res) {
+          var prevPage = util.getPrevPage()
+          var list = prevPage.data.matInfo
+          var data = {
+            foodId: prevPage.data.foodId,
+            attrId: prevPage.data.attrId,
+            stockId: that.data.stockId == '' ? that.data.goodsList[0].keyId : that.data.stockId,
+            count: that.data.count,
+            goodsName:that.data.goodsName
+          }
+          list.push(data)
+          prevPage.setData({
+            matInfo: list
+          })
+          wx.navigateBack({
+            delta: 1
+          })
+        }
+      })
+
+    }
+  },
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    if (options.index) {
+      var prevPage = util.getPrevPage()
+      var list = prevPage.data.matInfo
+      console.log(list[options.index])
+      this.setData({
+        name: list[options.index].name,
+        stockId: list[options.index].stockId,
+        count: list[options.index].count,
+        type: 'update',
+        index: options.index,
+        lastType:prevPage.data.lastType
+      })
+    }
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+    this.getGoodsList()
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+
+  }
+})

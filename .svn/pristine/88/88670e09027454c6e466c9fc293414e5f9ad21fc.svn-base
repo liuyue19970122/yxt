@@ -1,0 +1,203 @@
+// pages/mall/pro_details/detail.js
+let util = require('../../../../utils/util.js');
+const app = getApp()
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    pageType:'detail',
+    picList: [],
+    goodsInfo:{},
+    detailInfo:''
+  },
+  //bindCollect收藏///org/collect/add添加一个收藏
+  //collectType//收藏类型(1:店铺,2:商品)//targetId
+  ///org/collect/delete
+  bindCollect(e) {
+    console.log(e)
+    let _this = this
+    let collect = this.data.goodsInfo.isCollect
+    if (collect==='1') {
+      let data = { collectId: _this.data.goodsInfo.collectId }
+      wx.showModal({
+        title: '提示',
+        content: '是否取消收藏',
+        success(res) {
+          if (res.confirm) {
+            _this.delCollect(data)
+          } else if (res.cancel) {
+            console.log('用户点击取消')
+          }
+        }
+      })
+    } else {
+      let data = { collectType: 2, targetId: _this.data.goodsInfo.keyId }
+      _this.addCollect(data)
+    }
+  },
+  addCollect(data) {
+    let url = app.globalData.baseUrl + 'apiUser/org/collect/add'
+    util.postRequestList(url, data, false, this.addCollectRes)
+  },
+  addCollectRes(res, actType) {
+    console.log(res)
+    if (res.data.code == '200') {
+      let result=res.data.content
+      let goodsInfo = this.data.goodsInfo
+      goodsInfo.isCollect = '1'
+      goodsInfo.collectId = result.keyId
+      this.setData({ goodsInfo })
+      wx.showToast({
+        title: '收藏成功',
+      })
+    }
+  },
+  delCollect(data) {
+    let url = app.globalData.baseUrl + 'apiUser/org/collect/delete'
+    util.postRequestList(url, data, false, this.delCollectRes)
+  },
+  delCollectRes(res, actType) {
+    console.log(res)
+    if (res.data.code == '200') {
+      let goodsInfo = this.data.goodsInfo
+      goodsInfo.isCollect = '0'
+      this.setData({ goodsInfo })
+    }
+  },
+  //获取商品实例详情///store/inst/detail
+  //goodsId
+  getProDetail(id, actType) {
+    let url = app.globalData.baseUrl + 'apiMall/store/inst/detail'
+    let data = { goodsId: id }
+    util.getRequestListData(url, data, actType, this.proDetailRes)
+    //getRequestListData = function (url, data,actType, callBack)
+  },
+  proDetailRes(res, actType) {
+    let data = res.data.content
+    let goodsInfo = data.goodsInfo
+    let detailInfo = data.detailInfo
+    let imgList = data.imgList
+    let picList=[]
+    imgList.forEach(item=>{
+      picList.push(item.url)
+    })
+    let attrList = data.attrList
+    if(attrList.length>1){
+      attrList.sort((a,b)=>{
+        return a.attrPrice - b.attrPrice
+      })
+    }
+    let spec=attrList[0]
+    let cusNormalPrice = util.getMoney(spec.attrNormalPrice).toString() 
+    let cusSalePrice = util.getMoney(spec.attrPrice).toString() 
+    goodsInfo.cusNormalPrice = cusNormalPrice
+    goodsInfo.cusSalePrice = cusSalePrice
+    let specSelArr = []
+    this.setData({
+      picList: picList,
+      goodsInfo: goodsInfo,
+      detailInfo: detailInfo.detail
+    })
+  },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    let actType=options.actType
+    this.setData({pageType:actType})
+    console.log(actType)
+    console.log(options)
+    if(actType==='preview'){
+      let infoStr = options.proInfo
+      let infoStr1 = infoStr.replace(/\*\*/g, '=')
+      let infoStr2 = infoStr1.replace(/\*/g,'&')
+      let proData = JSON.parse(infoStr2) 
+      let specLsit = JSON.parse(options.specLsit)
+      // let cusNormalPrice = specLsit[0].normalPrice
+      // let cusSalePrice = specLsit[0].attrPrice
+      if (specLsit[0].normalPrice){
+        let ap = util.accMul(specLsit[0].normalPrice,100)
+        proData.cusNormalPrice = util.getMoney(ap).toString()
+      }
+      if (specLsit[0].attrNormalPrice){
+        let ap = util.accMul(specLsit[0].attrNormalPrice, 100)
+        proData.cusNormalPrice = util.getMoney(ap).toString()
+      }
+      if (specLsit[0].attrPrice){
+        let ap = util.accMul(specLsit[0].attrPrice, 100)
+        proData.cusSalePrice = util.getMoney(ap).toString()
+      }
+      // proData.cusNormalPrice = cusNormalPrice
+      // proData.cusSalePrice = cusSalePrice
+      console.log(specLsit)
+      let imgListStr = options.imgList.replace(/\*\*/g, '=')
+      let imgListStr1 = imgListStr.replace(/\*/g, '?')
+      let imgList = JSON.parse(imgListStr1)
+      let editorHtml = proData.detail
+      console.log(editorHtml)
+      this.setData({
+        picList: imgList,
+        goodsInfo: proData,
+        detailInfo: editorHtml
+      })
+      console.log(proData)
+    }
+    if(actType==='detail'){
+      let id=options.id
+      let actType=false
+      this.getProDetail(id, actType)
+    }
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+
+  }
+})

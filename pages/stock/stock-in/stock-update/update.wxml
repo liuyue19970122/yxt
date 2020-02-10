@@ -1,0 +1,68 @@
+<!--pages/stock/stock-in/stock-in.wxml-->
+<van-notify id="van-notify" />
+<page-title title='添加货品' isAdd="{{false}}" picker="{{false}}"></page-title>
+<view class='form-container'>
+  <view class='form-item form-item__inline'>
+    <label class='form-item__label'><text style='color:#fe2200;'>*</text>货品类别</label>
+    <picker mode="multiSelector" class='form-item__content'
+      bindchange="bindCateChange"
+      bindcancel='bindCateCancel'
+      bindcolumnchange="bindCateColumnChange" 
+      value="{{multiProIndex}}" 
+      range-key='cateName'
+      range="{{multiProArray}}">
+      <view class="picker">{{multiCateName}}</view>
+    </picker>
+    <view>
+      <text class="set-btn" bindtap="toSetCate">添加分类</text>
+      <image class='triggle-close'src='/utils/img/close.png'></image>
+    </view>
+  </view>
+  <view class='form-item form-item__inline'>
+    <label class='form-item__label'>货品名称</label>
+    <view class="form-item__content">{{proInfo.goodsName}}</view>
+    <!-- <input placeholder='请输入货品名称(必填)'
+      bindinput='bindNameInput'
+      value='{{proInfo.goodsName}}' 
+      class='form-item__content content-padding'></input> -->
+  </view>
+  <view class='form-item form-item__inline'>
+    <label class='form-item__label'>货品规格</label>
+    <view class="form-item__content">{{selUnitName}}</view>
+  </view>
+  <view class='form-item form-item__inline'>
+    <label class='form-item__label'>库存位置</label>
+    <picker class='form-item__content'
+        bindchange="bindLocatinoChange"
+        bindcancel='bindLocatinoCancel'
+        value="{{locationIndex}}" 
+        range-key='locationName'
+        range="{{locationList}}">
+      <view class="picker">{{selLocationName}}</view>
+    </picker>
+    <image class='triggle-close' src='/utils/img/close.png'></image>
+  </view>
+    <view class='stock-form-item'>
+      <view class='label'>货品图片<text style="font-size:22rpx;">(点击可更换)</text></view>
+    </view>
+    <view class='btn-box border-bottom'>
+      <button wx:if='{{isReadon}}'>
+        <image class='upload-btn' src='{{proInfo.goodsPic}}'></image>
+      </button>
+      <button wx:if='{{!isReadon}}' catchtap='upImage'>
+        <image src='{{proInfo.goodsPic}}' class='upload-btn'></image>
+      </button>
+    </view>
+    <view class='form-item'>
+      <view class='label'>备注</view>
+    </view>
+    <view>
+      <textarea class='remark-content' 
+        bindinput='getDes' 
+        value='{{proInfo.description}}' 
+        placeholder="请输入关于商品的其它信息（如：来源信息）~" />
+    </view>
+  </view>
+<view class="btn-container">
+  <button class='btn-full btn-red' bindtap='upadteGoods' >确认</button>
+</view>

@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "怡县通商城",
+  "usingComponents": {
+    "van-search": "/miniprogram_npm/vant-weapp/search/index",
+    "cus-tab-sort":"/components/tab-sort/index"
+  }
+}

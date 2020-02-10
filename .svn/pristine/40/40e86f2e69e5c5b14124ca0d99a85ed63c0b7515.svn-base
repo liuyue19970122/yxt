@@ -1,0 +1,69 @@
+<!--index.wxml-->
+
+<!-- 搜索及banner -->
+<view >
+  <swiper class='banner-box' indicator-color='rgba(230,230,230,0.8)' indicator-active-color='#fe2200' autoplay='{{true}}' indicator-dots="{{true}}" duration="3000">
+    <block wx:for="{{bannerList}}"  wx:key="*this">
+      <swiper-item style='border-radius:10rpx'>
+        <image class='banner' src='{{item}}'></image>
+      </swiper-item>
+    </block>
+  </swiper>
+</view>
+<!-- 
+<view class='banner-box'>
+  <banner width="700rpx" height='280rpx' padding="0" radius='20rpx' background='url("http://118.24.172.172:9999/yxt/img/banner.png") no-repeat'></banner>
+</view> -->
+
+<view class='second-banner-box first-banner-box'>
+  <banner width="340rpx" titleHeight='184rpx' radius='20rpx' color='0px 3px 6px #FEA836' height='200rpx' dot="{{orderList.length}}" bind:dotFn='goOrder' padding="10rpx 40rpx" margin="0" title="今日销售额" num="1,000.00" background='#FEA836 url("http://118.24.172.172:9999/yxt/img/banner1.png") no-repeat'></banner>
+  <banner width="340rpx" titleHeight='184rpx' radius='20rpx' color='0px 3px 6px #FBB34C' height='200rpx' dot="{{warnList.length}}" bind:dotFn='goWarn' padding="10rpx 40rpx" margin="0" title="今日采购额" num="1,000.00" background='#FBB34C url("http://118.24.172.172:9999/yxt/img/8ed975cd-5918-434c-b4db-63f54b026270.png") no-repeat'></banner>
+</view>
+<!--本月销售额 本月毛利润 -->
+<view class='second-banner-box'>
+  <banner width="340rpx" titleHeight='184rpx' radius='20rpx' color='0px 3px 6px #89ADFF' height='200rpx' padding="10rpx 40rpx" margin="0" title="本月销售额" num="1,000.00" background='#89ADFF url("http://118.24.172.172:9999/yxt/img/banner3.png") no-repeat'></banner>
+  <banner width="340rpx" titleHeight='184rpx' radius='20rpx' color='0px 3px 6px #73D7FD' height='200rpx' padding="10rpx 40rpx" margin="0" title="本月毛利润" num="1,000.00" background='#73D7FD url("http://118.24.172.172:9999/yxt/img/banner4.png") no-repeat'></banner>
+</view>
+<!-- echart图 -->
+<!-- <view class='echart-title'>
+  <view>
+    <view>成交走势</view>
+    <view>
+      <picker bindchange="bindPickerChange" value="{{range}}" range="{{rangeArray}}" range-key="name">
+        <view class="picker">
+          {{rangeArray[range].name}}
+          <van-icon name="arrow-down" size='32rpx' />
+        </view>
+      </picker>
+    </view>
+  </view>
+  <view>
+    <view class='btn' bindtap='goHandleOrder' wx:if='{{isGong}}'><view class='add'>+</view>开单</view>
+  </view>
+</view> -->
+<view class='echarts-time'>
+  <view bindtap='selectTime' class='{{timeIndex==0?"select-item":""}}' data-index='0'>月</view>
+  <view bindtap='selectTime' class='{{timeIndex==1?"select-item":""}}' data-index='1'>季</view>
+  <view bindtap='selectTime' class='{{timeIndex==2?"select-item":""}}' data-index='2'>年</view>
+</view>
+<view class="echart-box">
+  <ec-canvas id="mychart-dom-line" canvas-id="mychart-line" ec="{{ec}}"></ec-canvas>
+</view>
+<!-- 菜单列表 -->
+<view class='panel-box'>
+  <panel menuList='{{menuList}}'></panel>
+</view>
+<view class='bottom-info'>
+  <image src='/utils/img/arrive-bottom.png'></image>
+</view>
+<view class='unlogin-btn' bindtap='unlogin'>注销</view>
+
+
+<!-- <view class='add-order-btn'> -->
+<!-- <cover-view class='add-order-btn' style='top:{{btnTop}}px'>
+</cover-view> -->
+<!-- <cover-image src='/utils/img/page-icon/add-order-1.png' class='add-order-btn' style='top:{{btnTop}}px'  catchtouchmove="buttonMove" catchtouchstart="buttonStart" mode='scaleToFill'></cover-image> -->
+<image src='/utils/img/page-icon/add-order.png' class='add-order-btn' style='top:{{btnTop}}px' catchtouchmove="buttonMove" catchtouchstart="buttonStart" mode='scaleToFill'></image>
+<!-- <image src='/utils/img/add.png' style='top:{{btnTop}}px' class='op-icon' catchtouchmove="buttonMove" catchtouchstart="buttonStart"></image> -->
+
+<!-- </view> -->

@@ -1,0 +1,14 @@
+<!--pages/oa/role-list/role-list.wxml-->
+<page-title title='角色列表' picker='{{false}}' icon='http://118.24.172.172:9999/yxt/img/menu/role.png' bind:add='goAdd'></page-title>
+<view class='role-list'>
+  <list-item wx:for='{{roleList}}' wx:key='index' height="100rpx"  data-index='{{index}}' catch:tap='bindShowSet'>
+    <view slot='left'>{{item.roleName}}</view>
+    <view slot='right'>
+      <image class='set-icon'  src='/utils/img/stock/set.png' ></image>
+    </view>
+  </list-item>
+</view>
+
+<!-- <image src='/utils/img/add.png' bindtap='goAdd' class='btn-stock-in'></image> -->
+
+<van-action-sheet bind:close='bindCloseSet' show="{{ showSetDialog }}" actions="{{ actions }}" bind:select="onSelect" />

@@ -1,0 +1,29 @@
+<!--pages/oa/add-leave/add.wxml-->
+<form-item label="请假类型" labelStyle="color:#999" itemStyle='padding-right:24rpx;padding-left:24rpx;' isPicker='{{true}}' array='{{typeList}}' inputStyle="text-align:left" bind:change='selectType' value='{{type}}'></form-item>
+
+<form-item label="开始时间" labelStyle="color:#999" itemStyle='padding-right:24rpx;padding-left:24rpx;' inputStyle="text-align:left;min-width:200rpx" isTimePicker='{{true}}' bind:change='getStart' value='{{start}}' date='{{start}}'></form-item>
+
+<form-item label="结束时间" labelStyle="color:#999" itemStyle='padding-right:24rpx;padding-left:24rpx;' inputStyle="text-align:left;min-width:200rpx" isTimePicker='{{true}}' bind:change='getEnd' value='{{end}}' date='{{end}}'></form-item>
+
+<view class='form-item border-bottom'>
+  <view class='label'>请假事由</view>
+  <textarea class='reason-content' bindinput='getReason' value='{{reason}}' placeholder="请输入请假事由" placeholder-style="font-size:24rpx;color:#999" />
+
+</view>
+
+<view class='form-item form-item-flex  border-bottom'>
+  <view class='label'>审核人</view>
+  <view class='form--input'>
+    <!-- <view> -->
+      <view class='name' >
+        <view wx:for='{{name}}' class='name-item'>{{item.name}}
+          <image src='/utils/img/del.png' class='del-icon' data-index='{{index}}' bindtap='delPerson'></image>
+        </view>
+      </view>
+    <!-- </view> -->
+
+    <image class='add-icon' bindtap='goAdd' src='/utils/img/add.png'></image>
+  </view>
+</view>
+
+<button class='submit-btn-raduis' bindtap='goSubmit' disabled='{{start==""||end==""||start>end||type==""}}'>确认提交</button>

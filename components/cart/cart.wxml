@@ -1,0 +1,15 @@
+<!--components/cart/cart.wxml-->
+<view class='cart-container'>
+  <view class='cart'  wx:if='{{hideCart}}'>
+    <view class='cart-img' bindtap='bindShowCard'>
+      <image src='{{empty?"./asset/img/empty_cart.png":"./asset/img/gouwuche.png"}}'></image>
+      <text wx:if='{{!empty}}'>{{count}}</text>
+    </view>
+  </view>
+  <view class='cart-money {{empty?"empty-color":"not-empty__color"}}'>
+    <text wx:if='{{empty}}'>购物车是空的</text>
+    <text wx:if='{{!empty}}' class='total-money'>{{'￥'+totalMoney}}</text>
+    <text wx:if='{{!empty&&favMoney>0}}' class='fav-money'>{{'优惠￥'+favMoney}}</text>
+  </view>
+  <view class='cart-btn {{empty||count===0?"empty-bgcolor":"not-empty__bgcolor"}}' bindtap='bindToSubmit'>选好了</view>
+</view>

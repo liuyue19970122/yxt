@@ -1,0 +1,37 @@
+<!--pages/mall/goods-list/goods-list.wxml-->
+<view class='content'>
+   <view class='left-module'>
+     <view class='left-item'>肉类家禽</view>
+     <view  class='left-item'>肉类家禽</view>
+     <view  class='left-item'>肉类家禽</view>
+   </view>
+   <view class='right-module'>
+     <view class='cate-module'>
+       <view class='cate-item'>全部</view>
+       <view class='cate-item'>柑橘XX</view>
+       <view class='cate-item'>xxxx</view>
+     </view>
+     <view class='goods-list'>
+       <view class='goods-item'>
+          <view class='goods-item-img'>
+            <image></image>
+          </view>
+          <view class='goods-item-info'>
+            <view class='goods-name'>新鲜西瓜</view>
+            <view class='goods-org-price'>12.00</view>
+            <view class='goods-real-info'>
+              <view class='goods-real-price'>10.00</view>
+              <view class=''>销售中</view>
+            </view>
+            <view class='goods-btn-group'>
+               <button>修改</button>
+               <button>商品下架</button>
+            </view>
+          </view>
+       </view>
+       <view class='goods-item'>
+          
+       </view>
+     </view>
+   </view>
+</view>

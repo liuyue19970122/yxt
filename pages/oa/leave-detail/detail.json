@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "请假详情",
+  "usingComponents": {
+    "van-tag": "/miniprogram_npm/vant-weapp/tag/index",
+    "van-popup": "/miniprogram_npm/vant-weapp/popup/index"
+  }
+}

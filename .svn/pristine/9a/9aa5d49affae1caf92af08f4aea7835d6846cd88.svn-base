@@ -1,0 +1,6 @@
+<page-title title='材料信息' isAdd='{{false}}' picker='{{false}}'></page-title>
+<view class='spec-form'>
+  <form-item label="选择材料"  isRequired='{{true}}' isReadon="{{type=='update'}}"  key='goodsName' isPicker='{{true}}' array='{{goodsList}}' inputStyle="text-align:left" bind:change='getName'></form-item>
+  <form-item label="数量" isRequired='{{true}}' type='digit' inputStyle="text-align:left" bind:input='getNum' value='{{num}}'></form-item>
+</view>
+<button class='submit-btn-raduis' bindtap='onSubmit' disabled="{{name==''||price==''}}">确认</button>

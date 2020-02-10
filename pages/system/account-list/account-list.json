@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "账户变更记录",
+  "usingComponents": {
+    "acc-item-border":"/components/account-item-border/acc-item-border"
+  }
+}

@@ -1,0 +1,11 @@
+<!--pages/oa/staff-info/info.wxml-->
+<view class='form'>
+  <form-item label='姓名：' value='{{user.name}}'></form-item>
+  <form-item label='电话：' value='{{user.mobile}}'></form-item>
+  <form-item label="岗位：" isRequired='{{true}}' key='roleName' isPicker='{{true}}' array='{{roleList}}' bind:change='getRole' value='{{roleIndex}}'></form-item>
+  <form-item label='基本工资：' value='{{user.salary}}'></form-item>
+  <form-item label="入职时间：" inputStyle="min-width:200rpx" isTimePicker='{{true}}' bind:change='getDate' value='{{date}}' date='{{date}}'></form-item>
+  <form-item label="状态：" isRequired='{{true}}' key='status' isPicker='{{true}}' array='{{statusList}}' bind:change='getStatus' value='{{statusIndex}}'></form-item>
+</view>
+
+<button class='big-submit-btn'>确定</button>

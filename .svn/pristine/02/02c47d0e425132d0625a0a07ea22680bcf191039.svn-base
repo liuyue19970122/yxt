@@ -1,0 +1,94 @@
+<!--pages/stock/stock-record/stock-record.wxml-->
+
+<!--pages/stock/stock-change/stock-change.wxml-->
+
+<view class='full-page' bindtouchstart="closeActive">
+  <page-title title='库存记录' icon='/utils/img/menu-icon/stock/record.png' isAdd='{{false}}' picker="{{false}}" array='{{dateList}}' name="name" range='{{1}}'></page-title>
+
+  <van-tabs active="{{ active }}" bind:change="onChange">
+    <van-tab title="全部">
+      <view data-id='{{item.id}}' wx:for='{{recordList}}'>
+        <view class='good-item'>
+          <view class='good-right-module'>
+            <view class='type-info-module'>
+              <view>
+                <view>操作数量：{{item.opCount}}</view>
+                <view>操作后数量： {{item.afterCount}}</view>
+              </view>
+              <view>{{item.typeName}}</view>
+            </view>
+            <view class='bottom-module'>
+              <view class='time'>操作时间：
+               {{item.crtTime}}
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </van-tab>
+    <van-tab title="入库">
+      <view data-id='{{item.id}}' wx:if='{{item.opType=="+"}}' wx:for='{{recordList}}'>
+          <view class='good-item'>
+          <view class='good-right-module'>
+            <view class='type-info-module'>
+              <view>
+                <view>操作数量：{{item.opCount}}</view>
+                <view>操作后数量： {{item.afterCount}}</view>
+              </view>
+              <view>{{item.typeName}}</view>
+            </view>
+            <view class='bottom-module'>
+              <view class='time'>操作时间：
+               {{item.crtTime}}
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </van-tab>
+    <van-tab title="修正">
+      <view data-id='{{item.id}}' wx:for='{{recordList}}' wx:if='{{item.opType=="*"}}'>
+         <view class='good-item'>
+          <view class='good-right-module'>
+            <view class='type-info-module'>
+              <view>
+                <view>操作数量：{{item.opCount}}</view>
+                <view>操作后数量： {{item.afterCount}}</view>
+              </view>
+              <view>{{item.typeName}}</view>
+            </view>
+            <view class='bottom-module'>
+              <view class='time'>操作时间：
+               {{item.crtTime}}
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </van-tab>
+    <van-tab title="出库">
+      <view data-id='{{item.id}}' wx:if='{{item.opType=="-"}}' wx:for='{{recordList}}'>
+         <view class='good-item'>
+          <view class='good-right-module'>
+            <view class='type-info-module'>
+              <view>
+                <view>操作数量：{{item.opCount}}</view>
+                <view>操作后数量： {{item.afterCount}}</view>
+              </view>
+              <view>{{item.typeName}}</view>
+            </view>
+            <view class='bottom-module'>
+              <view class='time'>操作时间：
+               {{item.crtTime}}
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </van-tab>
+  </van-tabs>
+  <view>
+
+  </view>
+
+</view>

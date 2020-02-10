@@ -1,0 +1,5 @@
+<!--components/form-title/index.wxml-->
+<view class='title-font'>
+  <text><text wx:if='{{required}}' style='color:#fe2200;'>*</text>{{title}}</text>
+  <slot></slot>
+</view>

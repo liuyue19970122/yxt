@@ -1,0 +1,72 @@
+<!--pages/pro_manage/pro_spec_edit/spec.wxml-->
+<van-notify id="van-notify" />
+<form-title title='规格列表'></form-title>
+<view class="form-container">
+ <view class='form-item form-item__inline'>
+    <label class='form-item__label'>商品名称</label>
+    <view class='form-item__content'>{{proName}}</view>
+  </view>
+  <view class='form-item form-item__inline'>
+    <label class='form-item__label'><text style='color:#fe2200;'>*</text>规格名称</label>
+    <input placeholder='请输入名称' 
+      bindinput='bindinputName'
+      value='{{specInfo.attrName}}'
+      class='form-item__content'></input>
+  </view>
+   <view class='form-item form-item__inline'>
+    <label class='form-item__label'><text style='color:#fe2200;'>*</text>原价(元)</label>
+    <input placeholder='请输入原价' 
+      bindinput='bindinputNormalPrice'
+      value='{{specInfo.normalPrice}}'
+      class='form-item__content'></input>
+  </view>
+  <view class='form-item form-item__inline'>
+    <label class='form-item__label'><text style='color:#fe2200;'>*</text>促销价(元)</label>
+    <input placeholder='请输入促销价'  
+      bindinput='bindinputAttrPrice'
+      value='{{specInfo.attrPrice}}'
+      class='form-item__content'></input>
+  </view>
+  <view class='form-item form-item__inline'>
+    <label class='form-item__label'><text style='color:#fe2200;'>*</text>上架数量</label>
+    <input placeholder='请输入上架数量'
+      bindinput='bindinputCount' 
+      value='{{specInfo.upCount}}'
+      class='form-item__content'></input>
+  </view>
+  <!-- <view class='form-item form-item__inline'>
+    <label class='form-item__label'><text style='color:#fe2200;'>*</text>原材料配比</label>
+    <input placeholder='请输入原材料配比' 
+      bindinput='bindinputMulti'
+      value='{{specInfo.stockMulti}}'
+      class='form-item__content'></input>
+  </view> -->
+  <view class='form-item__switch form-item__inline'>
+    <label class='form-item__label'><text style='color:#fe2200;'>*</text>是否上架</label>
+    <view style="height:42rpx;">
+      <van-switch checked="{{switchChecked}}" active-color="#fe2200" inactive-color="#fff" bind:change="switchChange" data-index='{{index}}' size='38rpx'/>
+    </view>
+  </view>
+</view>
+<view>
+  <form-title title='原材料配比' required='{{true}}'>
+    <image src='/utils/img/stock/add.png' class='add-spec' bindtap='handleAddAtl'></image>
+  </form-title>
+  <view class="mtl-container">
+    <view class='none-content' wx:if='{{!mtlList.length}}'>暂未设置</view>
+    <view class="mtl-card" wx:for="{{mtlList}}" wx:key='mtlList'>
+      <view class="mtl-info">
+        <text class="mtl-name">{{item.goodsName}}</text>
+        <text class="mtl-unit">{{item.count}}</text>
+        <text>{{item.goodsUnit}}</text>
+      </view>
+      <view class="mtl-edit">
+        <text data-index='{{index}}' bindtap="handleMtlDel">删除</text>
+      </view>
+        
+    </view>
+  </view>
+</view>
+<view class='btn-container'>
+  <button class="btn-full btn-red" bindtap='submitAddSpecInfo'>确认</button>  
+</view>

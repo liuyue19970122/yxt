@@ -1,0 +1,29 @@
+<!--pages/purchase/distri-detail/distri-detail.wxml-->
+<view>
+  <view></view>
+  <view class='detail-info'>
+    <view class='order-detail'>
+      <view>
+        <image class='icon' src='/utils/img/page-icon/send.png'></image>
+      </view>
+      <view class='top-right-module'>
+        <view class='order-num'>订单号：265335340359340</view>
+        <view class='address'>地址：四川广安市XXXXXXXXX</view>
+        <view class='p-time'>配送时间：10：00</view>
+      </view>
+    </view>
+    <view class='btn-group'>
+      <button>
+        <image src='/utils/img/call.png'></image>
+        <view>联系顾客
+        </view>
+      </button>
+      <button>
+        <image src='/utils/img/address.png'></image>
+        <view>查看地址
+        </view>
+      </button>
+    </view>
+  </view>
+
+</view>

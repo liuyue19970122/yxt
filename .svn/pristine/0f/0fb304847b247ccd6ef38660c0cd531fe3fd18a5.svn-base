@@ -1,0 +1,170 @@
+// pages/stock/check-detail/detail.js
+var util = require('../../../../utils/util.js');
+const app = getApp()
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    stockList: [],
+    stockIndex: 0,
+    goodsList:[],
+    type:''
+  },
+  getStockList() {
+    var url = app.globalData.baseUrl + 'apiStock/stock/location/list'
+    var data = {
+      pageSize: 9999,
+      pageNum: 1
+    }
+    util.getRequestListData(url, data, false, this.stockListRes)
+  },
+  stockListRes: function(res) {
+    wx.hideLoading()
+    var list = res.data.content.list
+    this.setData({
+      stockList: list
+    })
+  },
+  bindChangeStock(e) {
+    this.setData({
+      stockIndex: e.detail.value
+    })
+  },
+  goAdd() {
+    wx.navigateTo({
+      url: '../add-check/add?stockId=' + this.data.stockList[this.data.stockIndex].keyId,
+    })
+  },
+  goCancel(){
+    if (this.data.goodsList.length==0){
+      wx.navigateBack({
+        delta:1
+      })
+      return false
+    }
+    var list=this.data.goodsList.map((item)=>{
+      return item.fixKeyId
+    })
+    var url = app.globalData.baseUrl + "apiStock/stock/fix/cancel"
+    var data={
+      fixIds:list
+    }
+    util.postRequestList(url,data,false,this.cancelRes)
+  },
+  cancelRes(res){
+    
+    if(res.data.code==200){
+      wx.navigateBack({
+        delta: 1
+      })
+    }else{
+      wx.showToast({
+        title: res.data.message,
+      })
+    }
+  },
+  goSet(e){
+    if(this.data.type=='look'){
+      return false
+    }
+    wx.navigateTo({
+      url: '../set-check/set?index='+e.currentTarget.dataset.index,
+    })
+  },
+  goSubmit() {
+    if (this.data.goodsList.length == 0) {
+      wx.navigateBack({
+        delta: 1
+      })
+      return false
+    }
+    var list = this.data.goodsList.map((item) => {
+      return item.fixKeyId
+    })
+    var url = app.globalData.baseUrl + "apiStock/stock/fix/submit"
+    var data = {
+      fixIds: list
+    }
+    util.postRequestList(url, data, false, this.submitRes)
+  },
+  submitRes(res) {
+    if (res.data.code == 200) {
+      wx.navigateBack({
+        delta: 1
+      })
+    } else {
+      wx.showToast({
+        title: res.data.message,
+      })
+    }
+  },
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function(options) {
+    if(options.type){
+      var prevPage=util.getPrevPage()
+      var list=[]
+      list.push(prevPage.data.goodsList[options.index])
+      console.log(list)
+      this.setData({
+        type:options.type,
+        goods:prevPage.data.goodsList[options.index],
+        goodsList: list
+      })
+    }else{
+      this.getStockList()
+    }
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function() {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function() {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function() {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function() {
+
+  }
+})

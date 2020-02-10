@@ -1,0 +1,8 @@
+{
+  "navigationBarBackgroundColor": "#ffffff",
+  "navigationBarTitleText": "订单管理",
+  "navigationBarTextStyle": "black",
+  "usingComponents": {
+    "tab-view": "/components/tab-view/tab-view"
+  }
+}

@@ -1,0 +1,153 @@
+// pages/common/reset-pwd/reset-pwd.js
+import Notify from '../../../miniprogram_npm/vant-weapp/notify/notify';
+var util = require('../../../utils/util.js');
+const app = getApp()
+var timestamp = Date.parse(new Date())
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    seconds:0,
+    mobile:'',
+    password:'',
+    confirmPwd:'',
+    code:''
+  },
+  bindData(e){
+    var type=e.currentTarget.dataset.type
+    var that=this
+    switch (type){
+      // case 'code':
+      //   that.setData({
+      //     code: e.detail.value
+      //   })
+      //   break;
+      case 'password':
+        that.setData({
+          password: e.detail
+        })
+        break;
+      case 'confirm':
+        that.setData({
+          confirmPwd: e.detail
+        })
+        break;
+    }
+  },
+  goSubmit(){
+    if (this.data.password.length<6) {
+      Notify({
+        type: 'warning',
+        message: '密码不能小于六位数'
+      });
+      return false
+    }
+    if (this.data.confirmPwd!=this.data.password) {
+      Notify({
+        type: 'warning',
+        message:'密码不一致'
+      });
+      return false
+    }
+    var url = app.globalData.baseUrl + 'apiUser/user/resetPwd'
+    var data={
+      mobile: this.data.mobile,
+      password:this.data.password,
+    }
+    this.postRequest(url,data,this.submitRes)
+  },
+  postRequest(url, data, callback) {
+    wx.request({
+      url: url,
+      data: data,
+      method: "post",
+      header: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      success: function (res) {
+        if (res.statusCode == 200) {
+          callback(res)
+        }
+      }
+    })
+  },
+  submitRes(res){
+    if(res.data.code==200){
+      wx.showModal({
+        title: '提示',
+        content: '修改成功',
+        showCancel:false,
+        success(res){
+          wx.navigateBack({
+            delta:2
+          })
+        }
+      })
+    }else{
+      wx.showToast({
+        title:res.data.message,
+      })
+    }
+  },
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    if(options.mobile){
+      this.setData({
+        mobile:options.mobile
+      })
+    }
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+
+  }
+})

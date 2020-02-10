@@ -1,0 +1,8 @@
+<!--pages/oa/staff-manage/staff-manage.wxml-->
+<!-- <page-title title='员工管理' isAdd='{{true}}' icon='/utils/img/stork-set.png' picker='{{false}}' bind:add='goAdd'></page-title> -->
+<search placeholder='请输入员工姓名' bind:search='goSearch' value='{{userName}}' bind:input='bindUserName'></search>
+<view class='staff-list'>
+  <shadow-list bind:get='goDetail' cusStyle='margin:40rpx 24rpx' shadowList='{{staffList}}'></shadow-list>
+</view>
+
+<image class='btn-stock-in' bindtap='goAdd' src='/utils/img/add.png'></image>

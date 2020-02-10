@@ -1,0 +1,12 @@
+<!--pages/common/reset-pwd/reset-pwd.wxml-->
+<van-notify id="van-notify" />
+<view>
+  <view class='form'>
+    <form-item label='新密码' placeholder='请输入六位数密码' type='password' value='{{password}}' placeStyle='font-size:24rpx' inputStyle='text-align:left' bindinput="bindData" data-type='password'></form-item>
+    <form-item label='确认密码' placeholder='请输入六位数密码' type='password' value='{{confirmPwd}}' placeStyle='font-size:24rpx' inputStyle='text-align:left' bindinput="bindData" data-type='confirm'></form-item>
+  </view>
+</view>
+<!-- </view> -->
+<view class='op-step-group'>
+  <button class='step-btn' bindtap='goSubmit'>确定</button>
+</view>

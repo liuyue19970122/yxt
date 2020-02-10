@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "添加桌位",
+  "usingComponents": {
+    "form-item":"/components/form-item/form-item"
+  }
+}

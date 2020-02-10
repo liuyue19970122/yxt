@@ -1,0 +1,141 @@
+// pages/receipt/table-list/list.js
+var util = require('../../../utils/util.js');
+const app = getApp()
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    desktopList:[],
+    activeId:0,
+    type:'',
+    lock:false
+  },
+  getList() {
+    var url = app.globalData.baseUrl + 'apiMall/food/desktop/list'
+    util.getRequestList(url, false, this.listRes)
+  },
+  listRes(res){
+    if(res.data.code==200){
+      this.setData({
+        desktopList:res.data.content
+      })
+    }
+  },
+  goAdd:function(){
+    wx.navigateTo({
+      url: '../table-add/add',
+    })
+  },
+  clickItem: function (e) {
+    console.log('click')
+    this.data.lock = true;
+    this.setData({
+      activeId: e.currentTarget.dataset.id
+    })
+  },
+  goUpdate(e){
+    
+    wx.navigateTo({
+      url: '../table-update/update?index='+e.currentTarget.dataset.index,
+    })
+  },
+  closeActive: function () {
+    this.setData({
+      activeId: 0
+    })
+  },
+  goPay(e){
+    if (this.data.lock) {
+      this.data.lock = false;
+      return;
+    }
+    var id = e.currentTarget.dataset.id
+    var status = e.currentTarget.dataset.status
+    if(this.data.type==''){
+      if (status!=0){
+        wx.navigateTo({
+          url: '../submit-order/submit?tableId=' + id,
+        })
+      }else{
+        wx.navigateTo({
+          url: '../order-food/cart?tableId=' + id,
+        })
+      }
+    }else{
+      var prevPage=util.getPrevPage()
+      console.log(e.currentTarget.dataset.id)
+      prevPage.setData({
+        tableId: e.currentTarget.dataset.id
+      })
+      wx.navigateBack({
+        delta:1
+      })
+    }
+  },
+  goOrder(){
+    wx.navigateTo({
+      url: '../order-food/cart',
+    })
+  },
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    if(options.type){
+      this.setData({
+        type:options.type
+      })
+    }
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+    this.getList()
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+
+  }
+})

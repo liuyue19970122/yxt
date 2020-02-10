@@ -1,0 +1,24 @@
+<!--pages/mall/mall-my-ghs/ghs.wxml-->
+
+<view wx:for='{{storeList}}' wx:key='{{index}}'>
+  <view class='card'>
+    <view class='img-container'>
+      <image src='{{item.src}}'></image>
+    </view>
+    <view class='info'>
+      <view class='info-name'>{{item.name}}</view>
+      <view class='info-other'>
+        <text>{{item.subName}}</text>
+        <image src='../../../utils/img/biaoqian.png' bindtap='bindTag'></image>
+      </view>
+    </view>
+  </view>
+  <view class='info-mark'>
+    <text>{{item.content}}</text>
+  </view>
+</view>
+<view style='top:{{top}}px' class='pop' wx:if='{{showPop}}'>
+  <text>添加标签</text>
+  <text>删除</text>
+</view>
+

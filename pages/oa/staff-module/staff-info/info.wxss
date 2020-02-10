@@ -1,0 +1,4 @@
+/* pages/oa/staff-info/info.wxss */
+.form{
+  padding:0 24rpx;
+}

@@ -1,0 +1,96 @@
+<!--pages/pro_manage/pro_list/list.wxml-->
+<view class='pro'>
+  <!--搜索-->
+  <view class='pro-search'>
+    <view class='location'>
+      <image src='../../../utils/img/address.png'></image>
+      <text>邻水县</text>
+    </view>
+    <view class='search'>
+      <van-search
+        value="{{ value }}"
+        background="#fe2200"
+        shape='round'
+        placeholder="搜索店内商品"
+        bind:search="onSearch">
+      </van-search>
+    </view>
+  </view>
+  <!--分类 -->
+  <view class='pro-container'>
+    <view class='cate-first'>
+      <van-sidebar custom-class='cate-first__container' 
+        active="{{ active }}" 
+        bind:change="onFirstCateChange">
+        <van-sidebar-item custom-class='cate-item'
+          wx:for='{{sliderList}}'
+          wx:key='{{index}}' 
+          title="{{item.cateName}}" />
+      </van-sidebar>
+    </view>
+    <view class='cate-second'>
+      <view class='second-list'>
+        <view class='tabs-container'>
+          <view class='tabs-list'>
+            <van-tabs active="{{ activeNum }}" 
+              line-height='0' 
+              swipe-threshold='3' 
+              bind:change='onSecondCateChange'>
+              <van-tab wx:for='{{tabList}}'
+                name='{{index}}' 
+                wx:key='{{index}}'
+                title="{{item.cateName}}"></van-tab>
+            </van-tabs>
+          </view>
+          <image class='arrow-down'
+            src='../asset/img/arrow_down.png'></image>
+        </view>
+        <view class='sort'>
+          <view>全部（58）</view>
+          <view class='sort-condition' bindtap='bindSaleSort'>
+            <view class='condition'>
+              <text>销量</text>
+              <view class='condition-arrow'>
+                <text class='triangle-up'></text>
+                <text class='triangle-down'></text>
+              </view>
+            </view>
+            <view class='condition' bindtap='bindPriceSort'>
+              <text>价格</text>
+              <view class='condition-arrow'>
+                <text class='triangle-up'></text>
+                <text class='triangle-down'></text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class='pro-detail'>
+        <view class='detail-container'>
+          <scroll-view scroll-y='true' style='height:100%'>
+            <view class='card' wx:for='{{proList}}' 
+              wx:key="{{index}}">
+              <view class='card-item' bindtap='seeProDetail' 
+                data-id='{{item.keyId}}'>
+                <image  class='card-img' src='{{item.goodsPic}}'></image>
+                <view class='card-content'>
+                  <view>
+                    <text class='card-content__title'>{{item.goodsName}}</text>
+                  </view>
+                  <view class='card-view'>{{'月销售85|访问量100人'}}</view>
+                  <view class='card-content__price'>
+                    <text class='original-price'>￥16.8</text>
+                    <view class='state-container clearFix'>
+                      <text class='selling-price'>￥12.92</text>
+                      <text class='selling-state'>看相似</text>
+                    </view>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </scroll-view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

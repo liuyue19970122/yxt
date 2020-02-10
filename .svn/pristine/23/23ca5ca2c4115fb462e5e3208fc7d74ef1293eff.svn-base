@@ -1,0 +1,17 @@
+/* pages/receipt/order-review/review.wxss */
+.org-name{
+  margin:40rpx;
+  text-align: center;
+  font-size:40rpx;
+  color:#333;
+  font-weight: bold;
+}
+.order-info{
+  margin:0 24rpx;
+}
+.info-item{
+  display: flex;
+  justify-content: space-between;
+  font-size:32rpx;
+  margin-bottom:20rpx;
+}

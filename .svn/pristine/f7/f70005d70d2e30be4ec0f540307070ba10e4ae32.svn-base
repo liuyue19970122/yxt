@@ -1,0 +1,14 @@
+<!--pages/oa/add-staff/add-staff.wxml-->
+<form-item label="姓名" labelStyle="color:#999" itemStyle='padding-right:24rpx;padding-left:24rpx;' inputStyle="text-align:left" bind:input='getName' value='{{name}}'></form-item>
+
+<form-item label="电话" labelStyle="color:#999" itemStyle='padding-right:24rpx;padding-left:24rpx;' inputStyle="text-align:left" bind:input='getTel' value='{{tel}}'></form-item>
+<form-item label="身份证号" labelStyle="color:#999" itemStyle='padding-right:24rpx;padding-left:24rpx;' inputStyle="text-align:left" bind:input='getIdCard' value='{{idCard}}'></form-item>
+<form-item label="登录名" labelStyle="color:#999" itemStyle='padding-right:24rpx;padding-left:24rpx;' inputStyle="text-align:left" bind:input='getLoginName' value='{{loginName}}'></form-item>
+<form-item label="登录密码" labelStyle="color:#999" itemStyle='padding-right:24rpx;padding-left:24rpx;' inputStyle="text-align:left" type='password' bind:input='getPassword' value='{{password}}'></form-item>
+
+<form-item label="岗位" labelStyle="color:#999" itemStyle='padding-right:24rpx;padding-left:24rpx;' key='roleName' isPicker='{{true}}' array='{{roleList}}' inputStyle="text-align:left" bind:change='getRole' value='{{roleIndex}}'></form-item>
+
+<form-item label="基本工资" labelStyle="color:#999" itemStyle='padding-right:24rpx;padding-left:24rpx;' inputStyle="text-align:left;min-width:200rpx" bind:input='getMoney' value='{{money}}'></form-item>
+<form-item label="入职时间" labelStyle="color:#999" itemStyle='padding-right:24rpx;padding-left:24rpx;' inputStyle="text-align:left;min-width:200rpx" isTimePicker='{{true}}' bind:change='getDate' value='{{date}}' date='{{date}}'></form-item>
+
+<button class='submit-btn-raduis' bindtap='addStaff'>确认</button>

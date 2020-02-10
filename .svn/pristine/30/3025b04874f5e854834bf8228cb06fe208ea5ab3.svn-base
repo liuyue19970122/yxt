@@ -1,0 +1,58 @@
+<!--pages/mall/mall-my-collect/collect.wxml-->
+<view>
+  <view>
+    <cus-tab-view tabList='{{tabList}}'
+      type='{{pageType}}' 
+      bind:change='bindTabChange'></cus-tab-view>
+  </view>
+  <view>
+    <scroll-view scroll-y='true' style='height:100%' scroll-top='{{scrollTop}}'>
+      <view wx:if='{{pageType==="pro"}}' class='card-style' 
+        wx:for='{{proList}}' 
+        wx:key='{{index}}'>
+        <cus-pro-card index='{{index}}' 
+          title='{{item.goodsName}}'
+          subTitle='{{"月销售"+item.sellCount}}'
+          oriPrice='{{item.cusOriPrice}}'
+          imgsize='img-size' 
+          imgSrc='{{item.goodsPic}}' 
+          bind:click='seeProDetail'>
+            <view slot='right' class='state-container'>
+              <text class='selling-price'>{{'￥'+item.cusSalePrice}}</text>
+              <!-- <image class='state-img' data-index='{{index}}'
+                src='../../../utils/img/add.png' 
+                catchtap='bindBuy'></image> -->
+            </view>
+        </cus-pro-card>
+      </view>
+      <view wx:if='{{pageType==="store"}}'>
+        <view class='card'  wx:for='{{storeList}}'
+          wx:key='{{index}}' 
+          data-id='{{item.keyId}}'
+          data-name='{{item.orgName}}'
+          bindtap='bindToStore'> 
+          <view class='title'>{{item.orgName}}</view>
+          <view class='sub-tittle'>
+            <text>{{'访问量'+item.visitCount+'|销售'+item.monthCount+'|评价'+item.monthCount}}</text>
+            <text>{{item.address}}</text>
+          </view>
+          <view>
+            <view class='img-container'>
+              <view wx:for='{{item.goodsList}}' wx:key='{{index}}'>
+                <view class='img-detail'>
+                  <image src='{{item.goodsPic}}' mode='aspectFit'></image>
+                  <view class='price'>
+                    <text>{{'￥'+item.cusSalePrice}}</text>
+                    <text>{{'￥'+item.cusNormalPrice}}</text>
+                  </view>
+                  <view class='mask'></view>
+                </view>
+                <view class='item-title'>{{item.goodsName}}</view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+</view>

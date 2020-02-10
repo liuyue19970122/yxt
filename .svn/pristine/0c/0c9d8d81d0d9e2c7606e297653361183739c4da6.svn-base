@@ -1,0 +1,11 @@
+{
+  "usingComponents": {
+    "page-title":"/components/page-title/page-title",
+    "van-popup": "/miniprogram_npm/vant-weapp/popup/index",
+    "van-button": "/miniprogram_npm/vant-weapp/button/index",
+    "van-field": "/miniprogram_npm/vant-weapp/field/index",
+    "van-panel": "/miniprogram_npm/vant-weapp/panel/index",
+    "van-collapse": "/miniprogram_npm/vant-weapp/collapse/index",
+    "van-collapse-item": "/miniprogram_npm/vant-weapp/collapse-item/index"
+  }
+}

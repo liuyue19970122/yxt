@@ -1,0 +1,12 @@
+/* pages/stock/stock-system-category/stock-system-category.wxss */
+@import '../stock-category/stock-category'
+
+.active-item{
+  background: #EA6E70;
+  border:2rpx solid #EA6E70;
+  color:#fff;
+  /* background: # */
+}
+button{
+  margin-bottom:60rpx;
+}

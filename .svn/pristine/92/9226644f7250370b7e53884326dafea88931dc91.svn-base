@@ -1,0 +1,11 @@
+<!--pages/receipt/print-list/list.wxml-->
+<view class='print-list'>
+  <view class='print-item'>
+    <image src='/utils/img/receipt/printer.png' class='printer'></image>
+    <view class='print-name'>厨房打印</view>
+  </view>
+  <view class='print-item'>
+    <image src='/utils/img/receipt/printer.png' class='printer'></image>
+    <view class='print-name'>厨房打印</view>
+  </view>
+</view>

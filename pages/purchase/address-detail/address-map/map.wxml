@@ -1,0 +1,50 @@
+<!--pages/purchase/address-detail/address-map/map.wxml-->
+<view class='pro-search'>
+  <view class='location'>
+    <image src='/utils/img/address_white.png'></image>
+    <button open-type="openSetting" lang="zh_CN" wx:if='{{!locationInfo.show}}'
+      bindopensetting="handleOpenSetting">重新获取</button>
+    <picker mode="region" 
+      bindchange="bindRegionChange"
+      value="{{region}}">
+      <view class="picker">{{locationInfo.county}}</view>
+    <!-- <text wx:if='{{locationInfo.show}}'>{{locationInfo.county}}</text> -->
+    <!-- <picker mode="region" bindchange="bindRegionChange" value="{{region}}" custom-item="{{customItem}}">
+    <view class="picker">
+      当前选择：{{region[0]}}，{{region[1]}}，{{region[2]}}
+    </view> -->
+    </picker>
+  </view>
+  <view class='search'>
+    <van-search
+      value="{{searchVal}}"
+      background="#fe2200"
+      shape='round'
+      placeholder="搜索地址"
+      bind:clear="onClear"
+      bind:search="onSearch">
+    </van-search>
+  </view>
+</view>
+<view class='page-container'>
+  <view class='map-container'>
+    <map id="map" longitude="{{longitude}}" 
+      latitude="{{latitude}}" 
+      bindregionchange="mapchangeTap">
+      <cover-image class='img-map' src='/utils/img/map_mark.png'></cover-image>
+    </map>
+  </view>
+  <view class='suggest'>
+    <scroll-view scroll-y style='height:100%'
+      scroll-top='{{scrollTop}}' bindscrolltolower='bindReachBottom'>
+      <view class='suggest-info' wx:for='{{suggestList}}' wx:key='{{index}}'
+        data-info='{{item.cusAdInfo}}'
+        data-address='{{item.address}}' 
+        data-location='{{item.cusLocation}}'
+        bindtap='tapSuggestList'>
+        <view class='info-title'>{{item.title}}</view>
+        <view class='info-address'>{{item.address}}</view>
+      </view>
+    </scroll-view>
+  </view>
+</view>

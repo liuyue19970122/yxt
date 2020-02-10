@@ -1,0 +1,106 @@
+<!--pages/receipt/vage/add/add.wxml-->
+<view class='module'>
+  <form-item label="商品名称" isRequired='{{true}}' inputStyle="text-align:left" bind:input='getName' value='{{name}}'></form-item>
+  <form-item label="商品分类" isRequired='{{true}}' inputStyle="text-align:left" bind:input='getName' value='{{typeName}}' isReadon='{{true}}' isBorder="{{false}}"></form-item>
+  <view class='form-item'>
+    <view class='label'>商品描述</view>
+  </view>
+  <view>
+    <textarea class='remark-content' bindinput='getDes' value='{{description}}' placeholder="请输入关于商品的其它信息（如：来源信息）~" />
+  </view>
+</view>
+<view class='hr'></view>
+<view class='module'>
+  <view class='module-form-title'>规格列表
+    <image class='add-icon-padding' src='/utils/img/stock/add.png' bindtap='goAdd'></image>
+  </view>
+  <van-checkbox-group value="{{ select }}" bind:change="selectSpec">
+    <van-swipe-cell right-width="{{ 120 }}" left-width="{{1}}" wx:for='{{specList}}'>
+      <view class='form-item border-bottom'>
+        <view class='label'>{{item.attrPrice}}元/{{item.attrName}}</view>
+        <van-checkbox name="{{index}}" use-icon-slot>
+          <image slot="icon" class='check-icon' src="{{ item.status==1 ? activeIcon : inactiveIcon }}" />
+        </van-checkbox>
+      </view>
+      <view slot="right" class='btn-group'>
+        <view class='red-btn' data-index='{{index}}' bindtap='goDetail'>修改</view>
+        <view class='gray-btn' data-index='{{index}}' bindtap='delSpec'>删除</view>
+      </view>
+    </van-swipe-cell>
+  </van-checkbox-group>
+  <view class='msg-info'>提示：规格列表为空时商品下架</view>
+</view>
+<view class='hr'></view>
+<!-- <view class='module'>
+  <view class='module-form-title'>口味列表
+    <image class='add-icon-padding' src='/utils/img/stock/add.png' bindtap='goAdd'></image>
+  </view>
+  <van-checkbox-group value="{{ select }}" bind:change="selectSpec">
+    <van-swipe-cell right-width="{{ 120 }}" left-width="{{1}}" wx:for='{{specList}}'>
+      <view class='form-item border-bottom'>
+        <view class='label'>{{item.attrPrice}}元/{{item.attrName}}</view>
+        <van-checkbox name="{{index}}" use-icon-slot>
+          <image slot="icon" class='check-icon' src="{{ item.status==1 ? activeIcon : inactiveIcon }}" />
+        </van-checkbox>
+      </view>
+      <view slot="right" class='btn-group'>
+        <view class='red-btn' data-index='{{index}}' bindtap='goDetail'>修改</view>
+        <view class='gray-btn' data-index='{{index}}' bindtap='delSpec'>删除</view>
+      </view>
+    </van-swipe-cell>
+  </van-checkbox-group>
+  <view class='msg-info'>提示：规格列表为空时商品下架</view>
+</view> -->
+<!-- <view class='hr'></view> -->
+<view class='module'>
+  <form-item label="商品排序" inputStyle="text-align:left" bind:input='getSort' type='number' value='{{sort}}'></form-item>
+  <view class='form-item border-bottom'>
+    <view class='label'>无限库存</view>
+    <van-switch checked="{{ isMore }}" bind:change='isMoreFn' size="20px" active-color="#fe2200" />
+  </view>
+  <form-item label="每日限购量" wx:if='{{!isMore}}' isRequired='{{true}}' type='number' inputStyle="text-align:left" bind:input='getNum' value='{{num}}'></form-item>
+  <view class='form-item'>
+    <view class='label'>商品是否上架</view>
+    <van-switch checked="{{ isOpen }}" bind:change='isOpenFn' size="20px" active-color="#fe2200" />
+  </view>
+</view>
+<view class='hr'></view>
+<view class='module'>
+  <view class='form-item border-bottom'>
+    <view class='label'>商品主图</view>
+    <view bindtap='chooseMainImg'>
+      <image class='upload-btn picture_item' wx:if="{{mainImg!=''}}" src='{{mainImg}}'></image>
+      <image class='upload-btn picture_item' wx:if="{{mainImg==''}}" src='/utils/img/upload.png'></image>
+    </view>
+  </view>
+  <view class='form-item'>
+    <view class='label'>商品图片</view>
+    <view class="picture_list">
+      <view wx:for="{{upload_picture_list}}" class="picture_item" wx:key="{{index}}">
+        <image wx:if="{{item.upload_percent < 100}}" src="{{item.path}}" mode="aspectFill"></image>
+        <image wx:if="{{item.upload_percent == 100}}" src="{{item.path_server}}" mode="aspectFill"></image>
+        <view class="upload_progress" wx:if="{{item.upload_percent < 100}}" data-index="{{index}}" bindtap="previewImg">{{item.upload_percent}}%</view>
+        <text class='del' bindtap='deleteImg' data-src='{{image}}' style='display:{{isDel}}' data-index="{{index}}">×</text>
+      </view>
+
+      <view class='picture_item' bindtap='uploadpic' wx:if='{{upload_picture_list.length<9}}'>
+        <image class='upload-btn' src='/utils/img/upload.png'> </image>
+
+        <!-- <view class="add-image" bindtap='uploadpic'>
+          <text>+</text>
+        </view> -->
+      </view>
+    </view>
+    <!-- <button bindtap='uploadimage' class='yes-upload'>确定上传</button> -->
+  </view>
+  <view class='form-item'>
+    <view class='label'>商品详情</view>
+  </view>
+  <view>
+    <textarea class='remark-content' bindinput='getDetail' value='{{detail}}' placeholder="请输入关于商品的其它信息（如：来源信息）~" />
+  </view>
+</view>
+<view style='height:120rpx;'></view>
+<view class='op-btn-group'>
+  <button class='y-btn' bindtap='onSubmit' disabled="{{name==''||mainImg==''||specList.length==0}}">保存</button>
+</view>

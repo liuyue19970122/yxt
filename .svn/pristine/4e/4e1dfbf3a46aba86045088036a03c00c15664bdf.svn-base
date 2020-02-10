@@ -1,0 +1,65 @@
+<view class='tab-view'>
+  <view class='tab-item {{type=="all"?"active-item":""}} ' data-type='all' bindtap='changeTab'>全部</view>
+  <view class='tab-item {{type=="new"?"active-item":""}}' data-type='new' bindtap='changeTab'>未处理</view>
+  <view class='tab-item {{type=="ing"?"active-item":""}}' data-type='ing' bindtap='changeTab'>送货中</view>
+  <view class='tab-item {{type=="finish"?"active-item":""}}' data-type='finish' bindtap='changeTab'>已完成</view>
+  <view class='tab-item {{type=="after"?"active-item":""}}' data-type='after' bindtap='changeTab'>退款/售后</view>
+</view>
+
+<view class='order-list' bindtap='goDetail'>
+  <view class='order-item'>
+    <view class='store'>
+      <view class='store-left'>
+        <view class='store-title'>供货商III</view>
+        <view>
+          <image class='tiggle-icon'></image>
+        </view>
+      </view>
+      <image src='' class='del-icon'></image>
+    </view>
+    <view class='goods-list'>
+      <image src='/utils/img/good-img.png' class='goods-img'></image>
+      <image src='/utils/img/good-img.png' class='goods-img'></image>
+      <image src='/utils/img/good-img.png' class='goods-img'></image>
+      <image src='/utils/img/good-img.png' class='goods-img'></image>
+      <image src='/utils/img/good-img.png' class='goods-img'></image>
+      <view class='right-total'>
+        <view class='goods-price'>￥128</view>
+        <view class='goods-num'>共8件</view>
+      </view>
+    </view>
+    <view class='goods-time'>2019-10-27 10:20:30</view>
+    <view class='btn-group'>
+      <button>联系卖家</button>
+      <button>取消订单</button>
+      <button>付款</button>
+    </view>
+    <image class='tag' src='/utils/img/page-icon/before-pay.png'></image>
+  </view>
+  <view class='order-item'>
+    <view class='store'>
+      <view class='store-left'>
+        <view class='store-title'>供货商III</view>
+        <view>
+          <image class='tiggle-icon'></image>
+        </view>
+      </view>
+      <image src='' class='del-icon'></image>
+    </view>
+    <view class='goods-list'>
+      <image src='/utils/img/good-img.png' class='goods-img'></image>
+      <view class='goods-name'>吃串串</view>
+      <view class='goods-info'>
+        <view class='goods-price'>￥129.00</view>
+        <view class='goods-num'>共38件</view>
+      </view>
+    </view>
+    <view class='goods-time'>2019-10-27 10:20:30</view>
+    <view class='btn-group'>
+      <button>联系卖家</button>
+      <button>取消订单</button>
+      <button>付款</button>
+    </view>
+    <image class='tag' src='/utils/img/page-icon/before-pay.png'></image>
+  </view>
+</view>

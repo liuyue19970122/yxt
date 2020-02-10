@@ -1,0 +1,6 @@
+<!--pages/serverError/errPage/errPage.wxml-->
+<view class='err-page'>
+  <image src='http://118.24.172.172:9999/yxt/img/1867c8b8-f734-4881-9cc0-50c16d1e0da0.png' class='err-image'></image>
+  <view class='err-info'>请求异常，请稍后再试</view>
+  <button class='err-btn' bindtap='bindBack'>点击返回</button>
+</view>

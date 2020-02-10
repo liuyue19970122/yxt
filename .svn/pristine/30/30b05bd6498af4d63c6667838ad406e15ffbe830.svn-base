@@ -1,0 +1,9 @@
+/* pages/receipt/vege/default-tpl/list.wxss */
+@import '../default-list/list'
+.vage-detail{
+  width:702rpx;
+}
+.vage-item{
+  min-height:100rpx;
+  align-items: center;
+}

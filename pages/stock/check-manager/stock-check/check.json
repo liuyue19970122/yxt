@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "库存盘点",
+  "usingComponents": {
+    "form-item": "/components/form-item/form-item",
+    "van-dialog": "/miniprogram_npm/vant-weapp/dialog/index",
+    "search": "/components/search/search"
+  }
+}

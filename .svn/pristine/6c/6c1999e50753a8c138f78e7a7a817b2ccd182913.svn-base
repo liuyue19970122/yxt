@@ -1,0 +1,89 @@
+<!--pages/mall/mall-suborder/order.wxml-->
+<view>
+  <view class='bg-color'>
+  </view>
+  <view class='order-detail'>
+    <view class='top-module'>
+      <view style="width:100%;">
+        <view class='reciver-detail' bindtap='toAddressPage'>
+          <view>
+            <view class='reciver'>
+              <view>{{address.contactName}}</view>
+              <view class='phone'>{{address.phone}}</view>
+            </view>
+            <view class='address'>{{address.wholeAddress}}</view>
+          </view>
+          <image class='triggle-close' src='/utils/img/close.png'></image>
+        </view>
+        <view class='form-item'>
+          <view>送货时间</view>
+          <view catchtap='choosePop'>
+            11:00-22:00
+            <image src='/utils/img/close.png' class='triggle-close'></image>
+          </view>
+        </view>
+        <view class='form-item'>
+          <view>备注</view>
+          <input class='remark'></input>
+        </view>
+      </view>
+    </view>
+    <view class='goods-list'>
+      <view class='module-title'>—— 商品 ——</view>
+      <view class=''  wx:for="{{proBuyList}}" 
+        wx:key='{{index}}'>
+        <view class='mall-title border-bottom'>
+          <view>{{item.orgName}}</view>
+          <image src='/utils/img/open.png' data-index='{{index}}' 
+            bindtap='bindStoreOpen' class='triggle-open'></image>
+        </view>
+        <view class='mall-goods-list' hidden='{{item.isShow}}' 
+          wx:for="{{item.proList}}"
+          wx:key='{{index}}'>
+          <view class='goods-item'>
+            <view class='goods-img'>
+              <image src="{{item.goodsPic}}"></image>
+            </view>
+            <view class='goods-info'>
+              <view class='goods-name'>{{item.attrName}}</view>
+              <view class='goods-local'>{{'X'+item.cusBuyCount}}</view>
+            </view>
+            <view class='goods-price'>{{'￥'+item.attrPrice}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class='border-bottom'></view>
+    <view class='cell-group'>
+      <cell-item color='#333' title='优惠' content='{{favMoney}}'></cell-item>
+      <cell-item color='#333' title='订单金额' content='{{totalMoney}}'></cell-item>
+    </view>
+  </view>
+  <van-submit-bar price="{{ orderMoney }}" 
+    button-text="提交订单" bind:submit="onSubmitOrder" />
+</view>
+<!-- 选择时间弹出框 -->
+<van-popup show="{{chooseTimePop}}" custom-style='height:760rpx;padding:0;' position="bottom" bind:close="onClose" closeable>
+  <view class='popTitle'>选择预送时间</view>
+  <view class='choose-time-content'>
+    <view class='day-list'>
+      <view class='day-item'>今天</view>
+      <view class='day-item'>明天</view>
+    </view>
+    <view class='time-list'>
+      <view class='time-item'>
+        <view>10:00-11:00</view>
+        <view>4元运费</view>
+      </view>
+      <view class='time-item time-item-select'>
+        <view>10:00-11:00</view>
+        <view>4元运费</view>
+        <image class='select-time' src='/utils/img/page-icon/time-select.png'></image>
+      </view>
+      <view class='time-item'>
+        <view>10:00-11:00</view>
+        <view>4元运费</view>
+      </view>
+    </view>
+  </view>
+</van-popup>

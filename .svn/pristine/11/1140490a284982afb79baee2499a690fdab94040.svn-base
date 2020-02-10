@@ -1,0 +1,26 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/stock/stock-change/stock-change",
+    "pages/stock/stock-inlist/stock-inlist",
+    "pages/stock/stock-in/stock-in",
+    "pages/common/cut-image/cut-image",
+    "pages/stock/stock-system-category/stock-system-category",
+    "pages/stock/add-category/add-category",
+    "pages/stock/stock-category/stock-category",
+    "pages/stock/set/set",
+    "pages/serverError/errPage/errPage",
+    "pages/common/login/login",
+    "pages/stock/stock-record/stock-record",
+    "pages/stock/stock-batch/stock-batch",
+    "pages/stock/stock-correct/stock-correct",
+    "pages/stock/stock-out/stock-out"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "怡县通",
+    "navigationBarTextStyle": "black"
+  },
+  "sitemapLocation": "sitemap.json"
+}

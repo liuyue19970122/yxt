@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "选择货品",
+  "usingComponents": {
+    "van-search": "/miniprogram_npm/vant-weapp/search/index",
+    "van-checkbox": "/miniprogram_npm/vant-weapp/checkbox/index",
+    "van-checkbox-group": "/miniprogram_npm/vant-weapp/checkbox-group/index",
+    "search":"/components/search/search"
+  }
+}

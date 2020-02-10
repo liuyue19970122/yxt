@@ -1,0 +1,29 @@
+<!--pages/finance/statement/detail/detail.wxml-->
+<view class='header'>
+  <picker bindchange="bindDateChange" 
+    bindcancel='bindDateCancel'
+    mode = 'date'
+    fields="month" 
+    start="2019-12" 
+    end="2020-12-31"
+    value="{{curMonth}}">
+    <view>
+      <text>{{curMonth}}</text>
+      <image class='header-img' src='../../../../utils/img/close.png'></image>
+    </view>
+  </picker>
+</view>
+<view class='page-container'>
+  <view class='list-container'>
+    <scroll-view class='scroll' scroll-y='{{true}}' 
+      bindscrolltolower='bindReachBottom'>
+      <view class='card'>
+        <view class='card-info'>
+          <text>买菜</text>
+          <text>2019-10-16</text>
+        </view>
+        <text class='info-money'>-1000</text>
+      </view>
+    </scroll-view>
+  </view>
+</view>

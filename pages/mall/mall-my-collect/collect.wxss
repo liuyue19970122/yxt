@@ -1,0 +1,42 @@
+/* pages/mall/mall-my-collect/collect.wxss */
+@import '../../../utils/asset/css/cus-popup.wxss';
+@import '../../../utils/asset/css/cus-collect.wxss';
+page,.page-container{
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.pro-search{
+  position: absolute;
+  width: 100%;
+}
+.van-search__content{
+  border: 2rpx solid #ccc;
+}
+.van-search{
+  padding:20rpx !important;
+}
+.content-container{
+  width: 100%;
+  height: 100%;
+  padding-top: 200rpx;
+  box-sizing: border-box;
+}
+.card-style{
+  padding: 24rpx;
+  border-bottom: 2rpx solid #f0f0f0;
+}
+.img-size{
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 20rpx;
+  overflow: hidden;
+}
+.cel-collect{
+  font-size: 12px;
+  background: #fe2200;
+  color: #fff;
+  line-height: 48rpx;
+  padding: 0 12rpx;
+}
+

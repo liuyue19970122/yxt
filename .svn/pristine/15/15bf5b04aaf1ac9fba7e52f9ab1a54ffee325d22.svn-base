@@ -1,0 +1,31 @@
+/* pages/receipt/vege/default-list/list.wxss */
+@import '../../vage-list/list'
+.vage-item{
+  width:726rpx;
+  margin-left:24rpx
+}
+.vage-detail{
+  width:558rpx;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
+}
+.vage-left-info{
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  height:100%;
+}
+
+.search-module{
+  position: fixed;
+  top:0;
+  left:0;
+  width:750rpx;
+  background: #fff;
+  box-shadow: 0 0 6rpx #CCC;
+}
+.vage-list{
+  margin-top:120rpx;
+}

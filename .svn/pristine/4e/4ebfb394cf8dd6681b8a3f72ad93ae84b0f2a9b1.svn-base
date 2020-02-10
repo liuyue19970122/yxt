@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "挂账明细",
+  "usingComponents": {
+    "acc-item-shadow":"/components/account-item-shadow/acc-item-shadow",
+    "van-checkbox": "/miniprogram_npm/vant-weapp/checkbox/index",
+    "van-checkbox-group": "/miniprogram_npm/vant-weapp/checkbox-group/index"
+  }
+}

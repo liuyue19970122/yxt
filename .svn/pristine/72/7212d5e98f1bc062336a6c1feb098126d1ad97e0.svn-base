@@ -1,0 +1,25 @@
+<!--pages/stock/stock-change/stock-out.wxml-->
+<page-title title='修正' isAdd="{{false}}" picker="{{false}}"></page-title>
+<view class='form'>
+  <form-item label="商品名称" value='{{goods.goodsName}}' isReadon='{{true}}'></form-item>
+  <form-item label="库存数量" placeholder='最多保留两位小数' type='number' isRequired='{{true}}' bind:input='getIncomeCount' value='{{goods.balanceCount}}' isBorder='{{true}}' isReadon="{{true}}"></form-item>
+  <form-item label="修正数量" placeholder='最多保留两位小数' type='number' isRequired='{{true}}' bind:input='getFixCount' value='{{fixCount}}' isBorder='{{true}}'></form-item>
+  <!-- <form-item label="修正数量" placeholder='最多保留两位小数' type='number' isRequired='{{true}}' bind:input='getFixCount' value='{{fixCount}}' isBorder='{{true}}'></form-item> -->
+  <!-- <view class='form-item'>
+    <view class='label'>商品图片</view> 
+  </view> -->
+  <!-- <view class='btn-box border-bottom'>
+    <button>
+      <image src='/utils/img/upload.png' class='upload-btn'></image>
+    </button>
+  </view> -->
+  <view class='form-item'>
+    <view class='label'>修正原因</view>
+  </view>
+  <view>
+   <textarea class='remark-content' bindinput='getDes' value='{{description}}' placeholder="请输入原因" auto-focus />
+  </view>
+  <view >
+    <button type='danger' class='submit-btn' bindtap='updateStock'>确认提交</button>
+  </view>
+</view>

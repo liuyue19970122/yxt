@@ -1,0 +1,8 @@
+/* pages/oa/add-role/add-role.wxss */
+.page-view{
+  height:calc( 100vh - 120rpx);
+  width:100%;
+}
+.tree-box{
+  height:70%;
+}

@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "cell-item":"/components/cell/cell-item"
+  }
+}

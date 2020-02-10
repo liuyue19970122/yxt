@@ -1,0 +1,36 @@
+<!--pages/stock/stock-change/stock-change.wxml-->
+
+<view class='full-page' bindtouchstart="closeActive">
+  <page-title title='批次列表' icon='/utils/img/change.png' isAdd='{{false}}' picker="{{false}}" array='{{dateList}}' name="name" range='{{1}}'></page-title>
+<!-- 
+  <view class='content'>
+    <cate-picker bind:change='changeCate' cateList='{{cateList}}' range="{{selectCate}}" name='cateName'></cate-picker>
+  </view> -->
+  <view data-id='{{item.keyId}}' catchtap="goCurrect" class='{{activeId==item.keyId?"active-item":""}}' wx:for='{{goodList}}'>
+    <view class='good-item'>
+      <view class='good-left-module'>
+        <image src='{{item.goodsPic}}'></image>
+      </view>
+      <view class='good-right-module'>
+        <view>货品名称：{{item.goodsName}}</view>
+        <view>入库数量：{{item.incomeCount}}{{item.goodsUnit}}</view>
+        <view class='bottom-module'>
+          <view>剩余数量：
+            <text class='kg-unit'>{{item.balanceCount}}{{item.goodsUnit}}</text>
+          </view>
+          <view class='time'>{{item.lastTime}}更新</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class='total-stock'>
+      剩余总库存量：<text class='kg-unit'>{{total}}{{goodList[0].goodsUnit}}</text>
+  </view>
+  <view class='empty' wx:if='{{goodList.length==0}}'>
+    暂时没有货品，快去添加吧~
+  </view>
+  
+  <!-- <button class='btn-stock-in'> -->
+
+  <!-- </button> -->
+</view>

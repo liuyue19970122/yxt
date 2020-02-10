@@ -1,0 +1,6 @@
+/* components/cate-picker/cate-picker.wxss */
+
+.tiggle-icon{
+  width:24rpx;
+  height:12rpx;
+}

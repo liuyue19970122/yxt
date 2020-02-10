@@ -1,0 +1,20 @@
+/* pages/oa/leave-manager/manager.wxss */
+
+.list-item{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin:0 24rpx;
+  padding:25rpx 0;
+  border-bottom:2rpx solid #f0f0f0;
+}
+.list-item-left{
+   display: flex;
+  align-items: center;
+}
+
+.icon{
+  width:50rpx;
+  height:50rpx;
+  margin-right:20rpx;
+}

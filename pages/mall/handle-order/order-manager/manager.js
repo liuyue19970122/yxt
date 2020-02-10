@@ -1,0 +1,211 @@
+// pages/mall/handle-order/order-manager/manager.js
+let util = require('../../../../utils/util.js');
+const app = getApp()
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    tabList:[
+      { title: '全部', id: -1 },
+      { title: '未提交', id: 0 },
+      { title: '已提交', id: 1},
+      { title: '已处理', id: 2 }
+    ],//状态：0未提交，1已提交，2已完成
+    tabType:-1,
+    orderList:[],
+    filterData:{
+      name:'',
+      status:-1,
+      pageNum:1,
+      pageSize:10
+    },
+    scrollTop:0,
+    searchValue: '',
+    hasNextPage:false
+  },
+  //清除
+  onClear(e) {
+    let filterData = this.data.filterData
+    let searchValue = this.data.searchValue
+    if (searchValue&&this.data.activeSlider===0) {
+      filterData.name= ''
+      let scrollTop = 0
+      this.setData({
+        filterData,
+        scrollTop,
+        searchValue:''
+      })
+      let actType = 'refresh'
+      this.getHandleOrderList(filterData, actType)
+    } else {
+      this.setData({
+        searchValue: ''
+      })
+    }
+  },
+  //搜索功能
+  onSearch(e) {
+    let searchValue = e.detail
+    let filterData = this.data.filterData
+    filterData.name = searchValue
+    let scrollTop = 0
+    this.setData({
+      searchValue,
+      filterData,
+      scrollTop
+    })
+    let actType = 'refresh'
+    this.getHandleOrderList(filterData, actType)
+  },
+  //去添加订单
+  handleToOrder(){
+    wx.navigateTo({
+      url: '../order-add/add?actType=add',
+    })
+  },
+  //goInsert去导入
+  goInsert(){
+    wx.navigateTo({
+      url: '../order-his/his',
+    })
+  },
+  //tab菜单切换
+  //tab更改
+  changeTab(e) {
+    let tabType = e.target.dataset.type
+    let filterData=this.data.filterData
+    filterData.status=tabType
+    filterData.pageNum=1
+    this.setData({ filterData,tabType})
+    this.getHandleOrderList(filterData, 'refresh')
+  },
+  //handleTap
+  handleTap(e){
+    let orderId=e.currentTarget.dataset.id
+    let status = e.currentTarget.dataset.status
+    if (status === '0') { 
+      wx.navigateTo({
+        url: '../order-add/add?actType=edit&orderId='+orderId,
+      })
+    }
+    if (status === '1') { 
+      wx.navigateTo({
+        url: '../order-verify/verify?orderId='+orderId,
+      })
+    }
+    if(status==='2'){
+      wx.navigateTo({
+        url: '../order-dtl/dtl?orderId='+orderId,
+      })
+    }
+  },
+  //触底加载更多
+  bindReachBottom(){
+    if(this.data.hasNextPage){
+      let filterData=this.data.filterData
+      filterData.pageNum+=1
+      this.setData({filterData})
+      this.getHandleOrderList(filterData,'reachBottom')
+    }
+  },
+  //获取开单列表/stock/order/list
+  //status 状态：0未提交，1已提交，2已完成
+  getHandleOrderList(data, actType){
+    let url = app.globalData.baseUrl +'apiStock/stock/order/list'
+    util.getRequestListData(url,data,actType,this.orderListRes)
+  },
+  orderListRes(res,type){
+    console.log(res)
+    if(res.data.code==='200'){
+      let list=res.data.content.list
+      let hasNextPage=res.data.content.hasNextPage
+      list.forEach(item=>{
+        let mt = parseInt(item.openTime)
+        item.cusDate = util.formatDate(mt)
+        item.cusTotalMoney=util.getMoney(item.totalMoney).toString()
+        if (item.status === "0") {
+          item.statusText='待处理'
+        }
+        if (item.status === "1") { 
+          item.statusText = '待核验'
+        }
+        if(item.status==="2"){
+          item.statusText = '已处理'
+        }
+      })
+      if(type==='refresh'){
+        this.setData({orderList:list})
+      }
+      if(type==='reachBottom'){
+        let ol=this.data.orderList
+        list.forEach(item=>{
+          ol.push(item)
+        })
+        this.setData({orderList:ol})
+      }
+      this.setData({hasNextPage})
+    }else{
+      wx.showToast({
+        title: res.data.message,
+      })
+    }
+  },
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+    let filterData=this.data.filterData
+    this.getHandleOrderList(filterData, 'refresh')
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+
+  }
+})

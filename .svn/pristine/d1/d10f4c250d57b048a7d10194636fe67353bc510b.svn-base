@@ -1,0 +1,195 @@
+/* pages/mall/shop-mall/mall.wxss */
+page{
+  height: 100%;
+  width: 100%;
+}
+.pro-search{
+  display: flex;
+  display: -webkit-flex;
+  align-items: center;
+  background-color: #fe2200;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+  height: 120rpx;
+}
+.location{
+  display: flex;
+  align-items: center;
+  width: 170rpx;
+  padding-left:20rpx;
+}
+.location>image{
+  width: 48rpx;
+  height: 48rpx;
+  margin-right: 10rpx;
+  flex-shrink: 0;
+}
+.location>text{
+  color: #fff;
+  font-size: 36rpx;
+}
+.location>button{
+  color:#fff;
+  border-radius:0;
+  padding:0;
+  margin:0;
+  background:#fe2200;
+  font-size: 28rpx;
+}
+.item-title{
+   font-size: 28rpx;
+}
+.location>text,location>button,.item-title{
+  overflow:hidden;
+  text-overflow:ellipsis; 
+  text-overflow: -o-ellipsis-lastline;
+  display:-webkit-box;
+  -webkit-line-clamp:1;
+  line-clamp: 1;
+  -webkit-box-orient:vertical;
+}
+.search{
+  flex: 1;
+  --text-size:36rpx;
+}
+.banner-container{
+  margin: 20rpx 24rpx;
+}
+.banner-box{
+  height: 280rpx;
+}
+.banner{
+  width: 100%;
+  height: 100%;
+}
+.cate-container{
+  display: flex;
+  flex-wrap: wrap;
+}
+.cate-container>view{
+  flex-grow: 0; 
+  width: 20%;  
+  text-align: center;
+}
+.cate-container>view>image{
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+}
+.cate-title{
+  text-align: center;
+  font-size: 24rpx;
+  color: #515151;
+  margin: 20rpx 0 40rpx;
+}
+
+.down-banner{
+  width: 100%;
+  height: 180rpx !important;
+}
+
+.content-container{
+  position: relative;
+  padding-top: 120rpx;
+  height: 100%;
+  box-sizing: border-box;
+}
+.sort{
+  height: 60rpx;
+  font-size: 32rpx;
+  padding: 0 20rpx;
+  line-height: 60rpx;
+  margin-bottom: 24rpx;
+}
+.sort-condition{
+  display: flex;
+  align-items: center;
+}
+.card-container{
+  margin: 0 24rpx;
+}
+.card{
+  padding: 24rpx 40rpx 40rpx;
+  border-radius: 24rpx;
+  box-shadow: 0 0 24rpx rgba(0,0,0, .08);
+  margin-bottom: 24rpx;
+}
+.title{
+  font-size: 32rpx;
+  overflow:hidden;
+  color: #333;
+  text-overflow:ellipsis; 
+  text-overflow: -o-ellipsis-lastline;
+  display:-webkit-box;
+  -webkit-line-clamp:1;
+  line-clamp: 1;
+  -webkit-box-orient:vertical;
+}
+.sub-tittle{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 20rpx 0;
+}
+.sub-tittle>text{
+  font-size: 28rpx;
+  color: #999;
+}
+.img-container{
+  display: flex;
+  flex-wrap: wrap;
+}
+.img-container>view{
+  width: 32%;  /* calc里面的运算符两边要空格 */
+  height:32%;
+  margin-right: 2%;
+  margin-bottom: 2%;
+}
+.img-container>view{
+  flex-grow: 0; /* 子元素按1/n的比例进行拉伸 */
+  text-align: center;
+}
+.img-container>view:nth-of-type(3n){ /* 选择个数是3的倍数的元素 */
+  margin-right: 0;
+}
+.img-container>view:nth-of-type(n+7){  /* 选择倒数的三个元素，n可以取0 */
+  margin-bottom: 0;
+}
+
+.img-detail{
+  position: relative;
+}
+.img-detail>.mask{
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 200rpx;
+  background-image: linear-gradient(to bottom,rgba(0,0,0,0.01) 40%,rgba(0,0,0,0.7));
+  border-radius: 24rpx;
+}
+.img-detail>image{
+  display: inline-block;
+  width: 100%;
+  height: 200rpx;
+  border-radius: 24rpx;
+}
+.price{
+  position: absolute;
+  bottom: 20rpx;
+  color: #fff;
+  width: 100%;
+  text-align: center;
+  z-index: 99;
+}
+.price>text:first-child{
+  display: inline-block;
+  margin-right: 6rpx;
+  font-size: 24rpx;
+}
+.price>text:last-child{
+  display: inline-block;
+  text-decoration: line-through;
+  font-size: 20rpx;
+}

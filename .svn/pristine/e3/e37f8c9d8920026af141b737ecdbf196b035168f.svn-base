@@ -1,0 +1,11 @@
+{
+  "usingComponents": {
+    "form-title": "/components/form-title/index",
+    "cus-editor": "/components/editor/editor",
+    "image-cropper": "/components/image-cropper/image-cropper",
+    "van-cell": "/miniprogram_npm/vant-weapp/cell/index",
+    "van-cell-group": "/miniprogram_npm/vant-weapp/cell-group/index",
+    "van-swipe-cell": "/miniprogram_npm/vant-weapp/swipe-cell/index",
+    "van-notify": "/miniprogram_npm/vant-weapp/notify/index"
+  }
+}

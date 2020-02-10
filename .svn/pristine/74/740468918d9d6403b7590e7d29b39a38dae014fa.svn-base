@@ -1,0 +1,8 @@
+<!--pages/oa/staff-module/set-salary/set-salary.wxml-->
+<view class='form'>
+  <input class='input' type='digit' value='{{money}}' bindinput="bindMoney"></input>
+</view>
+
+<button class='big-submit-btn' bindtap='goSave'>保存</button>
+
+

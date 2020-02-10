@@ -1,0 +1,50 @@
+<!--pages/finance/rem-account/account.wxml-->
+<view class='header'>
+  <picker bindchange="bindDateChange"
+    mode = 'date'
+    fields="month"
+    end="{{endMonth}}"
+    value="{{curMonth}}">
+    <view>
+      <text class="picker-content">{{curMonth}}</text>
+      <image class='triggle-close' src='../../../../utils/img/close.png'></image>
+    </view>
+  </picker>
+  <picker bindchange="bindTypeChange"
+    value="{{typeIndex}}" 
+    range-key='typeName'
+    range="{{typeList}}">
+    <view>
+      <text  class="picker-content">{{typeName}}</text>
+      <image class='triggle-close' src='../../../../utils/img/close.png'></image>  
+    </view>
+  </picker>
+</view>
+<view class='page-container'>
+  <view class='list-container'>
+    <scroll-view class='scroll' scroll-y='{{true}}' 
+      bindscrolltolower='bindReachBottom'>
+      <view class='none-content' wx:if='{{!billList.length}}'>暂无记账</view>
+      <view class='card' wx:for='{{billList}}' wx:key='billList'
+        data-id="{{item.keyId}}" 
+        catchtap="scanDetail">
+        <view class='card-info'>
+          <text>{{item.title}}</text>
+          <text>{{item.cusBillTime}}</text>
+        </view>
+        <text class='info-money'>{{item.cusMoney}}</text>
+      </view>
+      <view wx:if='{{!hasNextPage&&billList.length}}' class='reach-bottom'>
+        <image src='../../../../utils/img/arrive-bottom.png'></image>
+      </view>
+    </scroll-view>
+  </view>
+</view>
+<view class='bottom-fixed'>
+  <view class='bottom-rem' bindtap='bindToAdd'>
+    <view>
+      <image src='../../../../utils/img/rem.png'></image>
+      <text>记一笔</text>
+    </view>
+  </view> 
+</view>

@@ -1,0 +1,70 @@
+<!--pages/pro_manage/pro_list/list.wxml-->
+<view class='fixed-bottom' bindtap='bindQueryChoice'>确认选择</view>
+<view class='pro'>
+  <!--搜索-->
+  <!-- <view class='pro-search'>
+    <van-search
+      value="{{ value }}"
+      background="#fff"
+      shape='round'
+      placeholder="请输入搜索关键词"
+      bind:search="onSearch">
+    </van-search>
+  </view> -->
+  <!--分类 -->
+  <view class='pro-container'>
+    <view class='cate-first'>
+      <van-sidebar custom-class='cate-first__container' 
+        active="{{ active }}" 
+        bind:change="onFirstCateChange">
+        <van-sidebar-item custom-class='cate-item'
+          wx:for='{{sliderList}}'
+          wx:key='{{index}}' 
+          title="{{item.cateName}}" />
+      </van-sidebar>
+    </view>
+    <view class='cate-second'>
+      <view class='second-list'>
+        <view class='tabs-container'>
+          <view class='tabs-list'>
+            <van-tabs active="{{ active }}" 
+              line-height='0' 
+              swipe-threshold='3' 
+              bind:change='onSecondCateChange'>
+              <van-tab wx:for='{{tabList}}' 
+                wx:key='{{index}}'
+                title="{{item.cateName}}"></van-tab>
+            </van-tabs>
+          </view>
+          <image class='arrow-down'
+            src='../asset/img/arrow_down.png'></image>
+        </view>
+      </view>
+      <view class='pro-detail'>
+        <view class='detail-container'>
+          <scroll-view scroll-y='true' style='height:100%'>
+            <view class='card {{stockId===item.keyId?"choice-active":""}}' 
+              wx:for="{{storageProList}}" wx:key='{{index}}'
+              data-code='{{item.goodsCode}}'
+              data-id='{{item.keyId}}'
+              data-name='{{item.goodsName}}'
+              bindtap='bindChoice'>
+              <view class='card-item'>
+                <image  class='card-img' src='{{item.goodsPic}}'></image>
+                <view class='card-content'>
+                  <view>
+                    <text class='card-content__title'>{{item.goodsName}}</text>
+                  </view>
+                  <view class='state-container clearFix'>
+                    <text class='selling-price'>{{item.goodsCount}}</text>
+                    <text class='selling-state'>{{item.date}}</text>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </scroll-view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

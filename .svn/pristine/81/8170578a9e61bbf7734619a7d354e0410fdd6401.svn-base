@@ -1,0 +1,106 @@
+<!--pages/receipt/vage-list/list.wxml-->
+<view class='search-view'>
+  <search></search>
+</view>
+<view class='box'>
+  <!-- 左侧一级分类 -->
+  <scroll-view scroll-y class='left-module'>
+    <view data-index='{{index}}' bindtap='changeFirstCate' class='type-first-item {{index==selectFirstIndex?"select-first-item":""}}' wx:for='{{cateList}}'>{{item.cateName}}</view>
+  </scroll-view>
+  <!-- 右侧二级分类及商品列表 -->
+  <view class='right-module'>
+    <view class='type-second-list ' wx:if='{{cateList[selectFirstIndex].nextList.length>0}}'>
+      <van-tabs active="{{ selectSecondIndex }}" tab-class='tab' nav-class="tab" custom-class="tab" tab-active-class='tab-active' line-height='0' border='{{false}}' color='#fe2200' bind:click='changeSecondCateTab'>
+        <van-tab title="{{item.cateName}}" data-index='{{index}}' wx:for='{{cateList[selectFirstIndex].nextList}}'></van-tab>
+      </van-tabs>
+      <image class='arrow-down' bindtap='bindTabCollapse' src='{{showTypeModule?"/utils/img/arrow_up.png":"/utils/img/arrow_down.png"}}'></image>
+    </view>
+    <view class='type-module' wx:if='{{showTypeModule}}'>
+      <view class='select-second-item {{selectSecondIndex==index?"type-item":""}}' data-index='{{index}}' bindtap='changeSecondCate' wx:for='{{cateList[selectFirstIndex].nextList}}'>{{item.cateName}}</view>
+    </view>
+    <scroll-view scroll-y bindscrolltolower='getNextPage' class='vage-list'>
+      <view class='vage-item' data-id='{{item.keyId}}' catchtap="goDetail" wx:for='{{foodList}}'>
+        <image class='vage-img' src='{{item.mainPic}}'></image>
+        <view class='vage-detail'>
+          <view class='vage-title '>
+            <text class='text-over name'>{{item.foodName}}</text>
+            <text class='num'></text>
+          </view>
+          <view class='vage-info'>
+            <view class='vage-price'>
+              <text class='price'>{{item.attrList[0].attrPrice}}</text>元/{{item.attrList[0].attrName}}</view>
+            <view class='op-view'>
+              <image src='/utils/img/reduce.png' catchtap="bindCountReduce" wx:if='{{item.count>0&&item.attrList.length==1}}' data-index='{{index}}' class='add-icon'></image>
+              <text class='count' wx:if='{{item.count>0&&item.attrList.length==1}}'>{{item.count}}</text>
+              <image src='/utils/img/stock/add.png' wx:if='{{item.attrList.length==1}}' catchtap="bindBuy" data-index='{{index}}' class='add-icon'></image>
+              <view class='choose-spec' catchtap="bindBuy" data-index='{{index}}' wx:if='{{item.attrList.length>1}}'>选规格 <view wx:if='{{item.count>0}}'>({{item.count}})</view> </view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class='empty' wx:if='{{foodList.length==0}}'>暂无数据</view>
+    </scroll-view>
+  </view>
+</view>
+
+<!-- <view class='empty' wx:if='{{cateList.length==0}}'>暂无数据</view> -->
+<view class='shoping-cart'>
+  <cus-cart count='{{buyTotalCount}}' empty='{{cartEmpty}}' hideCart='{{hideCartImg}}' totalMoney='{{buyTotalMoney}}' favMoney='0' bind:submit='bindToSubmit' bind:cartClick='bindShowCard'></cus-cart>
+</view>
+<van-popup show="{{ showCart }}" position="bottom" custom-style="height: 65%;max-height:80%;bottom:120rpx;background-color:transparent; overflow-y:hidden;" overlay-style='bottom:120rpx;' bind:close="closeCart">
+  <view style='height:100%;'>
+    <view class='cart-img' bindtap="closeCart">
+      <image src='../../../utils/img/gouwuche.png'></image>
+      <text>{{buyTotalCount}}</text>
+    </view>
+    <view class='cart-pro-container'>
+      <view class='check-all'>
+        <view class='check'>
+          <checkbox-group class="radio-group" bindchange="cartCheckAll" wx:for='{{checkAllList}}' wx:key="{{index}}">
+            <checkbox class="radio" value="{{index}}" color='#fff' checked='{{item.checked}}'>
+              <text>{{"全选（已选"+buyTotalCount+"件）"}}</text>
+            </checkbox>
+          </checkbox-group>
+        </view>
+        <text bindtap='bindClearCart'>清空已选商品</text>
+      </view>
+      <view class='cart-card-container' wx:for='{{cartProList}}' wx:key="{{index}}">
+        <view class='cart-card'>
+          <cus-pro-card index='{{index}}' title='{{item.goodsName}}' subTitle='{{item.attrName}}' oriPrice='{{item.cusOriPrice}}' imgsize='img-size' imgSrc='{{item.goodsPic}}' bind:click='seeProDetail'>
+            <view slot='right' class='state-container'>
+              <text class='selling-price'>{{'￥'+item.attrPrice}}</text>
+              <view class='spec-btn'>
+                <image src='../../../utils/img/reduce.png' data-index='{{index}}' catchtap='bindCartReduce'></image>
+                <text>{{item.count}}</text>
+                <image src='../../../utils/img/stock/add.png' data-index='{{index}}' catchtap='bindCartAdd'></image>
+              </view>
+            </view>
+          </cus-pro-card>
+        </view>
+      </view>
+    </view>
+  </view>
+</van-popup>
+
+<van-popup show="{{ proSpecShow }}" position="center" custom-style="width:80%;max-height:45%;" z-index='9999' bind:close="closeProSpec">
+  <view class='spec-content'>
+    <view class='food-title'>{{foodList[selectFoodIndex].foodName}}</view>
+    <view class='spec-title'>规格:</view>
+    <view class='spec-list'>
+      <view catchtap="selectSpec" data-index='{{index}}' class='spec-item {{index==selectSpecIndex?"select-spec-item":""}}' wx:for='{{foodList[selectFoodIndex].attrList}}'>
+        {{item.attrName}}:{{item.attrPrice}}
+      </view>
+    </view>
+    <!-- <view class='spec-title'>口味:</view>
+    <view class='spec-list'>
+      <view catchtap="selectSpec" data-index='{{index}}' class='spec-item {{index==selectSpecIndex?"select-spec-item":""}}' wx:for='{{foodList[selectFoodIndex].attrList}}'>
+        {{item.attrName}}:{{item.attrPrice}}
+      </view>
+    </view> -->
+    <!-- <view class='spec-title'>备注</view>
+    <view>
+      <input class='remark'></input>
+    </view> -->
+    <button class='add-cart-btn' bindtap="submitAdd">确认</button>
+  </view>
+</van-popup>

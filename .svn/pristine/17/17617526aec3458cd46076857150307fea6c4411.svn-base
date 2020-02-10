@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "库存预警",
+  "usingComponents": {
+    "page-title":"/components/page-title/page-title",
+    "van-popup": "/miniprogram_npm/vant-weapp/popup/index",
+    "van-switch": "/miniprogram_npm/vant-weapp/switch/index",
+    "search":"/components/search/search"
+  }
+}

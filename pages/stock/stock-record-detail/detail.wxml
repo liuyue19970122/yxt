@@ -1,0 +1,10 @@
+<!--pages/stock/stock-record-detail/detail.wxml-->
+<view class='block-module-title'>精品冬枣</view>
+<view class='detail'>
+  <cell-item title='操作类型' height='100rpx' titleColor="#333" color='#333' content='盘点'></cell-item>
+  <cell-item title='操作时间' height='100rpx' titleColor="#333" color='#333' content='盘点'></cell-item>
+  <cell-item title='操作人' height='100rpx' titleColor="#333" color='#333' content='盘点'></cell-item>
+  <cell-item title='变更前' height='100rpx' titleColor="#333" color='#333' content='盘点'></cell-item>
+  <cell-item title='变更后' height='100rpx' titleColor="#333" color='#333' content='盘点'></cell-item>
+  <cell-item title='单位' height='100rpx' titleColor="#333" color='#333' content='盘点'></cell-item>
+</view>

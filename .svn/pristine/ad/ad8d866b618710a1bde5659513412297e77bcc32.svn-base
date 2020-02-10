@@ -1,0 +1,41 @@
+<!--pages/receipt/vege/default-list/list.wxml-->
+<view class='search-module'>
+  <view class='form'>
+    <view class='form-item border-bottom'>
+      <view class='label'>导入分类</view>
+      <picker mode="multiSelector" class='form-item__content' bindchange="bindCateChange" bindcancel='bindCateCancel' bindcolumnchange="bindCateColumnChange" value="{{multiProIndex}}" range-key='cateName' range="{{multiProArray}}">
+        <view class="picker">{{multiCateName}}
+          <view class='right-icon'></view>
+        </view>
+      </picker>
+    </view>
+  </view>
+
+  <van-search bind:change='searchChange' focus="{{true}}" shape='round' value="{{ searchName }}" bind:search='goSearch' placeholder="请输入搜索关键词" />
+
+</view>
+<view class='default-list'>
+  <van-checkbox-group value="{{ selectList }}" bind:change="seletDefault">
+    <view class='vage-item' catchtap="goDetail" data-id='{{item.keyId}}' wx:for='{{foodList}}'>
+      <image class='vage-img' src='{{item.mainPic}}'></image>
+      <view class='vage-detail'>
+        <view class='vage-left-info'>
+          <view class='vage-title'>{{item.foodName}}
+          </view>
+          <view class='vage-info'>
+            <view class='vage-price'>
+              <text class='price'>{{item.sellPrice}}</text>元/份</view>
+          </view>
+        </view>
+        <view>
+          <van-checkbox checked-color='#fe2200' catch:tap='changeStatus' data-index='{{index}}' value="{{item.status}}" />
+        </view>
+      </view>
+    </view>
+  </van-checkbox-group>
+</view>
+<view class='op-height'></view>
+<view class='op-btn-group'>
+  <!-- <button class='n-btn'>已选商品</button> -->
+  <button class='y-btn' bindtap='onSubmit'>确定</button>
+</view>

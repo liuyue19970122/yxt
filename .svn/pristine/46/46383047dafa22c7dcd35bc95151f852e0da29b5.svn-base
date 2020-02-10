@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "编辑货品",
+  "usingComponents": {
+    "page-title": "/components/page-title/page-title",
+    "van-notify": "/miniprogram_npm/vant-weapp/notify/index"
+  }
+}

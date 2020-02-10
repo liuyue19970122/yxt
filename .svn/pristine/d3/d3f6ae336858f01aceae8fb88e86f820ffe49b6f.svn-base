@@ -1,0 +1,75 @@
+/* pages/mall/mall-my-ghs/ghs.wxss */
+
+.card{
+  display: flex;
+  align-items: center;
+  margin: 24rpx;
+}
+.img-container{
+  width:120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 24rpx;
+  
+}
+
+.img-container>image{
+  width:100%;
+  height: 100%;
+}
+
+.info{
+  flex: 1;
+  border-bottom: 2rpx solid #f0f0f0;
+}
+.info-name{
+  font-size:36rpx;
+  font-weight: bold;
+  color: #333;
+  padding-bottom: 20rpx;
+}
+.info-other{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 20rpx;
+}
+
+.info-mark{
+  border-bottom:2rpx solid #f0f0f0;
+  margin: 0 24rpx 24rpx 168rpx;
+}
+.info-mark>text{
+  display: block;
+  padding: 20rpx;
+  border-radius: 12rpx;
+  background-color: #f5f5f5;
+}
+
+.info-other>text{
+  flex: 1;
+  font-size:28rpx;
+  color: #333;
+}
+
+.info-other>image{
+  width: 80rpx;
+  height: 40rpx;
+}
+
+.pop{
+  position: fixed;
+  box-shadow: 0 0 24rpx rgba(0,0,0, .08);
+  right: 20rpx;
+  background-color: #fff;
+  border-radius: 20rpx;
+  z-index: 100;
+  padding: 20rpx;
+}
+.pop>text{
+  display: block;
+  padding: 12rpx;
+  font-size: 32rpx;
+  color: #333;
+}

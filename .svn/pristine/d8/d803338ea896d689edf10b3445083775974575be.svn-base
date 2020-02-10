@@ -1,0 +1,11 @@
+<!--pages/system/msg-detail/detail.wxml-->
+<wxs src='../../../utils/filter.wxs' module='tools' />
+<view class='title'>
+  <view>{{detail.title}}</view>
+</view>
+<view class='time'>{{detail.crtTime}}</view> 
+
+<view class='hr-module'></view>
+<view class='detail'>
+  <text class='msg' decode="true">{{tools.filter_N(detail.content)}}</text>
+</view>

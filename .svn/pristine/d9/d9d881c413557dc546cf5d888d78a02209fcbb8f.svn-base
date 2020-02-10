@@ -1,0 +1,203 @@
+// pages/system/account-manager/account-manager.js
+
+var util = require('../../../utils/util.js');
+const app = getApp()
+
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+     accountList:[],
+     accountDetail:{},
+    codeUrl:'http://118.24.172.172:9999/yxt/img/menu/employee-pay.png',
+    showMoneyDialog:false,
+    money:'',
+    isCharge:false
+  },
+  goReset(){
+    wx.navigateTo({
+      url: '/pages/receipt/set-pay-pwd/set',
+    })
+  },
+  bindMoney(e){
+    this.setData({
+      money:e.detail.value
+    })
+  },
+  onClose(){
+    this.setData({
+      showMoneyDialog:false
+    })
+  },
+  //微信充值到账户///balance/recharge
+  //money,openId
+  wxChargeAcc() {
+    if(this.data.isCharge){
+      return false
+    }
+    this.setData({
+      isCharge:true
+    })
+    wx.showLoading({
+      title: '充值中...',
+      mask: true
+    })
+    util.getWxOpenId().then(res => {
+      let content = JSON.parse(res.data.content)
+      let url = app.globalData.baseUrl + 'apiMall/balance/recharge'
+      let data = {
+        openId: content.openid,
+        money: this.data.money
+      }
+      util.getRequestListData(url, data, false, this.wxChargeAccRes)
+    })
+  },
+  wxChargeAccRes(res, type) {
+    wx.hideLoading()
+    var that=this
+    if (res.data.code === '200') {
+      this.setData({
+        chargeShow: false
+      })
+      let list = JSON.parse(res.data.content)
+      let timeStamp = list.timeStamp
+      let nonceStr = list.nonceStr
+      let packageNum = list.package
+      let paySign = list.paySign
+      wx.requestPayment({
+        'timeStamp': timeStamp,
+        'nonceStr': nonceStr,
+        'package': packageNum,
+        'signType': 'MD5',
+        'paySign': paySign,
+        'success': function (res) {
+          // that.getDetail()
+          // that.getList()
+          that.setData({
+            showMoneyDialog:false
+          })
+        },
+        'fail': function (res) {
+          console.log('fail:' + JSON.stringify(res));
+        }
+      })
+    } else {
+      wx.showToast({
+        title: res.data.message,
+        duration: 2000
+      })
+      this.setData({
+        isCharge:false
+      })
+    }
+  },
+  openDialog(){
+    this.setData({
+      showMoneyDialog:true
+    })
+  },
+  goCharge(){
+    wx.navigateTo({
+      url: '../charge-money/recharge',
+    })
+  },
+  goDetail(){
+    wx.navigateTo({
+      url: '../account-list/account-list',
+    })
+  },
+  getList(){
+    var url = app.globalData.baseUrl + 'apiMall/balance/detalList'
+    util.getRequestList(url, false, this.listRes)
+  },
+  listRes(res){
+    if(res.data.code==200){
+      var list=res.data.content
+      for(var item of list){
+        item.crtTime = util.formatTime(item.crtTime)
+        item.opMoney = util.getMoney(item.opMoney)
+      }
+      this.setData({
+        accountList:list
+      })
+    }
+  },
+  getDetail(){
+    var url = app.globalData.baseUrl +'apiMall/balance/org'
+    util.getRequestList(url,false,this.detailRes)
+  },
+  detailRes(res){
+    if(res.data.code==200){
+      res.data.content.balance = util.formatMoney(util.getMoney(res.data.content.balance),2)
+      res.data.content.expTime = util.formatDate(res.data.content.expTime)
+      this.setData({
+        accountDetail:res.data.content,
+      })
+    }
+  },
+  reviewCode(){
+    var that=this
+    wx.previewImage({
+      urls: [that.data.codeUrl],
+      correct:that.data.codeUrl
+    })
+  },
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    app.globalData.isGo = false
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+    this.getDetail()
+    this.getList()
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+
+  }
+})

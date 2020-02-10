@@ -1,0 +1,69 @@
+/* pages/mall/order-manager/order-manager.wxss */
+.card-container{
+  padding:0 24rpx;
+  margin-top: 24rpx;
+}
+.order-card{
+  position: relative;
+  border-radius: 24rpx;
+  box-shadow: 0 12rpx 12rpx rgba(0,0,0, .08);
+  padding: 24rpx;
+}
+.card-info{
+  display: flex;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+.card-content{
+  flex: 1;
+  margin-left: 24rpx;
+}
+.card-title{
+  font-size: 36rpx;
+  color:#333;
+  padding-right: 112rpx;
+  margin-bottom: 14rpx;
+  overflow:hidden;
+  text-overflow:ellipsis; 
+  text-overflow: -o-ellipsis-lastline;
+  display:-webkit-box;
+  -webkit-line-clamp:1;
+  line-clamp: 1;
+  -webkit-box-orient:vertical;
+}
+.card-num{
+  margin-bottom: 8rpx;
+}
+.card-subinfo,.card-num{
+  color: #999;
+  font-size: 28rpx;
+}
+.img-container{
+  width: 80rpx;
+  height:80rpx;
+}
+.img-container>image{
+  width: 100%;
+  height: 100%;
+}
+
+.card-subinfo{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 104rpx;
+}
+
+.card-tag{
+  position: absolute;
+  z-index: 99;
+  line-height: 52rpx;
+  border-top-left-radius: 26rpx;
+  border-bottom-left-radius: 26rpx;
+  color: #fff;
+  font-size: 32rpx;
+  text-align: center;
+  width: 156rpx;
+  top:24rpx;
+  right: -24rpx;
+}

@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "选择桌位",
+  "usingComponents": {
+    "page-title":"/components/page-title/page-title"
+  }
+}

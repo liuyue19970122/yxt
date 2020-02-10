@@ -1,0 +1,166 @@
+// pages/receipt/vege/default-list/list.js
+var util = require('../../../../utils/util.js');
+const app = getApp()
+var times = (new Date()).getTime()
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    pageNum: 1,
+    pages: 1,
+    pageSize: 10,
+    foodList: [],
+    selectList: [],
+    searchName: ''
+  },
+  searchChange: function(e) {
+    this.setData({
+      searchName: e.detail
+    })
+  },
+  getFoodList() {
+    var url = app.globalData.baseUrl + 'apiMall/food/default/list?t=' + times
+    var data = {
+      pageNum: this.data.pageNum,
+      pageSize: this.data.pageSize,
+      foodName: this.data.searchName
+    }
+    util.getRequestListData(url, data, false, this.foodListRes)
+  },
+  foodListRes(res) {
+    var list = res.data.content.list
+    list.map((item) => {
+      item.status = false
+      item.sellPrice = util.getMoney(item.sellPrice)
+    })
+    this.setData({
+      foodList: list,
+      pages: res.data.content.pages
+    })
+  },
+  getNextPage() {
+    var that = this
+    if (that.data.pages > that.data.pageNum) {
+      this.setData({
+        pageNum: ++that.data.pageNum
+      })
+      that.getFoodList()
+    } else {
+      wx.showToast({
+        title: '已经是最后一页',
+        duration: 2,
+      })
+    }
+  },
+  changeStatus(e) {
+    var list = this.data.foodList
+    list.map((item, index) => {
+      if (index == e.currentTarget.dataset.index) {
+        item.status = !item.status
+      }
+    })
+    this.setData({
+      foodList: list
+    })
+  },
+  onSubmit() {
+    var url = app.globalData.baseUrl + 'apiMall/food/admin/initDefault?t=' + times
+    var list = []
+    this.data.foodList.map((item) => {
+      if (item.status) {
+        list.push(item.keyId)
+      }
+    })
+    var data = {
+      cateId: this.data.cateId,
+      foodIds: list
+    }
+    util.postRequestList(url, data, false, this.submitRes)
+  },
+  submitRes(res) {
+    if (res.data.code == 200) {
+      wx.showModal({
+        title: '提示',
+        content: '导入成功',
+        showCancel: false,
+        success: function(res) {
+          wx.navigateBack({
+            delta: 1
+          })
+        }
+      })
+    } else {
+      wx.showToast({
+        title: res.data.message,
+        duration: 2
+      })
+    }
+  },
+  goDetail(e){
+    wx.navigateTo({
+      url: '../vege-detail/detail?id='+e.currentTarget.dataset.id+'&type=0',
+    })
+  },
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function(options) {
+    // console.log('09')
+    this.getFoodList()
+    var prevPage = util.getPrevPage()
+    var cateId = prevPage.data.cateList[prevPage.data.selectFirstIndex].nextList.length > 0 ? prevPage.data.cateList[prevPage.data.selectFirstIndex].nextList[prevPage.data.selectSecondIndex].keyId : prevPage.data.cateList[prevPage.data.selectFirstIndex].keyId;
+    this.setData({
+      cateId: cateId
+    })
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function() {
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function() {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function() {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function() {
+    this.getNextPage()
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function() {
+
+  }
+})

@@ -1,0 +1,35 @@
+<!--pages/mall/pro-details/detail.wxml-->
+<swiper class='banner-box'
+  indicator-color='rgba(230,230,230,0.8)' 
+  indicator-active-color='#fe2200' autoplay='{{true}}' 
+  indicator-dots="{{true}}" duration="2000">
+  <block wx:for="{{picList}}" wx:key="{{index}}">
+    <swiper-item>
+      <image src='{{item}}' class='swiper-img'></image>
+    </swiper-item>
+  </block>
+</swiper>
+<!-- 商品名称价格 -->
+<view class='pro-container'>
+  <view class='pro-name'>
+    <text class='font-title'>{{goodsInfo.goodsName}}</text>
+    <view wx:if="{{pageType==='detail'}}">
+      <image bindtap='bindCollect' src='{{goodsInfo.isCollect==="1"?"../../../utils/img/collected_red.png":"../../../utils/img/collect_black.png"}}' class='share-img'></image>
+      <image src='../../../utils/img/share.png' class='share-img'></image>
+    </view>
+  </view>
+  <view class='pro-price'>
+    <text>{{"￥"+ goodsInfo.cusSalePrice}}</text>
+    <text>{{"￥"+goodsInfo.cusNormalPrice}}</text>
+  </view>
+  <view class='pro-desc'>{{goodsInfo.description}}</view>
+</view>
+<view class='pro-blank'></view>
+<!-- 商品详情 -->
+<view class='pro-container'>
+  <view class='pro-title font-title'>商品详情</view>
+  <view>
+    <rich-text nodes="{{detailInfo}}"></rich-text>
+  </view>
+</view>
+

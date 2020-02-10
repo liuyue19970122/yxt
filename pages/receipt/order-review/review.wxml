@@ -1,0 +1,62 @@
+<!--pages/receipt/order-review/review.wxml-->
+<view>
+  <view class='org-name'>麻辣香锅</view>
+  <view class='order-info'>
+    <view class='info-item'>
+      <view>桌号：004</view>
+      <view>单号：00032i948897</view>
+    </view>
+    <view class='info-item'>
+      <view>人数：10人</view>
+      <view>下单人：张三</view>
+    </view>
+    <view class='info-item'>
+      <view>用餐时长：1小时7分钟</view>
+      <view></view>
+    </view>
+    <view class='info-item'>
+      <view>开单时间：2019-11-04 15:07:09</view>
+      <view></view>
+    </view>
+  </view>
+  <view class='dashed-border'></view>
+  <view class='order-info'>
+    <view class='goods-item'>
+      <view class='info-left-item'>
+        <view class='sort'>1</view>
+        <view>蜜汁大鸡腿</view>
+      </view>
+      <view>￥15*1.0份</view>
+    </view>
+    <view class='goods-item'>
+      <view class='info-left-item'>
+        <view class='sort'>1</view>
+        <view>蜜汁大鸡腿</view>
+      </view>
+      <view>￥15*1.0份</view>
+    </view>
+    <view class='goods-item'>
+      <view class='info-left-item'>
+        <view class='sort'>1</view>
+        <view>蜜汁大鸡腿</view>
+      </view>
+      <view>￥15*1.0份</view>
+    </view>
+    <view class='goods-item'>
+      <view class='info-left-item'>
+        <view class='sort'>1</view>
+        <view>蜜汁大鸡腿</view>
+      </view>
+      <view>￥15*1.0份</view>
+    </view>
+    <view class='total-money'>
+      应付：￥90.50
+    </view>
+    <view class='dashed-border'></view>
+  </view>
+  <view class='order-info'>
+    <view class='org-name'>
+      总消费金额：￥90.50
+    </view>
+  </view>
+</view>

@@ -1,0 +1,10 @@
+/* components/shadow-list/shadow-list.wxss */
+@import "../account-item-shadow/acc-item-shadow"
+
+.account-item{
+  font-size:30rpx;
+  color:#333;
+}
+.leave-item{
+  color:#999
+}

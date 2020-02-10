@@ -1,0 +1,15 @@
+<!--index.wxml-->
+<view class='yxt-index-top'>
+  <search value='{{value}}' background='{{background}}' bind:search='onSearch' bind:cancel='onCancel'></search>
+  <banner width="700rpx" height='250rpx' padding="0" margin="0 25rpx" radius='20rpx' background='#00FF00'></banner>
+</view>
+<view class='first-banner-box'>
+  <banner width="700rpx" height='230rpx' padding="0" margin="25rpx" radius='15rpx' background='#FEB42E'></banner>
+</view>
+<view class='second-banner-box'>
+  <banner width="337.5rpx" height='200rpx' padding="0" margin="0" radius='15rpx' background='#00FF00'></banner>
+  <banner width="337.5rpx" height='200rpx' padding="0" margin="0" radius='15rpx' background='#00FF00'></banner>
+</view>
+<view class="echart-box">
+  <ec-canvas id="mychart-dom-line" canvas-id="mychart-line" ec="{{ec}}"></ec-canvas>
+</view>

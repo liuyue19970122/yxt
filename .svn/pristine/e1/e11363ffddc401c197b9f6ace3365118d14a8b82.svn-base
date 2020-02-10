@@ -1,0 +1,55 @@
+<!--pages/receipt/vege/vege-detail/detail.wxml-->
+<!-- 商品图片 -->
+<view class='main-pic' wx:if='{{detail.imgList.length>0}}'>
+   <swiper indicator-dots="{{indicatorDots}}" class='swiper'
+        autoplay="{{true}}" interval="3000" class='banner-box' duration="500" indicator-color="rgba(255,255,255,0.8)" indicator-active-color='#fe2200' easing-function="easeInOutCubic">
+        <block wx:for="{{detail.imgList}}" wx:key="*this" >
+          <swiper-item >
+            <image class='main-pic swiper-item {{item}}' src='{{item.imgUrl}}'></image>
+          </swiper-item>
+        </block>
+      </swiper>                                                           
+</view>
+<!-- 商品标题 -->
+<view class='food-info'>
+  <view class='food-left-info'>
+     <image src='{{detail.foodInfo.mainPic}}' class="food-img"></image>
+     <view class='food-title'><view class='text-over'>{{detail.foodInfo.foodName}}</view></view>
+  </view>
+ <!-- <view class='food-right-info'>
+   <button class='add-btn'>添加</button>
+ </view> -->
+</view>
+<!-- 规格列表 -->
+<view class='spec-list '>
+  <view class='module-title'>规格：</view>
+  <view class='spec-item select-spec-item border-bottom' wx:for='{{detail.attrList}}'>
+    <view>{{item.attrName}}</view>
+    <view>￥{{item.sellPrice}}</view>
+  </view>
+  <!-- <view class='spec-item border-bottom'>
+    <view>小分</view>
+    <view>￥13</view>
+  </view> -->
+</view>
+<view class='blank-module'></view>
+<!-- 材料列表 -->
+<!-- <view class='spec-list '>
+  <view class='module-title'>用料：</view>
+  <view class='spec-item'>
+    <view>小分</view>
+    <view>￥13</view>
+  </view>
+  <view class='spec-item'>
+    <view>小分</view>
+    <view>￥13</view>
+  </view>
+</view> -->
+
+<view class='hr-module'></view>
+<view class='module-title'>商品详情</view>
+<view class='food-detail'>
+  {{detail.foodDetail.detail}}
+</view>
+
+

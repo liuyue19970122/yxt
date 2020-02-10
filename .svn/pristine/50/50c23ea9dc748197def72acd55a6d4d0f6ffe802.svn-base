@@ -1,0 +1,11 @@
+<!--components/banner/banner.wxml-->
+<view class='banner' style='width:{{width}};height:{{height}};margin:{{margin}};border-radius:{{radius}};background:{{background}};background-size:100% 100%;box-shadow:{{color}}'>
+  <view style="padding:{{padding}};" class='banner-detail-content' style="height:{{detailHeight}}">
+    <view class='banner-detail' style='height:{{titleHeight}}'>
+      <view wx:if='{{title!=""}}'>{{title}}</view>
+      <view class='num' wx:if='{{num!=""}}'>{{num}}</view>
+    </view>
+    <view class='banner-info' wx:if='{{info!=""}}'>预警提示</view>
+  </view>
+  <view class='dot' wx:if='{{dot>0}}'>{{dot}}</view>
+</view>

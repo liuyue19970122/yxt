@@ -1,0 +1,57 @@
+<!--pages/receipt/vege/default-list/list.wxml-->
+<!-- <view class='search-module'> -->
+<search value='{{goodsName}}' bind:search='getGoodsList' bind:input='bindGoodsName' placeholder='请输入您想要搜索的货品'></search>
+<scroll-view scroll-y='{{true}}' bindscrolltolower='goNext' class='goods-content'>
+  <van-checkbox-group value="{{ selectList }}" bind:change="selectDefault">
+    <view class='goods-item' data-id='{{item.keyId}}' wx:for='{{goodsList}}'>
+      <view>
+        <van-checkbox checked-color='#fe2200' catch:tap='changeStatus' data-index='{{index}}' data-isadd='{{item.isAdd}}' name='{{item.keyId}}' value="{{item.status}}" wx:if='{{!item.isAdd}}'>
+          <view class='goods-check-item'>
+            <view class='good-item-info'>
+              <view class='goods-name'>{{item.goodsName}}</view>
+              <view></view>
+            </view>
+            <view class='good-item-info'>
+              <view class='goods-count'>当前库存：{{item.goodsCount}}{{item.goodsUnit}}
+              </view>
+              <view class='goods-price'>
+                <text class='check-num' wx:if='{{!item.isAdd}}'>未盘点</text>
+                <!-- <input type='digit' class='input-num' wx:if='{{item.isAdd}}' value=''></input>  -->
+                <text wx:if='{{item.isAdd}}'>{{item.fixCount}}{{item.goodsUnit}}</text>
+              </view>
+            </view>
+          </view>
+        </van-checkbox>
+        <van-checkbox checked-color='#fe2200' value="{{true}}" disabled="{{true}}" wx:if='{{item.isAdd}}'>
+          <view class='goods-check-item'>
+            <view class='good-item-info'>
+              <view class='goods-name'>{{item.goodsName}}</view>
+              <view></view>
+            </view>
+            <view class='good-item-info'>
+              <view class='goods-count'>当前库存：{{item.goodsCount}}{{item.goodsUnit}}
+              </view>
+              <view class='goods-price'>
+                <text class='check-num' wx:if='{{!item.isAdd}}'>未盘点</text>
+                <!-- <input type='digit' class='input-num' wx:if='{{item.isAdd}}' value=''></input>  -->
+                <text wx:if='{{item.isAdd}}'>{{item.fixCount}}{{item.goodsUnit}}</text>
+              </view>
+            </view>
+          </view>
+        </van-checkbox>
+      </view>
+
+    </view>
+  </van-checkbox-group>
+</scroll-view>
+<view class='all-check'>
+  <!-- <view> -->
+  <van-checkbox checked-color='#fe2200' value="{{isAllCheck}}" catch:tap='bindAllChoose'>
+  <text style='margin-left:20rpx;'>选择全部商品</text>  
+  </van-checkbox>
+  <!-- </view> -->
+
+</view>
+<view class='op-btn-group'>
+  <button class='y-btn' bindtap='onSubmit'>确定</button>
+</view>

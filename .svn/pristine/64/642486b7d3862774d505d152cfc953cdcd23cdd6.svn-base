@@ -1,0 +1,43 @@
+<!--pages/stock/stock-change/stock-change.wxml-->
+
+<view class='full-page' bindtouchstart="closeActive">
+  <page-title title='实时库存' icon='/utils/img/change.png' isAdd='{{false}}' picker="{{false}}" array='{{dateList}}' name="name" range='{{1}}'></page-title>
+
+  <view class='content'>
+    <view>
+      <cate-picker bind:change='changeCate' cateList='{{cateList}}' range="{{selectCate}}" name='cateName'></cate-picker>
+    </view>
+    <view>
+      <cate-picker bind:change='changeSecondCate' cateList='{{cateList[selectCate].nextList}}' range="{{secondCate}}" name='cateName'></cate-picker>
+    </view>
+  </view>
+  <view data-id='{{item.keyId}}' catchtap="clickItem" class='{{activeId==item.keyId?"active-item":""}}' wx:for='{{goodList}}'>
+    <view class='good-item'>
+      <view class='good-left-module'>
+        <image src='{{item.goodsPic}}'></image>
+      </view>
+      <view class='good-right-module'>
+        <view>{{item.goodsName}}</view>
+        <view>库存位置：{{item.locationName}}</view>
+        <view class='bottom-module'>
+          <view>库存量：
+            <text class='kg-unit'>{{item.goodsCount}}{{item.goodsUnit}}</text>
+          </view>
+          <view class='time'>{{item.lastTime}}更新</view>
+        </view>
+      </view>
+      <view class='active-dialog' wx:if='{{activeId==item.keyId}}'>
+        <view catchtap='goInList' data-id='{{item.keyId}}'>批次</view>
+        <view catchtap='goIn' data-id='{{item.keyId}}'>入库</view>
+        <view catchtap='goOut' data-id='{{item.keyId}}'>出库</view>
+        <view catchtap='goRecord' data-id='{{item.keyId}}'>记录</view>
+      </view>
+    </view>
+  </view>
+  <view class='empty' wx:if='{{goodList.length==0}}'>
+    暂时没有货品，快去添加吧~
+  </view>
+  <!-- <button class='btn-stock-in'> -->
+  <image src='/utils/img/stock-in.png' bindtap='goAdd' class='btn-stock-in'></image>
+  <!-- </button> -->
+</view>

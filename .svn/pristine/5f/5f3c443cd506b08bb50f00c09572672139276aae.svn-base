@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "商品上架",
+  "usingComponents": {
+    "form-title": "/components/form-title/index",
+    "cus-editor": "/components/editor/editor",
+    "van-popup": "/miniprogram_npm/vant-weapp/popup/index",
+    "image-cropper": "/components/image-cropper/image-cropper",
+    "van-switch": "/miniprogram_npm/vant-weapp/switch/index",
+    "van-notify": "/miniprogram_npm/vant-weapp/notify/index"
+  }
+}

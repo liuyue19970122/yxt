@@ -1,0 +1,32 @@
+<!--pages/receipt/vage-list/list.wxml-->
+<view class='box'>
+<!-- 左侧一级分类 -->
+  <view class='left-module'>
+    <view data-index='{{index}}' bindtap='changeFirstCate' class='type-first-item {{index==selectFirstIndex?"select-first-item":""}}' wx:for='{{cateList}}'>{{item.cateName}}</view>
+  </view>
+  <!-- 右侧二级分类及商品列表 -->
+  <view class='right-module'>
+    <view class='type-second-list' wx:if='{{cateList[selectFirstIndex].nextList.length>0}}'>
+      <scroll-view scroll-x style="width: auto;overflow:hidden;">
+        <view data-index='{{index}}' bindtap='changeSecondCate' class='type-second-item {{selectSecondIndex==index?"select-second-item":""}}' wx:for='{{cateList[selectFirstIndex].nextList}}'>{{item.cateName}}</view>
+      </scroll-view>
+    </view>
+    <view class='btn-group'>
+      <image src='/utils/img/receipt/insert.png'></image>
+      <image src='/utils/img/add.png' bindtap='goAdd'></image>
+    </view>
+    <scroll-view scroll-y bindscrolltolower='getNextPage' class='vage-list'>
+      <view class='vage-item'>
+        <image class='vage-img' src='{{item.mainPic}}'></image>
+        <view class='vage-detail'>
+          <view class='vage-title'>{{item.foodName}}<text class='num'>{{item.limitCount}}份</text>
+          </view>
+          <view class='vage-info'>
+            <view class='vage-price'><text class='price'>12</text>元/份</view>
+            <image src='/utils/img/edit.png' class='edit-icon'></image>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+</view>

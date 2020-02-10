@@ -1,0 +1,10 @@
+<!--pages/receipt/pay-result/result.wxml-->
+<view class='result-box'>
+  <image class='result-icon' src='/utils/img/receipt/pay-success.png'></image>
+  <view class='info-item'>￥{{totalMoney}}</view>
+  <view class='info-item'>收款成功</view>
+  <view class='border-bottom'></view>
+
+  <button class='btn go-on-btn' catchtap="bindRelease">释放桌位</button>
+  <button class='btn print-btn'>打印小票</button>
+</view>

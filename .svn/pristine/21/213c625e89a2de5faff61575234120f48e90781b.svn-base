@@ -1,0 +1,48 @@
+<!--pages/receipt/table-list/list.wxml-->
+<view class='page' bindtouchstart="closeActive">
+  <page-title title='桌位管理' isAdd='{{true}}' picker='{{false}}' bind:add='goAdd' wx:if='{{type==""}}' icon='http://118.24.172.172:9999/yxt/img/menu/table.png'></page-title>
+  <view class='status-list'  wx:if='{{type==""||type=="choose"}}'>
+    <view class='status-item '>
+      <view class='used item'></view>
+      <view>使用中</view>
+    </view>
+    <view class='status-item '>
+      <view class='will item'></view>
+      <view>已预订</view>
+    </view>
+    <view class='status-item'>
+      <view class='none item'></view>
+      <view>空闲</view>
+    </view>
+  </view>
+  <view class='table-list' wx:if='{{type==""}}'>
+    <view class='{{item.status>0?(item.status==1?"select-used-item":"select-will-item"):""}} table-item {{activeId==item.keyId?"active-item":""}}' catchtap='goSet' data-id='{{item.keyId}}' data-index='{{index}}' data-status='{{item.status}}' wx:for='{{desktopList}}'>
+      <view class='no'>{{item.deskCode}}</view>
+      <view class='count'>{{item.peopleNum}}人桌 <text wx:if='{{item.status==2}}'>({{item.reserveTime}})</text> </view>
+      <view class='active-dialog' wx:if='{{activeId==item.keyId}}'>
+        <!-- <view catchtap='goInList' data-id='{{item.keyId}}'>批次列表</view> -->
+        <!-- <view catchtap='goUpdate' data-index='{{index}}'>修改</view> -->
+      </view>
+    </view>
+  </view>
+<view class='table-list' wx:if='{{type!=""}}'>
+    <view class='{{item.status>0?(item.status==1?"select-used-item":"select-will-item"):""}} {{item.isSelect?"select-used-item":""}} table-item' catchtap='selectItem' data-id='{{item.keyId}}' data-orderid='{{item.orderId}}' data-index='{{index}}' data-status='{{item.status}}' wx:for='{{desktopList}}' wx:if='{{(type=="submit"&&item.status!=1)||type!="submit"}}'>
+      <view class='no text-over'>{{item.deskCode}}</view>
+      <view class='count'>{{item.peopleNum}}人桌 <text wx:if='{{item.status==2}}'>({{item.reserveTime}})</text> </view>
+      <!-- <view class='time' wx:if='{{item.status==2}}'>预定时间：{{item.reserveTime}}</view> -->
+      <view class='active-dialog' wx:if='{{activeId==item.keyId}}'>
+        <!-- <view catchtap='goInList' data-id='{{item.keyId}}'>批次列表</view> -->
+        <!-- <view catchtap='goUpdate' data-index='{{index}}'>修改</view> -->
+      </view>
+    </view>
+  </view>
+  <view class='op-height'></view>
+  <view class='op-btn-group' >
+    <!-- <button class='n-btn'>更新状态</button> -->
+    <button class='y-btn' bindtap='goOrder' wx:if='{{type=="choose"}}'>直接点餐</button>
+    <button class='y-btn' bindtap='bindChoose' wx:if='{{type=="submit"}}'>选择完毕</button>
+  </view>
+</view>
+
+
+<van-action-sheet bind:close='bindCloseSet' show="{{ showSetDialog }}" actions="{{ actions }}" bind:select="onSelect" />

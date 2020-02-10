@@ -1,0 +1,42 @@
+/* pages/finance/rem-account/add/add.wxss */
+@import '../../../../utils/asset/css/cus-form.wxss';
+.content-area{
+  width: 100%;
+  border: 1px solid #f0f0f0;
+  padding: 24rpx;
+  height: 160rpx;
+  box-sizing: border-box;
+}
+.img-container{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.img-container>view{
+  width: 25%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 12rpx 0;
+  position: relative;
+}
+.del-img{
+  position: absolute;
+  width: 40rpx;
+  height: 40rpx;
+  line-height: 40rpx;
+  text-align: center;
+  display: inline-block;
+  top: 0;
+  right: 0;
+  background: #fe2200;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 28rpx;
+  font-weight: bold;
+}
+.add-img{
+  width: 160rpx;
+  height: 160rpx;
+  background-color: #f0f0f0;
+}

@@ -1,0 +1,26 @@
+<!--components/form-item/form-item.wxml-->
+<view class='form-item {{isBorder?"border-bottom":""}}' style='{{itemStyle}}'>
+  <view class='label' style="{{labelStyle}}">{{label}}<text wx:if='{{isRequired}}' style='color:red'>*</text>
+  </view>
+  <view class='form--input'>
+    <input class="weui-input" style="{{inputStyle}}" type='{{type}}' disabled="{{isReadon}}" value="{{value}}" bindinput="onInput" bindblur="onBlur" bindfocus="onFocus" bindtap='onTap' placeholder-style="{{placeStyle}}" wx:if='{{!isPicker&&!isTimePicker}}'  placeholder="{{placeholder}}" />
+    <picker style="{{inputStyle}}" bindchange="change" wx:if='{{isPicker}}' value="{{index}}" range="{{array}}" range-key="{{key}}" disabled="{{isReadon}}">
+      <view class="picker">
+        <view wx:if='{{key!=""}}'>
+          {{array[index][key]}}
+        </view>
+        <view wx:if='{{key==""}}'>{{array[index]}}</view>
+        <view class='right-icon'></view>
+
+        <!-- <image class='triggle-close' src='/utils/img/close.png'></image> -->
+      </view>
+    </picker>
+    <picker mode="{{dateType}}" wx:if='{{isTimePicker}}' disabled="{{isReadon}}" value="{{date}}" start="{{startDate}}" fields='{{fields}}' end="{{endDate}}" bindchange="changeTime">
+      <view class="picker">
+        <view>{{date}}</view>
+        <view class='right-icon'></view>
+        <!-- <image class='triggle-close' src='/utils/img/close.png'></image> -->
+      </view>
+    </picker>
+  </view>
+</view>

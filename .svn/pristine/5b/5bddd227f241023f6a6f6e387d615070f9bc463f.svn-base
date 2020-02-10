@@ -1,0 +1,60 @@
+/* pages/pro_manage/pro_list/list.wxss */
+@import '/utils/asset/css/cus-mall.wxss';
+@import '/utils/asset/css/cus-cart.wxss';
+@import '/utils/asset/css/cus-spec.wxss';
+@import '/utils/asset/css/cus-pro-card.wxss';
+page{
+  width: 100%;
+  height: 100vh;
+  overflow: hidden
+}
+.pro{
+  height: 100%;
+  position: relative;
+}
+.pro-search{
+  position: absolute;
+  width: 100%;
+  display: flex;
+  display: -webkit-flex;
+  align-items: center;
+  background-color: #fe2200;
+}
+.location{
+  display: flex;
+  align-items: center;
+  /* width: 220rpx; */
+  justify-content: flex-end;
+}
+.location>image{
+  width: 48rpx;
+  height: 48rpx;
+  margin-right: 24rpx;
+}
+.message-box>image{
+  width: 40rpx;
+  height: 10rpx;
+  margin-right: 24rpx;
+  vertical-align: middle;
+}
+.location>text{
+  font-size: 28rpx;
+  overflow:hidden;
+  color: #fff;
+  text-overflow:ellipsis; 
+  text-overflow: -o-ellipsis-lastline;
+  display:-webkit-box;
+  -webkit-line-clamp:1;
+  line-clamp: 1;
+  -webkit-box-orient:vertical;
+}
+.search{
+  flex: 1;
+}
+
+.van-search__content{
+  border: 2rpx solid #ccc;
+}
+.van-search{
+  padding:20rpx !important;
+}

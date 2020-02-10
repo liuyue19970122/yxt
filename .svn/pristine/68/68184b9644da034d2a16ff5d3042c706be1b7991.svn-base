@@ -1,0 +1,23 @@
+<!--pages/receipt/order-review/review.wxml-->
+<view>
+  <view class='org-name'>麻辣香锅</view>
+  <view class='order-info'>
+    <view class='info-item'>
+      <view>桌号：004</view>
+      <view>单号：00032i948897</view>
+    </view>
+    <view class='info-item'>
+      <view>人数：10人</view>
+      <view>下单人：张三</view>
+    </view>
+    <view class='info-item'>
+      <view>桌号</view>
+      <view>单号：00032i948897</view>
+    </view>
+    <view class='info-item'>
+      <view>桌号</view>
+      <view>单号：00032i948897</view>
+    </view>
+  </view>
+
+</view>

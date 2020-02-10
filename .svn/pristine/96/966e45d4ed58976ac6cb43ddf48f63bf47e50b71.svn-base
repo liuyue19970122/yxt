@@ -1,0 +1,208 @@
+/**index.wxss**/
+
+.yxt-index-top {
+  background: #fe2200;
+  height: 150rpx;
+}
+
+.refresh-icon {
+  width: 50rpx;
+  height: 50rpx;
+}
+
+.myRefresh {
+  animation-name: myfirst; /*动画的名称 */
+  animation-duration: 500ms; /*动画从开始到结束的时间*/
+  animation-timing-function: linear; /*动画执行快慢的参数*/
+  animation-iteration-count: infinite; /*动画执行多少次的参数*//*以下是兼容ios所需，参数意义与上相同*/
+  -webkit-animation-name: myfirst;
+  -webkit-animation-duration: 500ms;
+  -webkit-animation-timing-function: linear;
+  -webkit-animation-iteration-count: infinite;
+}
+
+@keyframes myfirst {
+  /*开始转的角度*/
+
+  from {
+    transform: rotate(0deg);
+  }/*结束的角度*/
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/*兼容ios*/
+
+@-webkit-keyframes myfirst {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+ec-canvas, canvas {
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.banner-box {
+  margin: 20rpx 24rpx;
+  width: 702rpx;
+  height: 280rpx;
+}
+
+.banner {
+  width: 702rpx;
+  height: 280rpx;
+}
+
+.echart-box {
+  width: 750rpx;
+  height: 300px;
+}
+
+.second-banner-box {
+  display: flex;
+  justify-content: space-between;
+  margin: 30rpx 25rpx;
+}
+
+.second-banner-box.first-banner-box {
+  margin-top: 0;
+}
+
+.echart-title {
+  margin: 25rpx;
+  font-size: 36rpx;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+}
+
+.echart-title>view>view {
+  padding: 0 20rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  background: red;
+  margin-right: 20rpx;
+  display: inline-block;
+}
+
+.echart-title .btn {
+  padding: 0 20rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  background: red;
+  margin: 0 !important;
+  display: flex;
+}
+
+.panel-box {
+  margin-bottom: 40rpx;
+}
+
+.bottom-info {
+  width: 750rpx;
+  height: 60rpx;
+  text-align: center;
+}
+
+.bottom-info image {
+  width: 124rpx;
+  height: 18rpx;
+}
+
+.unlogin-btn {
+  width: 702rpx;
+  margin: 40rpx 24rpx;
+  background: #fff;
+  color: #333;
+  border-radius: 5rpx;
+  font-size: 32rpx;
+  height: 100rpx;
+  line-height: 100rpx;
+  text-align: center;
+  box-shadow: 1px 3px 6px rgba(0, 0, 0, 0.08);
+}
+
+.unlogin-btn::after {
+  border: 0;
+  border-radius: 0;
+}
+
+.add {
+  font-size: 46rpx;
+}
+
+.add-order-btn {
+  width: 124rpx;
+  position: fixed;
+  right: 0;
+  background: #fff;
+  height: 120rpx;
+  box-shadow: 0 0 18rpx rgba(0, 0, 0, 0.3);
+  border-radius: 50% 0 0 50%;
+  z-index: 9999999999;
+}
+
+image.op-icon {
+  padding: 20rpx 24rpx 20rpx 20rpx;
+  border-radius: 50% 0 0 50%;
+  width: 80rpx;
+  height: 80rpx;
+  position: fixed;
+  right: 0;
+  /* margin-right:24rpx; */
+  box-shadow: 0 4rpx 8rpx rgba(0, 0, 0, 0.2);
+  /* top:750rpx; */
+  background: #fff;
+}
+
+.echarts-box {
+  margin: 30rpx 24rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.echarts-time {
+  display: flex;
+}
+
+.echarts-time view {
+  width: 110rpx;
+  height: 60rpx;
+  font-size: 32rpx;
+  color: #666;
+  border: 2rpx solid #ffac03;
+  background: #fff;
+  text-align: center;
+  line-height: 60rpx;
+}
+
+.echarts-time view:first-child {
+  border-radius: 50rpx 0 0 50rpx;
+  border-right: 0;
+}
+
+.echarts-time view:nth-child(3) {
+  border-radius: 0 50rpx 50rpx 0;
+  border-left: 0;
+}
+
+.echarts-time view.select-item {
+  background: #ffac03;
+  color: #fff;
+}
+
+.auth-content {
+  font-size: 28rpx;
+  padding: 24rpx;
+  color: #333;
+}

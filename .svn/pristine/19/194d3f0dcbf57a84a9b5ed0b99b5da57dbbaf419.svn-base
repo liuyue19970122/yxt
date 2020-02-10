@@ -1,0 +1,27 @@
+/* pages/receipt/order-record/list.wxss */
+.record-item{
+}
+.info-item{
+  padding:0 24rpx;
+  height:80rpx;
+  line-height: 80rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.order-num{
+  font-size:32rpx;
+  color:#76c582;
+}
+.order-price{
+  font-size:32rpx;
+  color:#fe2200;
+}
+.info-label{
+  font-size:32rpx;
+  color:#999;
+}
+.info-value{
+  font-size:32rpx;
+  color:#333;
+}

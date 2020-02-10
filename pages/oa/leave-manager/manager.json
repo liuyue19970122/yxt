@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "请假管理",
+  "usingComponents": {
+    "list-item":"/components/list-item/list-item"
+  }
+}

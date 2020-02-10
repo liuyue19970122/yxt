@@ -1,0 +1,129 @@
+/* pages/receipt/vege/default-list/list.wxss */
+@import '/utils/asset/css/cus-form.wxss';
+page,.content-container{
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.pro{
+  height: 100%;
+  position: relative;
+}
+.pro-search{
+  position: absolute;
+  width: 100%;
+}
+.pro-container{
+  height: 100%;
+  box-sizing: border-box;
+  padding-top:112rpx;
+}
+.scroll-container{
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding-top: 100rpx;
+  padding-bottom: 100rpx;
+}
+.card-container{
+  margin:0 24rpx;
+  padding: 24rpx 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2rpx solid #f0f0f0;
+}
+.checkbox{
+  padding-right: 24rpx;
+}
+.card-item{
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.card-img{
+  width: 200rpx;
+  height: 200rpx;
+  border-radius: 24rpx;
+}
+.card-small-img{
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 24rpx;
+}
+.card-info{
+  flex: 1;
+  margin-left: 20rpx;
+}
+.info-name{
+  color: #333;
+  font-size: 28rpx;
+}
+.info-unit,.info-desc{
+  color: #999;
+  font-size: 24rpx;
+}
+.card-del{
+  color: #666;
+  border-left: 1px solid #9999;
+  padding: 20rpx 0 20rpx 20rpx;
+}
+.cart-fixed{
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 100rpx;
+}
+.buy-container{
+  height: 100%;
+  display: flex;
+  align-items: center;
+  box-shadow: 12rpx 0 12rpx rgba(0,0,0, .08);
+  background: #fff;
+}
+.buy-money{
+  flex: 1;
+  font-size: 28rpx;
+  font-weight: bold;
+  line-height:100rpx;
+  padding-left:12px;
+}
+.buy-see{
+  font-size: 22rpx;
+  color:#999;
+}
+.buy-btn{
+  width: 240rpx;
+  font-size: 32rpx;
+  color: #fff;
+  text-align: center;
+  line-height: 100rpx;
+}
+.btn-bgred{
+  background-color: #fe2200;
+}
+.cart-popup{
+  height:100%;
+  position:fixed;
+  width:100%;
+  z-index:100;
+  background:rgba(0,0,0,0.7);
+  bottom: 0;
+}
+.popup{
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.popup-container{
+  position: absolute;
+  width: 100%;
+  height: 50%;
+  background-color: #fff;
+  overflow-y:scroll;
+  box-sizing:border-box;
+  bottom: 100rpx;
+}
+
+

@@ -1,0 +1,44 @@
+/* pages/stock/stock-inlist/stock-inlist.wxss */
+@import '../stock-change/stock-change.wxss';
+@import '/utils/asset/css/cus-popup.wxss';
+.cur-goods-container{
+  height: calc(100vh - 292rpx);
+}
+.card-container{
+  margin:0 24rpx;
+  padding: 24rpx 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2rpx solid #f0f0f0;
+}
+
+.card-item{
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.card-img{
+  width: 200rpx;
+  height: 200rpx;
+  border-radius: 24rpx;
+}
+
+.card-info{
+  flex: 1;
+  margin-left: 20rpx;
+}
+.info-name{
+  color: #333;
+  font-size: 28rpx;
+}
+.info-unit,.info-desc{
+  color: #999;
+  font-size: 24rpx;
+}
+.card-del{
+  color: #666;
+  border-left: 1px solid #9999;
+  padding: 20rpx 0 20rpx 20rpx;
+}

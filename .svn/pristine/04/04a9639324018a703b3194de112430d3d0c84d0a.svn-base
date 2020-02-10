@@ -1,0 +1,73 @@
+<!--pages/stock/stock-record/stock-record.wxml-->
+
+<!--pages/stock/stock-change/stock-change.wxml-->
+
+<view class='full-page' bindtouchstart="closeActive">
+  <search type='stock' value='{{goodsName}}'></search>
+  <van-tabs active="{{ active }}" bind:change="onChange">
+    <van-tab title="全部">
+      <view data-id='{{item.id}}'>
+        <view class='good-item'>
+          <view class='good-item-info'>
+            <view class='goods-name'>精品冬枣</view>
+            <view class='op-info'>操作类型：盘点</view>
+          </view>
+          <view class='good-item-info'>
+            <view class='op-info'>变更数量：
+              <text class='add-info'>+</text>
+              <text class='add-info'>2</text>kg</view>
+            <view class='time'>2019-10-10:10:10:10</view>
+          </view>
+        </view>
+      </view>
+    </van-tab>
+    <van-tab title="入库">
+      <view data-id='{{item.id}}'>
+        <view class='good-item'>
+          <view class='good-item-info'>
+            <view class='goods-name'>精品冬枣</view>
+            <view class='op-info'>操作类型：盘点</view>
+          </view>
+          <view class='good-item-info'>
+            <view class='op-info'>变更数量：
+              <text class='add-info'>+</text>
+              <text class='add-info'>2</text>kg</view>
+            <view class='time'>2019-10-10:10:10:10</view>
+          </view>
+        </view>
+      </view>
+    </van-tab>
+    <van-tab title="出库">
+      <view data-id='{{item.id}}'>
+        <view class='good-item'>
+          <view class='good-item-info'>
+            <view class='goods-name'>精品冬枣</view>
+            <view class='op-info'>操作类型：盘点</view>
+          </view>
+          <view class='good-item-info'>
+            <view class='op-info'>变更数量：
+              <text class='add-info'>+</text>
+              <text class='add-info'>2</text>kg</view>
+            <view class='time'>2019-10-10:10:10:10</view>
+          </view>
+        </view>
+      </view>
+    </van-tab>
+    <van-tab title="盘点">
+      <view data-id='{{item.id}}'>
+        <view class='good-item'>
+          <view class='good-item-info'>
+            <view class='goods-name'>精品冬枣</view>
+            <view class='op-info'>操作类型：盘点</view>
+          </view>
+          <view class='good-item-info'>
+            <view class='op-info'>变更数量：
+              <text class='add-info'>+</text>
+              <text class='add-info'>2</text>kg</view>
+            <view class='time'>2019-10-10:10:10:10</view>
+          </view>
+        </view>
+      </view>
+    </van-tab>
+  </van-tabs>
+</view>

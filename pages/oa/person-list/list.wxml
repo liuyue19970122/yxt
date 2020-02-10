@@ -1,0 +1,4 @@
+<!--pages/oa/person-list/list.wxml-->
+<view class='list'>
+  <cell-item wx:for='{{personList}}' titleColor='#333' title="{{item.name}}" content="{{roleName}}" bind:click='selectThis' data-name="{{item.name}}" selectId='{{item.keyId}}'></cell-item>
+</view>

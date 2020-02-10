@@ -1,0 +1,5 @@
+<!--components/form-title/index.wxml-->
+<view class='title-font'>
+  <text>{{title}}</text>
+  <slot></slot>
+</view>

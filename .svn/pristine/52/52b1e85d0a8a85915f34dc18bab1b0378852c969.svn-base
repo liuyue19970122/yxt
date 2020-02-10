@@ -1,0 +1,2 @@
+/* pages/receipt/vege-category/list.wxss */
+@import '../../stock/stock-category/stock-category'

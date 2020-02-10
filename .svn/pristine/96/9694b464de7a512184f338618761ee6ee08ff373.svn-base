@@ -1,0 +1,31 @@
+<!--pages/receipt/place-order/list.wxml-->
+<view class='total-module'>共计：{{totalCount}} 份；{{totalMoney}} 元</view>
+<view class='hr-module'></view>
+<view class='food-list'>
+  <view class='food-item border-bottom' wx:for='{{foodList}}'>
+    <view class='left-item'>
+      <view class='food-name'>{{item.goodsName}}</view>
+      <view class='food-remark'>{{items.attrName}}</view>
+    </view>
+    <view class='right-item'>
+      <view class='op-count'>
+        <!-- <view>￥15.00</view> -->
+        <view class='food-count'>￥{{item.attrPrice}}*{{item.count}}</view>
+      </view>
+      <!-- <view class='food-price'>￥50.00</view> -->
+    </view>
+  </view>
+</view>
+
+<view class='printer-list'>
+  <image class='printer-item' src='/utils/img/receipt/table.png'></image>
+  <image class='printer-item' src='/utils/img/receipt/and-table.png'></image>
+  <image class='printer-item' src='/utils/img/receipt/already.png'></image>
+</view>
+<view class='op-btn-group'>
+  <button class='n-btn' catchtap="goAdd">
+    <image class='cart' src='/utils/img/receipt/cart.png'></image>
+    <view>添加</view>
+  </button>
+  <button class='y-btn' catchtap="goPay"><image class='submit' src='/utils/img/receipt/hand.png'></image> 结账</button>
+</view>

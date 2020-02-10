@@ -1,0 +1,41 @@
+/* pages/receipt/order-review/review.wxss */
+.org-name{
+  margin:40rpx;
+  text-align: center;
+  font-size:40rpx;
+  color:#333;
+  font-weight: bold;
+}
+.order-info{
+  margin:0 24rpx;
+}
+.info-item{
+  display: flex;
+  justify-content: space-between;
+  font-size:32rpx;
+  margin:20rpx 0;
+}
+.dashed-border{
+  border-bottom:2rpx dashed #f5f5f5;
+}
+.goods-item{
+  height:80rpx;
+  display: flex;
+  align-items:center;
+  justify-content: space-between;
+}
+.info-left-item{
+  display: flex;
+  align-items: center;
+}
+.sort{
+  margin-right:40rpx;
+}
+.total-money{
+  font-size:40rpx;
+  font-weight: 600;
+  color:#333;
+  height:100rpx;
+  line-height: 100rpx;
+  text-align: right;
+}

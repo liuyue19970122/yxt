@@ -1,0 +1,16 @@
+<!--pages/stock/stock-change/stock-out.wxml-->
+
+<view wx:for='{{orderDetail.goodsList}}'>
+  <!-- <page-title title='修正' isAdd="{{false}}" picker="{{false}}"></page-title> -->
+  <view class='block-module-title'>{{item.goodsName}}{{item.attrName}}</view>
+  <view class='form'>
+    <!-- <form-item label="商品名称" value='{{item.goodsName}}' isReadon='{{true}}'></form-item> -->
+    <form-item label="商品总量" placeholder='最多保留两位小数' type='number' bind:input='getIncomeCount' value='{{item.stockCount}}' isBorder='{{true}}' isReadon="{{true}}"></form-item>
+    <form-item label="修正数量" placeholder='最多保留两位小数' type='number' bind:input='getFixCount' value='{{fixCount}}' isBorder='{{true}}'></form-item>
+    <form-item label="商品单位" isReadon="{{true}}" value='{{item.stockUnit}}' isBorder='{{true}}'></form-item>
+    <form-item label="对应库存" type='number' bind:input='getFixCount' isBorder='{{true}}' isPicker='{{true}}' isReadon="{{true}}"></form-item>
+  </view>
+</view>
+<view>
+  <button type='danger' class='submit-btn' bindtap='sureSubmit'>确认提交</button>
+</view>

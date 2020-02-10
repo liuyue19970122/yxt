@@ -1,0 +1,95 @@
+<!--pages/oa/leave-list/list.wxml-->
+
+<!-- <van-search value="{{ value }}" wx:if='{{type!="self"}}' shape="round" placeholder="请输入搜索关键词" use-action-slot bind:search="onSearch">
+</van-search> -->
+<search value='{{name}}' bind:input='bindName' bind:search='onSearch'></search>
+<view wx:if='{{type!="self"}}'>
+  <van-tabs active="a">
+    <van-tab title="待审核" name="a">
+      <view class='leave-list'>
+        <view bindtap='goDetail' data-id='{{item.keyId}}' data-index="{{index}}" class='leave-item border-bottom' wx:if='{{item.status==0}}' wx:for='{{leaveList}}'>
+          <view class='leave-top'>
+            <view class='leave-title'>
+              <view style="margin-right:10rpx;">请假</view>
+              <view style="margin-top:-5rpx">
+                <van-tag plain type="warning">待审核</van-tag>
+              </view>
+            </view>
+            <view class='leave-info'>13:26</view>
+          </view>
+          <view class='leave-info'>请假类型：{{item.leaveType}}</view>
+          <view class='leave-info' wx:if='{{type!="self"}}'>请假员工：{{item.supplyName}}</view>
+          <view class='leave-info'>开始时间：{{item.startTime}}</view>
+          <view class='leave-info'>结束时间：{{item.endTime}}</view>
+
+        </view>
+      </view>
+
+
+    </van-tab>
+    <van-tab title="已通过" name="b">
+      <view class='leave-list'>
+        <view class='leave-item border-bottom' wx:if='{{item.status==1}}' wx:for='{{leaveList}}'>
+          <view class='leave-top'>
+            <view class='leave-title'>
+              <view style="margin-right:10rpx;">请假</view>
+              <view style="margin-top:-5rpx">
+                <van-tag plain type="success">已通过</van-tag>
+              </view>
+            </view>
+            <view class='leave-info'>13:26</view>
+          </view>
+          <view class='leave-info'>请假类型：{{item.leaveType}}</view>
+          <view class='leave-info' wx:if='{{type!="self"}}'>请假员工：{{item.supplyName}}</view>
+          <view class='leave-info'>开始时间：{{item.startTime}}</view>
+          <view class='leave-info'>结束时间：{{item.endTime}}</view>
+        </view>
+      </view>
+    </van-tab>
+    <van-tab title="已驳回" name="c">
+      <view class='leave-list'>
+        <view class='leave-item border-bottom' wx:if='{{item.status==2}}' wx:for='{{leaveList}}'>
+          <view class='leave-top'>
+            <view class='leave-title'>
+              <view style="margin-right:10rpx;">请假</view>
+              <view style="margin-top:-5rpx">
+                <van-tag plain type="danger">已驳回</van-tag>
+              </view>
+            </view>
+            <view class='leave-info'>13:26</view>
+          </view>
+          <view class='leave-info'>请假类型：{{item.leaveType}}</view>
+          <view class='leave-info' wx:if='{{type!="self"}}'>请假员工：{{item.supplyName}}</view>
+          <view class='leave-info'>开始时间：{{item.startTime}}</view>
+          <view class='leave-info'>结束时间：{{item.endTime}}</view>
+
+        </view>
+      </view>
+    </van-tab>
+  </van-tabs>
+</view>
+
+
+
+<view class='leave-list' wx:if='{{type=="self"}}'>
+  <view bindtap='goDetail' data-id='{{item.keyId}}' data-index="{{index}}" class='leave-item border-bottom' wx:for='{{leaveList}}'>
+    <view class='leave-top'>
+      <view class='leave-title'>
+        <view style="margin-right:10rpx;">请假</view>
+        <view style="margin-top:-5rpx">
+          <van-tag plain type="warning" wx:if='{{item.status==0}}'>待审核</van-tag>
+          <van-tag plain type="success" wx:if='{{item.status==1}}'>已通过</van-tag>
+          <van-tag plain type="danger" wx:if='{{item.status==2}}'>已驳回</van-tag>
+        </view>
+      </view>
+      <view class='leave-info'>13:26</view>
+    </view>
+    <view class='leave-info'>请假类型：{{item.leaveType}}</view>
+    <view class='leave-info' wx:if='{{type!="self"}}'>请假员工：{{item.supplyName}}</view>
+    <view class='leave-info'>开始时间：{{item.startTime}}</view>
+    <view class='leave-info'>结束时间：{{item.endTime}}</view>
+
+  </view>
+</view>
+
+<view class='empty' wx:if='{{leaveList.length==0}}'>暂无数据~</view>

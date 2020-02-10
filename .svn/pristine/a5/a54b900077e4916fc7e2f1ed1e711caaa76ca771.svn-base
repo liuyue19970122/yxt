@@ -1,0 +1,444 @@
+// pages/mall/mall-pay/pay.js
+import Dialog from '../../../miniprogram_npm/vant-weapp/dialog/dialog';
+let util = require('../../../utils/util.js');
+const app = getApp()
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    payArrList:[],
+    payMoney:0,
+    prePayMoney:0,
+    remainTime:'15:00',
+    openId: '',
+    orderIds: [],
+    payCode: '',
+    chargeShow:false,
+    chargeMoney:'',
+    passwordShow:false,
+    passwordArr:['','','','','',''],
+    password:{
+      value:'',
+      focus:false
+    },
+    enterType:''
+  },
+  //支付数据初始化
+  initPayData(){
+    this.setData({
+      passwordArr: ['', '', '', '', '', ''],
+      ['password.value']:''
+    })
+  },
+  //选择支付方式
+  radioChange(e){
+    let index = parseInt(e.detail.value) 
+    let list=this.data.payArrList
+    this.setData({
+      payCode: list[index].payCode
+    })
+  },
+  //微信充值到账户///balance/recharge
+  //money,openId
+  wxChargeAcc(){
+    wx.showLoading({
+      title: '充值中...',
+      mask:true
+    })
+    util.getWxOpenId().then(res => {
+      let content = JSON.parse(res.data.content)
+      let url = app.globalData.baseUrl + 'apiMall/balance/recharge'
+      let data = {
+        openId: content.openid,
+        money:this.data.chargeMoney
+      }
+      util.getRequestListData(url, data, false, this.wxChargeAccRes)
+    })
+  },
+  wxChargeAccRes(res,type){
+    wx.hideLoading()
+    let _this=this
+    if(res.data.code==='200'){
+      this.setData({
+        chargeShow: false
+      })
+      let list = JSON.parse(res.data.content)
+      let timeStamp = list.timeStamp
+      let nonceStr = list.nonceStr
+      let packageNum = list.package
+      let paySign = list.paySign
+      wx.requestPayment({
+        'timeStamp': timeStamp,
+        'nonceStr': nonceStr,
+        'package': packageNum,
+        'signType': 'MD5',
+        'paySign': paySign,
+        'success': function (res) {
+          _this.getPayType()
+        },
+        'fail': function (res) {
+          console.log('fail:' + JSON.stringify(res));
+        }
+      })
+    }else{
+      wx.showToast({
+        title: res.data.message,
+        duration:2000
+      })
+    }
+  },
+  //返回上一页
+  returnBackPage(title){
+    wx.showToast({
+      title: title,
+      duration: 2000,
+      icon: 'success',
+      mask:true,
+      success() {
+        wx.navigateBack({
+          delta:1
+        })
+      }
+    })
+  },
+  //重定向订单页面
+  relOrderPage(){
+    wx.showToast({
+      title: '支付成功',
+      duration: 2000,
+      success() {
+        wx.reLaunch({
+          url: '/pages/mall/mall-order/cgs-manager/manager',
+        })
+      }
+    })
+  },
+  //支付错误提示
+  payErrWarn(res){
+    wx.showModal({
+      title: '提示',
+        content: res.data.message,
+        success(res) {
+          if (res.confirm) {
+            
+          } else if (res.cancel) {
+            console.log('用户点击取消')
+          }
+        }
+    })
+  },
+  //微信支付
+  userWxPay(){
+    util.getWxOpenId().then(res=>{
+      console.log(res)
+      let content=JSON.parse(res.data.content)
+      let data = {
+        openId: content.openid,
+        orderIds: this.data.orderIds,
+        payCode: this.data.payCode,
+        password:''
+      }
+      let url = app.globalData.baseUrl + 'apiMall/wx/goPay'
+      util.postRequestList(url, data, false, this.userWxPayRes)
+    })
+  },
+  userWxPayRes(res, type) {
+    let _this=this
+    if (res.data.code === '200') {
+      let list = JSON.parse(res.data.content)
+      let timeStamp = list.timeStamp
+      let nonceStr = list.nonceStr
+      let packageNum = list.package
+      let paySign = list.paySign
+      wx.requestPayment({
+        'timeStamp': timeStamp,
+        'nonceStr': nonceStr,
+        'package': packageNum,
+        'signType': 'MD5',
+        'paySign': paySign,
+        'success': function (res) {
+          console.log(res)
+          if(_this.data.enterType==='fromOrder'){
+            let prevPage=util.getPrevPage()
+            let filterData=prevPage.data.filterData
+            filterData.pageSize=filterData.pageSize*filterData.pageNum
+            prevPage.getOrderList(filterData, 'refresh')
+            _this.returnBackPage('支付成功')
+          }else if(this.data.enterType==='fromOrderDetail'){
+            let prevPage=util.getPrevPage()
+            prevPage.getOrderDetail()
+          }else{
+            _this.relOrderPage()
+          }
+        },
+        'fail': function (res) {
+          console.log('fail:' + JSON.stringify(res));
+        }
+      })
+    } else {
+      
+    }
+  },
+  //账户支付
+  userAccountPay(){
+    wx.showLoading({
+      title: '支付中...',
+      mask:true
+    })
+    let data = {
+      openId: '',
+      orderIds: this.data.orderIds,
+      payCode: this.data.payCode,
+      password: this.data.password.value
+    }
+    let url = app.globalData.baseUrl + 'apiMall/wx/goPay'
+    util.postRequestList(url, data, false, this.userAccountPayRes)
+  },
+  userAccountPayRes(res,type){
+    wx.hideLoading()
+    if(res.data.code==='200'){
+      if(this.data.enterType==='fromOrder'){
+        let prevPage=util.getPrevPage()
+        let filterData=prevPage.data.filterData
+        filterData.pageSize=filterData.pageSize*filterData.pageNum
+        prevPage.getOrderList(filterData, 'refresh')
+        this.returnBackPage('支付成功')
+      }else if(this.data.enterType==='fromOrderDetail'){
+        let prevPage=util.getPrevPage()
+        prevPage.getOrderDetail()
+      }else{
+        this.relOrderPage()
+      }
+    }else{
+      this.initPayData()
+      wx.showModal({
+        title: '提示',
+        content: res.data.message,
+        success(res) {
+          if (res.confirm) {
+            
+          } else if (res.cancel) {
+            console.log('用户点击取消')
+          }
+        }
+      })
+    }
+  },
+  //获取支付方式//wx/payType
+  getPayType(){
+    let url = app.globalData.baseUrl + 'apiMall/wx/payType'
+    util.getRequestList(url, false, this.getPayTypeRes)
+  },
+  getPayTypeRes(res,type){
+    if(res.data.code==='200'){
+      let list = res.data.content
+      let payCode=''
+      list.forEach(item => {
+        if(item.isDefault==='1'){
+          item.checked = true
+          payCode=item.payCode
+        }else{
+          item.checked = false
+        }
+        if(item.payCode=='yxtPay'){
+          item.cusMoney=util.getMoney(item.money).toString()
+        }
+      })
+      this.setData({
+        payArrList: list,
+        payCode: payCode
+      })
+    }
+    console.log(res)
+  },
+  //支付//wx/ goPay
+  //openId,orderIds,payCode
+  bindQueryPay(){
+    let _this=this
+    if(this.data.payCode==='yxtPay'){
+      let obj=this.data.payArrList.find(item=>{
+        return item.payCode =='yxtPay'
+      })
+      let ye = Number(obj.cusMoney)
+      let prePay =Number(this.data.prePayMoney)
+      if(ye<prePay){
+        wx.showModal({
+          title: '提示',
+          content: '账户余额不足',
+          confirmText:'去充值',
+          success(res) {
+            if (res.confirm) {
+              _this.setData({chargeShow:true})
+            } else if (res.cancel) {
+              console.log('用户点击取消')
+            }
+          }
+        })
+      }else{
+        this.setData({ 
+          passwordShow:true,
+          ['password.focus']: true
+        })
+      }
+    }else{
+      this.userWxPay()
+    }
+  },
+  // num为传入的值，n为保留的小数位
+  fomatFloat(num, n){
+    var f = parseFloat(num);
+    if(isNaN(f)){
+      return false;
+    }
+    f = Math.round(num * Math.pow(10, n)) / Math.pow(10, n); // n 幂   
+    var s = f.toString();
+    var rs = s.indexOf('.');
+    //判定如果是整数，增加小数点再补0
+    if (rs < 0) {
+      rs = s.length;
+      s += '.';
+    }
+    while (s.length <= rs + n) {
+      s += '0';
+    }
+    return s;
+  },
+  //bindChargeInput充值金额
+  bindChargeInput(e){
+    let price = e.detail.value
+    let val = util.clearNoNum(price)
+    this.setData({
+      chargeMoney: val
+    })
+  },
+  //确认充值
+  chargeConfirm(e){
+    console.log(e)
+    this.setData({
+      chargeShow: true
+    })
+    if(this.data.chargeMoney){
+      this.wxChargeAcc()
+    }else{
+      wx.showToast({
+        title: '请输入金额',
+      })
+    }
+  },
+  //取消充值
+  chargeCancel(e){
+    this.setData({
+      chargeShow:false
+    })
+  },
+ 
+  //bindPasswordInput 输入密码
+  bindPasswordInput(e) {
+    let val = e.detail.value
+    let passwordArr = []
+    for (let i = 0; i < 6; i++) {
+      if (val[i]) {
+        passwordArr[i] = "*"
+      } else {
+        passwordArr[i] = ''
+      }
+    }
+    this.setData({
+      passwordArr: passwordArr,
+      ['password.value']: val
+    })
+    if (val.length === 6) {
+      this.setData({ passwordShow:true})
+      this.userAccountPay()
+      this.initPayData()
+    }
+  },
+  //取消支付
+  payAccCancel(){
+    this.initPayData()
+    this.setData({ passwordShow:false})
+  },
+  //clickPasswordWarn点击密码输入框
+  clickPasswordWarn(e){
+    let password=this.data.password
+    let val=password.value
+    if(val.length){}
+    let focus=!password.focus
+    console.log(focus)
+    this.setData({
+      ['password.focus']: focus
+    })
+  },
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    console.log(options)
+    let enterType=options.enterType
+    let orderIds = options.orderIds
+    let payMoney=options.payMoney
+    let ppm = util.accMul(payMoney,'0.02')
+    let prePayMoney = this.fomatFloat(ppm,2)
+    console.log(ppm)
+    //let prePayMoney=util.getMoney()
+    let arr = JSON.parse(orderIds)
+    this.setData({
+      orderIds: arr,
+      enterType,
+      payMoney,
+      prePayMoney
+    })
+    this.getPayType()
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+
+  }
+})

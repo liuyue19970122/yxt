@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "",
+  "usingComponents": {
+    "page-title": "/components/page-title/page-title",
+    "form-item": "/components/form-item/form-item"
+  }
+}

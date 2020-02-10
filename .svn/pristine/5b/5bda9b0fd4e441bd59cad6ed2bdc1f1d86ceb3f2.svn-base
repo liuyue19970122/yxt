@@ -1,0 +1,4 @@
+/* pages/mall/pro-details/detail.wxss */
+@import '/utils/asset/css/cus-cart.wxss';
+@import '/utils/asset/css/cus-pro-detail.wxss';
+@import '/utils/asset/css/cus-spec.wxss';

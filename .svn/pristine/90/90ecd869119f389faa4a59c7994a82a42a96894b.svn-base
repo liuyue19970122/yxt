@@ -1,0 +1,14 @@
+<!--components/form-item/form-item.wxml-->
+<view class='form-item {{isBorder?"border-bottom":""}}'>
+  <view class='label'>{{label}}
+    <text wx:if='{{isRequired}}' style='color:red'>*</text>
+  </view>
+  <view class='form--input'>
+    <input class="weui-input" 
+      type='{{type}}' 
+      disabled="{{isReadon}}" 
+      value="{{value}}" 
+      bindinput="onInput"  
+      auto-focus placeholder="{{placeholder}}" />
+  </view>
+</view>

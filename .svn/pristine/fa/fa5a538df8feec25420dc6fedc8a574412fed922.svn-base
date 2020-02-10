@@ -1,0 +1,38 @@
+<!--pages/oa/add-staff/add-staff.wxml-->
+<van-notify id="van-notify" />
+<view class='block-module-title' wx:if='{{type=="info"}}'>基本信息</view>
+<view class='form'>
+  <form-item label="姓名" isRequired='{{true}}' bind:input='getName' value='{{name}}'></form-item>
+  <form-item label="电话" type='number' isRequired='{{true}}' bind:input='getTel' value='{{tel}}'></form-item>
+  <form-item label="身份证号" isRequired='{{true}}' bind:input='getIdCard' value='{{idCard}}'></form-item>
+  <!-- <form-item label="登录名" isRequired='{{true}}' bind:input='getLoginName' value='{{loginName}}'></form-item> -->
+  <form-item label="登录密码" isRequired='{{true}}' type='password' bind:input='getPassword' value='{{password}}' wx:if='{{type=="pwd"}}'></form-item>
+  <form-item label="岗位" isRequired='{{true}}' key='roleName' isPicker='{{true}}' array='{{roleList}}' bind:change='getRole' value='{{roleIndex}}'></form-item>
+  <form-item label="入职时间" isRequired='{{true}}' isTimePicker='{{true}}' bind:change='getDate' value='{{date}}' isBorder='{{false}}' date='{{date}}'></form-item>
+</view>
+
+<view class='block-module-title' wx:if='{{type=="info"}}'>状态信息</view>
+<view class='form' wx:if='{{type=="info"}}'>
+  <form-item label="在职状态" isRequired='{{true}}' key='name' isPicker='{{true}}' bind:change='getStatus' array='{{statusList}}' value='{{statusIndex}}'></form-item>
+  <form-item label="离职时间" wx:if='{{statusIndex==1}}' isRequired='{{true}}' isTimePicker='{{true}}' bind:change='getLeaveDate' value='{{leaveDate}}' date='{{leaveDate}}'></form-item>
+  <view class='form-item' wx:if='{{statusIndex==1}}'>
+    <view class='label'>离职原因</view>
+  </view>
+  <view  wx:if='{{statusIndex==1}}'>
+    <textarea class='remark-content' bindinput='getLeaveReason' value='{{leaveReason}}' placeholder="请输入离职原因" />
+  </view>
+</view>
+
+<view class='block-module-title' wx:if='{{type=="salary"}}'>工资设置
+  <image class='add-icon-padding' src='/utils/img/stock/add.png' bindtap='goAddSalary'></image>
+</view>
+
+<view class='form' wx:if='{{type=="salary"}}'>
+  <form-item label="基本工资" isRequired='{{true}}' type='digit' bind:input='getMoney' value='{{money}}'></form-item>
+  <form-item wx:for='{{salaryArr}}' wx:key="key" wx:for-index="bindex" wx:for-item="value" label="{{bindex}}" type='digit' inputStyle="min-width:200rpx" bind:input='getSalary' data-index="{{bindex}}" value='{{value}}'></form-item>
+</view>
+<button class='big-submit-btn' bindtap='addStaff'>确认</button>
+
+<van-dialog use-slot title="新增工资类型" show="{{ show }}" show-cancel-button bind:close="onClose" bind:confirm='addSalary'>
+  <form-item label="类型名称" labelStyle="color:#999" itemStyle='padding-right:24rpx;padding-left:24rpx;' isBorder='{{false}}' inputStyle="text-align:left" bind:input='getTypeName' value='{{typeName}}'></form-item>
+</van-dialog>

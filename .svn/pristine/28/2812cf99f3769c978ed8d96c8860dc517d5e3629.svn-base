@@ -1,0 +1,153 @@
+// pages/stock/stock-correct/stock-correct.js
+var util = require('../../../utils/util.js');
+const app = getApp()
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    goodsId:'',
+    goods:{},
+    fixCount:'',
+    description:'',
+    incomeCount:'',
+    orderDetail:{}
+  },
+  getOrderDetail() {
+    var url = app.globalData.baseUrl + 'apiMall/order/inst/detail'
+    var data = {
+      orderId: 1
+    }
+    util.getRequestListData(url, data, false, this.detailRes)
+  },
+  detailRes(res){
+    var list = res.data.content
+    var total = 0
+    var totalB = 0
+    for (var item of list.goodsList) {
+      totalB += item.orderMoney
+      item.orderMoney = util.getMoney(item.orderMoney)
+    }
+    this.setData({
+      orderDetail:list
+    })
+  },
+  getGoodsInfo(){
+    var url = app.globalData.baseUrl +'apiStock/stock/inst/incomeInfo'
+    var data={
+      keyId:this.data.goodsId
+    }
+    util.postRequestList(url,data,false,this.infoRes)
+  },
+  infoRes(res){
+    this.setData({
+      goods:res.data.content
+    })
+  },
+  getDes(e) {
+    console.log(e)
+    this.setData({
+      description: e.detail.value
+    })
+  },
+  getFixCount(e){
+    this.setData({
+      fixCount:e.detail
+    })
+  },
+  getIncomeCount(e){
+    this.setData({
+      incomeCount: e.detail
+    })
+  },
+  updateStock:function(){
+    var url = app.globalData.baseUrl + 'apiStock/stock/inst/updateIncome'
+    var data={
+      keyId:this.data.goods.keyId,
+      stockId:this.data.goods.stockId,
+      // incomeCount:this.data.incomeCount,
+      fixCount:this.data.fixCount,
+      description:this.data.description
+    }
+    util.postRequestList(url,data,false,this.updateRes)
+  },
+  updateRes(res){
+    if(res.data.code==200){
+      wx.showModal({
+        title: '提示',
+        showCancel:false,
+        content: '修正成功',
+        success: function () {
+          wx.navigateBack({
+            delta: 1
+          })
+        }
+      })
+    }else{
+      wx.showToast({
+        icon: 'warning',
+        title: res.data.message,
+      })
+    }
+  },
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    this.setData({
+      goodsId:options.id
+    })
+    this.getOrderDetail()
+    this.getGoodsInfo()
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+
+  }
+})

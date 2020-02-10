@@ -1,0 +1,7 @@
+<!--components/tab-view/tab-view.wxml-->
+<view class='tab-view'>
+  <scroll-view scroll-x style="width: auto;overflow:hidden;">
+    <view wx:for='{{tabList}}' class='tab-item {{type==item.id?"active-item":""}} ' data-type='{{item.id}}' bindtap='changeTab'>{{item.title}}</view>
+  </scroll-view>
+</view>
+

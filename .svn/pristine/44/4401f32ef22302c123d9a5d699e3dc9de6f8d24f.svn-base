@@ -1,0 +1,63 @@
+<!--pages/oa/leave-detail/detail.wxml-->
+<view class='detail-box'>
+  <view class='leave-title'>
+    <view style="margin-right:10rpx;">请假</view>
+    <view style="margin-top:-5rpx">
+      <van-tag plain type="warning" wx:if='{{leaveDetail.status==0}}'>待审核</van-tag>
+      <van-tag plain type="success" wx:if='{{leaveDetail.status==1}}'>已通过</van-tag>
+      <van-tag plain type="danger" wx:if='{{leaveDetail.status==2}}'>已驳回</van-tag>
+    </view>
+  </view>
+  <view class='leave-info-box'>
+    <view class='leave-info' wx:if='{{type!="self"}}'>所在岗位：{{leaveDetail.roleName}}</view>
+    <view class='leave-info'>请假类型：{{leaveDetail.leaveType}}</view>
+    <view class='leave-info'>开始时间：{{leaveDetail.startTime}}</view>
+    <view class='leave-info'>结束时间：{{leaveDetail.endTime}}</view>
+    <view class='leave-info'>请假原因：{{leaveDetail.reason}}</view>
+    <view class='leave-info' wx:if='{{type!="self"}}'>请假员工：{{leaveDetail.supplyName}}</view>
+  </view>
+</view>
+<view class='hr-module'></view>
+<view class='leave-title module' wx:if='{{type=="self"}}'>审批流程</view>
+  <view class='content'>
+    <view class='red-dot'></view>
+    <view class='title'>老板·<text class='' wx:if='{{leaveDetail.status==0}}'>待审核</text> <text class='' wx:if='{{leaveDetail.status==1}}'>已通过</text><text class='' wx:if='{{leaveDetail.status==-1}}'>未通过</text></view>
+  </view>
+  <view class='content' wx:if='{{leaveDetail.status}}'>
+  {{leaveDetail.replyContent}}
+  </view>
+<view class='btn-group'>
+  <button class='op-btn' wx:if='{{leaveDetail.status==0&&type!="self"}}' data-status='0' bindtap='changeState'>
+    <image class='add-icon' src='/utils/img/warning.png'></image>
+    驳回</button>
+  <button class='op-btn' wx:if='{{leaveDetail.status==0&&type!="self"}}' data-status='1' bindtap='changeState'>
+    <image class='add-icon' src='/utils/img/submit.png'></image>
+    同意</button>
+  <button class='op-btn' wx:if='{{leaveDetail.status==0&&type=="self"}}'>
+    <image class='add-icon' bindtap='cancelLeave' src='/utils/img/return.png'></image>
+    撤销</button>
+  <!-- <button class='op-btn' wx:if='{{leaveDetail.status==0&&type=="self"}}'> -->
+  <!-- <image class='add-icon' src='/utils/img/refresh.png'></image> -->
+  <!-- 重新提交</button> -->
+</view>
+
+
+<van-popup show="{{ refuseReasonShow }}" position="bottom" bind:close="onClose">
+  <view class='refuse-content'>
+    <view>驳回原因</view>
+    <view>
+      <textarea class='reason' value='{{refuseReason}}' bindinput="inputRefuse" placeholder="请填写驳回理由~" placeholder-style="color:#999"></textarea>
+    </view>
+    <button class='submit-btn' bindtap='submitChange'>确认</button>
+  </view>
+</van-popup>
+
+<van-popup show="{{ agreeReasonShow }}" position="bottom" bind:close="onClose">
+  <view class='refuse-content'>
+    <view>同意原因</view>
+    <view>
+      <textarea class='reason' value="{{agreeReason}}" bindinput="inputAgree" placeholder="请填写同意理由~" placeholder-style="font-size:28rpx;color:#999"></textarea>
+    </view>
+    <button class='submit-btn' bindtap='submitChange'>确认</button>
+  </view>
+</van-popup>

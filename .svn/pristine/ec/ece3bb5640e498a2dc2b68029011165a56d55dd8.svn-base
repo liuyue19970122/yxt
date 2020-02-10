@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "acc-item-border":"/components/account-item-border/acc-item-border"
+  }
+}

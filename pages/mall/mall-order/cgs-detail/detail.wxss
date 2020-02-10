@@ -1,0 +1,59 @@
+/* pages/mall/order-detail/order-detail.wxss */
+@import '../ghs-detail/detail.wxss';
+/* 商点名称样式 */
+.mall-goods-list .goods-item:first-child{
+  margin-top:30rpx;
+}
+.mall-title{
+  display: flex;
+  justify-content: space-between;
+  color:#333;
+  font-size: 36rpx;
+  height:80rpx;
+  align-items: center;
+}
+/* 选择送达时间 */
+.choose-time-content{
+  display: flex;
+  box-sizing: border-box;
+  color:#333;
+  font-size: 28rpx;
+  height:calc(100% - 120rpx);
+  overflow: hidden;
+}
+.day-list{
+  width:120rpx;
+  background: #F5F5F5;
+  height:100%;
+}
+.day-item{
+  height:80rpx;
+  line-height:80rpx;
+  text-align: center;
+}
+.day-item-select{
+  background: #fff;
+}
+.time-list{
+  margin-left:20rpx;
+  width:606rpx;
+}
+.time-item{
+  display: flex;
+  height:80rpx;
+  line-height: 80rpx;
+  padding-right:30rpx;
+  justify-content: space-between;
+  border-bottom:2rpx solid #f5f5f5;
+}
+.time-item-select{
+  color:#fe2200;
+  position: relative;
+}
+.select-time{
+  position: absolute;
+  right:0;
+  top:0;
+  width:60rpx;
+  height:60rpx;
+}

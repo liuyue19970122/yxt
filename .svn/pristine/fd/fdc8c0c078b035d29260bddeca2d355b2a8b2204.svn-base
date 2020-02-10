@@ -1,0 +1,9 @@
+{
+  "navigationBarBackgroundColor": "#FE2200",
+  "navigationBarTitleText": "农贸批发",
+  "usingComponents": {
+    "search":"/components/search/search",
+    "ec-canvas": "../../ec-canvas/ec-canvas",
+    "banner":"/components/banner/banner"
+  }
+}

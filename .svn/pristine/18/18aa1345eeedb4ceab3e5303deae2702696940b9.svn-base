@@ -1,0 +1,79 @@
+<!--pages/pro_manage/pro_list/list.wxml-->
+<image src='../../../utils/img/add.png' 
+  class='fixed-add'
+  bindtap='handleAddPro'></image>
+<view class='pro'>
+  <!--搜索-->
+  <view class='pro-search'>
+    <van-search
+      value="{{ searchInfo }}"
+      background="#fff"
+      shape='round'
+      placeholder="请输入搜索关键词"
+      bind:search="onSearch">
+    </van-search>
+  </view>
+  <!--分类 -->
+  <view class='pro-container'>
+    <view class='cate-first'>
+      <van-sidebar custom-class='cate-first__container' 
+        active="{{ activeSlider }}" 
+        bind:change="onFirstCateChange">
+        <van-sidebar-item custom-class='cate-item'
+          wx:for='{{sliderList}}'
+          wx:key='{{index}}' 
+          title="{{item.cateName}}" />
+      </van-sidebar>
+    </view>
+    <view class='cate-second'>
+      <view class='second-list'>
+        <view class='tabs-container'>
+          <view class='tabs-list'>
+            <van-tabs active="{{ activeTab }}" 
+              line-height='0' 
+              swipe-threshold='3' 
+              bind:change='onSecondCateChange'>
+              <van-tab wx:for='{{tabList}}'
+                name='{{index}}' 
+                wx:key='{{index}}'
+                title-style='width:144rpx'
+                title="{{item.cateName}}"></van-tab>
+            </van-tabs>
+          </view>
+          <image class='arrow-down'
+            src='../../../utils/img/arrow_down.png'></image>
+        </view>
+      </view>
+      <view class='pro-detail'>
+        <view class='detail-container'>
+          <scroll-view scroll-y='true' style='height:100%'>
+            <view class='card-container'>
+              <view class='card-style' wx:for='{{proList}}'
+              wx:key='{{index}}'>
+                <cus-pro-card index='{{index}}' 
+                  title='{{item.goodsName}}'
+                  oriPrice='{{item.cusOriPrice}}'
+                  imgSrc='{{item.goodsPic}}'
+                  imgsize='img-size' 
+                  bind:click='seeProDetail'>
+                  <view slot='right' class='state-container'>
+                    <text class='selling-price'>{{'￥'+item.cusSalePrice}}</text>
+                    <text class='selling-state'>{{item.status===0?'已下架':'销售中'}}</text>
+                  </view>
+                  <view slot='footer' class='btn-container'>
+                    <button class='pro-btn' 
+                      data-index='{{index}}' bindtap='bindEdit'>修改</button>
+                    <button class='pro-btn' 
+                      data-index='{{index}}' 
+                      bindtap='bindChangeStatus'>
+                        {{item.status===0?'上架':'下架'}}</button>
+                  </view>
+                </cus-pro-card>
+              </view>
+            </view>
+          </scroll-view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

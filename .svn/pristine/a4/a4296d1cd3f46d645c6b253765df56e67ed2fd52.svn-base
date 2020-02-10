@@ -1,0 +1,65 @@
+.sel-spec{
+  font-size: 22rpx;
+  border-radius: 50rpx;
+  padding: 8rpx 20rpx;
+  background: linear-gradient(to bottom,#FF6D36 0%,#FE2200 100%);
+  background:-webkit-linear-gradient(to bottom,#FF6D36 0%,#FE2200 100%);
+  background:-ms-linear-gradient(to bottom,#FF6D36 0%,#FE2200 100%);
+  background:-moz-linear-gradient(to bottom,#FF6D36 0%,#FE2200 100%);
+  background:-o-linear-gradient(to bottom,#FF6D36 0%,#FE2200 100%);
+  color: #fff;
+}
+
+.spec-container{
+  padding: 36rpx;
+  border-bottom: 2rpx solid #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.spec-flex{
+  flex: auto;
+}
+.spec-name{
+  width: 160rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.spec-price{
+  color: #fe2200;
+  text-align: center;
+}
+.pro-add-btn{
+  display: inline-block;
+  width: 48rpx;
+  height: 48rpx;
+  padding-left:24rpx;
+  vertical-align: middle;
+}
+
+.spec-btn>image,.pro-reduce-btn{
+  display: inline-block;
+  width: 48rpx;
+  height: 48rpx;
+  padding: 0 24rpx;
+  vertical-align: middle;
+}
+
+.state-container{
+  display: flex;
+  display: -webkit-flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: 12rpx;
+}
+
+.selling-price{
+  font-size: 32rpx;
+  color: #fe2200;
+  font-weight: bold;
+}
+.state-img{
+  width: 48rpx;
+  height: 48rpx;
+}

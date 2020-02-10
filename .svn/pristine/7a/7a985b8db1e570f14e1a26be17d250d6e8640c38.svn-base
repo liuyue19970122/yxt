@@ -1,0 +1,51 @@
+/* pages/finance/rem-account/add/add.wxss */
+.form-item{
+  padding: 0 24rpx;
+  line-height: 100rpx;
+  font-size: 36rpx;
+  border-bottom:1px solid #f0f0f0;
+}
+.label-block{
+  display: block;
+  line-height: 100rpx;
+  font-size: 36rpx;
+}
+.form-item__inline{
+  display: flex;
+  display: -webkit-flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.form-item__label{
+  padding-right: 24rpx;
+}
+.form-item__content{
+  flex: 1;
+  text-align: right;
+}
+.arrow-down{
+  background-color: #fff;
+  margin-left: 24rpx;
+  width: 24rpx;
+  height: 40rpx;
+}
+.content-area{
+  width: 100%;
+  border: 1px solid #f0f0f0;
+  padding: 24rpx;
+  height: 160rpx;
+  box-sizing: border-box;
+}
+.fixed-bottom{
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+.fixed-bottom>view{
+  height: 120rpx;
+  line-height: 120rpx;
+  text-align: center;
+  color: #fff;
+  font-size: 36rpx;
+  background-color: #fe2200;
+}

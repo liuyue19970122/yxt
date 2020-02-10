@@ -1,0 +1,12 @@
+.btn-container{
+  padding: 24rpx 0;
+}
+.set-btn{
+  line-height: 80rpx;
+  color: #ff2200;
+  border-bottom:2rpx solid #f0f0f0;
+  text-align: center;
+}
+.set-btn:hover{
+  background: #f0f0f0;
+}

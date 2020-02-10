@@ -1,0 +1,129 @@
+// pages/oa/leave-list/list.js
+var util = require('../../../utils/util.js');
+const app = getApp()
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    tabList: [
+      {
+        id:1,
+        title: '待审核'
+      },
+      {
+        id: 2,
+        title: '已通过'
+      }, {
+        id: 3,
+        title: '已驳回'
+      }
+    ],
+    type:'',
+    name:''
+  },
+  bindName(e){
+    this.setData({
+      name: e.detail.value
+    })
+  },
+  onSearch(e){  
+    this.getLeaveList()
+  },
+  getLeaveList(){
+    wx.showLoading({
+      title: '获取中...',
+    })
+    if(this.data.type=="self"){
+      var url = app.globalData.baseUrl + 'apiUser/user/leave/his'
+      var data = {}
+    }else{
+      var url = app.globalData.baseUrl + 'apiUser/user/leave/view'
+      var data = {
+        name: this.data.name
+      }
+    }
+    
+    util.getRequestListData(url,data,false,this.listRes)
+  },
+  listRes(res){
+    setTimeout(() => {
+      wx.hideLoading()
+    }, 100)
+    var list=res.data.content
+    for(var item of list){
+      item.startTime = util.getNowTime(parseInt(item.startTime))
+      item.endTime = util.getNowTime(parseInt(item.endTime))
+      item.crtTime = util.formatTime(parseInt(item.crtTime))
+    }
+    this.setData({
+      leaveList:list
+    })
+  },
+  goDetail(e){
+    wx.navigateTo({
+      url: '../leave-detail/detail?index='+e.currentTarget.dataset.index,
+    })
+  },
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    this.setData({
+      type:options.type
+    })
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+    this.setData({
+      pageNum: 1
+    })
+    this.getLeaveList()
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+
+  }
+})

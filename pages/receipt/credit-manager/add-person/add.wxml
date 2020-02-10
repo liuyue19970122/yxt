@@ -1,0 +1,8 @@
+<!--pages/receipt/credit-manager/add-person/add.wxml-->
+<van-notify id="van-notify" />
+<view class='form'>
+  <form-item label='姓名' bind:change='bindUserName' value='{{userName}}' isRequired='{{true}}'></form-item>
+  <form-item label='手机号' bind:change='bindMobile' type='number' value='{{mobile}}' isRequired='{{true}}'></form-item>
+</view>
+
+<button class='big-submit-btn' bindtap='bindSubmit'>确定</button>

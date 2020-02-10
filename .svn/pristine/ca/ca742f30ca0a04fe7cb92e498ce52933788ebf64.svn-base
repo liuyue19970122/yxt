@@ -1,0 +1,292 @@
+/* pages/common/permission/first-step/first.wxss */
+
+@import '/utils/common'
+.steps {
+  font-size: 28rpx;
+}
+
+.form {
+  padding: 0 40rpx;
+  background: #fff;
+}
+
+.first-step {
+  background: #f7f7f7;
+  height: calc(100vh - 53px - 20rpx);
+}
+
+.label-icon {
+  width: 16rpx;
+  height: 16rpx;
+  margin: 0 12rpx;
+}
+
+.choose-label {
+  display: flex;
+  /* height: 100rpx; */
+  padding: 48rpx 0 20rpx 0;
+  align-items: center;
+  background: #fff;
+}
+
+.label {
+  font-size: 32rpx;
+  color: #333;
+}
+
+.check-icon {
+  width: 32rpx;
+  height: 32rpx;
+  margin-top: 10rpx;
+}
+
+.form--input {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.vali-input {
+  width: 70%;
+  text-align: left;
+}
+
+.btn-box {
+  /* width:160rpx; */
+  min-height: 160rpx;
+}
+
+.btn-box button {
+  width: 160rpx;
+  height: 160rpx;
+}
+
+.vali-btn {
+  width: 160rpx;
+  height: 60rpx;
+  font-size: 24rpx;
+  line-height: 60rpx;
+  color: #fff !important;
+  border-radius: 12rpx;
+  background: linear-gradient(to right, #fc6262, #fb6e65, #fe9567);
+  padding: 0;
+  text-align: center;
+}
+
+.choose-content {
+  padding: 0 60rpx 40rpx;
+  display: flex;
+  justify-content: space-between;
+  background: #fff;
+}
+
+.radio-item {
+  position: relative;
+  width: 300rpx;
+  height: 180rpx;
+}
+
+.radio-item.first {
+  margin-left: 30rpx;
+}
+
+.icon-item {
+  position: absolute;
+  top: 20rpx;
+  left: 20rpx;
+  width: 40rpx;
+  height: 40rpx;
+  z-index: 5;
+}
+
+.label-img {
+  width: 300rpx;
+  height: 180rpx;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.agree-content {
+  font-size: 24rpx;
+  color: #333;
+  display: flex;
+  justify-content: center;
+  padding: 40rpx 0 100rpx;
+  align-content: center;
+}
+
+.checkbox {
+  align-items: center;
+}
+
+.agree-info {
+  display: flex;
+}
+
+.agree-name {
+  padding-left: 20rpx;
+  color: #ff7a7a;
+}
+
+.op-step-group {
+  margin: 0 80rpx;
+  width: 590rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 100rpx 0 50rpx 0;
+}
+
+.step-btn {
+  flex: 1;
+  border-radius: 50rpx;
+  font-size: 40rpx;
+  color: #fff;
+  height: 80rpx;
+  line-height: 80rpx;
+  padding: 0;
+  background: linear-gradient(to right, #fc6262, #fb6e65, #fe9567);
+}
+.step-btn.first{
+  /* margin-left: 4rpx; */
+  border-radius: 50rpx 0 0 50rpx;
+  background: linear-gradient(to right, #fc6262, #fb6e65);
+}
+.step-btn.second {
+  margin-left: 2rpx;
+  border-radius: 0 50rpx 50rpx 0;
+  background: linear-gradient(to right, #fb6e65, #fe9567);
+}
+
+.id-card {
+  width: 324rpx;
+  height: 280rpx;
+}
+
+.id-card:first-child {
+  margin-right: 22rpx;
+}
+
+.map-content {
+  margin: 40rpx;
+}
+
+.picker {
+  display: flex;
+  align-items: center;
+}
+
+.right-icon {
+  margin-left: 10rpx;
+}
+
+.four-step {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.check-image {
+  width: 400rpx;
+  height: 316rpx;
+  margin-bottom: 60rpx;
+  margin-top: 100rpx;
+}
+
+.check-status {
+  /* color:#fe2200; */
+  font-weight: bold;
+  font-size: 40rpx;
+}
+
+.check-status.ing {
+  color: #ff976a;
+}
+
+.check-status.success {
+  color: #07c160;
+}
+
+.check-status.ing {
+  color: #fe2200;
+}
+
+.reply-content {
+  font-size: 32rpx;
+  text-align: left;
+  margin-top: 30rpx;
+  width: 590rpx;
+}
+
+.picture_list {
+  /* padding: 20rpx; *//* margin-left: 12%; */
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-content: flex-start;
+}
+
+.picture_item {
+  margin-left: 0;
+  position: relative;
+  width: 160rpx;
+  height: 160rpx;
+}
+
+.picture_item:not(:nth-child(4n+4)) {
+  margin-right: 10px;
+}
+
+.picture_item .del {
+  position: absolute;
+  top: -11rpx;
+  right: -11rpx;
+  color: #fff;
+  border-radius: 50%;
+  width: 40rpx;
+  height: 40rpx;
+  z-index: 2;
+  line-height: 35rpx;
+  text-align: center;
+  background-color: #f00;
+}
+
+.upload-btn {
+  width: 160rpx;
+  height: 160rpx;
+}
+
+.upload_progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0.7;
+  border-radius: 8rpx;
+  background-color: #000;
+  color: #fff;
+  width: 160rpx;
+  height: 160rpx;
+  text-align: center;
+  line-height: 160rpx;
+  font-size: 12px;
+}
+
+.picture_item image {
+  width: 160rpx;
+  height: 160rpx;
+}
+.required{
+  color:#fe2200;
+  font-size:32rpx;
+}
+.map-content{
+  height:400rpx;
+}
+.marker{
+  width:40rpx;
+  height:40rpx;
+  margin-right:20rpx;
+}

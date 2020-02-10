@@ -1,0 +1,132 @@
+// pages/system/base-info/info.js
+import Notify from '../../../miniprogram_npm/vant-weapp/notify/notify';
+var util = require('../../../utils/util.js');
+const app = getApp()
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    info:{},
+    start:'',
+    end:''
+  },
+  getInfo(){
+    var url = app.globalData.baseUrl +'apiUser/org/myInfo'
+    util.getRequestList(url,false,this.infoRes)
+  },
+  infoRes(res){
+    this.setData({
+      info:res.data.content,
+      start: res.data.content.businessStartTime,
+      end: res.data.content.businessEndTime,
+      mobile: res.data.content.mobile
+    })
+  },
+  getStart(e){
+    this.setData({
+      start:e.detail.value
+    })
+  },
+  getEnd(e) {
+    console.log(e)
+    this.setData({
+      end: e.detail.value
+    })
+  },
+  getMobile(e) {
+    this.setData({
+      mobile: e.detail
+    })
+  },
+  updateInfo(){
+    console.log(this.data.mobile)
+    if (!(/^1[3456789]\d{9}$/.test(this.data.mobile))) {
+      Notify({
+        type: 'warning',
+        message: '客服电话格式不正确'
+      });
+      return false
+    }
+    wx.showLoading({
+      title: '更新中',
+    })
+    var url = app.globalData.baseUrl + 'apiUser//org/setBusTime'
+    var data={
+      startTime:this.data.start,
+      stopTime:this.data.end,
+      mobile:this.data.mobile
+    }
+    util.postRequestList(url,data,false,this.updateRes)
+  },
+  updateRes(res){
+    wx.hideLoading()
+    if(res.data.code==200){
+      wx.showToast({
+        title: '修改成功',
+      })
+      this.getInfo()
+    }else{
+      wx.showToast({
+        title: res.data.message,
+      })
+    }
+  },
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    app.globalData.isGo=false
+    this.getInfo()
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+
+  }
+})

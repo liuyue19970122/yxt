@@ -1,0 +1,101 @@
+/* pages/stock/stock-change/stock-change.wxss */
+
+.tiggle-icon{
+    width:24rpx;
+  height:12rpx;
+}
+/* .picker{
+  min-width:100rpx;
+  font-size: 28rpx;
+  color:#333;
+  padding-left:16rpx;
+  border-left:6rpx solid red;
+  margin-left:24rpx;
+} */
+.content{
+  margin-top:48rpx;
+  margin-left:24rpx;
+  font-size:30rpx;
+  min-width:100rpx;
+  color:#333;
+  padding-left:16rpx;
+  border-left:6rpx solid red;
+  display: flex;
+}
+.content view{
+  margin-right:10rpx;
+}
+.kg-unit{
+  font-size: 32rpx;
+  color:#333;
+  font-weight: 550;
+}
+.good-item{
+  height:208rpx;
+  padding:24rpx 0;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  margin: 24rpx 24rpx;
+  border-bottom: 2rpx solid #f0f0f0;
+}
+.good-left-module image{
+  width:160rpx;
+  height:160rpx;
+}
+.good-right-module{
+  display: flex;
+  flex-direction: column;
+  margin-left:20rpx;
+  font-size:28rpx;
+  color:#333;
+}
+.good-right-module>view:not(:last-child){
+  margin-bottom:24rpx;
+}
+.bottom-module{
+  display: flex;
+  justify-content: space-between;
+  /* margin-top:10rpx; */
+  align-items: center;
+  width:522rpx;
+}
+.time{
+  color:#ccc;
+  font-size:24rpx;
+}
+.active-item{
+  background:#f0f0f0;
+  position: relative;
+}
+
+.active-dialog>view{
+  height:69rpx;
+  text-align: center;
+  line-height: 69rpx;
+}
+.active-dialog{
+  width:140rpx;
+  font-size:28rpx;
+  box-shadow: 1px 3px 6px rgba(0,0,0,0.1);
+  position: absolute;
+  top:80%;
+  left:50%;
+  background: #fff;
+  z-index: 1000;
+}
+
+.btn-stock-in{
+  width:120rpx;
+  height:120rpx;
+  border-radius: 50%;
+  position: fixed;
+  z-index:44444;
+  top:80%;
+  right:15%;
+  box-shadow: 1px 3px 6px #FEA194;
+}
+.btn-stock-in image{
+  width:100%;
+  height:100%;
+}

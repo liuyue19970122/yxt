@@ -1,0 +1,47 @@
+/* pages/mall/handle-order/order-add/add.wxss */
+@import '../../../../utils/asset/css/cus-form.wxss';
+@import '/utils/asset/css/cus-popup.wxss';
+.add-supplier{
+  margin: 0 24rpx;
+  color: #fe2200;
+}
+
+.add-spec{
+  margin-left: 24rpx;
+  width: 60rpx;
+  height: 60rpx;
+  vertical-align: middle;
+}
+
+.card-container{
+  padding: 0 24rpx;
+  margin-bottom: 100rpx;
+}
+.card{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 28rpx 0 30rpx;
+  color: #333;
+  border-bottom:2rpx solid #f0f0f0;
+}
+.card-info{
+  flex: 1;
+  margin-right: 40rpx;
+}
+.info-name{
+  font-size: 32rpx;
+  margin-bottom: 24rpx;
+}
+
+.info-other{
+  display: flex;
+  justify-content: space-between;
+  font-size: 26rpx;
+}
+.card-del{
+  color: #666;
+  border-left: 1px solid #9999;
+  padding: 20rpx 0 20rpx 20rpx;
+}
+  

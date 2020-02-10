@@ -1,0 +1,3 @@
+/* pages/receipt/vege-add-category/add-cate.wxss */
+
+@import "../../stock/add-category/add-category"
