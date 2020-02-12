@@ -332,6 +332,11 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked {
   color: #ccc;
   font-size: 24rpx;
 }
+.statement-empty{
+  margin-top: 80rpx;
+  color: #ccc;
+  font-size: 24rpx;
+}
 /* reach-bottom */
 .reach-bottom{
   width: 100%;

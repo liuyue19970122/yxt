@@ -1,24 +1,27 @@
 <!--pages/finance/statement/income/income.wxml-->
 <cus-fin-pie title='累计收入' 
-  price='12300' subPrice='00'
+  price='{{price}}' 
+  subPrice='{{subPrice}}'
   line='line' 
   bgColor='#FFAC03'></cus-fin-pie>
 <view class='form-item form-item__inline'>
   <label class='form-item__label'>收入统计</label>
   <picker class='form-item__content'
-    bindchange="bindStockChange"
-    bindcancel='bindStockCancel'
-    disabled='{{stockDisabled}}'
-    value="{{stockProIndex}}" 
-    range-key='cusName'
-    range="{{stockProList}}">
-    <view class="picker">{{stockProList[stockProIndex[0]].cusName}}</view>
+    bindchange="bindDateChange"
+    value="{{curYear}}" 
+    mode ='date' 
+    end='{{nowYear}}'
+    fields='year'>
+    <view class="picker">{{curYear+'年'}}</view>
   </picker>
   <image class='arrow-down'src='../../../../utils/img/close.png'></image>
 </view>
-<cus-fin-card name='1' rightText='2019年11月' 
-  leftText='1200.00' 
+<cus-fin-card wx:for='{{incomeList}}' 
+  wx:key='incomeList'
+  name='{{item.month}}' 
+  rightText='{{item.monthInfo}}' 
+  leftText='{{item.cusTotalMoney}}' 
   gradient='gradient'
   dotColor='#fd9140'
-  width='50%' bind:click='bindClick'></cus-fin-card>
-
+  width='{{item.cusPercent}}' bind:click='bindClick'></cus-fin-card>
+<view class='statement-empty' wx:if='{{!incomeList.length}}'>无收入记录</view>
