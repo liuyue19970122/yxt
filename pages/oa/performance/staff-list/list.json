@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "绩效管理",
+  "usingComponents": {
+    "page-title": "/components/page-title/page-title",
+    "shadow-list": "/components/shadow-list/shadow-list",
+    "van-action-sheet": "/miniprogram_npm/vant-weapp/action-sheet/index",
+    "search": "/components/search/search"
+  }
+}

@@ -1,0 +1,23 @@
+<!--pages/oa/performance/detail-list/list.wxml-->
+<view class='first-module'>
+  <view>当月绩效：{{total}}</view>
+  <view>
+    <!-- <view class="section"> -->
+      <!-- <view class="section__title">日期选择器</view> -->
+      <picker mode="date" fields='month' value="{{date}}" start="2019-10" end="2050-12" bindchange="bindChange">
+        <view class="picker">
+          <view>{{month}}</view>
+          <image src='/utils/img/system/month.png'></image>
+        </view>
+      </picker>
+    <!-- </view> -->
+  </view>
+</view>
+<scroll-view class='list' scroll-y wx:if='{{detailList.length>0}}' bindscrolltolower='goNext'>
+  <view class='list-item' wx:for='{{detailList}}'>
+    <view>{{item.opDay}} <text wx:if='{{item.opType=="+"}}'>奖励绩效</text> <text wx:if='{{item.opType=="-"}}'>惩罚绩效</text></view>
+    <view>{{item.score}}</view>
+    <!-- <view>查看</view> -->
+  </view>
+</scroll-view>
+<view class='empty' wx:if='{{detailList.length==0}}'>暂无数据~</view>

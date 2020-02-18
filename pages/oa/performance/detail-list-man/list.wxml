@@ -1,0 +1,56 @@
+<!--pages/oa/performance/detail-list/list.wxml-->
+<!-- <view class='first-module'>
+  <view>当月绩效：90</view>
+  <view>
+    <picker mode="date" fields='month' value="{{date}}" start="2015-09-01" end="2017-09-01" bindchange="bindDateChange">
+      <view class="picker">
+        <view>2019-12</view>
+        <image src='/utils/img/system/month.png'></image>
+      </view>
+    </picker>
+  </view>
+</view> -->
+<scroll-view class='list' scroll-y bindscrolltolower='goNext' wx:if='{{detailList.length>0}}'>
+  <view class='list-item' wx:for="{{detailList}}">
+    <view>{{item.opDay}} <text wx:if='{{item.opType=="+"}}'>奖励绩效</text> <text wx:if='{{item.opType=="-"}}'>惩罚绩效</text></view>
+    <view>{{item.score}}</view>
+    <!-- <view>查看</view> -->
+  </view>
+</scroll-view>
+<view class='empty' wx:if='{{detailList.length==0}}'>暂无数据~</view>
+<view class='op-height'></view>
+<view class='total-module'>当前绩效：{{total}}</view>
+<view class='op-btn-group'>
+  <!-- <button class='n-btn'>返回</button> -->
+  <button class='y-btn' bindtap='goAdd'>添加</button>
+</view>
+
+<van-dialog use-slot show="{{ show }}" show-cancel-button bind:close="onClose" bind:confirm="onSubmit">
+  <view class='dialog'>
+    <view class='choose-type-box'>
+      <view class='type'>绩效类型</view>
+      <van-radio-group value="{{ type }}" bind:change="onChange">
+        <view class='radio-group'>
+          <van-radio name="add" checked-color="#fe2200">奖励绩效</van-radio>
+          <van-radio name="reduce" checked-color="#fe2200">惩罚绩效</van-radio>
+        </view>
+      </van-radio-group>
+    </view>
+    <view class='score-box'>
+      <view class='title'>操作日期</view>
+      <picker mode="date" value="{{date}}" start="2015-09-01" end="2050-09-01" bindchange="bindDateChange">
+        <view class="score-input">
+          <view>{{date}}</view>
+        </view>
+      </picker>
+    </view>
+    <view class='border-bottom'></view>
+    <view class='score-box'>
+      <view class='title'>绩效分</view>
+      <input class='score-input' type='digit' bindinput="bindInputScore" value="{{score}}"></input>
+    </view>
+    <view>
+      <textarea class='reason' value='{{reason}}' bindinput="bindInputReason"></textarea>
+    </view>
+  </view>
+</van-dialog>

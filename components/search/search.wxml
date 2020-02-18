@@ -1,5 +1,5 @@
 <!--components/search/search.wxml-->
-<van-search value="{{ value }}" placeholder="{{placeholder}}" background='{{background}}' shape='round' bind:change="bindInput" bind:search="bindConfirm" bind:cancel="onCancel"/>
+<van-search value="{{ value }}" placeholder="{{placeholder}}" background='{{background}}' shape='round' bind:change="bindInput" bind:search="bindConfirm" bind:cancel="onCancel" custom-class='{{searchClass}}'/>
 
 
 <!-- <view class='search-view'>

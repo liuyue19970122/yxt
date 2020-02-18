@@ -4,7 +4,9 @@
   background-color: var(--search-background-color, #fff);
   border-radius: 50px;
 }
-
+.widthClass{
+  width:666rpx;
+}
 .search {
   width: 702rpx;
   margin: 20rpx 24rpx;

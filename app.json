@@ -1,11 +1,13 @@
 {
   "pages": [
-    "pages/receipt/sell-report/sell",
     "pages/common/login/login",
+    "pages/oa/performance/detail-list/list",
+    "pages/oa/performance/staff-list/list",
+    "pages/oa/performance/detail-list-man/list",
+    "pages/receipt/sell-report/sell",
     "pages/receipt/vege/default-tpl/list",
     "pages/receipt/vege/tpl-food-list/list",
     "pages/common/permission/first-step/first",
-    
     "pages/receipt/credit-manager/credit-detail/detail",
     "pages/receipt/credit-manager/people-list/list",
     "pages/receipt/credit-manager/add-person/add",

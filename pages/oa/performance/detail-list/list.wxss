@@ -1,0 +1,35 @@
+/* pages/oa/performance/detail-list/list.wxss */
+.first-module{
+  height:120rpx;
+  background: #F5F5F5;
+  display: flex;
+  font-size: 40rpx;
+  color:#333;
+  justify-content: space-between;
+  align-items: center;
+  padding:30rpx 24rpx;
+  box-sizing: border-box;
+}
+.first-module>view,.picker{
+  display: flex;
+  align-items: center;
+}
+image{
+  width:60rpx;
+  height:60rpx;
+  padding-left:24rpx;
+}
+.list-item{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size:32rpx;
+  border-bottom:2rpx solid #f1f1f1;
+  color:#333;
+  padding:0 24rpx;
+  height:100rpx;
+  box-sizing: border-box;
+}
+.list{
+  height:calc(100vh - 120rpx);
+}
