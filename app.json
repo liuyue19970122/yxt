@@ -132,7 +132,10 @@
     "pages/mall/pro-add/pro-tpls/tpls",
     "pages/mall/pro-add/pro-tpls-dtl/dtl",
     "pages/mall/pro-add/pro-tpls-pro/pro",
-    "pages/mall/pro-add/pro-tpl/tpl"
+    "pages/mall/pro-add/pro-tpl/tpl",
+    "pages/finance/statement/buyer/buyer",
+    "pages/finance/statement/receivable/receivable",
+    "pages/finance/statement/payable/payable"
   ],
   "window": {
     "backgroundTextStyle": "light",

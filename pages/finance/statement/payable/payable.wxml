@@ -1,0 +1,27 @@
+<!--pages/finance/statement/payable/payable.wxml-->
+<cus-fin-pie title='累计应收' 
+  price='{{price}}' 
+  subPrice='{{subPrice}}'
+  line='line' 
+  bgColor='#FFAC03'></cus-fin-pie>
+<view class='form-item form-item__inline'>
+  <label class='form-item__label'>应收统计</label>
+  <picker class='form-item__content'
+    bindchange="bindDateChange"
+    value="{{curYear}}" 
+    mode ='date' 
+    end='{{nowYear}}'
+    fields='year'>
+    <view class="picker">{{curYear+'年'}}</view>
+  </picker>
+  <image class='arrow-down'src='../../../../utils/img/close.png'></image>
+</view>
+<cus-fin-card wx:for='{{payableList}}' 
+  wx:key='payableList'
+  name='{{item.month}}' 
+  rightText='{{item.monthInfo}}' 
+  leftText='{{item.cusTotalMoney}}' 
+  gradient='gradient'
+  dotColor='#fd9140'
+  width='{{item.cusPercent}}' bind:click='bindClick'></cus-fin-card>
+<view class='statement-empty' wx:if='{{!payableList.length}}'>无应付记录</view>

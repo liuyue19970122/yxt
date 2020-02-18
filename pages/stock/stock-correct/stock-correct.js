@@ -43,29 +43,12 @@ Page({
   },
   //修正数量变更
   getFixCount(e) {
-    let _this=this
     let list = this.data.goodsList
-    let fixCount = Number(e.detail.value)
+    let fixCount = Number(e.detail)
     let curIndex = parseInt(e.currentTarget.dataset.index)
-    list.map((item, index) => {
-      if (index == curIndex) {
-        item.fixCount = fixCount
-        let stockCount = Number(item.stockCount)
-        console.log(item.fixCount)
-        if (fixCount > stockCount) {
-          wx.showModal({
-            title: '提示',
-            content: '需小于购买总量',
-            showCancel: false,
-            success: function (res) {
-              item.fixCount = item.stockCount
-              _this.setData({
-                goodsList: list
-              })
-            }
-          })
-        }
-      }
+    list[curIndex].fixCount=fixCount
+    this.setData({
+      goodsList: list
     })
   },
   //获取仓库某类产品列表///stock/inst/list
