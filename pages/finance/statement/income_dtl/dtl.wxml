@@ -1,0 +1,34 @@
+<!--pages/finance/statement/detail/detail.wxml-->
+<view class='header'>
+  <picker bindchange="bindDateChange" 
+    mode = 'selector'
+    range='{{dateArr}}'
+    range-key='name'
+    value="{{curIndex}}">
+    <view>
+      <text>{{curMonth}}</text>
+      <image class='header-img' src='/utils/img/close.png'></image>
+    </view>
+  </picker>
+</view>
+<view class='page-container'>
+  <view class='list-container'>
+    <scroll-view class='scroll' scroll-y='{{true}}' 
+      bindscrolltolower='bindReachBottom'>
+      <view class='none-content' wx:if='{{!detailList.length}}'>暂无记录</view>
+      <view class='card' wx:for='{{detailList}}'>
+        <view class='card-info'>
+          <text>{{item.title}}</text>
+          <text>{{item.time}}</text>
+        </view>
+        <text wx:if='{{item.type==="+"}}' 
+          class='info-money income-money'>{{item.cusMoney}}</text>
+        <text wx:if='{{item.type==="-"}}' 
+          class='info-money outcome-money'>{{item.type+item.cusMoney}}</text>
+      </view>
+      <view wx:if='{{!hasNextPage&&detailList.length}}' class='reach-bottom'>
+        <image src='/utils/img/arrive-bottom.png'></image>
+      </view>
+    </scroll-view>
+  </view>
+</view>

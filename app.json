@@ -79,7 +79,6 @@
     "pages/mall/pro-list/list",
     "pages/finance/salary/salary-submit/sub",
     "pages/finance/salary/salary-list/list",
-    "pages/finance/statement/detail/detail",
     "pages/finance/statement/expense/expense",
     "pages/finance/statement/profit/profit",
     "pages/finance/statement/income/income",
@@ -135,7 +134,11 @@
     "pages/mall/pro-add/pro-tpl/tpl",
     "pages/finance/statement/buyer/buyer",
     "pages/finance/statement/receivable/receivable",
-    "pages/finance/statement/payable/payable"
+    "pages/finance/statement/payable/payable",
+    "pages/finance/statement/receivable_dtl/dtl",
+    "pages/finance/statement/income_dtl/dtl",
+    "pages/finance/statement/expense_dtl/dtl",
+    "pages/finance/statement/payable_dtl/dtl"
   ],
   "window": {
     "backgroundTextStyle": "light",

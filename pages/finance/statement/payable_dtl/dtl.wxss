@@ -1,0 +1,59 @@
+/* pages/finance/statement/detail/detail.wxss */
+page,.page-container,.scroll{
+  width: 100%;
+  height: 100%;
+}
+.header{
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 40rpx 24rpx;
+  height: 120rpx;
+  box-sizing: border-box;
+  color: #333;
+  font-size: 32rpx;
+  background-color: #f0f0f0;
+}
+.header-img{
+  width: 24rpx;
+  height: 40rpx;
+  padding-left: 20rpx;
+  vertical-align: middle;
+}
+.list-container{
+  width: 100%;
+  height: 100%;
+  padding-top:120rpx;
+  box-sizing: border-box;
+}
+.card{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 40rpx 0;
+  margin: 0 24rpx;
+  border-bottom: 2rpx solid #f0f0f0;
+}
+.card-info>text{
+  display: block;
+  padding-bottom: 12rpx;
+}
+.card-info>text:first-child{
+  font-size: 32rpx;
+  font-weight: bold;
+  color:#333;
+}
+.card-info>text:last-child{
+  font-size: 28rpx;
+  color:#999;
+}
+.info-money{
+  font-size: 40rpx;
+  font-weight: bold;
+}
+.income-money{
+  color: #333;
+}
+.outcome-money{
+  color: #fe2200;
+} 

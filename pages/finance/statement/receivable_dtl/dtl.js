@@ -7,29 +7,33 @@ Page({
    * 页面的初始数据
    */
   data: {
+    dateArr:[],
+    curIndex:0,
     curMonth:'',
     detailList:[],
     filterData:{
       month:'',
+      day:'-1',
       pageNum:1,
       pageSize:10
     },
-    pageInType:'',
     hasNextPage:true
   },
   //picker时间事件
-  bindDateChange(e) { },
+  bindDateChange(e) { 
+    let val=parseInt(e.detail.value)
+    let dateArr=this.data.dateArr
+    let filterData=this.data.filterData
+    filterData.day=dateArr[val].day
+    let curMonth=dateArr[val].name
+    this.setData({filterData,curMonth})
+    this.getDetail(filterData,'refresh')
+  },
   bindDateCancel(e){},
   //获取报表详情列表
-  getDetail(data,pageInType,type){
+  getDetail(data,type){
     wx.showLoading({title:'加载中...'})
-    let url=''
-    if(pageInType==='income'){
-      url = app.globalData.baseUrl +'apiMall/report/incomeDetail'
-    }
-    if(pageInType==='outcome'){
-      url = app.globalData.baseUrl +'apiMall/report/outcomeDetail'
-    }
+    let url = app.globalData.baseUrl +'apiMall/recpay/shouldGet'
     util.getRequestListData(url,data,type,this.detailRes)
   },
   detailRes(res,type){
@@ -39,7 +43,9 @@ Page({
       let list=res.data.content.list
       let hasNextPage=res.data.content.hasNextPage
       list.forEach(item=>{
-        item.cusMoney=util.getMoney(item.totalMoney).toString()
+        item.cusHasPay=util.getMoney(item.hasPay).toString()
+        item.cusShouldPay=util.getMoney(item.shouldPay).toString()
+        item.cusCrtTime=util.formatTime(item.crtTime)
       })
       if(type==='refresh'){
         this.setData({detailList:list})
@@ -64,8 +70,7 @@ Page({
       let filterData=this.data.filterData
       filterData.pageNum+=1
       this.setData({filterData})
-      let pageInType=this.data.pageInType
-      this.getDetail(filterData,pageInType,'reachBottom')
+      this.getDetail(filterData,'reachBottom')
     }
   },
   /**
@@ -73,13 +78,12 @@ Page({
    */
   onLoad: function (options) {
     let month=options.month
-    let pageInType=options.pageInType
     let curMonth=options.curMonth
+    let dateArr=util.formatGetDayRange(month,curMonth)
     let filterData=this.data.filterData
-   
     filterData.month=month
-    this.setData({filterData,pageInType,curMonth})
-    this.getDetail(filterData,pageInType,'refresh')
+    this.setData({filterData,dateArr,curMonth})
+    this.getDetail(filterData,'refresh')
   },
 
   /**

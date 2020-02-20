@@ -12,10 +12,6 @@ Page({
     subPrice:'00',
     curYear:'',
     nowYear:'',
-    filterData:{
-      pageNum:1,
-      pageSize:10
-    },
     payableList:[]
   },
   //日期改变
@@ -28,7 +24,7 @@ Page({
     let data={
       year:year
     }
-    this.getIncomeInfo(data)
+    this.getPayableInfo(data)
   },
   //查看详情
   bindClick(e){
@@ -41,14 +37,13 @@ Page({
       }
     })
     wx.navigateTo({
-      url: '/pages/finance/statement/detail/detail?month='+month+'&pageInType=income&curMonth='+curMonth,
+      url: '/pages/finance/statement/payable_dtl/dtl?month='+month+'&curMonth='+curMonth,
     })
-    console.log(e)
   },
    //获取收入详情
    getPayableInfo(data){
     wx.showLoading({title:'加载中...'})
-    let url = app.globalData.baseUrl +'apiMall/recpay/shouldPay'
+    let url = app.globalData.baseUrl +'apiMall/recpay/payTotal'
     util.getRequestListData(url,data,false,this.payableInfoRes)
   },
   payableInfoRes(res,type){
