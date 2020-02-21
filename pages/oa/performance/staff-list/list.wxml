@@ -16,7 +16,7 @@
   <view style='{{cusStyle}}'>
     <view class='account-item' bindtap='goDetail' data-id='{{item.userId}}' wx:for='{{staffList}}'>
       <view>{{item.name}}</view>
-      <view>{{item.roleName}}</view>
+      <!-- <view>{{item.roleName}}</view> -->
       <view>{{item.score}}</view>
     </view>
   </view>

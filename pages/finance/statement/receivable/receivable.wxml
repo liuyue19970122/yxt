@@ -1,11 +1,11 @@
-<!--pages/finance/statement/income/income.wxml-->
-<cus-fin-pie title='累计收入' 
+<!--pages/finance/statement/receivable/receivable.wxml-->
+<cus-fin-pie title='累计应收' 
   price='{{price}}' 
   subPrice='{{subPrice}}'
   line='line' 
   bgColor='#FFAC03'></cus-fin-pie>
 <view class='form-item form-item__inline'>
-  <label class='form-item__label'>收入统计</label>
+  <label class='form-item__label'>应收统计</label>
   <picker class='form-item__content'
     bindchange="bindDateChange"
     value="{{curYear}}" 
@@ -16,12 +16,12 @@
   </picker>
   <image class='arrow-down'src='../../../../utils/img/close.png'></image>
 </view>
-<cus-fin-card wx:for='{{incomeList}}' 
-  wx:key='incomeList'
+<cus-fin-card wx:for='{{receivableList}}' 
+  wx:key='receivableList'
   name='{{item.month}}' 
   rightText='{{item.monthInfo}}' 
   leftText='{{item.cusTotalMoney}}' 
   gradient='gradient'
   dotColor='#fd9140'
   width='{{item.cusPercent}}' bind:click='bindClick'></cus-fin-card>
-<view class='statement-empty' wx:if='{{!incomeList.length}}'>无收入记录</view>
+<view class='statement-empty' wx:if='{{!receivableList.length}}'>无应收记录</view>

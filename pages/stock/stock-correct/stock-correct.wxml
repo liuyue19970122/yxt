@@ -6,12 +6,13 @@
   <view class='form-container'>
     <!-- <form-item label="商品名称" value='{{item.goodsName}}' isReadon='{{true}}'></form-item> -->
   <form-item label="购买数量" placeholder='最多保留两位小数' 
-    type='number' bind:input='getIncomeCount' 
+    type='number' 
     value='{{item.stockCount}}' 
     isBorder='{{true}}' 
     isReadon="{{true}}"></form-item>
   <form-item label="修正数量" placeholder='最多保留两位小数' 
-    type='number' bind:blur='getFixCount' 
+    type='number' 
+    bind:input='getFixCount' 
     value='{{item.fixCount}}' 
     data-index='{{index}}' 
     isBorder='{{true}}'></form-item>

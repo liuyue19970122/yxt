@@ -49,6 +49,11 @@ page,.page-container,.scroll{
 }
 .info-money{
   font-size: 40rpx;
-  color: #fe2200;
   font-weight: bold;
 }
+.income-money{
+  color: #333;
+}
+.outcome-money{
+  color: #fe2200;
+} 

@@ -1,6 +1,7 @@
-// pages/finance/statement/income/income.js
+// pages/finance/statement/buyer/buyer.js
 let util = require('../../../../utils/util.js');
 const app = getApp()
+
 Page({
 
   /**
@@ -11,10 +12,11 @@ Page({
     subPrice:'00',
     curYear:'',
     nowYear:'',
-    outcomeList:[]
+    incomeList:[]
   },
-  //picker时间事件
-  bindDateChange(e) { 
+  //日期改变
+  bindDateChange(e){
+    console.log(e)
     let year=e.detail.value
     this.setData({
       curYear:year
@@ -22,33 +24,32 @@ Page({
     let data={
       year:year
     }
-    this.getOutcomeInfo(data)
+    this.getIncomeInfo(data)
   },
-  bindDateCancel(e){},
   //查看详情
   bindClick(e){
     let month=e.detail
     let curMonth=''
-    let list=this.data.outcomeList
+    let list=this.data.incomeList
     list.forEach(item=>{
       if(item.month===month){
         curMonth=item.monthInfo
       }
     })
     wx.navigateTo({
-      url: '/pages/finance/statement/detail/detail?month='+month+'&pageInType=outcome&curMonth='+curMonth,
+      url: '/pages/finance/statement/detail/detail?month='+month+'&pageInType=income&curMonth='+curMonth,
     })
+    console.log(e)
   },
-  //获取支出详情
-  getOutcomeInfo(data){
+   //获取收入详情
+   getIncomeInfo(data){
     wx.showLoading({title:'加载中...'})
-    let url = app.globalData.baseUrl +'apiMall/report/outcome'
-    util.getRequestListData(url,data,false,this.outcomeInfoRes)
+    let url = app.globalData.baseUrl +'apiMall/report/income'
+    util.getRequestListData(url,data,false,this.incomeInfoRes)
   },
-  outcomeInfoRes(res,type){
+  incomeInfoRes(res,type){
     wx.hideLoading()
     if(res.data.code==='200'&& res.statusCode===200){
-      console.log(res)
       let list=res.data.content
       let price=0
       list.forEach(item=>{
@@ -63,6 +64,7 @@ Page({
         list.forEach(item=>{
           if(item.totalMoney){
             let p=util.accDiv(item.totalMoney,price)
+           
             let pws=util.accMul(p,100)
             item.cusPercent=pws+'%'
           }else{
@@ -79,7 +81,7 @@ Page({
       let intPrice=priceArr[0]
       let litPrice=priceArr[1]
       this.setData({
-        outcomeList:list,
+        incomeList:list,
         price:intPrice,
         subPrice:litPrice
       })
@@ -98,7 +100,7 @@ Page({
       year:year
     }
     this.setData({curYear:year,nowYear:year})
-    this.getOutcomeInfo(data)
+    this.getIncomeInfo(data)
   },
 
   /**
