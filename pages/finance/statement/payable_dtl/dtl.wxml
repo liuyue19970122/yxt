@@ -10,6 +10,7 @@
       <image class='header-img' src='/utils/img/close.png'></image>
     </view>
   </picker>
+  <view>{{totalMoney}}</view>
 </view>
 <view class='page-container'>
   <view class='list-container'>

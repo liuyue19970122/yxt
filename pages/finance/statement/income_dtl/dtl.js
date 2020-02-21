@@ -17,6 +17,11 @@ Page({
       pageNum:1,
       pageSize:10
     },
+    totalFilter:{
+      month:'',
+      day:'-1',
+    },
+    totalMoney:0,
     hasNextPage:true
   },
   //picker时间事件
@@ -26,8 +31,27 @@ Page({
     let filterData=this.data.filterData
     filterData.day=dateArr[val].day
     let curMonth=dateArr[val].name
-    this.setData({filterData,curMonth})
+    let totalFilter=this.data.totalFilter
+    totalFilter.day=dateArr[val].day
+    this.setData({filterData,totalFilter,curMonth})
+    this.getTotal(totalFilter)
     this.getDetail(filterData,'refresh')
+  },
+  //获取总金额
+  getTotal(data){
+    let url= app.globalData.baseUrl +'apiMall/report/incomeTotal'
+    util.getRequestListData(url,data,false,this.totalRes)
+  },
+  totalRes(res,type){
+    if(res.statusCode===200&&res.data.code==='200'){
+      let list=res.data.content
+      let totalMoney=util.getMoney(list)
+      this.setData({totalMoney})
+    }else{
+      wx.showToast({
+        title: res.data.message,
+      })
+    }
   },
   //获取报表详情列表
   getDetail(data,type){
@@ -79,7 +103,10 @@ Page({
     let dateArr=util.formatGetDayRange(month,curMonth)
     let filterData=this.data.filterData
     filterData.month=month
-    this.setData({filterData,curMonth,dateArr})
+    let totalFilter=this.data.totalFilter
+    totalFilter.month=month
+    this.setData({filterData,totalFilter,dateArr,curMonth})
+    this.getTotal(totalFilter)
     this.getDetail(filterData,'refresh')
   },
 
