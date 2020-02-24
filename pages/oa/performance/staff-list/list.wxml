@@ -1,0 +1,23 @@
+<!--pages/oa/staff-manage/staff-manage.wxml-->
+<!-- <page-title title='员工管理' isAdd='{{true}}' icon='/utils/img/stork-set.png' picker='{{false}}' bind:add='goAdd'></page-title> -->
+<view class='search-module'>
+  <search placeholder='请输入员工姓名' bind:search='getStaffList' value='{{userName}}' bind:input='bindUserName' searchClass='widthClass'></search>
+  <picker mode="date" fields='month' value="{{month}}" start="2019-12" end="2024-09" bindchange="bindChange">
+        <view class="picker">
+          <!-- <view>2019年12月</view> -->
+          <image src='/utils/img/system/month.png'></image>
+        </view>
+      </picker>
+  <!-- <image src='/utils/img/system/month.png'></image> -->
+</view>
+
+<view class='staff-list'>
+  <!-- <shadow-list bind:get='goDetail' cusStyle='margin:40rpx 24rpx;' shadowList='{{staffList}}' itemStyle='height:120rpx' data-index='{{index}}'></shadow-list> -->
+  <view style='{{cusStyle}}'>
+    <view class='account-item' bindtap='goDetail' data-id='{{item.userId}}' wx:for='{{staffList}}'>
+      <view>{{item.name}}</view>
+      <!-- <view>{{item.roleName}}</view> -->
+      <view>{{item.score}}</view>
+    </view>
+  </view>
+</view>

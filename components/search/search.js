@@ -8,6 +8,10 @@ Component({
       type:String,
       value:''
     },
+    searchClass:{
+      type: String,
+      value: ''
+    },
     isMsg:{
       type:Boolean,
       value:false
