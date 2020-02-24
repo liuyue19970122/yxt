@@ -37,9 +37,8 @@ Page({
       }
     })
     wx.navigateTo({
-      url: '/pages/finance/statement/detail/detail?month='+month+'&pageInType=income&curMonth='+curMonth,
+      url: '/pages/finance/statement/income_dtl/dtl?month='+month+'&curMonth='+curMonth,
     })
-    console.log(e)
   },
    //获取收入详情
    getIncomeInfo(data){

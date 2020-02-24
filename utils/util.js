@@ -29,6 +29,50 @@ const formatNumber = function(n) {
   n = n.toString()
   return n[1] ? n : '0' + n
 }
+/** 
+ * @param { moth:'202002',curMonth:'2020年02月'}
+ * @return {type:array} 
+ * objArr=[{name:'2020年02月01日';day:1}]
+*/
+const formatGetDayRange=function(month,curMonth){
+  let arr=[]
+    let td=new Date()
+    let tdy=td.getFullYear()
+    let tdm=td.getMonth()+1
+    let tdd=td.getDate()
+    if(tdm<10){
+      tdm='0'+tdm.toString()
+    }
+    let tdymi=parseInt(tdy.toString()+tdm)//当前年月202002
+    let cmi=parseInt(month)
+    if(cmi<tdymi){
+      let cmyi=parseInt(month[0]+month[1]+month[2]+month[3])
+      let cmmfi=parseInt(month[5])
+      let cmmi=cmmfi?parseInt(month[5]+month[6]):parseInt(month[6])
+      let dayRange= new Date(cmyi, cmmi, 0).getDate()
+      for(let i=1;i<=dayRange;i++){
+        let is=i.toString()
+        is=i<10?'0'+is:is
+        let obj={
+          name:curMonth+is+'日',
+          day:is
+        }
+        arr.push(obj)
+      }
+    }else{
+      for(let i=1;i<=tdd;i++){
+        let is=i.toString()
+        is=i<10?'0'+is:is
+        let obj={
+          name:curMonth+is+'日',
+          day:is
+        }
+        arr.push(obj)
+      }
+    }
+    arr.unshift({name:curMonth,day:'-1'})
+    return arr
+}
 //获取openId
 const getWxOpenId = function() {
   return new Promise((resolve, reject) => {
@@ -706,5 +750,6 @@ module.exports = {
   getNextPage: getNextPage,
   formatMoney: formatMoney,
   getNowDate: getNowDate,
-  getNowTime: getNowTime
+  getNowTime: getNowTime,
+  formatGetDayRange:formatGetDayRange
 }

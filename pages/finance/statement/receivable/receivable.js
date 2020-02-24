@@ -12,10 +12,6 @@ Page({
     subPrice:'00',
     curYear:'',
     nowYear:'',
-    filterData:{
-      pageNum:1,
-      pageSize:10
-    },
     receivableList:[]
   },
   //日期改变
@@ -28,7 +24,7 @@ Page({
     let data={
       year:year
     }
-    this.getIncomeInfo(data)
+    this.getReceivableInfo(data)
   },
   //查看详情
   bindClick(e){
@@ -41,14 +37,14 @@ Page({
       }
     })
     wx.navigateTo({
-      url: '/pages/finance/statement/detail/detail?month='+month+'&pageInType=income&curMonth='+curMonth,
+      url: '/pages/finance/statement/receivable_dtl/dtl?month='+month+'&curMonth='+curMonth,
     })
     console.log(e)
   },
    //获取收入详情
    getReceivableInfo(data){
     wx.showLoading({title:'加载中...'})
-    let url = app.globalData.baseUrl +'apiMall/recpay/shouldGet'
+    let url = app.globalData.baseUrl +'apiMall/recpay/getTotal'
     util.getRequestListData(url,data,false,this.receivableInfoRes)
   },
   receivableInfoRes(res,type){

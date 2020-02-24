@@ -36,7 +36,7 @@ Page({
       }
     })
     wx.navigateTo({
-      url: '/pages/finance/statement/detail/detail?month='+month+'&pageInType=outcome&curMonth='+curMonth,
+      url: '/pages/finance/statement/expense_dtl/dtl?month='+month+'&curMonth='+curMonth,
     })
   },
   //获取支出详情
