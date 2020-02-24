@@ -168,7 +168,13 @@ Page({
       })
     }
   },
-
+  goChange(){
+    this.initDraw()
+    this.setData({
+      step:0,
+      isReadon:false
+    })
+  },
   // 第一步
   downFile() {
     var that=this
