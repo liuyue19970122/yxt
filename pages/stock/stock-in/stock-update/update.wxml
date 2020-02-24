@@ -20,15 +20,23 @@
   </view>
   <view class='form-item form-item__inline'>
     <label class='form-item__label'>货品名称</label>
-    <view class="form-item__content">{{proInfo.goodsName}}</view>
-    <!-- <input placeholder='请输入货品名称(必填)'
+    <!-- <view class="form-item__content">{{proInfo.goodsName}}</view> -->
+    <input placeholder='请输入货品名称(必填)'
       bindinput='bindNameInput'
       value='{{proInfo.goodsName}}' 
-      class='form-item__content content-padding'></input> -->
+      class='form-item__content content-padding'></input>
   </view>
   <view class='form-item form-item__inline'>
     <label class='form-item__label'>货品规格</label>
-    <view class="form-item__content">{{selUnitName}}</view>
+    <!-- <view class="form-item__content">{{selUnitName}}</view> -->
+    <picker class='form-item__content'
+        bindchange="bindUnitChange"
+        bindcancel='bindUnitCancel'
+        value="{{unitIndex}}" 
+        range="{{unitList}}">
+      <view class="picker">{{selUnitName}}</view>
+    </picker>
+    <image class='triggle-close' src='/utils/img/close.png'></image>
   </view>
   <view class='form-item form-item__inline'>
     <label class='form-item__label'>库存位置</label>

@@ -16,18 +16,22 @@ Page({
     locationList:[],
     locationIndex:0,
     selLocationName:'请选择仓库位置',
-    selUnitName:'',
+    unitList: [],
+    unitIndex:0,
+    selUnitName:'请选择单位',
     proInfo :{
       keyId:'',
       cateId: '',
       locationId: '',
       goodsName: '',
+      goodsUnit:'',
       goodsPic: '/utils/img/upload.png',
       description: '',
     },
     proInfoRules:{
       cateId: {require:true,msg:'请选择货品类别'},
       goodsName: {require:true,msg:'请输入货品名称'},
+      goodsUnit: {require:true,msg:'请选择货品规格'},
       goodsPic: {require:true,msg:'请选上传货品图片'},
     },
     isNewPage:true
@@ -122,6 +126,26 @@ Page({
     this.setData(data);
     this.setData({multiCateName})
   },
+  //货品名称赋值
+  bindNameInput(e){
+    console.log(e)
+    this.setData({
+      ['proInfo.goodsName']:e.detail.value
+    })
+  },
+   //选择货品规格
+   bindUnitChange(e) {
+    console.log(e)
+    let index = parseInt(e.detail.value)
+    let unitList = this.data.unitList
+    let selUnitName=unitList[index]
+    let proInfo = this.data.proInfo
+    proInfo.goodsUnit = selUnitName
+    this.setData({proInfo,selUnitName})
+  },
+  bindUnitCancel(e) {
+
+  },
   //去选择库存位置
   bindLocatinoChange(e) {
     console.log(e)
@@ -140,13 +164,7 @@ Page({
   bindLocatinoCancel(e) {
 
   },
-  //货品名称赋值
-  bindNameInput(e){
-    console.log(e)
-    this.setData({
-      ['proInfo.goodsName']:e.detail.value
-    })
-  },
+  
   //选择图片
   upImage() {
     var that = this
@@ -207,11 +225,20 @@ Page({
   },
   upadteGoodsRes(res) {
     if (res.data.code === '200') {
+      let prevPage=util.getPrevPage()
+      let filterData=prevPage.data.filterData
+      filterData.pageNum=1
+      prevPage.setData({filterData})
+      prevPage.getGoodList(filterData,'refresh')
       wx.showToast({
         icon: 'success',
         title: '更新成功',
+        mask:true,
+        success:function(){
+          wx.navigateBack({delta:1})
+        }
       })
-      wx.navigateBack({delta:1})
+     
     }
   },
 
@@ -248,6 +275,26 @@ Page({
         multiProArray: twoArr,
         proCateList:cateList
       })
+    }
+  },
+  //获取单位名称
+  getUnitList() {
+    var url = app.globalData.baseUrl + 'apiStock/default/unit/list'
+    util.getRequestList(url, false, this.unitListRes)
+  },
+  unitListRes(res,type) {
+    if(res.data.code==='200'){
+      let unitList=res.data.content
+      let proInfo=this.data.proInfo
+      unitList.forEach((item,index)=>{
+        if(proInfo.goodsUnit===item){
+          this.setData({
+            unitIndex:index,
+            selUnitName:item
+          })
+        }
+      })
+      this.setData({unitList})
     }
   },
  
@@ -290,16 +337,19 @@ Page({
       let descStr=desc.replace(/\?/g,'*')
       let descStr1=descStr.replace(/\#/g,'&')
       let descStr2=descStr1.replace(/\=/g,'$')
+      console.log(proInfo)
       let data={
         keyId:proInfo.keyId,
         cateId: proInfo.cateId,
         locationId: proInfo.locationId,
         goodsName: proInfo.goodsName,
+        goodsUnit:proInfo.goodsUnit,
         goodsPic: proInfo.goodsPic,
-        description: descStr2,
+        description: descStr2&&descStr2!=='null'?descStr2:'',
       }
       this.setData({proInfo:data,selUnitName})
       this.getCateList()
+      this.getUnitList()
       this.getLocationList()
   },
 

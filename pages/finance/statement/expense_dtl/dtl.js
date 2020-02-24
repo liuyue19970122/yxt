@@ -107,7 +107,7 @@ Page({
     totalFilter.month=month
     this.setData({filterData,totalFilter,dateArr,curMonth})
     this.getTotal(totalFilter)
-    this.getDetail(filterData,pageInType,'refresh')
+    this.getDetail(filterData,'refresh')
   },
 
   /**
