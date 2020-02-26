@@ -481,7 +481,6 @@ Page({
    * @param  pl 商品数据 Array
   */
   initProList(pl){
-    console.log(1111)
     let orgId = parseInt(this.data.storeInfo.orgId)
     pl.forEach(item => {
       item.orgId = orgId
@@ -493,35 +492,47 @@ Page({
       item.goodsId=item.keyId
       let attrList = JSON.parse(item.attrList)
       item.cusOptShow=false
-      //cusOptShow,cusAddShow,cusSelShow
-      if(attrList.length>1){
-        item.cusSelShow=true
-        item.cusAddShow=false
+      if(attrList.length){
+        if(attrList.length>1){
+          item.cusSelShow=true
+          item.cusAddShow=false
+        }else{
+          item.cusSelShow=false
+          item.cusAddShow=true
+        }
+        attrList.sort((a, b) => {
+          return a.attrPrice - b.attrPrice
+        })
+        attrList.forEach(item => {
+          item.cusBuyCount = 0
+          item.goodsPic = imgSrc
+          item.orgId = orgId
+          item.orgName = this.data.storeInfo.orgName
+          item.goodsId = goodsId
+          item.goodsName = goodsName
+          item.attrId=item.keyId
+          item.cusSalePrice = util.getMoney(item.attrPrice).toString()
+          item.cusOriPrice = util.getMoney(item.attrNormalPrice).toString()
+          item.cusChecked = false
+        })
+        item.attrList = JSON.stringify(attrList) 
+        item.cusSalePrice = util.getMoney(attrList[0].attrPrice)
+        item.cusOriPrice = util.getMoney(attrList[0].attrNormalPrice)
+        item.cusSalePriceFen = attrList[0].attrPrice
+        item.cusOriPriceFen = attrList[0].attrNormalPrice
+        item.specTitle=attrList[0].attrName
       }else{
         item.cusSelShow=false
-        item.cusAddShow=true
+        item.cusAddShow=false
+        item.attrList = JSON.stringify(attrList) 
+        item.cusSalePrice = '0.00'
+        item.cusOriPrice = '0.00'
+        console.log(5555)
+        item.cusSalePriceFen = 0
+        item.cusOriPriceFen = 0
+        item.specTitle='未上架规格'
       }
-      attrList.sort((a, b) => {
-        return a.attrPrice - b.attrPrice
-      })
-      attrList.forEach(item => {
-        item.cusBuyCount = 0
-        item.goodsPic = imgSrc
-        item.orgId = orgId
-        item.orgName = this.data.storeInfo.orgName
-        item.goodsId = goodsId
-        item.goodsName = goodsName
-        item.attrId=item.keyId
-        item.cusSalePrice = util.getMoney(item.attrPrice).toString()
-        item.cusOriPrice = util.getMoney(item.attrNormalPrice).toString()
-        item.cusChecked = false
-      })
-      item.attrList = JSON.stringify(attrList) 
-      item.cusSalePrice = util.getMoney(attrList[0].attrPrice)
-      item.cusOriPrice = util.getMoney(attrList[0].attrNormalPrice)
-      item.cusSalePriceFen = attrList[0].attrPrice
-      item.cusOriPriceFen = attrList[0].attrNormalPrice
-      item.specTitle=attrList[0].attrName
+      //cusOptShow,cusAddShow,cusSelShow
     })
     return pl
   },
@@ -531,6 +542,7 @@ Page({
    * @param  pl 商品数据 Array
    */
   proDataCompare(cpl,pl){
+    console.log(cpl,pl)
     if(cpl.length){
       let clen=cpl.length
       let plen=pl.length
